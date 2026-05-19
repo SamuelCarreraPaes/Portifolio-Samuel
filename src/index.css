@@ -35,3 +35,25 @@ header {
 }
 
 
+
+/* LOGO DA NAVBAR — ajuste definitivo */
+.navbar-logo {
+  width: 120px !important;
+  height: 120px !important;
+  max-width: none !important;
+  min-width: 120px !important;
+  object-fit: contain !important;
+  display: block !important;
+  background: transparent !important;
+  opacity: 1 !important;
+  transform: scale(2.2) !important;
+  transform-origin: left center !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+nav,
+header {
+  overflow: visible !important;
+}
+

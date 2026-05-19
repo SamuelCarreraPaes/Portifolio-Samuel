@@ -1008,9 +1008,9 @@ function Contato() {
             {/* INSERÇÃO DA LOGO DE ASSINATURA COMPLETA NO CONTATO / RODAPÉ */}
             <div className="col-span-2 md:col-span-1 flex flex-col items-start">
               <img 
-                src="/images/00_LOGOS/logo-full-transparent.png" 
+                src="/images/00_LOGOS/symbol-black-transparent.png" 
                 alt="Samuel Paes - Assinatura e Logo" 
-                className="h-24 w-auto object-contain mb-6 opacity-90"
+                className="navbar-logo"
                 onError={(e) => e.target.style.display = 'none'}
               />
             </div>
@@ -1112,7 +1112,7 @@ export default function SamuelPaesPortfolio() {
   }, [isMenuOpen]);
 
   const navLinks = [
-    { id: "inicio", num: "01.", label: "Início" },
+    { id: "inicio", num: "01.", label: "INÍCIO" },
     { id: "visao", num: "02.", label: "Visão" },
     { id: "cases", num: "03.", label: "Cases" },
     { id: "sistema", num: "04.", label: "Sistema" },
@@ -1273,6 +1273,7 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
+
 
 
 
