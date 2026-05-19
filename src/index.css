@@ -22,7 +22,7 @@ header img[src*="symbol-black-transparent"] {
   height: 96px !important;
   max-width: none !important;
   object-fit: contain !important;
-  transform: scale(3.2) !important;
+  transform: scale(1.15) !important;
   transform-origin: left center !important;
   background: transparent !important;
   mix-blend-mode: multiply;
@@ -46,7 +46,7 @@ header {
   display: block !important;
   background: transparent !important;
   opacity: 1 !important;
-  transform: scale(2.2) !important;
+  transform: scale(1.15) !important;
   transform-origin: left center !important;
   position: relative !important;
   z-index: 999 !important;
@@ -99,19 +99,20 @@ nav > div:first-child {
 }
 
 nav > div:first-child img {
-  width: 82px !important;
-  height: 82px !important;
-  min-width: 82px !important;
+  width: 72px !important;
+  height: 72px !important;
+  min-width: 72px !important;
   max-width: none !important;
   object-fit: contain !important;
   display: block !important;
   opacity: 1 !important;
   background: transparent !important;
-  transform: scale(1.35) !important;
+  transform: scale(1.15) !important;
   transform-origin: left center !important;
 }
 
 nav {
   overflow: visible !important;
 }
+
 
