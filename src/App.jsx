@@ -1008,9 +1008,9 @@ function Contato() {
             {/* INSERÇÃO DA LOGO DE ASSINATURA COMPLETA NO CONTATO / RODAPÉ */}
             <div className="col-span-2 md:col-span-1 flex flex-col items-start">
               <img 
-                src="/images/00_LOGOS/symbol-black-transparent.png" 
+                src="/images/00_LOGOS/symbol-black-navbar.png" 
                 alt="Samuel Paes - Assinatura e Logo" 
-                className="navbar-logo"
+                className="navbar-logo-final"
                 onError={(e) => e.target.style.display = 'none'}
               />
             </div>
@@ -1143,9 +1143,9 @@ export default function SamuelPaesPortfolio() {
             >
               <div className="h-8 md:h-10 w-full max-w-[180px] xl:max-w-[240px] relative flex items-center">
                 <img 
-                  src="/images/00_LOGOS/logo-signature-transparent.png" 
+                  src="/images/00_LOGOS/symbol-black-navbar.png" 
                   alt="Samuel Paes Signature" 
-                  className="h-full w-auto object-contain object-left transition-opacity duration-300"
+                  className="navbar-logo-final"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     if(e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
@@ -1273,6 +1273,7 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
+
 
 
 

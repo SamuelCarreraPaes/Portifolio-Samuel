@@ -57,3 +57,32 @@ header {
   overflow: visible !important;
 }
 
+
+/* LOGO FINAL DA NAVBAR */
+.navbar-logo-final {
+  width: 72px !important;
+  height: 72px !important;
+  min-width: 72px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  display: block !important;
+  background: transparent !important;
+  opacity: 1 !important;
+  transform: none !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+nav,
+header {
+  overflow: visible !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-logo-final {
+    width: 86px !important;
+    height: 86px !important;
+    min-width: 86px !important;
+  }
+}
+
