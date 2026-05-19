@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 html,
 body,
@@ -12,3 +12,25 @@ body,
 body {
   overflow-x: hidden;
 }
+/* NAVBAR LOGO — Samuel Paes
+   Aumenta apenas o símbolo pequeno da barra superior,
+   sem aumentar o texto hero "Samuel Paes / Diretor Criativo".
+*/
+nav img[src*="symbol-black-transparent"],
+header img[src*="symbol-black-transparent"] {
+  width: 96px !important;
+  height: 96px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  transform: scale(1.9) !important;
+  transform-origin: left center !important;
+  background: transparent !important;
+  mix-blend-mode: multiply;
+  opacity: 1 !important;
+}
+
+nav,
+header {
+  overflow: visible !important;
+}
+
