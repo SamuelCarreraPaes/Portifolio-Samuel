@@ -472,7 +472,7 @@ function Inicio({ navigate }) {
           <img 
             src="/images/00_LOGOS/symbol-black-transparent.png" 
             alt="Samuel Paes Logo" 
-            className="h-8 w-auto object-contain opacity-80"
+            className="h-24 md:h-28 lg:h-32 w-auto max-w-none object-contain opacity-100 bg-transparent"
             onError={(e) => e.target.style.display = 'none'}
           />
           <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
@@ -1273,6 +1273,7 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
+
 
 
 
