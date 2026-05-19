@@ -401,7 +401,7 @@ function ImageWithFallback({ src, alt, imageClassName = "", fallbackLabel, loadi
     <div 
       role="img" 
       aria-label={alt || fallbackLabel} 
-      className={`w-full bg-stone-200/40 flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-hidden'}`}
+      className={`w-full bg-stone-200/40 flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-visible'}`}
     >
       {!error ? (
         <picture>
@@ -564,7 +564,7 @@ function Inicio({ navigate }) {
               </header>
             </div>
 
-            <div className="flex-1 w-full aspect-[4/5] lg:aspect-[3/4] relative bg-stone-200/50 overflow-hidden group rounded-sm mt-12 lg:mt-0">
+            <div className="flex-1 w-full aspect-[4/5] lg:aspect-[3/4] relative bg-stone-200/50 overflow-visible group rounded-sm mt-12 lg:mt-0">
                <ImageWithFallback src={casesData[0].thumb} mode="cover" alt={`Imagem de destaque do projeto ${casesData[0].title}`} fallbackLabel="Featured Work" imageClassName="group-hover:scale-[1.03] transition duration-[2s] ease-out" />
                
                {/* Tipografia como Textura */}
@@ -646,7 +646,7 @@ function Visao() {
 
         {/* Retrato Cinemático na Visão - Layout Horizontal Aberto com Assinatura */}
         <figure className="mt-32 w-full flex justify-center m-0 p-0">
-            <div className="w-full max-w-6xl relative overflow-hidden bg-[#F4F0E9]">
+            <div className="w-full max-w-6xl relative overflow-visible bg-[#F4F0E9]">
                <ImageWithFallback 
                  src={homePortrait} 
                  mode="natural"
@@ -725,7 +725,7 @@ function Cases({ navigate }) {
                   <button 
                     type="button"
                     aria-label={`Abrir case ${c.number}: ${c.title}`}
-                    className="aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block" 
+                    className="aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-visible cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block" 
                     onClick={() => navigate(`case/${c.id}`)}
                   >
                     <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
@@ -817,7 +817,7 @@ function CaseDetail({ caseId, navigate }) {
             </div>
           </dl>
 
-          <figure className="w-full bg-stone-200/50 relative overflow-hidden mb-24 rounded-sm flex justify-center m-0 p-0 shadow-sm">
+          <figure className="w-full bg-stone-200/50 relative overflow-visible mb-24 rounded-sm flex justify-center m-0 p-0 shadow-sm">
             <ImageWithFallback src={c.thumb} mode="natural" alt={`Fotografia de destaque do projeto ${c.title}`} imageClassName="max-h-[85vh]" />
           </figure>
         </header>
@@ -862,7 +862,7 @@ function CaseDetail({ caseId, navigate }) {
                     </header>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {sliceImgs.map((img, i) => (
-                        <figure key={i} className={`w-full bg-stone-200/50 group overflow-hidden rounded-sm m-0 p-0 shadow-sm ${i === 0 || i % 3 === 0 ? 'md:col-span-2' : ''}`}>
+                        <figure key={i} className={`w-full bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm ${i === 0 || i % 3 === 0 ? 'md:col-span-2' : ''}`}>
                            <ImageWithFallback src={img} alt={`Exposição temática de ${subTitle} - detalhe fotográfico ${i+1}`} mode="natural" imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out" />
                         </figure>
                       ))}
@@ -880,7 +880,7 @@ function CaseDetail({ caseId, navigate }) {
                 else if (c.gallery.length > 5 && idx % 3 === 0) spanClass = "md:col-span-2";
 
                 return (
-                  <figure key={idx} className={`${spanClass} w-full relative bg-stone-200/50 group overflow-hidden rounded-sm m-0 p-0 shadow-sm`}>
+                  <figure key={idx} className={`${spanClass} w-full relative bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm`}>
                     <ImageWithFallback 
                       src={img} 
                       mode="natural" 
@@ -1131,10 +1131,10 @@ export default function SamuelPaesPortfolio() {
       
       {/* NAVBAR GLOBAL FIXA - EDITORIAL */}
       <header className="fixed inset-x-0 top-0 z-50 bg-[#F4F0E9]/90 backdrop-blur-xl border-b border-stone-900/10 transition-all duration-500">
-        <nav aria-label="Navegação Principal" className="mx-auto flex h-36 max-w-[90rem] items-center justify-between px-6 lg:px-12 gap-4">
+        <nav aria-label="Navegação Principal" className="mx-auto flex h-24 max-w-[90rem] items-center justify-between px-6 lg:px-12 gap-4">
           
           {/* LOGO CONTAINER: Ícone simples na navbar restrito com overflow hidden */}
-          <div className="flex w-1/2 lg:w-1/4 justify-start overflow-hidden">
+          <div className="flex w-1/2 lg:w-1/4 justify-start overflow-visible">
             <button 
               type="button"
               onClick={() => handleNavClick("inicio")} 
@@ -1273,6 +1273,7 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
+
 
 
 

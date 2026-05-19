@@ -86,3 +86,32 @@ header {
   }
 }
 
+
+/* AJUSTE FINAL — LOGO PEQUENA DA NAVBAR */
+nav > div:first-child {
+  overflow: visible !important;
+  min-width: 120px !important;
+  width: 120px !important;
+  max-width: 120px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+nav > div:first-child img {
+  width: 82px !important;
+  height: 82px !important;
+  min-width: 82px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  display: block !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  transform: scale(1.35) !important;
+  transform-origin: left center !important;
+}
+
+nav {
+  overflow: visible !important;
+}
+
