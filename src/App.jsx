@@ -904,7 +904,7 @@ function CaseDetail({ caseId, navigate }) {
             onClick={() => navigate("cases")} 
             className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-stone-500 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 border border-stone-900/20 md:border-transparent rounded-sm"
           >
-            <ArrowLeftCircle className="w-5 h-5 hidden sm:block" aria-hidden="true" /> Índice <span className="hidden sm:inline">de Cases</span>
+            <ArrowLeftCircle className="w-5 h-5 hidden sm:block" aria-hidden="true" /> INÍCIO <span className="hidden sm:inline">de Cases</span>
           </button>
           
           {!isLast ? (
@@ -1273,6 +1273,7 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
+
 
 
 
