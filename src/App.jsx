@@ -1039,11 +1039,11 @@ function Contato() {
               </a>
               <button 
                 type="button"
-                onClick={() => handleCopy("samuel.pais@icloud.com", "E-mail")}
+                onClick={() => handleCopy("samuel.paes@icloud.com", "E-mail")}
                 aria-label="Copiar endereço de e-mail"
                 className="text-sm font-light text-stone-900 hover:text-stone-500 transition-colors text-left flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm p-1 -ml-1"
               >
-                samuel.pais@icloud.com
+                samuel.paes@icloud.com
                 <Copy className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
               </button>
             </div>
@@ -1273,5 +1273,6 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
+
 
 
