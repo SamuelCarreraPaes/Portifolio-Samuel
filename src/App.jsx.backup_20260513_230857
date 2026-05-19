@@ -1,0 +1,805 @@
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Layers, Sparkles, Grid3X3, BadgeCheck, Eye, Palette, Store, Shirt, Frame, ChevronDown } from "lucide-react";
+
+// Caminhos locais definitivos organizados por subpastas (Vite/Vercel)
+const homeCampaign = "/images/home/home-01.png";
+const homeVM = "/images/home/home-02.png";
+const homeRetail = "/images/home/home-03.png";
+const homeBrandWorld = "/images/home/home-04.png";
+const homeArchitecture = "/images/home/home-05.png";
+const homeProductDetail = "/images/val-fortunatto/val-fortunatto-15.png";
+const homePortrait = "/images/home/about-samuel.png";
+
+const sections = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "Quem sou" },
+  { id: "services", label: "Entregas" },
+  { id: "cases", label: "Projetos" },
+  { id: "colabs", label: "Ativações" },
+  { id: "contact", label: "Contato" },
+];
+
+const services = [
+  {
+    icon: Store,
+    title: "Visual Merchandising",
+    text: "Curadoria de produto, exposição, vitrines, layout de loja, composição visual e leitura de coleção.",
+  },
+  {
+    icon: Palette,
+    title: "Identidade Visual",
+    text: "Sistemas visuais, paleta, tipografia, símbolos, aplicações e linguagem gráfica de marca.",
+  },
+  {
+    icon: Eye,
+    title: "Direção Criativa",
+    text: "Conceito de campanha, narrativa visual, moodboards, styling, imagem de marca e atmosfera.",
+  },
+  {
+    icon: Frame,
+    title: "Vitrines Comerciais",
+    text: "Projetos sazonais, guias técnicos, produção visual, materiais, proporções e implantação.",
+  },
+  {
+    icon: Layers,
+    title: "Retail Experience",
+    text: "Experiências de loja, percurso do cliente, pontos de contato, atmosfera e percepção de marca.",
+  },
+];
+
+const caseGroups = [
+  {
+    eyebrow: "CASE 01 — CAMPAIGN TRANSLATION / RETAIL EXPERIENCE",
+    title: "HEXA — Campanha Copa do Mundo 2022",
+    descriptor: "Campanha temática traduzida para vitrine, produto e experiência de loja.",
+    positioning: "Projeto de direção visual aplicada ao varejo, com foco na tradução de uma campanha temática para o ponto de venda, articulando vitrine, composição de produto, linguagem cromática, exposição comercial e experiência de marca.",
+    palette: "from-orange-800 via-amber-700 to-stone-200",
+    accent: "#C2410C",
+    tags: ["Campaign Translation", "Visual Merchandising", "Retail Experience", "Vitrine Temática", "Product Narrative", "Styling Comercial", "Store Experience"],
+    blocks: [
+      ["Conceito & Campanha", "Tradução do universo da Copa em uma narrativa visual de varejo, conectando cor, produto, esporte e presença de marca."],
+      ["Vitrine & Produto", "Construção de leitura visual para vitrine e exposição comercial, valorizando produto, styling e impacto de campanha."],
+      ["Experiência de Loja", "Desdobramento visual da campanha no ambiente interno, criando continuidade entre vitrine, percurso e pontos de contato."]
+    ],
+    imageSrc: "/images/hexa/hexa-01.png",
+    objectPosition: "center center",
+    gallery: [
+      "/images/hexa/hexa-02.png",
+      "/images/hexa/hexa-03.png"
+    ]
+  },
+  {
+    eyebrow: "CASE 02 — SEASONAL CAMPAIGN / STORE EXPERIENCE",
+    title: "R Lovers — Campanha Dia dos Namorados",
+    descriptor: "Campanha comercial traduzida em vitrine, styling e experiência de loja.",
+    positioning: "Projeto de direção visual aplicada ao varejo, com foco na tradução de uma campanha sazonal em experiência visual de loja. A proposta articula vitrine, produto, styling, atmosfera e pontos de contato comerciais para construir uma narrativa afetiva, elegante e alinhada ao universo da marca.",
+    palette: "from-rose-900 via-red-950 to-stone-100",
+    accent: "#881337",
+    tags: ["Seasonal Campaign", "Visual Merchandising", "Store Experience", "Product Narrative", "Styling Comercial", "Vitrine", "Retail Display", "Campanha Comercial"],
+    blocks: [
+      ["Conceito & Atmosfera", "Construção de uma narrativa visual afetiva para o período de Dia dos Namorados, conectando produto, desejo, presença de marca e experiência comercial."],
+      ["Vitrine & Styling", "Composição de vitrines e looks com leitura clara de produto, linguagem de campanha e equilíbrio entre impacto visual e sofisticação comercial."],
+      ["Experiência de Loja", "Desdobramento da campanha no ambiente interno, criando continuidade entre vitrine, mesa expositiva, araras, manequins e pontos de contato."]
+    ],
+    imageSrc: "/images/r-lovers/r-lovers-01.png",
+    objectPosition: "center center",
+    gallery: [
+      "/images/r-lovers/r-lovers-02.png",
+      "/images/r-lovers/r-lovers-03.png",
+      "/images/r-lovers/r-lovers-04.png",
+      "/images/r-lovers/r-lovers-05.png"
+    ]
+  },
+  {
+    eyebrow: "CASE 03 — IDENTIDADE VISUAL / BRAND WORLD",
+    title: "Ateliê Bambini",
+    descriptor: "Infância sensível, poética e atemporal.",
+    positioning: "Criação de identidade visual para uma marca infantil com linguagem sensível, artesanal e atemporal. O projeto constrói um universo de marca a partir do símbolo da casa, da estrela, da tipografia serifada, da paleta suave e do conceito “As Três Casas”, conectando memória afetiva, delicadeza, imaginação, textura e presença visual.",
+    palette: "from-stone-100 via-rose-100 to-slate-200",
+    accent: "#B78B76",
+    tags: ["Identidade Visual", "Brand World", "Logo System", "Tipografia", "Aplicação de Marca", "As Três Casas", "Paleta Sensorial", "Sistema Visual", "Infância", "Retail Identity"],
+    blocks: [
+      ["Sistema Visual", "Construção de uma identidade visual delicada e reconhecível, com variações de logo, proporção, respiro, tipografia, paleta e linguagem gráfica coerente."],
+      ["As Três Casas", "Conceito visual baseado em três materialidades — palha, madeira e pedra — representando acolhimento, natureza, memória afetiva e permanência."],
+      ["Aplicação de Marca", "Desdobramento da identidade em papelaria, materiais físicos, fachada, ambiente de loja e universo sensorial da marca."]
+    ],
+    imageSrc: "/images/atelie-bambini/atelie-bambini-01.png",
+    objectPosition: "left center",
+    gallery: [
+      "/images/atelie-bambini/atelie-bambini-02.png",
+      "/images/atelie-bambini/atelie-bambini-03.png",
+      "/images/atelie-bambini/atelie-bambini-04.png"
+    ]
+  },
+  {
+    eyebrow: "CASE 04 — CREATIVE DIRECTION / FASHION IMAGERY",
+    title: "Val Fortunatto — Arquitetura do Desejo",
+    descriptor: "Construção de imagem de moda: do conceito à fricção de texturas.",
+    positioning: "Projeto de direção criativa e styling editorial com foco na elevação do produto. A narrativa visual foi construída a partir do contraste entre a fluidez dos tecidos, o peso da arquitetura e o rigor da alfaiataria, traduzindo o universo da marca em uma atmosfera de luxo silencioso, atitude e desejo.",
+    palette: "from-[#3A0B14] via-[#7A2635] to-stone-100",
+    accent: "#5A1020",
+    tags: ["Direção Criativa", "Fashion Imagery", "Editorial Styling", "Brand World", "Art Direction", "Textura & Composição", "Quiet Luxury"],
+    blocks: [
+      ["Conceito & Atmosfera", "Criação de um universo visual onde a arquitetura da locação não é apenas fundo, mas moldura que dialoga com a sofisticação e o peso da coleção."],
+      ["Styling & Fricção de Texturas", "Direção de moda pautada pelo contraste tátil — a fluidez da seda, a brutalidade do couro e a delicadeza da renda —, criando imagens de alto impacto cromático."],
+      ["Narrativa de Produto", "Do plano aberto ao detalhe rigoroso (macro). O direcionamento fotográfico garante que o design, os acessórios e o acabamento sejam percebidos como objetos de desejo."]
+    ],
+    imageSrc: "/images/val-fortunatto/val-fortunatto-01.png",
+    objectPosition: "center center",
+    gallery: [
+      "/images/val-fortunatto/val-fortunatto-02.png",
+      "/images/val-fortunatto/val-fortunatto-03.png",
+      "/images/val-fortunatto/val-fortunatto-04.png",
+      "/images/val-fortunatto/val-fortunatto-05.png",
+      "/images/val-fortunatto/val-fortunatto-06.png"
+    ]
+  },
+  {
+    eyebrow: "CASE 05 — VISUAL MERCHANDISING / STORE EXPERIENCE",
+    title: "Rouge & Gold — Visual Strategy & Retail",
+    descriptor: "Cenografia comercial, hierarquia de produto e atmosfera de luxo silencioso.",
+    positioning: "Projeto de Visual Merchandising desenvolvido para elevar a percepção de valor da coleção no ambiente físico. A estratégia articulou a coordenação cromática (carmim e off-white), a fricção de texturas e a cenografia geométrica para criar uma jornada visual sofisticada. O resultado é um espaço que equilibra atratividade comercial e rigor estético, transformando a exposição de produto numa verdadeira narrativa de marca.",
+    palette: "from-stone-900 via-rose-950 to-stone-200",
+    accent: "#881337",
+    tags: ["Visual Merchandising", "Retail Strategy", "Store Experience", "Product Display", "Cenografia", "Styling Comercial", "Coordenação de Coleção"],
+    blocks: [
+      ["Vitrine & Atmosfera", "Construção de profundidade espacial na vitrine, integrando mobiliário e cenografia vazada para criar um convite visual que dialoga com o lifestyle de elegância da marca."],
+      ["Coordenação & Display", "Organização rigorosa de araras e pontos focais. A exposição frontal (face-out) e o ritmo de color blocking garantem uma leitura de coleção clara, comercial e visualmente magnética."],
+      ["Textura & Detalhamento", "O cuidado estendido ao micro-VM. O styling de manequins e a iluminação direcionada evidenciam a materialidade das rendas e o requinte dos acessórios, construindo desejo no detalhe."]
+    ],
+    imageSrc: "/images/val-fortunatto/val-fortunatto-07.png",
+    objectPosition: "center center",
+    gallery: [
+      "/images/val-fortunatto/val-fortunatto-08.png",
+      "/images/val-fortunatto/val-fortunatto-09.png",
+      "/images/val-fortunatto/val-fortunatto-10.png",
+      "/images/val-fortunatto/val-fortunatto-11.png"
+    ]
+  },
+  {
+    eyebrow: "CASE 06 — VITRINES / CENOGRAFIA COMERCIAL",
+    title: "Porti — Vitrines Sazonais",
+    descriptor: "Do conceito visual à experiência de vitrine.",
+    positioning: "Projeto de criação e desenvolvimento visual para vitrines sazonais da PORTI, boutique infantil premium. A proposta articula conceito, paleta, volumetria, composição cenográfica, textura, produto e leitura comercial para transformar as campanhas de Verão e Natal em experiências visuais claras, lúdicas, sofisticadas e coerentes com o universo da marca.",
+    palette: "from-sky-100 via-pink-100 to-orange-100",
+    accent: "#244B64",
+    tags: [
+      "Vitrine",
+      "Visual Merchandising",
+      "Cenografia Comercial",
+      "Retail Experience",
+      "Verão",
+      "Natal",
+      "Boutique Infantil",
+      "Brand World",
+      "Volumetria",
+      "Experiência de Loja"
+    ],
+    blocks: [
+      [
+        "Vitrine Verão",
+        "Criação de uma linguagem lúdica e sofisticada para o universo infantil, usando volumes escultóricos, texturas táteis, paleta pastel e formas geométricas para construir uma experiência leve, afetiva e comercialmente atrativa."
+      ],
+      [
+        "Vitrine Natal",
+        "Desenvolvimento de uma cenografia natalina premium, com composição de esferas metálicas, brilho controlado, profundidade visual e integração elegante com a arquitetura da loja, elevando a percepção de valor da vitrine."
+      ],
+      [
+        "Brand World Infantil",
+        "Construção de um universo visual sensível e contemporâneo, conectando moda infantil, atmosfera de loja, desejo, textura e encantamento sem excesso decorativo."
+      ]
+    ],
+    imageSrc: "/images/porti-verao/porti-verao-01.png",
+    objectPosition: "center center",
+    gallery: [
+      "/images/porti-verao/porti-verao-02.png",
+      "/images/porti-verao/porti-verao-03.png",
+      "/images/porti-verao/porti-verao-04.png",
+      "/images/porti-verao/porti-verao-05.png",
+      "/images/porti-verao/porti-verao-06.png",
+      "/images/porti-verao/porti-verao-07.png",
+      "/images/porti-verao/porti-verao-08.png",
+      "/images/porti-natal/porti-natal-01.png",
+      "/images/porti-natal/porti-natal-02.png",
+      "/images/porti-natal/porti-natal-03.png",
+      "/images/porti-natal/porti-natal-04.png",
+      "/images/porti-natal/porti-natal-05.png",
+      "/images/porti-natal/porti-natal-06.png"
+    ]
+  }
+];
+
+const colabGroups = [
+  {
+    title: "Jean-Michel Basquiat — Collab Art & Product Display",
+    text: "Exposição comercial e curadoria visual de coleção colaborativa, com foco em leitura de produto, organização expositiva, destaque gráfico e valorização da collab no ambiente de loja.",
+    images: [
+      "/images/colabs-basquiat/colabs-basquiat-01.png",
+      "/images/colabs-basquiat/colabs-basquiat-02.png",
+      "/images/colabs-basquiat/colabs-basquiat-03.png"
+    ]
+  },
+  {
+    title: "Reserva + Mangueira — Cultural Brand Activation",
+    text: "Vitrine temática e ativação visual construída para traduzir identidade cultural, impacto de marca e narrativa de collab, conectando produto, ambientação e repertório simbólico.",
+    images: [
+      "/images/colabs-mangueira/colabs-mangueira-01.png",
+      "/images/colabs-mangueira/colabs-mangueira-02.png",
+      "/images/colabs-mangueira/colabs-mangueira-03.png"
+    ]
+  },
+  {
+    title: "Netflix / Tudum — Retail Experience Activation",
+    text: "Ativação de Visual Merchandising com abordagem promocional e temática, organizando produto, styling e exposição comercial para fortalecer experiência de marca no varejo.",
+    images: [
+      "/images/colabs-netflix/colabs-netflix-01.png",
+      "/images/colabs-netflix/colabs-netflix-02.png",
+      "/images/colabs-netflix/colabs-netflix-03.png"
+    ]
+  }
+];
+
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function SectionLabel({ children }) {
+  return (
+    <div className="mb-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-stone-500">
+      <span className="h-px w-10 bg-stone-300" />
+      {children}
+    </div>
+  );
+}
+
+function ImageSlot({ label, tall = false, tone = "neutral", imageSrc, objectPosition = "center center" }) {
+  const toneClasses = {
+    neutral: "from-stone-200 via-stone-100 to-stone-300",
+    dark: "from-stone-950 via-stone-800 to-stone-600",
+    red: "from-red-950 via-blue-950 to-stone-100",
+    soft: "from-stone-100 via-rose-100 to-amber-100",
+    bordeaux: "from-[#2B0A12] via-[#672033] to-[#D8C7BE]",
+    pastel: "from-sky-100 via-pink-100 to-orange-100",
+  };
+
+  return (
+    <div className={`${tall ? "min-h-[520px]" : "min-h-[250px]"} group relative overflow-hidden rounded-[2rem] border border-white/60 bg-gradient-to-br ${toneClasses[tone]} shadow-sm`}>
+      {imageSrc ? (
+        <img src={imageSrc} alt={label} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" style={{ objectPosition }} />
+      ) : (
+        <>
+          <div className="absolute inset-0 opacity-[0.18]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(0,0,0,.25) 1px, transparent 0)", backgroundSize: "18px 18px" }} />
+          <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4">
+            <span className="max-w-[220px] text-xs leading-relaxed text-stone-700/80">Área reservada para imagem real do projeto.</span>
+            <ArrowUpRight className="h-5 w-5 text-stone-700/70" />
+          </div>
+        </>
+      )}
+
+      {/* Layer sutil de contraste para legibilidade das tags caso haja imagem */}
+      {imageSrc && <div className="absolute inset-0 bg-stone-900/10 pointer-events-none transition duration-700 group-hover:bg-transparent" />}
+
+      <div className="absolute left-5 top-5 rounded-full bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-stone-800 shadow-sm backdrop-blur-md">
+        {label}
+      </div>
+    </div>
+  );
+}
+
+function EditorialFrame({ children, accent = "#7A1F1F", className = "" }) {
+  return (
+    <div className={`relative ${className}`}>
+      <div className="absolute -inset-3 rounded-[2.4rem] border border-stone-300/70" />
+      <div className="absolute -left-4 top-10 h-24 w-px" style={{ backgroundColor: accent }} />
+      <div className="absolute -right-5 bottom-16 h-3 w-3 rounded-full" style={{ backgroundColor: accent }} />
+      <div className="relative">{children}</div>
+    </div>
+  );
+}
+
+function CaseCard({ item, index }) {
+  const tones = ["red", "soft", "bordeaux", "pastel", "dark", "neutral"];
+  const toneIndex = index % tones.length;
+  const [open, setOpen] = useState(index === 0);
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 34 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.55 }}
+      className="mb-10 overflow-hidden rounded-[2.3rem] border border-stone-200 bg-white/70 p-4 shadow-sm backdrop-blur"
+    >
+      <div className="grid gap-5 lg:grid-cols-[1.08fr_.92fr]">
+        <EditorialFrame accent={item.accent}>
+          <ImageSlot label={item.title} tall tone={tones[toneIndex]} imageSrc={item.imageSrc} objectPosition={item.objectPosition} />
+        </EditorialFrame>
+
+        <div className="flex flex-col justify-between p-2 lg:p-8">
+          <div>
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-stone-500">{item.eyebrow}</p>
+            <h3 className="font-serif text-5xl leading-[0.92] tracking-[-0.06em] text-stone-950 md:text-7xl">{item.title}</h3>
+            <p className="mt-5 max-w-xl text-xl leading-snug text-stone-700">{item.descriptor}</p>
+            <p className="mt-6 max-w-xl text-sm leading-7 text-stone-600">{item.positioning}</p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-2">
+            {item.tags.map((tag) => (
+              <span key={tag} className="rounded-full border border-stone-300 bg-stone-50 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-stone-600">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="mt-8 flex w-fit items-center gap-2 rounded-full border border-stone-300 px-4 py-2 text-xs uppercase tracking-[0.18em] text-stone-700 transition hover:bg-stone-950 hover:text-white"
+          >
+            Ver estrutura <ChevronDown className={`h-4 w-4 transition ${open ? "rotate-180" : ""}`} />
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-5">
+          <div className="grid gap-4 md:grid-cols-3">
+            {item.blocks.map(([title, text]) => (
+              <div key={title} className="rounded-[1.6rem] border border-stone-200 bg-stone-50 p-6">
+                <p className="mb-3 text-[11px] uppercase tracking-[0.22em] text-stone-500">Capítulo</p>
+                <h4 className="font-serif text-2xl leading-tight tracking-[-0.03em] text-stone-950">{title}</h4>
+                <p className="mt-4 text-sm leading-6 text-stone-600">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          {item.gallery && item.gallery.length > 0 && (
+            <div className={`mt-4 grid grid-cols-1 gap-4 ${[4, 8].includes(item.gallery.length) ? 'sm:grid-cols-2 md:grid-cols-4' : 'sm:grid-cols-3'}`}>
+              {item.gallery.map((imgSrc, i) => (
+                <div key={i} className="group relative overflow-hidden rounded-[1.6rem] border border-stone-200 shadow-sm aspect-square bg-stone-100">
+                  <img 
+                    src={imgSrc} 
+                    alt={`${item.title} detalhe ${i + 1}`} 
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105" 
+                  />
+                  <div className="absolute inset-0 bg-stone-900/10 pointer-events-none transition duration-700 group-hover:bg-transparent" />
+                </div>
+              ))}
+            </div>
+          )}
+        </motion.div>
+      )}
+    </motion.article>
+  );
+}
+
+export default function SamuelPaesPortfolio() {
+  const year = useMemo(() => new Date().getFullYear(), []);
+
+  return (
+    <div className="min-h-screen bg-[#F4F0E9] text-stone-950 selection:bg-stone-950 selection:text-white">
+      <div className="fixed inset-x-0 top-0 z-50 border-b border-stone-200/70 bg-[#F4F0E9]/85 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          <button onClick={() => scrollToId("home")} className="font-serif text-xl tracking-[-0.04em]">
+            Samuel Paes
+          </button>
+          <nav className="hidden items-center gap-6 md:flex">
+            {sections.map((s) => (
+              <button key={s.id} onClick={() => scrollToId(s.id)} className="text-[11px] uppercase tracking-[0.18em] text-stone-600 transition hover:text-stone-950">
+                {s.label}
+              </button>
+            ))}
+          </nav>
+          <button onClick={() => scrollToId("contact")} className="rounded-full bg-stone-950 px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-white">
+            Contato
+          </button>
+        </div>
+      </div>
+
+      <main>
+        {/* HERO SECTION */}
+        <section id="home" className="relative min-h-screen overflow-hidden px-5 pb-16 pt-32 md:pb-24 md:pt-40">
+          <div
+            className="absolute left-0 top-0 h-full w-full opacity-[0.22]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(20,20,20,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(20,20,20,.08) 1px, transparent 1px)",
+              backgroundSize: "72px 72px",
+            }}
+          />
+
+          <div className="absolute right-[-10%] top-[12%] h-[520px] w-[520px] rounded-full bg-[#D8C7BE]/40 blur-3xl" />
+          <div className="absolute bottom-[-12%] left-[-8%] h-[420px] w-[420px] rounded-full bg-[#1F2937]/10 blur-3xl" />
+
+          <div className="relative mx-auto grid min-h-[78vh] max-w-7xl items-end gap-12 lg:grid-cols-[1.05fr_.95fr]">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              <SectionLabel>Visual Merchandising · Branding · Retail Experience</SectionLabel>
+
+              <p className="mb-6 text-[11px] uppercase tracking-[0.35em] text-stone-500">
+                Samuel Paes
+              </p>
+
+              <h1 className="max-w-5xl font-serif text-[17vw] leading-[0.72] tracking-[-0.1em] text-stone-950 md:text-[9rem] lg:text-[10.8rem]">
+                Creative
+                <br />
+                Consultant
+              </h1>
+
+              <p className="mt-8 max-w-2xl text-2xl leading-tight tracking-[-0.035em] text-stone-800 md:text-4xl">
+                Construindo mundos visuais para marcas, produtos e espaços comerciais.
+              </p>
+
+              <p className="mt-8 max-w-xl text-base leading-8 text-stone-600">
+                Criação de experiências visuais que conectam produto, espaço, imagem e marca —
+                com sensibilidade estética, pensamento estratégico e execução cuidadosa.
+              </p>
+
+              <div className="mt-10 flex flex-wrap gap-3">
+                <button
+                  onClick={() => scrollToId("cases")}
+                  className="rounded-full bg-stone-950 px-6 py-3 text-xs uppercase tracking-[0.2em] text-white transition hover:bg-stone-800"
+                >
+                  Ver portfólio
+                </button>
+
+                <button
+                  onClick={() => scrollToId("services")}
+                  className="rounded-full border border-stone-400 px-6 py-3 text-xs uppercase tracking-[0.2em] text-stone-800 transition hover:border-stone-950"
+                >
+                  O que entrego
+                </button>
+              </div>
+
+              <div className="mt-12 flex flex-wrap gap-2">
+                {["Visual Merchandising", "Branding", "Direção Criativa", "Campanhas", "Vitrines", "Retail Experience"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-stone-300/80 bg-white/45 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] text-stone-600 backdrop-blur"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="relative"
+            >
+              <div className="absolute -left-6 top-10 z-10 hidden rounded-full bg-[#5A1020] px-4 py-2 text-[10px] uppercase tracking-[0.22em] text-white shadow-sm md:block">
+                Brand Worlds
+              </div>
+
+              <EditorialFrame accent="#5A1020">
+                <div className="relative overflow-hidden rounded-[2rem] border border-stone-200 bg-stone-100/90 p-4 shadow-sm backdrop-blur">
+                  <div className="mb-4 flex items-center justify-between rounded-2xl bg-white/75 p-4">
+                    <span className="text-[11px] uppercase tracking-[0.22em] text-stone-500">
+                      Portfolio System
+                    </span>
+                    <Sparkles className="h-5 w-5 text-stone-600" />
+                  </div>
+
+                  <div className="grid grid-cols-5 gap-3">
+                    <div className="col-span-3">
+                      <ImageSlot label="Visual Merchandising" tone="red" imageSrc={homeVM} objectPosition="center center" />
+                    </div>
+
+                    <div className="col-span-2">
+                      <ImageSlot label="Brand Identity" tone="soft" imageSrc={homeBrandWorld} objectPosition="left center" />
+                    </div>
+
+                    <div className="col-span-2">
+                      <ImageSlot label="Campaigns" tone="bordeaux" imageSrc={homeCampaign} objectPosition="center center" />
+                    </div>
+
+                    <div className="col-span-3">
+                      <ImageSlot label="Retail Windows" tone="pastel" imageSrc={homeRetail} objectPosition="center center" />
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-3 gap-3">
+                    <div className="group relative flex min-h-[100px] flex-col justify-end overflow-hidden rounded-2xl border border-stone-200 p-4 shadow-sm">
+                      <img src={homeProductDetail} alt="Produto" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" style={{ objectPosition: "center center" }} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent opacity-90 transition duration-700 group-hover:opacity-70" />
+                      <div className="relative z-10">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-300">
+                          01
+                        </p>
+                        <p className="mt-1 font-serif text-xl tracking-[-0.04em] text-white">
+                          Produto
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="group relative flex min-h-[100px] flex-col justify-end overflow-hidden rounded-2xl border border-stone-200 p-4 shadow-sm">
+                      <img src={homeArchitecture} alt="Espaço" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" style={{ objectPosition: "center center" }} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent opacity-90 transition duration-700 group-hover:opacity-70" />
+                      <div className="relative z-10">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-300">
+                          02
+                        </p>
+                        <p className="mt-1 font-serif text-xl tracking-[-0.04em] text-white">
+                          Espaço
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="group relative flex min-h-[100px] flex-col justify-end overflow-hidden rounded-2xl border border-stone-200 p-4 shadow-sm">
+                      <img src={homeBrandWorld} alt="Marca" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" style={{ objectPosition: "left center" }} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent opacity-90 transition duration-700 group-hover:opacity-70" />
+                      <div className="relative z-10">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-300">
+                          03
+                        </p>
+                        <p className="mt-1 font-serif text-xl tracking-[-0.04em] text-white">
+                          Marca
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </EditorialFrame>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* QUEM SOU */}
+        <section id="about" className="px-5 py-20 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+              <div>
+                <SectionLabel>Quem sou</SectionLabel>
+
+                <h2 className="font-serif text-5xl leading-[0.92] tracking-[-0.06em] text-stone-950 md:text-7xl">
+                  Um olhar entre estética, estratégia e experiência.
+                </h2>
+
+                <p className="mt-8 max-w-md text-base leading-8 text-stone-600">
+                  Atuação criativa voltada para moda, varejo, imagem de marca e construção de presença no ponto de venda.
+                </p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-[0.82fr_1.18fr]">
+                <div className="relative">
+                  <ImageSlot label="Foto / Retrato" tall tone="neutral" imageSrc={homePortrait} objectPosition="center 30%" />
+
+                  <div className="absolute -bottom-5 left-5 right-5 rounded-2xl border border-stone-200 bg-white/80 p-4 shadow-sm backdrop-blur">
+                    <p className="text-[10px] uppercase tracking-[0.22em] text-stone-400">
+                      Samuel Paes
+                    </p>
+                    <p className="mt-1 font-serif text-2xl tracking-[-0.05em] text-stone-950">
+                      Creative Consultant
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-[2rem] border border-stone-200 bg-white/70 p-8 shadow-sm">
+                  <p className="text-lg leading-9 text-stone-700">
+                    Sou consultor criativo com atuação em Visual Merchandising, Branding, Direção visual aplicada e Retail Experience. Minha prática une sensibilidade estética, leitura comercial e construção de atmosferas capazes de transformar produtos, lojas e imagens em narrativas de desejo.
+                  </p>
+
+                  <p className="mt-6 text-lg leading-9 text-stone-700">
+                    Trabalho com marcas que precisam ser percebidas com mais clareza, presença e coerência visual — seja no ponto de venda, em campanhas de marca, vitrines, identidades visuais ou sistemas de exposição.
+                  </p>
+
+                  <div className="my-8 h-px w-full bg-stone-200" />
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="rounded-2xl bg-stone-100/80 p-5">
+                      <p className="text-[10px] uppercase tracking-[0.22em] text-stone-400">
+                        Experiência
+                      </p>
+                      <p className="mt-3 text-sm leading-6 text-stone-700">
+                        Mais de 10 anos entre varejo, moda, visual strategy, atendimento, gestão comercial e construção de marca.
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl bg-stone-100/80 p-5">
+                      <p className="text-[10px] uppercase tracking-[0.22em] text-stone-400">
+                        Especialidade
+                      </p>
+                      <p className="mt-3 text-sm leading-6 text-stone-700">
+                        Transformar produto, espaço e imagem em uma experiência visual clara, comercial e desejável.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 flex flex-wrap gap-2">
+                    {[
+                      "Campaign Translation",
+                      "Visual Strategy",
+                      "Retail Experience",
+                      "Brand Activation",
+                      "Product Narrative",
+                      "Moda e Varejo"
+                    ].map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-stone-300 bg-stone-50 px-3 py-1.5 text-[10px] uppercase tracking-[0.14em] text-stone-600"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ENTREGAS */}
+        <section id="services" className="px-5 py-20 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-12 max-w-3xl">
+              <SectionLabel>O que eu entrego</SectionLabel>
+              <h2 className="font-serif text-5xl leading-[0.95] tracking-[-0.06em] md:text-7xl">Serviços criativos para marcas que precisam ser percebidas.</h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+              {services.map(({ icon: Icon, title, text }, idx) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: idx * 0.05 }}
+                  className="min-h-[260px] rounded-[2rem] border border-stone-200 bg-white/65 p-6 shadow-sm"
+                >
+                  <div className="mb-8 flex items-center justify-between">
+                    <Icon className="h-5 w-5 text-stone-700" />
+                    <span className="text-[11px] text-stone-400">0{idx + 1}</span>
+                  </div>
+                  <h3 className="font-serif text-2xl leading-tight tracking-[-0.04em]">{title}</h3>
+                  <p className="mt-4 text-sm leading-6 text-stone-600">{text}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* MANIFESTO */}
+        <section className="px-5 py-16 md:py-24">
+          <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-stone-950 p-8 text-white md:p-14">
+            <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
+              <div>
+                <SectionLabel>Manifesto</SectionLabel>
+                <h2 className="font-serif text-5xl leading-[0.92] tracking-[-0.06em] md:text-7xl">Cada projeto é um mundo de marca.</h2>
+              </div>
+              <div className="flex items-end">
+                <p className="max-w-2xl text-xl leading-9 text-stone-300">
+                  Cada projeto é tratado como um sistema visual completo, onde produto, espaço, imagem, textura e atmosfera trabalham juntos para criar presença e desejo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CASES */}
+        <section id="cases" className="px-5 py-20 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-12 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+              <div className="max-w-3xl">
+                <SectionLabel>Projetos</SectionLabel>
+                <h2 className="font-serif text-5xl leading-[0.95] tracking-[-0.06em] md:text-7xl">Projetos organizados como narrativas visuais.</h2>
+              </div>
+              <p className="max-w-md text-sm leading-7 text-stone-600">
+                Estrutura pensada para apresentar campanhas, ativações, temporadas e brand worlds como sistemas visuais completos — conectando conceito, produto, espaço e experiência de loja.
+              </p>
+            </div>
+
+            {caseGroups.map((item, index) => (
+              <CaseCard key={item.title} item={item} index={index} />
+            ))}
+          </div>
+        </section>
+
+        {/* COLABS & BRAND ACTIVATIONS */}
+        <section id="colabs" className="px-5 py-20 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+              <div className="max-w-4xl">
+                <SectionLabel>Campanhas, Colabs & Brand Activations</SectionLabel>
+                <h2 className="font-serif text-4xl leading-[1.05] tracking-[-0.04em] md:text-5xl lg:text-6xl text-stone-950">
+                  Projetos de Visual Merchandising, ativações e narrativas visuais desenvolvidos para campanhas, collabs e universos de marca.
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-7 text-stone-600">
+                Uma curadoria de projetos que traduzem campanhas, parcerias e narrativas culturais em experiências visuais de varejo, conectando produto, storytelling, vitrine e presença de marca.
+              </p>
+            </div>
+
+            <div className="flex flex-col">
+              {colabGroups.map((colab, idx) => (
+                <motion.div 
+                  key={colab.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6 }}
+                  className="py-16 md:py-20 border-t border-stone-200/80"
+                >
+                  <div className={`grid gap-10 lg:gap-16 items-center ${idx % 2 !== 0 ? 'lg:grid-cols-[1.2fr_1fr]' : 'lg:grid-cols-[1fr_1.2fr]'}`}>
+                    
+                    <div className={`${idx % 2 !== 0 ? 'lg:order-2' : ''}`}>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-400 mb-4">0{idx + 1} — Brand Activation</p>
+                      <h3 className="font-serif text-4xl leading-tight tracking-[-0.04em] md:text-5xl text-stone-950">{colab.title}</h3>
+                      <p className="mt-6 text-base leading-relaxed text-stone-600 max-w-md">{colab.text}</p>
+                    </div>
+
+                    <div className={`grid grid-cols-3 gap-3 md:gap-4 ${idx % 2 !== 0 ? 'lg:order-1' : ''}`}>
+                      <div className="col-span-2 aspect-[4/5] overflow-hidden rounded-[2rem] border border-stone-200/60 shadow-sm bg-stone-100">
+                        <img src={colab.images[0]} alt={colab.title} className="w-full h-full object-cover transition duration-700 hover:scale-105" />
+                      </div>
+                      <div className="flex flex-col gap-3 md:gap-4">
+                        <div className="flex-1 overflow-hidden rounded-[1.5rem] border border-stone-200/60 shadow-sm bg-stone-100">
+                          <img src={colab.images[1]} alt={`${colab.title} detalhe`} className="w-full h-full object-cover transition duration-700 hover:scale-105" />
+                        </div>
+                        <div className="flex-1 overflow-hidden rounded-[1.5rem] border border-stone-200/60 shadow-sm bg-stone-100">
+                          <img src={colab.images[2]} alt={`${colab.title} ambiente`} className="w-full h-full object-cover transition duration-700 hover:scale-105" />
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PROJETOS COMPLEMENTARES */}
+        <section className="px-5 py-16 md:py-24">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-5 lg:grid-cols-3">
+              <div className="rounded-[2rem] border border-stone-200 bg-white/70 p-8 lg:col-span-2">
+                <Grid3X3 className="mb-8 h-6 w-6 text-stone-700" />
+                <h2 className="font-serif text-4xl leading-tight tracking-[-0.05em] md:text-6xl">Visual Strategy & Retail</h2>
+                <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600">
+                  A presença de uma marca no ambiente físico vai além da decoração — é uma estratégia de leitura visual. Ambientações comerciais, ativações de marca e experiências presenciais são fundamentais para criar narrativa e percepção no ponto de venda.
+                </p>
+              </div>
+              <div className="rounded-[2rem] bg-stone-900 p-8 text-white">
+                <BadgeCheck className="mb-8 h-6 w-6 text-stone-300" />
+                <p className="font-serif text-3xl leading-tight tracking-[-0.04em]">Foco atual: Campaign Translation, Branding, Moda e Direção Criativa.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CONTATO */}
+        <section id="contact" className="px-5 pb-10 pt-20 md:pb-16 md:pt-28">
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.7rem] bg-[#E8DED2] p-8 md:p-14">
+            <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr]">
+              <div>
+                <SectionLabel>Contato</SectionLabel>
+                <h2 className="font-serif text-6xl leading-[0.9] tracking-[-0.07em] md:text-8xl">Vamos construir presença?</h2>
+                <p className="mt-8 max-w-2xl text-xl leading-9 text-stone-700">
+                  Marcas fortes não são apenas vistas. Elas são percebidas, lembradas e desejadas.
+                </p>
+                <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600">
+                  Samuel Paes atua na criação de experiências visuais que conectam produto, espaço, imagem e marca — com sensibilidade estética, pensamento estratégico e execução cuidadosa.
+                </p>
+              </div>
+              <div className="flex flex-col justify-between rounded-[2rem] bg-white/65 p-8">
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-stone-500">Samuel Paes</p>
+                  <p className="mt-4 font-serif text-4xl tracking-[-0.05em]">Creative Consultant</p>
+                </div>
+                <div className="mt-12 space-y-3 text-sm leading-7 text-stone-600">
+                  <p>Visual Strategy · Branding · Direção Criativa · Retail Experience</p>
+                  <p className="text-xs uppercase tracking-[0.18em] text-stone-400">© {year} Samuel Paes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
