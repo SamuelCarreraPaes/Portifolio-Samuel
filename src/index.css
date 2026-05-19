@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 html,
 body,
@@ -115,4 +115,48 @@ nav {
   overflow: visible !important;
 }
 
+
+
+/* =========================================================
+   LOGOS — manter somente a logo da navbar fixa
+   Esconde logos repetidas no hero, seções e rodapé.
+   ========================================================= */
+
+/* Esconde logos fora da barra */
+main img[src*="/images/00_LOGOS/"],
+section img[src*="/images/00_LOGOS/"],
+footer img[src*="/images/00_LOGOS/"],
+main img[src*="/images/12_LOGO/"],
+section img[src*="/images/12_LOGO/"],
+footer img[src*="/images/12_LOGO/"] {
+  display: none !important;
+}
+
+/* Mantém a logo da navbar visível */
+nav img[src*="/images/00_LOGOS/"],
+header img[src*="/images/00_LOGOS/"],
+nav img[src*="/images/12_LOGO/"],
+header img[src*="/images/12_LOGO/"] {
+  display: block !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  object-fit: contain !important;
+}
+
+/* Tamanho equilibrado da logo fixa da barra */
+nav > div:first-child img,
+header > div:first-child img {
+  width: 64px !important;
+  height: 64px !important;
+  min-width: 64px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  transform: none !important;
+}
+
+/* Garante que a barra não corte a logo */
+nav,
+header {
+  overflow: visible !important;
+}
 
