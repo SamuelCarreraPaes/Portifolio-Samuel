@@ -22,7 +22,7 @@ header img[src*="symbol-black-transparent"] {
   height: 96px !important;
   max-width: none !important;
   object-fit: contain !important;
-  transform: scale(1.9) !important;
+  transform: scale(3.2) !important;
   transform-origin: left center !important;
   background: transparent !important;
   mix-blend-mode: multiply;
@@ -33,4 +33,5 @@ nav,
 header {
   overflow: visible !important;
 }
+
 
