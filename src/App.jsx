@@ -470,7 +470,7 @@ function Inicio({ navigate }) {
         {/* SELO LOGO + PORTFOLIO 2026 */}
         <header className="mb-12 flex items-center gap-4">
           <img 
-            src="/images/12_LOGO/samuel-paes-symbol black.png.png" 
+            src="/images/00_LOGOS/symbol-black-transparent.png" 
             alt="Samuel Paes Logo" 
             className="h-8 w-auto object-contain opacity-80"
             onError={(e) => e.target.style.display = 'none'}
@@ -1008,7 +1008,7 @@ function Contato() {
             {/* INSERÇÃO DA LOGO DE ASSINATURA COMPLETA NO CONTATO / RODAPÉ */}
             <div className="col-span-2 md:col-span-1 flex flex-col items-start">
               <img 
-                src="/images/12_LOGO/samuel-paes-logo.png.png" 
+                src="/images/00_LOGOS/logo-full-transparent.png" 
                 alt="Samuel Paes - Assinatura e Logo" 
                 className="h-24 w-auto object-contain mb-6 opacity-90"
                 onError={(e) => e.target.style.display = 'none'}
@@ -1143,7 +1143,7 @@ export default function SamuelPaesPortfolio() {
             >
               <div className="h-8 md:h-10 w-full max-w-[180px] xl:max-w-[240px] relative flex items-center">
                 <img 
-                  src="/images/12_LOGO/samuel-paes-signature.png.png" 
+                  src="/images/00_LOGOS/logo-signature-transparent.png" 
                   alt="Samuel Paes Signature" 
                   className="h-full w-auto object-contain object-left transition-opacity duration-300"
                   onError={(e) => {
@@ -1273,6 +1273,7 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
+
 
 
 
