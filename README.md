@@ -1,16 +1,56 @@
-# React + Vite
+# Samuel Carrera Paes - Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio oficial de Samuel Carrera Paes / Paes Consultoria, publicado em:
 
-Currently, two official plugins are available:
+- https://paesconsultoria.com
+- https://www.paesconsultoria.com
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+- Vercel
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## SEO e Indexacao
 
-## Expanding the ESLint configuration
+O site foi preparado para associar o nome `Samuel Carrera Paes` ao dominio publico `paesconsultoria.com`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Arquivos e pontos principais:
+
+- `index.html`: titulo, description, canonical, Open Graph, Twitter Card e JSON-LD `Person`/`WebSite`.
+- `src/App.jsx`: SEO dinamico com dominio canonico `https://paesconsultoria.com` e texto visivel com o nome completo.
+- `public/robots.txt`: permite indexacao e declara o sitemap.
+- `public/sitemap.xml`: declara a homepage canonica.
+
+## Validacao Local
+
+Antes de publicar alteracoes:
+
+```powershell
+npm run lint
+npm run build
+```
+
+## Deploy
+
+O deploy de producao e feito pela integracao GitHub + Vercel a partir da branch `main`.
+
+Projetos Vercel vinculados:
+
+- `portifolio-samuel`: dominio raiz `paesconsultoria.com`.
+- `portifolio-samuel-oo4p`: dominio `www.paesconsultoria.com`.
+
+## Pos-Publicacao
+
+Depois de alteracoes de SEO, validar:
+
+```powershell
+Invoke-WebRequest -Uri "https://paesconsultoria.com/" -UseBasicParsing
+Invoke-WebRequest -Uri "https://paesconsultoria.com/robots.txt" -UseBasicParsing
+Invoke-WebRequest -Uri "https://paesconsultoria.com/sitemap.xml" -UseBasicParsing
+```
+
+Em seguida, solicitar indexacao no Google Search Console e Bing Webmaster Tools.
