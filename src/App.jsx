@@ -353,7 +353,7 @@ function useRouter() {
 // --- DYNAMIC SEO INJECTION ---
 function DynamicSEO({ title, description, url, image }) {
   useEffect(() => {
-    const pageTitle = title ? `${title} | Samuel Paes` : "Samuel Paes — Diretor Criativo";
+    const pageTitle = title ? `${title} | Samuel Carrera Paes` : "Samuel Carrera Paes — Diretor Criativo";
     document.title = pageTitle;
     
     // Update or inject meta description
@@ -380,7 +380,7 @@ function DynamicSEO({ title, description, url, image }) {
       "name": pageTitle,
       "description": description || "Portfólio de Direção Criativa, Visual Merchandising e Retail Experience.",
       "image": image ? `https://samuelpaes.com${image}` : `https://samuelpaes.com${homePortrait}`,
-      "creator": { "@type": "Person", "name": "Samuel Paes" },
+      "creator": { "@type": "Person", "name": "Samuel Carrera Paes" },
       "url": `https://samuelpaes.com/#${url || ""}`
     };
     script.text = JSON.stringify(schemaData);
@@ -471,7 +471,7 @@ function Inicio({ navigate }) {
         <header className="mb-12 flex items-center gap-4">
           <img 
             src="/images/00_LOGOS/symbol-black-transparent.png" 
-            alt="Samuel Paes Logo" 
+            alt="Samuel Carrera Paes Logo" 
             className="h-20 md:h-24 lg:h-28 w-auto max-w-none object-contain opacity-100 bg-transparent"
             onError={(e) => e.target.style.display = 'none'}
           />
@@ -487,7 +487,7 @@ function Inicio({ navigate }) {
           transition={{ duration: 1, delay: 0.1, ease: PREMIUM_EASE }}
           className="mt-4 max-w-6xl font-serif text-[13vw] sm:text-[9vw] md:text-[8rem] lg:text-[10.5rem] leading-[0.85] tracking-[-0.02em] text-stone-950 text-balance"
         >
-          Samuel Paes
+          Samuel Carrera Paes
           <br />
           <span className="italic text-stone-500 font-light pr-4">Diretor Criativo.</span>
         </motion.h1>
@@ -650,9 +650,9 @@ function Visao() {
                <ImageWithFallback 
                  src={homePortrait} 
                  mode="natural"
-                 alt="Sequência Retrato de Samuel Paes com Assinatura Caligráfica" 
+                 alt="Sequência Retrato de Samuel Carrera Paes com Assinatura Caligráfica" 
                  imageClassName="w-full h-auto object-contain mix-blend-multiply" 
-                 fallbackLabel="Samuel Paes Signature" 
+                 fallbackLabel="Samuel Carrera Paes Signature" 
                />
             </div>
         </figure>
@@ -1009,7 +1009,7 @@ function Contato() {
             <div className="col-span-2 md:col-span-1 flex flex-col items-start">
               <img 
                 src="/images/00_LOGOS/symbol-black-navbar.png" 
-                alt="Samuel Paes - Assinatura e Logo" 
+                alt="Samuel Carrera Paes - Assinatura e Logo" 
                 className="navbar-logo-final"
                 onError={(e) => e.target.style.display = 'none'}
               />
@@ -1144,7 +1144,7 @@ export default function SamuelPaesPortfolio() {
               <div className="h-8 md:h-10 w-full max-w-[180px] xl:max-w-[240px] relative flex items-center">
                 <img 
                   src="/images/00_LOGOS/symbol-black-navbar.png" 
-                  alt="Samuel Paes Signature" 
+                  alt="Samuel Carrera Paes Signature" 
                   className="navbar-logo-final"
                   onError={(e) => {
                     e.target.style.display = 'none';
@@ -1152,7 +1152,7 @@ export default function SamuelPaesPortfolio() {
                   }}
                 />
                 <div className="hidden h-8 px-4 items-center justify-center border border-stone-900/10 bg-stone-200/30 rounded-sm">
-                  <span className="font-serif text-[10px] uppercase tracking-[0.2em] text-stone-500">Samuel Paes Signature</span>
+                  <span className="font-serif text-[10px] uppercase tracking-[0.2em] text-stone-500">Samuel Carrera Paes Signature</span>
                 </div>
               </div>
             </button>
@@ -1273,6 +1273,7 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
+
 
 
 
