@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useMemo, useCallback } from "react";
+﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
 
@@ -353,7 +353,11 @@ function useRouter() {
 // --- DYNAMIC SEO INJECTION ---
 function DynamicSEO({ title, description, url, image }) {
   useEffect(() => {
-    const pageTitle = title ? `${title} | Samuel Carrera Paes` : "Samuel Carrera Paes — Diretor Criativo";
+    const siteUrl = "https://paesconsultoria.com";
+    const defaultTitle = "Samuel Carrera Paes | Creative Consultant — Paes Consultoria";
+    const defaultDescription = "Portfólio de Samuel Carrera Paes, consultor criativo especializado em direção criativa, visual merchandising, branding, moda, varejo e experiência de marca.";
+    const pageTitle = !title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`;
+    const pageDescription = description || defaultDescription;
     document.title = pageTitle;
     
     // Update or inject meta description
@@ -363,7 +367,7 @@ function DynamicSEO({ title, description, url, image }) {
       metaDesc.name = "description";
       document.head.appendChild(metaDesc);
     }
-    metaDesc.content = description || "Construindo mundos visuais para marcas, produtos e espaços comerciais através de Direção Criativa e Retail Experience.";
+    metaDesc.content = pageDescription;
 
     // Inject or update JSON-LD for rich snippets
     let script = document.getElementById("seo-json-ld");
@@ -376,12 +380,13 @@ function DynamicSEO({ title, description, url, image }) {
     
     const schemaData = {
       "@context": "https://schema.org",
-      "@type": "CreativeWork",
+      "@type": "WebPage",
       "name": pageTitle,
-      "description": description || "Portfólio de Direção Criativa, Visual Merchandising e Retail Experience.",
-      "image": image ? `https://samuelpaes.com${image}` : `https://samuelpaes.com${homePortrait}`,
-      "creator": { "@type": "Person", "name": "Samuel Carrera Paes" },
-      "url": `https://samuelpaes.com/#${url || ""}`
+      "description": pageDescription,
+      "image": image ? `${siteUrl}${image}` : `${siteUrl}${homePortrait}`,
+      "creator": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
+      "about": { "@type": "Person", "name": "Samuel Carrera Paes", "alternateName": "Samuel Paes" },
+      "url": `${siteUrl}/${url ? `#${url}` : ""}`
     };
     script.text = JSON.stringify(schemaData);
     
@@ -442,15 +447,6 @@ const PageTransition = ({ children, className = "" }) => {
   );
 };
 
-function SectionLabel({ children }) {
-  return (
-    <div className="mb-8 flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
-      <span className="h-px w-12 bg-stone-400" aria-hidden="true" />
-      {children}
-    </div>
-  );
-}
-
 // --- PÁGINAS ---
 
 function Inicio({ navigate }) {
@@ -500,6 +496,9 @@ function Inicio({ navigate }) {
         >
           <p className="text-xl md:text-3xl lg:text-4xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 text-balance">
             "Construo presença de marca no exato ponto em que a estética, a estratégia e o desejo se tornam uma experiência tangível."
+          </p>
+          <p className="mt-8 max-w-2xl text-sm md:text-base leading-relaxed text-stone-600 font-light">
+            Samuel Carrera Paes atua como consultor criativo em direção criativa, visual merchandising, branding e experiência de marca para moda e varejo.
           </p>
         </motion.div>
 
