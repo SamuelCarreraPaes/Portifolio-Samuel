@@ -2,6 +2,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
 
+import { sistemaArticleCards } from "./sistemaArticleCards";
+
 // --- DADOS DOS 11 CASES OFICIAIS COM NARRATIVA PROFUNDA E TAGS DE FILTRO ---
 const casesData = [
   {
@@ -327,37 +329,54 @@ const homePortrait = "/images/13_VISAO/about-transition.png";
 const PREMIUM_EASE = [0.22, 1, 0.36, 1];
 
 // --- CUSTOM ROUTER HOOK FOR SEO & SHAREABILITY ---
+function getRouteFromLocation() {
+  const pathRoute = window.location.pathname.replace(/^\/+|\/+$/g, "");
+  if (pathRoute && pathRoute !== "index.html") {
+    return decodeURIComponent(pathRoute);
+  }
+
+  const hashRoute = window.location.hash.replace(/^#\/?/, "");
+  return hashRoute || "inicio";
+}
+
+function routeToPath(route) {
+  return route === "inicio" ? "/" : `/${route}`;
+}
+
 function useRouter() {
-  const [route, setRoute] = useState(() => {
-    const hash = window.location.hash.replace("#", "");
-    return hash || "inicio";
-  });
+  const [route, setRoute] = useState(getRouteFromLocation);
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "") || "inicio";
-      setRoute(hash);
+    const handleRouteChange = () => {
+      setRoute(getRouteFromLocation());
       window.scrollTo(0, 0);
     };
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    window.addEventListener("hashchange", handleRouteChange);
+    window.addEventListener("popstate", handleRouteChange);
+    return () => {
+      window.removeEventListener("hashchange", handleRouteChange);
+      window.removeEventListener("popstate", handleRouteChange);
+    };
   }, []);
 
   const navigate = useCallback((newRoute) => {
-    window.location.hash = newRoute;
+    window.history.pushState(null, "", routeToPath(newRoute));
+    setRoute(newRoute);
+    window.scrollTo(0, 0);
   }, []);
 
   return { route, navigate };
 }
 
 // --- DYNAMIC SEO INJECTION ---
-function DynamicSEO({ title, description, url, image }) {
+function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) {
   useEffect(() => {
     const siteUrl = "https://paesconsultoria.com";
     const defaultTitle = "Samuel Carrera Paes | Creative Consultant — Paes Consultoria";
     const defaultDescription = "Portfólio de Samuel Carrera Paes, consultor criativo especializado em direção criativa, visual merchandising, branding, moda, varejo e experiência de marca.";
     const pageTitle = !title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`;
     const pageDescription = description || defaultDescription;
+    const pageUrl = url ? `${siteUrl}/${url.replace(/^\/+/, "")}` : siteUrl;
     document.title = pageTitle;
     
     // Update or inject meta description
@@ -368,6 +387,22 @@ function DynamicSEO({ title, description, url, image }) {
       document.head.appendChild(metaDesc);
     }
     metaDesc.content = pageDescription;
+
+    const seoSelectors = [
+      ["link[rel='canonical']", "href", pageUrl],
+      ["meta[property='og:title']", "content", pageTitle],
+      ["meta[property='og:description']", "content", pageDescription],
+      ["meta[property='og:url']", "content", pageUrl],
+      ["meta[name='twitter:title']", "content", pageTitle],
+      ["meta[name='twitter:description']", "content", pageDescription]
+    ];
+
+    seoSelectors.forEach(([selector, attribute, value]) => {
+      const tag = document.querySelector(selector);
+      if (tag) {
+        tag.setAttribute(attribute, value);
+      }
+    });
 
     // Inject or update JSON-LD for rich snippets
     let script = document.getElementById("seo-json-ld");
@@ -380,17 +415,23 @@ function DynamicSEO({ title, description, url, image }) {
     
     const schemaData = {
       "@context": "https://schema.org",
-      "@type": "WebPage",
+      "@type": schemaType,
       "name": pageTitle,
+      ...(schemaType === "Article" ? {
+        "headline": pageTitle,
+        "author": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
+        "mainEntityOfPage": pageUrl,
+        "dateModified": "2026-05-24"
+      } : {}),
       "description": pageDescription,
       "image": image ? `${siteUrl}${image}` : `${siteUrl}${homePortrait}`,
       "creator": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
       "about": { "@type": "Person", "name": "Samuel Carrera Paes", "alternateName": "Samuel Paes" },
-      "url": `${siteUrl}/${url ? `#${url}` : ""}`
+      "url": pageUrl
     };
     script.text = JSON.stringify(schemaData);
     
-  }, [title, description, url, image]);
+  }, [title, description, url, image, schemaType]);
 
   return null;
 }
@@ -942,75 +983,14 @@ function CaseDetail({ caseId, navigate }) {
   );
 }
 
-function Sistema() {
-  const cards = [
-    {
-      num: "01",
-      title: "Leitura de Marca",
-      phrase: "Diagnóstico profundo",
-      editorialTitle: "A gramática invisível da marca",
-      subtitle: "Antes da vitrine, antes da arara e antes da luz, existe uma pergunta mais funda: que marca este espaço está tentando confirmar?",
-      desc: "Leitura de marca é o diagnóstico que transforma intenção em critério. Antes de escolher vitrine, luz, densidade ou percurso, é preciso entender que sinais a marca consegue sustentar e quais contradições o espaço está revelando.",
-      quote: "Marca não é o que se declara; é o que o espaço confirma.",
-      keywords: ["diagnóstico", "sinais", "coerência", "varejo físico"]
-    },
-    {
-      num: "02",
-      title: "Curadoria de Produto",
-      phrase: "Seleção intencional",
-      editorialTitle: "A edição que dá valor à escolha",
-      subtitle: "Curadoria não é tirar peças para parecer sofisticado; é retirar o ruído que impede a escolha de ganhar sentido.",
-      desc: "Curadoria de produto é edição de sentido. O sortimento precisa orientar o olhar, sugerir uso, criar hierarquia e transformar variedade em desejo. Uma loja bem curada torna a escolha mais clara, mais fluida e mais valiosa.",
-      quote: "Excesso não é abundância; é ruído sem edição.",
-      keywords: ["curadoria", "sortimento", "hierarquia", "desejo"]
-    },
-    {
-      num: "03",
-      title: "Narrativa Espacial",
-      phrase: "O espaço como mídia",
-      editorialTitle: "A loja como argumento",
-      subtitle: "O espaço não é fundo para o produto; é a linguagem física que decide como a marca será atravessada.",
-      desc: "Narrativa espacial transforma a loja em argumento físico. O espaço organiza atenção, ritmo, pausa, hierarquia e memória para que o cliente não apenas veja a marca, mas atravesse uma intenção.",
-      quote: "O espaço não abriga a marca; ele a encena.",
-      keywords: ["layout", "percurso", "atenção", "memória"]
-    },
-    {
-      num: "04",
-      title: "Construção de Percepção",
-      phrase: "Posicionamento tátil",
-      editorialTitle: "O valor que o corpo reconhece",
-      subtitle: "Valor percebido nasce quando luz, textura, peso, som e silêncio fazem o corpo acreditar na promessa da marca.",
-      desc: "Construção de percepção é posicionamento tátil. No varejo físico de moda, valor não é percebido apenas pelo produto, mas pela luz, pelo toque, pelo som, pelo cheiro, pela densidade e pela matéria ao redor.",
-      quote: "Posicionamento também se toca.",
-      keywords: ["sensorialidade", "matéria", "luz", "valor percebido"]
-    },
-    {
-      num: "05",
-      title: "Operação Criativa",
-      phrase: "Da ideia à forma",
-      editorialTitle: "A disciplina que sustenta a forma",
-      subtitle: "Uma ideia só vira marca quando encontra processo suficiente para sobreviver ao uso, ao tempo e à rotina.",
-      desc: "Operação criativa é a disciplina que sustenta a forma depois da ideia. Conceito, vitrine, curadoria, atmosfera e atendimento precisam sobreviver ao giro, à ruptura, à equipe e à rotina.",
-      quote: "Sem operação, direção criativa vira intenção não sustentada.",
-      keywords: ["implantação", "rotina", "processo", "consistência"]
-    },
-    {
-      num: "06",
-      title: "Experiência Física",
-      phrase: "A jornada do desejo",
-      editorialTitle: "A coreografia do desejo",
-      subtitle: "Desejo não nasce em um ponto; ele se aproxima, encontra sinais, recebe confirmações e permanece como memória.",
-      desc: "Experiência física é a jornada do desejo. O cliente percebe a marca em sequência: fachada, entrada, percurso, produto, toque, provador, atendimento, decisão, embalagem e memória.",
-      quote: "Desejo não aparece num ponto; ele é conduzido por uma sequência.",
-      keywords: ["jornada", "provador", "presença", "memória"]
-    }
-  ];
-  const [activeCardNum, setActiveCardNum] = useState(cards[0].num);
-  const activeCard = cards.find((card) => card.num === activeCardNum) || cards[0];
-
+function Sistema({ navigate }) {
   return (
     <PageTransition>
-      <DynamicSEO title="Sistema de Direção Criativa" description="Seis pilares autorais do sistema Samuel Carrera Paes para transformar marca, produto, espaço e operação em percepção de valor no varejo físico." />
+      <DynamicSEO
+        title="Sistema de Direção Criativa"
+        description="Índice editorial com seis artigos autorais do sistema Samuel Carrera Paes para transformar marca, produto, espaço e operação em percepção de valor no varejo físico."
+        url="sistema"
+      />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12" aria-labelledby="sistema-title">
         <header>
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CREATIVE SYSTEM</span>
@@ -1018,68 +998,200 @@ function Sistema() {
             Sistema de Direção Criativa.
           </h1>
           <p className="text-xl md:text-3xl font-light text-stone-600 max-w-3xl mb-24 leading-relaxed text-balance">
-            Seis artigos editoriais sobre a loja física como tecnologia de percepção: marca, produto, espaço, matéria, operação e desejo.
+            Um índice editorial em seis artigos sobre a loja física como tecnologia de percepção: marca, produto, espaço, matéria, operação e desejo.
           </p>
         </header>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 border-t border-stone-900/10 pt-16">
-          {cards.map((card) => (
-            <article key={card.num} className="group flex min-h-[19rem] flex-col border border-stone-900/10 bg-white/40 transition-all duration-700 hover:bg-white/80 rounded-sm">
+          {sistemaArticleCards.map((card) => (
+            <article key={card.num} className="group flex min-h-[24rem] flex-col border border-stone-900/10 bg-white/40 transition-all duration-700 hover:bg-white/80 hover:border-stone-900/25 rounded-sm">
               <button
                 type="button"
-                onClick={() => setActiveCardNum(card.num)}
-                aria-pressed={activeCardNum === card.num}
+                onClick={() => navigate(`sistema/${card.slug}`)}
+                aria-label={`Ler artigo ${card.editorialTitle}`}
                 className="flex h-full flex-col p-8 md:p-10 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
               >
-                <span className={`font-serif text-4xl transition-colors duration-500 mb-8 ${activeCardNum === card.num ? "text-stone-900" : "text-stone-300 group-hover:text-stone-800"}`} aria-hidden="true">{card.num}.</span>
+                <span className="font-serif text-4xl transition-colors duration-500 mb-8 text-stone-300 group-hover:text-stone-900" aria-hidden="true">{card.num}.</span>
                 <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-3">{card.title}</h3>
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 mb-6 block">{card.phrase}</span>
-                <p className="text-sm font-light text-stone-600 leading-relaxed">{card.subtitle}</p>
+                <p className="font-serif text-2xl leading-tight text-stone-950 mb-6 text-balance">{card.editorialTitle}</p>
+                <p className="text-sm font-light text-stone-600 leading-relaxed mb-8">{card.subtitle}</p>
+                <span className="mt-auto inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
+                  Ler artigo <ArrowRightCircle className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                </span>
               </button>
             </article>
           ))}
         </div>
-
-        <AnimatePresence mode="wait">
-          <motion.article
-            key={activeCard.num}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.45, ease: PREMIUM_EASE }}
-            className="mt-20 grid gap-12 border-y border-stone-900/10 py-16 lg:grid-cols-[0.75fr_1.25fr]"
-          >
-            <aside>
-              <span className="font-serif text-6xl text-stone-300 block mb-8" aria-hidden="true">{activeCard.num}.</span>
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-4">TESE EDITORIAL</p>
-              <blockquote className="font-serif text-3xl md:text-5xl leading-tight text-stone-950 text-balance">
-                "{activeCard.quote}"
-              </blockquote>
-            </aside>
-
-            <div className="flex flex-col">
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-stone-500 mb-5">{activeCard.title}</p>
-              <h2 className="font-serif text-4xl md:text-6xl leading-tight text-stone-950 mb-6 text-balance">
-                {activeCard.editorialTitle}
-              </h2>
-              <p className="text-lg md:text-2xl font-light leading-relaxed text-stone-700 mb-10 text-balance">
-                {activeCard.subtitle}
-              </p>
-              <p className="max-w-3xl text-base md:text-lg font-light leading-relaxed text-stone-600">
-                {activeCard.desc}
-              </p>
-
-              <ul className="mt-12 flex flex-wrap gap-3" aria-label="Palavras-chave do artigo">
-                {activeCard.keywords.map((keyword) => (
-                  <li key={keyword} className="border border-stone-900/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 rounded-sm">
-                    {keyword}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.article>
-        </AnimatePresence>
       </section>
+    </PageTransition>
+  );
+}
+
+function SistemaArticle({ slug, navigate }) {
+  const [articleState, setArticleState] = useState({
+    status: "loading",
+    article: null,
+    previous: null,
+    next: null
+  });
+
+  useEffect(() => {
+    let isCurrent = true;
+
+    import("./sistemaArticles").then(({ getAdjacentSistemaArticles, getSistemaArticleBySlug }) => {
+      if (!isCurrent) return;
+      const article = getSistemaArticleBySlug(slug);
+      const adjacent = getAdjacentSistemaArticles(slug);
+      setArticleState({
+        status: article ? "ready" : "missing",
+        article,
+        previous: adjacent.previous,
+        next: adjacent.next
+      });
+    }).catch(() => {
+      if (!isCurrent) return;
+      setArticleState({ status: "missing", article: null, previous: null, next: null });
+    });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [slug]);
+
+  const { article, previous, next, status } = articleState;
+
+  if (status === "loading") {
+    return (
+      <PageTransition>
+        <DynamicSEO title="Sistema" description="Carregando artigo do Sistema Samuel Paes." url={`sistema/${slug}`} />
+        <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12 min-h-[70vh] flex flex-col justify-center">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">SISTEMA</span>
+          <h1 className="font-serif text-5xl md:text-7xl leading-none text-stone-950">Carregando artigo.</h1>
+        </section>
+      </PageTransition>
+    );
+  }
+
+  if (!article) {
+    return (
+      <PageTransition>
+        <DynamicSEO title="Artigo não encontrado" description="Artigo do Sistema Samuel Paes não encontrado." url={`sistema/${slug}`} />
+        <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12 min-h-[70vh] flex flex-col justify-center">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">SISTEMA</span>
+          <h1 className="font-serif text-5xl md:text-7xl leading-none text-stone-950 mb-8">Artigo não encontrado.</h1>
+          <button
+            type="button"
+            onClick={() => navigate("sistema")}
+            className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 border-b border-stone-900/30 pb-2 hover:border-stone-900 transition-colors"
+          >
+            <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Voltar ao Sistema
+          </button>
+        </section>
+      </PageTransition>
+    );
+  }
+
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title={article.editorialTitle}
+        description={article.short}
+        url={`sistema/${article.slug}`}
+        schemaType="Article"
+      />
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="sistema-article-title">
+        <button
+          type="button"
+          onClick={() => navigate("sistema")}
+          className="mb-14 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500 border-b border-stone-900/10 pb-2 hover:text-stone-900 hover:border-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+        >
+          <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Sistema
+        </button>
+
+        <header className="grid gap-14 border-b border-stone-900/10 pb-16 lg:grid-cols-[0.7fr_1.3fr]">
+          <aside>
+            <span className="font-serif text-7xl text-stone-300 block mb-8" aria-hidden="true">{article.num}.</span>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-5">ARTIGO DO SISTEMA</p>
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-2">{article.title}</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">{article.phrase}</p>
+          </aside>
+
+          <div>
+            <h1 id="sistema-article-title" className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] text-stone-950 mb-8 text-balance">
+              {article.editorialTitle}
+            </h1>
+            <p className="text-xl md:text-3xl font-light leading-relaxed text-stone-600 max-w-4xl text-balance">
+              {article.subtitle}
+            </p>
+          </div>
+        </header>
+
+        <section className="grid gap-14 border-b border-stone-900/10 py-14 lg:grid-cols-[0.7fr_1.3fr]" aria-label="Tese do artigo">
+          <blockquote className="font-serif text-3xl md:text-5xl leading-tight text-stone-950 text-balance">
+            "{article.quote}"
+          </blockquote>
+          <div>
+            <p className="text-base md:text-lg font-light leading-relaxed text-stone-600 max-w-3xl">
+              {article.short}
+            </p>
+            <ul className="mt-10 flex flex-wrap gap-3" aria-label="Palavras-chave do artigo">
+              {article.keywords.map((keyword) => (
+                <li key={keyword} className="border border-stone-900/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 rounded-sm">
+                  {keyword}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <div className="mx-auto max-w-4xl py-20 md:py-28">
+          {article.sections.map((section) => (
+            <section key={section.heading} className="mb-20 last:mb-0">
+              <h2 className="font-serif text-3xl md:text-5xl leading-tight text-stone-950 mb-8 text-balance">
+                {section.heading}
+              </h2>
+              <div className="space-y-7">
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph} className="text-lg md:text-xl font-light leading-[1.85] text-stone-700">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+
+        <nav className="grid gap-6 border-t border-stone-900/10 py-12 md:grid-cols-3" aria-label="Navegação entre artigos do Sistema">
+          <button
+            type="button"
+            onClick={() => navigate(`sistema/${previous.slug}`)}
+            className="group flex min-h-32 flex-col justify-between border border-stone-900/10 bg-white/30 p-6 text-left rounded-sm hover:bg-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+          >
+            <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
+              <ArrowLeftCircle className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden="true" /> Anterior
+            </span>
+            <span className="font-serif text-2xl leading-tight text-stone-950">{previous.editorialTitle}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("sistema")}
+            className="flex min-h-32 flex-col items-center justify-center border border-stone-900/10 bg-stone-900 text-[#F4F0E9] p-6 text-center rounded-sm hover:bg-stone-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em]">Todos os artigos</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate(`sistema/${next.slug}`)}
+            className="group flex min-h-32 flex-col justify-between border border-stone-900/10 bg-white/30 p-6 text-left rounded-sm hover:bg-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+          >
+            <span className="inline-flex items-center justify-end gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
+              Próximo <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </span>
+            <span className="font-serif text-2xl leading-tight text-stone-950">{next.editorialTitle}</span>
+          </button>
+        </nav>
+      </article>
     </PageTransition>
   );
 }
@@ -1227,6 +1339,7 @@ export default function SamuelPaesPortfolio() {
   };
 
   const isCaseDetail = route.startsWith("case/");
+  const isSistemaDetail = route.startsWith("sistema/");
 
   return (
     <div className="min-h-screen bg-[#F4F0E9] text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
@@ -1270,7 +1383,7 @@ export default function SamuelPaesPortfolio() {
                 aria-label={`Página ${link.label}`}
                 onClick={() => handleNavClick(link.id)} 
                 className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm px-2 pb-1 border-b-2 ${
-                  (route === link.id || (link.id === "cases" && isCaseDetail)) 
+                  (route === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail))
                     ? "text-stone-900 border-stone-900" 
                     : "text-stone-400 border-transparent hover:text-stone-900 hover:border-stone-900/20"
                 }`}
@@ -1336,7 +1449,7 @@ export default function SamuelPaesPortfolio() {
                     type="button"
                     onClick={() => handleNavClick(link.id)} 
                     className={`flex items-baseline gap-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 p-3 rounded-sm transition-colors duration-300 ${
-                      (route === link.id || (link.id === "cases" && isCaseDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
+                      (route === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
                     }`}
                   >
                     <span className="font-serif text-3xl italic opacity-50" aria-hidden="true">{link.num}</span>
@@ -1367,7 +1480,8 @@ export default function SamuelPaesPortfolio() {
           {route === "visao" && <Visao key="visao" />}
           {route === "cases" && <Cases key="cases" navigate={navigate} />}
           {route.startsWith("case/") && <CaseDetail key="case-detail" caseId={route.replace("case/", "")} navigate={navigate} />}
-          {route === "sistema" && <Sistema key="sistema" />}
+          {route === "sistema" && <Sistema key="sistema" navigate={navigate} />}
+          {route.startsWith("sistema/") && <SistemaArticle key={route} slug={route.replace("sistema/", "")} navigate={navigate} />}
           {route === "contato" && <Contato key="contato" />}
         </AnimatePresence>
       </main>
