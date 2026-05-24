@@ -25,6 +25,19 @@ Arquivos e pontos principais:
 - `public/robots.txt`: permite indexacao e declara o sitemap.
 - `public/sitemap.xml`: declara a homepage canonica.
 
+## Conteudo Editorial
+
+A pagina `Sistema` consolida seis pilares autorais do metodo Samuel Paes:
+
+- Leitura de Marca
+- Curadoria de Produto
+- Narrativa Espacial
+- Construcao de Percepcao
+- Operacao Criativa
+- Experiencia Fisica
+
+O conteudo foi adaptado do material `sistema_samuel_paes_artigos_reescritos_voz_autoral.md`, mantendo a voz editorial em uma camada navegavel e mais sintética para web.
+
 ## Validacao Local
 
 Antes de publicar alteracoes:

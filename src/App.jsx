@@ -944,17 +944,73 @@ function CaseDetail({ caseId, navigate }) {
 
 function Sistema() {
   const cards = [
-    { num: "01", title: "Leitura de Marca", phrase: "Diagnóstico profundo", desc: "Decodificar o DNA e os códigos visuais ocultos da marca, traduzindo o posicionamento intangível para o ambiente construído." },
-    { num: "02", title: "Curadoria de Produto", phrase: "Seleção intencional", desc: "Elevar o mix através de uma edição que conta uma história. O produto deixa de ser estocado para ser estrategicamente exibido." },
-    { num: "03", title: "Narrativa Espacial", phrase: "O espaço como mídia", desc: "Projetar a loja não como um canal logístico, mas como um ambiente narrativo e imersivo que envolve e direciona o cliente." },
-    { num: "04", title: "Construção de Percepção", phrase: "Posicionamento tátil", desc: "Manipular luz, cor e textura para orquestrar a atenção, gerar desejo palpável e aumentar a percepção de valor." },
-    { num: "05", title: "Operação Criativa", phrase: "Da ideia à forma", desc: "Gestão ponta a ponta: fornecedores, equipe, enxoval técnico e excelência absoluta na implantação física do projeto." },
-    { num: "06", title: "Experiência Física", phrase: "A jornada do desejo", desc: "Coreografar todos os pontos de contato para transformar o fluxo automatizado de compra em uma experiência memorável e rentável." }
+    {
+      num: "01",
+      title: "Leitura de Marca",
+      phrase: "Diagnóstico profundo",
+      editorialTitle: "A gramática invisível da marca",
+      subtitle: "Antes da vitrine, antes da arara e antes da luz, existe uma pergunta mais funda: que marca este espaço está tentando confirmar?",
+      desc: "Leitura de marca é o diagnóstico que transforma intenção em critério. Antes de escolher vitrine, luz, densidade ou percurso, é preciso entender que sinais a marca consegue sustentar e quais contradições o espaço está revelando.",
+      quote: "Marca não é o que se declara; é o que o espaço confirma.",
+      keywords: ["diagnóstico", "sinais", "coerência", "varejo físico"]
+    },
+    {
+      num: "02",
+      title: "Curadoria de Produto",
+      phrase: "Seleção intencional",
+      editorialTitle: "A edição que dá valor à escolha",
+      subtitle: "Curadoria não é tirar peças para parecer sofisticado; é retirar o ruído que impede a escolha de ganhar sentido.",
+      desc: "Curadoria de produto é edição de sentido. O sortimento precisa orientar o olhar, sugerir uso, criar hierarquia e transformar variedade em desejo. Uma loja bem curada torna a escolha mais clara, mais fluida e mais valiosa.",
+      quote: "Excesso não é abundância; é ruído sem edição.",
+      keywords: ["curadoria", "sortimento", "hierarquia", "desejo"]
+    },
+    {
+      num: "03",
+      title: "Narrativa Espacial",
+      phrase: "O espaço como mídia",
+      editorialTitle: "A loja como argumento",
+      subtitle: "O espaço não é fundo para o produto; é a linguagem física que decide como a marca será atravessada.",
+      desc: "Narrativa espacial transforma a loja em argumento físico. O espaço organiza atenção, ritmo, pausa, hierarquia e memória para que o cliente não apenas veja a marca, mas atravesse uma intenção.",
+      quote: "O espaço não abriga a marca; ele a encena.",
+      keywords: ["layout", "percurso", "atenção", "memória"]
+    },
+    {
+      num: "04",
+      title: "Construção de Percepção",
+      phrase: "Posicionamento tátil",
+      editorialTitle: "O valor que o corpo reconhece",
+      subtitle: "Valor percebido nasce quando luz, textura, peso, som e silêncio fazem o corpo acreditar na promessa da marca.",
+      desc: "Construção de percepção é posicionamento tátil. No varejo físico de moda, valor não é percebido apenas pelo produto, mas pela luz, pelo toque, pelo som, pelo cheiro, pela densidade e pela matéria ao redor.",
+      quote: "Posicionamento também se toca.",
+      keywords: ["sensorialidade", "matéria", "luz", "valor percebido"]
+    },
+    {
+      num: "05",
+      title: "Operação Criativa",
+      phrase: "Da ideia à forma",
+      editorialTitle: "A disciplina que sustenta a forma",
+      subtitle: "Uma ideia só vira marca quando encontra processo suficiente para sobreviver ao uso, ao tempo e à rotina.",
+      desc: "Operação criativa é a disciplina que sustenta a forma depois da ideia. Conceito, vitrine, curadoria, atmosfera e atendimento precisam sobreviver ao giro, à ruptura, à equipe e à rotina.",
+      quote: "Sem operação, direção criativa vira intenção não sustentada.",
+      keywords: ["implantação", "rotina", "processo", "consistência"]
+    },
+    {
+      num: "06",
+      title: "Experiência Física",
+      phrase: "A jornada do desejo",
+      editorialTitle: "A coreografia do desejo",
+      subtitle: "Desejo não nasce em um ponto; ele se aproxima, encontra sinais, recebe confirmações e permanece como memória.",
+      desc: "Experiência física é a jornada do desejo. O cliente percebe a marca em sequência: fachada, entrada, percurso, produto, toque, provador, atendimento, decisão, embalagem e memória.",
+      quote: "Desejo não aparece num ponto; ele é conduzido por uma sequência.",
+      keywords: ["jornada", "provador", "presença", "memória"]
+    }
   ];
+  const [activeCardNum, setActiveCardNum] = useState(cards[0].num);
+  const activeCard = cards.find((card) => card.num === activeCardNum) || cards[0];
 
   return (
     <PageTransition>
-      <DynamicSEO title="Sistema de Direção Criativa" description="Um método rigoroso para transformar marca, produto e espaço em percepção de valor." />
+      <DynamicSEO title="Sistema de Direção Criativa" description="Seis pilares autorais do sistema Samuel Carrera Paes para transformar marca, produto, espaço e operação em percepção de valor no varejo físico." />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12" aria-labelledby="sistema-title">
         <header>
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CREATIVE SYSTEM</span>
@@ -962,20 +1018,67 @@ function Sistema() {
             Sistema de Direção Criativa.
           </h1>
           <p className="text-xl md:text-3xl font-light text-stone-600 max-w-3xl mb-24 leading-relaxed text-balance">
-            Um método rigoroso para transformar marca, produto e espaço em percepção de valor palpável.
+            Seis artigos editoriais sobre a loja física como tecnologia de percepção: marca, produto, espaço, matéria, operação e desejo.
           </p>
         </header>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 border-t border-stone-900/10 pt-16">
           {cards.map((card) => (
-            <article key={card.num} className="group flex flex-col p-8 md:p-10 border border-stone-900/10 bg-white/40 hover:bg-white/80 transition-all duration-700 rounded-sm">
-              <span className="font-serif text-4xl text-stone-300 group-hover:text-stone-800 transition-colors duration-500 mb-8" aria-hidden="true">{card.num}.</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-3">{card.title}</h3>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 mb-6 block">{card.phrase}</span>
-              <p className="text-sm font-light text-stone-600 leading-relaxed">{card.desc}</p>
+            <article key={card.num} className="group flex min-h-[19rem] flex-col border border-stone-900/10 bg-white/40 transition-all duration-700 hover:bg-white/80 rounded-sm">
+              <button
+                type="button"
+                onClick={() => setActiveCardNum(card.num)}
+                aria-pressed={activeCardNum === card.num}
+                className="flex h-full flex-col p-8 md:p-10 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+              >
+                <span className={`font-serif text-4xl transition-colors duration-500 mb-8 ${activeCardNum === card.num ? "text-stone-900" : "text-stone-300 group-hover:text-stone-800"}`} aria-hidden="true">{card.num}.</span>
+                <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-3">{card.title}</h3>
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 mb-6 block">{card.phrase}</span>
+                <p className="text-sm font-light text-stone-600 leading-relaxed">{card.subtitle}</p>
+              </button>
             </article>
           ))}
         </div>
+
+        <AnimatePresence mode="wait">
+          <motion.article
+            key={activeCard.num}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.45, ease: PREMIUM_EASE }}
+            className="mt-20 grid gap-12 border-y border-stone-900/10 py-16 lg:grid-cols-[0.75fr_1.25fr]"
+          >
+            <aside>
+              <span className="font-serif text-6xl text-stone-300 block mb-8" aria-hidden="true">{activeCard.num}.</span>
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-4">TESE EDITORIAL</p>
+              <blockquote className="font-serif text-3xl md:text-5xl leading-tight text-stone-950 text-balance">
+                "{activeCard.quote}"
+              </blockquote>
+            </aside>
+
+            <div className="flex flex-col">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-stone-500 mb-5">{activeCard.title}</p>
+              <h2 className="font-serif text-4xl md:text-6xl leading-tight text-stone-950 mb-6 text-balance">
+                {activeCard.editorialTitle}
+              </h2>
+              <p className="text-lg md:text-2xl font-light leading-relaxed text-stone-700 mb-10 text-balance">
+                {activeCard.subtitle}
+              </p>
+              <p className="max-w-3xl text-base md:text-lg font-light leading-relaxed text-stone-600">
+                {activeCard.desc}
+              </p>
+
+              <ul className="mt-12 flex flex-wrap gap-3" aria-label="Palavras-chave do artigo">
+                {activeCard.keywords.map((keyword) => (
+                  <li key={keyword} className="border border-stone-900/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 rounded-sm">
+                    {keyword}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.article>
+        </AnimatePresence>
       </section>
     </PageTransition>
   );
