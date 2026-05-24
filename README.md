@@ -27,16 +27,16 @@ Arquivos e pontos principais:
 
 ## Conteudo Editorial
 
-A pagina `Sistema` consolida seis pilares autorais do metodo Samuel Paes:
+A pagina `Sistema` consolida seis pilares autorais do metodo Samuel Paes e funciona como indice editorial para artigos individuais:
 
-- Leitura de Marca
-- Curadoria de Produto
-- Narrativa Espacial
-- Construcao de Percepcao
-- Operacao Criativa
-- Experiencia Fisica
+- `/sistema/leitura-de-marca` - Leitura de Marca
+- `/sistema/curadoria-de-produto` - Curadoria de Produto
+- `/sistema/narrativa-espacial` - Narrativa Espacial
+- `/sistema/construcao-de-percepcao` - Construcao de Percepcao
+- `/sistema/operacao-criativa` - Operacao Criativa
+- `/sistema/experiencia-fisica` - Experiencia Fisica
 
-O conteudo foi adaptado do material `sistema_samuel_paes_artigos_reescritos_voz_autoral.md`, mantendo a voz editorial em uma camada navegavel e mais sintética para web.
+O conteudo foi extraido do material `Sistema_Samuel_Paes_Artigos_Reescritos_Voz_Autoral.docx` e consolidado em `src/sistemaArticles.js`. Cada artigo possui URL limpa, SEO dinamico, navegacao anterior/proximo e link de retorno ao indice do Sistema.
 
 ## Validacao Local
 
