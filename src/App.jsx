@@ -347,9 +347,13 @@ function useRouter() {
   const [route, setRoute] = useState(getRouteFromLocation);
 
   useEffect(() => {
-    const handleRouteChange = () => {
+    const handleRouteChange = (event) => {
+      const pathRoute = window.location.pathname.replace(/^\/+|\/+$/g, "");
+      const hasPathRoute = Boolean(pathRoute && pathRoute !== "index.html");
       setRoute(getRouteFromLocation());
-      window.scrollTo(0, 0);
+      if (!(event?.type === "hashchange" && hasPathRoute)) {
+        window.scrollTo(0, 0);
+      }
     };
     window.addEventListener("hashchange", handleRouteChange);
     window.addEventListener("popstate", handleRouteChange);
@@ -1028,6 +1032,32 @@ function Sistema({ navigate }) {
   );
 }
 
+function getArticleReadingMinutes(article) {
+  const articleText = [
+    article.subtitle,
+    article.short,
+    article.quote,
+    ...article.sections.flatMap((section) => [section.heading, ...section.paragraphs])
+  ].join(" ");
+  const wordCount = articleText.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(wordCount / 220));
+}
+
+function getArticleSectionId(articleSlug, section, index) {
+  const normalizedHeading = section.heading
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  return `${articleSlug}-${index + 1}-${normalizedHeading}`;
+}
+
+function getArticleSectionLabel(heading) {
+  return heading.split(" — ")[0];
+}
+
 function SistemaArticle({ slug, navigate }) {
   const [articleState, setArticleState] = useState({
     status: "loading",
@@ -1092,6 +1122,13 @@ function SistemaArticle({ slug, navigate }) {
     );
   }
 
+  const readingMinutes = getArticleReadingMinutes(article);
+  const sectionLinks = article.sections.map((section, index) => ({
+    id: getArticleSectionId(article.slug, section, index),
+    label: getArticleSectionLabel(section.heading),
+    heading: section.heading
+  }));
+
   return (
     <PageTransition>
       <DynamicSEO
@@ -1115,6 +1152,16 @@ function SistemaArticle({ slug, navigate }) {
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-5">ARTIGO DO SISTEMA</p>
             <p className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-2">{article.title}</p>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">{article.phrase}</p>
+            <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-stone-900/10 pt-8 lg:grid-cols-1">
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Leitura</dt>
+                <dd className="mt-2 font-serif text-2xl text-stone-950">{readingMinutes} min</dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Seções</dt>
+                <dd className="mt-2 font-serif text-2xl text-stone-950">{article.sections.length}</dd>
+              </div>
+            </dl>
           </aside>
 
           <div>
@@ -1145,21 +1192,64 @@ function SistemaArticle({ slug, navigate }) {
           </div>
         </section>
 
-        <div className="mx-auto max-w-4xl py-20 md:py-28">
-          {article.sections.map((section) => (
-            <section key={section.heading} className="mb-20 last:mb-0">
-              <h2 className="font-serif text-3xl md:text-5xl leading-tight text-stone-950 mb-8 text-balance">
-                {section.heading}
-              </h2>
-              <div className="space-y-7">
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph} className="text-lg md:text-xl font-light leading-[1.85] text-stone-700">
-                    {paragraph}
-                  </p>
+        <nav className="border-b border-stone-900/10 py-8 lg:hidden" aria-label="Sumário do artigo">
+          <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sumário</p>
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {sectionLinks.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className="shrink-0 border border-stone-900/10 bg-white/30 px-4 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-600 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+              >
+                {section.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        <div className="grid gap-12 py-20 md:py-28 lg:grid-cols-[0.42fr_1fr]">
+          <aside className="hidden lg:block">
+            <div className="sticky top-36 border-l border-stone-900/10 pl-8">
+              <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sumário</p>
+              <nav className="flex flex-col gap-4" aria-label="Sumário do artigo">
+                {sectionLinks.map((section) => (
+                  <a
+                    key={section.id}
+                    className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                    href={`#${section.id}`}
+                  >
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400 group-hover:text-stone-900 transition-colors">
+                      {section.label}
+                    </span>
+                    <span className="mt-1 block text-sm font-light leading-relaxed text-stone-500 group-hover:text-stone-700 transition-colors">
+                      {section.heading}
+                    </span>
+                  </a>
                 ))}
+              </nav>
+              <div className="mt-10 border-t border-stone-900/10 pt-6">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Tempo estimado</p>
+                <p className="mt-2 font-serif text-2xl text-stone-950">{readingMinutes} min de leitura</p>
               </div>
-            </section>
-          ))}
+            </div>
+          </aside>
+
+          <div className="max-w-4xl">
+            {article.sections.map((section, index) => (
+              <section id={getArticleSectionId(article.slug, section, index)} key={section.heading} className="mb-20 scroll-mt-36 last:mb-0">
+                <h2 className="font-serif text-3xl md:text-5xl leading-tight text-stone-950 mb-8 text-balance">
+                  {section.heading}
+                </h2>
+                <div className="space-y-7">
+                  {section.paragraphs.map((paragraph) => (
+                    <p key={paragraph} className="text-lg md:text-xl font-light leading-[1.85] text-stone-700">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
         </div>
 
         <nav className="grid gap-6 border-t border-stone-900/10 py-12 md:grid-cols-3" aria-label="Navegação entre artigos do Sistema">
