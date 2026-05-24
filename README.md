@@ -54,3 +54,11 @@ Invoke-WebRequest -Uri "https://paesconsultoria.com/sitemap.xml" -UseBasicParsin
 ```
 
 Em seguida, solicitar indexacao no Google Search Console e Bing Webmaster Tools.
+
+## IndexNow
+
+O site tambem possui uma chave publica IndexNow em:
+
+- `public/9ce105cc8fc09b27ee455038a876fc0a.txt`
+
+Use essa chave para notificar Bing e mecanismos participantes quando a homepage for atualizada.
