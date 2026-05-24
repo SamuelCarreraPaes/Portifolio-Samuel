@@ -27,6 +27,8 @@ Arquivos e pontos principais:
 
 ## Conteudo Editorial
 
+A pagina `Visao` apresenta a tese de marca como experiencia continua, conectando online, espaco fisico, atendimento, operacao e jornada omnichannel.
+
 A pagina `Sistema` consolida seis pilares autorais do metodo Samuel Paes e funciona como indice editorial para artigos individuais:
 
 - `/sistema/leitura-de-marca` - Leitura de Marca

@@ -649,7 +649,7 @@ function Inicio({ navigate }) {
 function Visao() {
   return (
     <PageTransition>
-      <DynamicSEO title="Visão Criativa" description="O espaço físico é onde a estratégia deixa de ser discurso e passa a ser experiência." />
+      <DynamicSEO title="Visão Criativa" description="Direção criativa para construir marcas reconhecíveis no online, no físico e na jornada omnichannel." url="visao" />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12">
         <header>
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CREATIVE STATEMENT</span>
@@ -659,31 +659,51 @@ function Visao() {
             <span className="text-stone-500 italic font-light">Criativa.</span>
           </h1>
           <p className="mt-16 text-xl md:text-3xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 max-w-4xl text-balance">
-            "O espaço físico é onde a estratégia deixa de ser discurso e passa a ser experiência."
+            "A marca não acontece em um único ponto. Ela se constrói na continuidade entre imagem, produto, atendimento, espaço, operação e memória."
           </p>
         </header>
+
+        <section className="mt-24 grid gap-12 border-y border-stone-900/10 py-16 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="experiencia-continua-title">
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">MARCA COMO EXPERIÊNCIA CONTÍNUA</span>
+            <h2 id="experiencia-continua-title" className="font-serif text-4xl md:text-6xl leading-tight text-stone-950 text-balance">
+              Online cria expectativa. O físico confirma presença. A operação sustenta reconhecimento.
+            </h2>
+          </div>
+          <div className="space-y-7 text-base md:text-xl font-light leading-relaxed text-stone-700">
+            <p>
+              O cliente não encontra uma marca apenas na loja. Ele chega por uma imagem, uma campanha, uma busca, uma conversa no WhatsApp, um catálogo, uma vitrine digital, uma recomendação, um provador, uma embalagem e um pós-venda.
+            </p>
+            <p>
+              A visão de Samuel Carrera Paes parte dessa sequência. Direção criativa não é apenas estética de loja: é arquitetura de percepção para que a marca pareça uma só em todos os canais, do primeiro contato online à experiência física e à memória que permanece.
+            </p>
+            <p>
+              O varejo físico segue como campo sensível decisivo, porque é nele que corpo, matéria, escala e atendimento testam a promessa. Mas o trabalho começa antes da porta e continua depois da saída: no conteúdo, no calendário comercial, na curadoria digital, no atendimento e na consistência omnichannel.
+            </p>
+          </div>
+        </section>
 
         <section aria-label="Pilares da Visão Criativa">
           <ol className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mt-32 border-t border-stone-900/10 pt-16">
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">01</span>
               <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Leitura de Marca</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Compreender os códigos visuais ocultos e traduzir o posicionamento intangível para o ambiente construído.</p>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Compreender os códigos ocultos da marca e traduzi-los em linguagem reconhecível no conteúdo, no produto, no atendimento e no espaço.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">02</span>
               <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Produto como Narrativa</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">A exposição deixa de ser armazenamento para se tornar uma edição curatorial que conta uma história.</p>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">A exposição deixa de ser armazenamento e vira edição curatorial para vitrine, feed, campanha, catálogo e loja.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">03</span>
               <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Espaço como Mídia</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Projetar a loja não como um canal logístico, mas como a principal mídia de imersão e contato físico.</p>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Projetar a loja como mídia de imersão sem separar sua narrativa dos canais digitais que criam expectativa.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">04</span>
               <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Percepção como Valor</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Manipular cor, luz, textura e layout para orquestrar a atenção e gerar desejo tangível.</p>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Orquestrar imagem, cor, luz, textura, copy, atendimento e ritmo para gerar desejo tangível em cada ponto de contato.</p>
             </li>
           </ol>
         </section>
@@ -992,7 +1012,7 @@ function Sistema({ navigate }) {
     <PageTransition>
       <DynamicSEO
         title="Sistema de Direção Criativa"
-        description="Índice editorial com seis artigos autorais do sistema Samuel Carrera Paes para transformar marca, produto, espaço e operação em percepção de valor no varejo físico."
+        description="Índice editorial com seis artigos autorais do sistema Samuel Carrera Paes para transformar marca, produto, espaço, operação e jornada omnichannel em percepção de valor."
         url="sistema"
       />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12" aria-labelledby="sistema-title">
@@ -1002,7 +1022,7 @@ function Sistema({ navigate }) {
             Sistema de Direção Criativa.
           </h1>
           <p className="text-xl md:text-3xl font-light text-stone-600 max-w-3xl mb-24 leading-relaxed text-balance">
-            Um índice editorial em seis artigos sobre a loja física como tecnologia de percepção: marca, produto, espaço, matéria, operação e desejo.
+            Seis artigos sobre a loja física como tecnologia de percepção e sobre os princípios que também organizam presença digital, calendário comercial, atendimento e jornada omnichannel.
           </p>
         </header>
 
