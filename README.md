@@ -36,7 +36,7 @@ A pagina `Sistema` consolida seis pilares autorais do metodo Samuel Paes e funci
 - `/sistema/operacao-criativa` - Operacao Criativa
 - `/sistema/experiencia-fisica` - Experiencia Fisica
 
-O conteudo foi extraido do material `Sistema_Samuel_Paes_Artigos_Reescritos_Voz_Autoral.docx` e consolidado em `src/sistemaArticles.js`. Cada artigo possui URL limpa, SEO dinamico, navegacao anterior/proximo e link de retorno ao indice do Sistema.
+O conteudo foi extraido do material `Sistema_Samuel_Paes_Artigos_Reescritos_Voz_Autoral.docx` e consolidado em `src/sistemaArticles.js`. Cada artigo possui URL limpa, SEO dinamico, tempo estimado de leitura, sumario de secoes, navegacao anterior/proximo e link de retorno ao indice do Sistema.
 
 ## Validacao Local
 
