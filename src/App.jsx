@@ -1144,7 +1144,7 @@ function Verdeburgo({ navigate }) {
               <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.35em] text-[#F4F0E9]/70">
                 Plataforma Criativa
               </span>
-              <h1 id="verdeburgo-title" className="max-w-full overflow-hidden font-serif text-[16vw] leading-[0.82] tracking-tight sm:text-6xl md:text-[8rem] lg:text-[10rem] text-balance">
+              <h1 id="verdeburgo-title" className="max-w-full overflow-hidden font-serif text-[16vw] leading-[0.82] tracking-tight sm:text-6xl md:text-[7rem] lg:text-[9rem] 2xl:text-[10rem] text-balance">
                 <span className="sm:hidden">VERDE<br />BURGO.</span>
                 <span className="hidden sm:inline">VERDEBURGO.</span>
               </h1>
@@ -1930,7 +1930,6 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
-
 
 
 
