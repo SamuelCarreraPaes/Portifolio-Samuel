@@ -1,0 +1,7 @@
+assets-source/
+*.backup-*.html
+src/*.backup-*.jsx
+src/*.backup-*.css
+src/*.bak-*
+preview-*.log
+preview-*.err.log

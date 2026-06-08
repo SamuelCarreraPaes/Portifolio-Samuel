@@ -1,0 +1,155 @@
+[
+  {
+    "folder": "slide_01_abertura",
+    "file": "slide-01-logo-verdeburgo-eventos-abertura.png",
+    "role": "Logo VERDEBURGO para abertura",
+    "bytes": 83386,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_01_abertura/slide-01-logo-verdeburgo-eventos-abertura.png"
+  },
+  {
+    "folder": "slide_02_casa_giardini",
+    "file": "slide-02-planta-casa-giardini-implantacao.png",
+    "role": "Planta e implantacao da Casa Giardini",
+    "bytes": 2542719,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_02_casa_giardini/slide-02-planta-casa-giardini-implantacao.png"
+  },
+  {
+    "folder": "slide_03_estilo_provencal",
+    "file": "slide-03-moodboard-provence-raiz-materialidade-antiga.png",
+    "role": "Moodboard de referencia provence raiz e materialidade antiga",
+    "bytes": 4212837,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_03_estilo_provencal/slide-03-moodboard-provence-raiz-materialidade-antiga.png"
+  },
+  {
+    "folder": "slide_04_paleta_materiais",
+    "file": "slide-04-moodboard-materia-real-toque-natural.png",
+    "role": "Moodboard de materiais naturais e texturas",
+    "bytes": 1990342,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_04_paleta_materiais/slide-04-moodboard-materia-real-toque-natural.png"
+  },
+  {
+    "folder": "slide_04_paleta_materiais",
+    "file": "slide-04-paleta-provence-editoriale.png",
+    "role": "Paleta cromatica Provence Editoriale",
+    "bytes": 718391,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_04_paleta_materiais/slide-04-paleta-provence-editoriale.png"
+  },
+  {
+    "folder": "slide_05_floral",
+    "file": "slide-05-estudo-floral-volume-natural.png",
+    "role": "Estudo floral de volume natural",
+    "bytes": 5431632,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_05_floral/slide-05-estudo-floral-volume-natural.png"
+  },
+  {
+    "folder": "slide_06_cerimonia_paisagem",
+    "file": "slide-06-moodboard-cerimonia-paisagem-romantica.png",
+    "role": "Moodboard da cerimonia e paisagem romantica",
+    "bytes": 2941731,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_06_cerimonia_paisagem/slide-06-moodboard-cerimonia-paisagem-romantica.png"
+  },
+  {
+    "folder": "slide_07_cerimonia_passarela",
+    "file": "slide-07-render-cerimonia-passarela-altar.png",
+    "role": "Render da cerimonia, passarela e altar",
+    "bytes": 2226872,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_07_cerimonia_passarela/slide-07-render-cerimonia-passarela-altar.png"
+  },
+  {
+    "folder": "slide_08_mesa_bolo_monumentalidade",
+    "file": "slide-08-moodboard-mesa-bolo-monumentalidade-romantica.png",
+    "role": "Moodboard da mesa do bolo e monumentalidade romantica",
+    "bytes": 2887822,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_08_mesa_bolo_monumentalidade/slide-08-moodboard-mesa-bolo-monumentalidade-romantica.png"
+  },
+  {
+    "folder": "slide_09_mesa_bolo_bar",
+    "file": "slide-09-render-mesa-bolo-toile-lustres.png",
+    "role": "Render da mesa do bolo com Toile de Jouy e lustres",
+    "bytes": 2803287,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_09_mesa_bolo_bar/slide-09-render-mesa-bolo-toile-lustres.png"
+  },
+  {
+    "folder": "slide_09_mesa_bolo_bar",
+    "file": "slide-09-render-mesas-auxiliares-doces.png",
+    "role": "Render de mesas auxiliares e doces",
+    "bytes": 1839945,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_09_mesa_bolo_bar/slide-09-render-mesas-auxiliares-doces.png"
+  },
+  {
+    "folder": "slide_10_bar_hospitalidade",
+    "file": "slide-10-render-bar-hospitalidade-toile-lavanda.png",
+    "role": "Render do bar de hospitalidade com Toile e lavanda",
+    "bytes": 1669962,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_10_bar_hospitalidade/slide-10-render-bar-hospitalidade-toile-lavanda.png"
+  },
+  {
+    "folder": "slide_10_bar_hospitalidade",
+    "file": "slide-10-render-bar-toile-pinheiros-luminarias.png",
+    "role": "Render do bar com Toile, pinheiros e luminarias",
+    "bytes": 1191942,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_10_bar_hospitalidade/slide-10-render-bar-toile-pinheiros-luminarias.png"
+  },
+  {
+    "folder": "slide_11_lounge_escada",
+    "file": "slide-11-moodboard-lounge-convivencia-memoria.png",
+    "role": "Moodboard do lounge, convivencia e memoria",
+    "bytes": 2711320,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_11_lounge_escada/slide-11-moodboard-lounge-convivencia-memoria.png"
+  },
+  {
+    "folder": "slide_12_lounge_escada_detalhes",
+    "file": "slide-12-render-escada-cascata-floral.png",
+    "role": "Render da escada com cascata floral",
+    "bytes": 2046624,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_12_lounge_escada_detalhes/slide-12-render-escada-cascata-floral.png"
+  },
+  {
+    "folder": "slide_12_lounge_escada_detalhes",
+    "file": "slide-12-render-lounge-residencial-linho-azul.png",
+    "role": "Render do lounge residencial com linho e azul",
+    "bytes": 2358585,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_12_lounge_escada_detalhes/slide-12-render-lounge-residencial-linho-azul.png"
+  },
+  {
+    "folder": "slide_14_essencia_revelada",
+    "file": "slide-14-logo-verdeburgo-eventos-encerramento.png",
+    "role": "Logo VERDEBURGO para encerramento",
+    "bytes": 96478,
+    "width": null,
+    "height": null,
+    "publicPath": "/images/14_VERDEBURGO/PROVENCE_RAIZ/01_ASSETS_POR_SLIDE/slide_14_essencia_revelada/slide-14-logo-verdeburgo-eventos-encerramento.png"
+  }
+]

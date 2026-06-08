@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
 
@@ -327,6 +327,100 @@ const homePortrait = "/images/13_VISAO/about-transition.png";
 
 // --- CURVAS DE TRANSIÇÃO PREMIUM ---
 const PREMIUM_EASE = [0.22, 1, 0.36, 1];
+
+const verdeburgoBase = "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB";
+
+const verdeburgoAssets = {
+  logo: `${verdeburgoBase}/logo-verdeburgo-eventos.png`,
+  hero: `${verdeburgoBase}/hero-mural-toile-de-jouy-provence-raiz.jpg`,
+  planta: `${verdeburgoBase}/provence-raiz-planta-casa-giardini.jpg`,
+  materialidade: `${verdeburgoBase}/provence-raiz-moodboard-materialidade-antiga.jpg`,
+  materiaReal: `${verdeburgoBase}/provence-raiz-moodboard-materia-real.jpg`,
+  floral: `${verdeburgoBase}/provence-raiz-estudo-floral-volume-natural.jpg`,
+  cerimoniaMood: `${verdeburgoBase}/provence-raiz-moodboard-cerimonia.jpg`,
+  cerimonia: `${verdeburgoBase}/provence-raiz-cerimonia-passarela-altar.jpg`,
+  mesaMood: `${verdeburgoBase}/provence-raiz-moodboard-mesa-bolo.jpg`,
+  mesa: `${verdeburgoBase}/provence-raiz-mesa-bolo-toile-lustres.jpg`,
+  bar: `${verdeburgoBase}/provence-raiz-bar-hospitalidade-toile-lavanda.jpg`,
+  loungeMood: `${verdeburgoBase}/provence-raiz-moodboard-lounge.jpg`,
+  lounge: `${verdeburgoBase}/provence-raiz-lounge-residencial-linho-azul.jpg`,
+  escada: `${verdeburgoBase}/provence-raiz-escada-cascata-floral.jpg`,
+  pilastras: `${verdeburgoBase}/prancha-tecnica-pilastras-cenograficas-altar.jpg`,
+  luminariaCarretel: `${verdeburgoBase}/prancha-tecnica-luminaria-pendulo-carretel.jpg`,
+  luminariaSuspensa: `${verdeburgoBase}/prancha-tecnica-luminaria-cenografica-suspensa.jpg`
+};
+
+const verdeburgoChapters = [
+  {
+    number: "01",
+    label: "Origem",
+    title: "Uma Provence menos literal e mais enraizada.",
+    text: "O projeto parte de uma atmosfera romântica, orgânica e construída por camadas. A intenção não é reproduzir uma paisagem francesa, mas traduzir sua memória em matéria, luz e permanência.",
+    image: verdeburgoAssets.materialidade,
+    alt: "Moodboard com referências de materialidade antiga, elementos naturais e atmosfera provençal."
+  },
+  {
+    number: "02",
+    label: "Linguagem Visual",
+    title: "Toile de Jouy como memória gráfica, não como estampa decorativa.",
+    text: "A linguagem combina romantismo provençal, luxo silencioso e uma materialidade tátil: linho natural, madeira, metal champagne, porcelana azul e branca, voal translúcido e luz quente.",
+    image: verdeburgoAssets.materiaReal,
+    alt: "Moodboard de materiais naturais, texturas, Toile de Jouy e paleta suave."
+  },
+  {
+    number: "03",
+    label: "Arquitetura",
+    title: "A Casa Giardini não é pano de fundo. É matéria viva.",
+    text: "Varanda, salão, concreto aparente, luz natural e vista para as colinas de Confins orientam a narrativa. O espaço real conduz o desenho cenográfico, em vez de ser disfarçado por ele.",
+    image: verdeburgoAssets.planta,
+    alt: "Planta de implantação da Casa Giardini para o projeto Provence Raiz."
+  },
+  {
+    number: "04",
+    label: "Floral",
+    title: "Volume orgânico, nunca preenchimento.",
+    text: "O floral procura movimento, respiro e irregularidade controlada, como se a paisagem tivesse atravessado a arquitetura. Blush, ivory e dusty blue aparecem como ritmo, não como fórmula.",
+    image: verdeburgoAssets.floral,
+    alt: "Estudo floral com volume natural, flores claras e referências botânicas."
+  },
+  {
+    number: "05",
+    label: "Cerimônia",
+    title: "Uma cena em deslocamento.",
+    text: "A passarela preserva o respiro central, os florais conduzem o olhar, os voais filtram a luz e o altar surge como extensão natural do espaço.",
+    image: verdeburgoAssets.cerimonia,
+    alt: "Render da cerimônia Provence Raiz com passarela, florais e altar."
+  },
+  {
+    number: "06",
+    label: "Permanência",
+    title: "Hospitalidade como experiência, não passagem.",
+    text: "Bar, lounge, mesa do bolo e escada criam zonas de permanência. Cada ambiente sustenta uma qualidade: chegada, encontro, contemplação, memória e fotografia.",
+    image: verdeburgoAssets.lounge,
+    alt: "Render do lounge Provence Raiz com sofá em linho, tapete azul e atmosfera residencial."
+  }
+];
+
+const verdeburgoObjects = [
+  {
+    title: "Pilastras Cenográficas",
+    text: "Estruturam o altar como presença arquitetônica temporária. Não simulam permanência: criam verticalidade, enquadramento e solenidade.",
+    image: verdeburgoAssets.pilastras,
+    alt: "Prancha técnica das pilastras cenográficas para altar Provence Raiz."
+  },
+  {
+    title: "Luminária Carretel",
+    text: "Nasce da tensão entre objeto rústico e peça cenográfica refinada. Madeira clara, difusão leitosa e luz quente constroem uma presença suspensa e silenciosa.",
+    image: verdeburgoAssets.luminariaCarretel,
+    alt: "Prancha técnica da luminária pêndulo carretel cenográfico Provence Raiz."
+  },
+  {
+    title: "Luminária Cenográfica Suspensa",
+    text: "Amplia a escala da celebração sem perder delicadeza. Estrutura metálica, difusores translúcidos e luz interna transformam o objeto em eixo vertical de cena.",
+    image: verdeburgoAssets.luminariaSuspensa,
+    alt: "Prancha técnica da luminária cenográfica suspensa Provence Raiz."
+  }
+];
 
 // --- CUSTOM ROUTER HOOK FOR SEO & SHAREABILITY ---
 function getRouteFromLocation() {
@@ -742,7 +836,7 @@ function Cases({ navigate }) {
 
   return (
     <PageTransition>
-      <DynamicSEO title="Curated Works" description="11 formas de construir presença por imagem, produto, espaço e experiência." />
+      <DynamicSEO title="Curated Works" description="11 formas de construir presença por imagem, produto, espaço e experiência." url="cases" />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="cases-title">
         
         {/* --- CURATED WORKS INDEX --- */}
@@ -1002,6 +1096,237 @@ function CaseDetail({ caseId, navigate }) {
           </button>
         </div>
 
+      </article>
+    </PageTransition>
+  );
+}
+
+function Verdeburgo({ navigate }) {
+  const scrollToProvence = () => {
+    document.getElementById("provence-raiz")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title="VERDEBURGO"
+        description="VERDEBURGO é a plataforma criativa de Samuel Carrera Paes para experiências, cenografias e narrativas espaciais autorais. Provence Raiz inaugura esta linguagem."
+        url="verdeburgo"
+        image={verdeburgoAssets.hero}
+        schemaType="CreativeWork"
+      />
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="verdeburgo-title">
+        <section className="relative min-h-[78vh] w-full max-w-full overflow-hidden bg-stone-950 text-[#F4F0E9] rounded-sm" aria-label="Abertura VERDEBURGO">
+          <img
+            src={verdeburgoAssets.hero}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover opacity-55"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/40 via-stone-950/30 to-stone-950/75" aria-hidden="true" />
+          <div className="relative z-10 flex min-h-[78vh] flex-col justify-between p-6 md:p-12 lg:p-16">
+            <header className="flex items-start justify-between gap-8">
+              <img
+                src={verdeburgoAssets.logo}
+                alt="VERDEBURGO"
+                className="h-20 w-20 object-contain brightness-0 invert md:h-28 md:w-28"
+                loading="eager"
+                decoding="async"
+              />
+              <span className="hidden max-w-[11rem] text-right text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9]/70 sm:block">
+                Experiências · Cenografia · Narrativas Espaciais
+              </span>
+            </header>
+
+            <div className="max-w-5xl">
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.35em] text-[#F4F0E9]/70">
+                Plataforma Criativa
+              </span>
+              <h1 id="verdeburgo-title" className="max-w-full overflow-hidden font-serif text-[16vw] leading-[0.82] tracking-tight sm:text-6xl md:text-[8rem] lg:text-[10rem] text-balance">
+                <span className="sm:hidden">VERDE<br />BURGO.</span>
+                <span className="hidden sm:inline">VERDEBURGO.</span>
+              </h1>
+              <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed text-[#F4F0E9]/85 md:text-2xl text-balance">
+                Plataforma criativa dedicada ao desenvolvimento de experiências, cenografias e narrativas espaciais autorais dentro do ecossistema Samuel Carrera Paes.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={scrollToProvence}
+              className="group mt-14 inline-flex w-fit items-center gap-4 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+            >
+              Explorar Provence Raiz
+              <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </button>
+          </div>
+        </section>
+
+        <section className="grid gap-12 border-b border-stone-900/10 py-24 md:py-32 lg:grid-cols-[0.9fr_1.1fr]" aria-labelledby="verdeburgo-manifesto">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Manifesto</span>
+            <h2 id="verdeburgo-manifesto" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl lg:text-7xl text-balance">
+              Não desenhamos eventos. Construímos narrativas habitáveis.
+            </h2>
+          </div>
+          <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
+            <p>
+              A VERDEBURGO entende a cenografia como linguagem espacial. Cada gesto — uma pilastra, uma luminária, um tecido, uma sombra, uma flor — nasce para construir sentido, não apenas aparência.
+            </p>
+            <p>
+              Seu território é a interseção entre direção criativa, arquitetura efêmera, hospitalidade e celebração. Espaço, matéria, luz, memória e narrativa tornam-se uma única linguagem.
+            </p>
+          </div>
+        </section>
+
+        <section id="provence-raiz" className="scroll-mt-32 border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="provence-title">
+          <header className="grid gap-12 lg:grid-cols-[0.65fr_1.35fr]">
+            <aside>
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Projeto Inaugural</span>
+              <dl className="grid grid-cols-2 gap-6 border-t border-stone-900/10 pt-8 lg:grid-cols-1">
+                <div>
+                  <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Projeto</dt>
+                  <dd className="mt-2 font-serif text-2xl text-stone-950">Provence Raiz</dd>
+                </div>
+                <div>
+                  <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Para</dt>
+                  <dd className="mt-2 font-serif text-2xl text-stone-950">Marcelle & Marcus Vinicius</dd>
+                </div>
+                <div>
+                  <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Território</dt>
+                  <dd className="mt-2 text-sm font-light leading-relaxed text-stone-700">Experiência · Cenografia · Design de Objetos</dd>
+                </div>
+              </dl>
+            </aside>
+            <div>
+              <h2 id="provence-title" className="font-serif text-5xl leading-[0.9] text-stone-950 md:text-7xl lg:text-8xl text-balance">
+                Provence Raiz.
+              </h2>
+              <p className="mt-10 max-w-4xl text-xl font-light leading-relaxed text-stone-600 md:text-3xl text-balance">
+                Uma interpretação contemporânea da Provence francesa construída a partir da arquitetura da Casa Giardini, da paisagem de Confins, da materialidade natural e de uma memória visual afetiva.
+              </p>
+            </div>
+          </header>
+
+          <figure className="mt-20 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+            <div className="relative aspect-[16/10] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
+              <ImageWithFallback
+                src={verdeburgoAssets.mesa}
+                alt="Render da mesa do bolo Provence Raiz com Toile de Jouy, luminárias e florais."
+                mode="cover"
+                loading="eager"
+                imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
+              />
+            </div>
+            <figcaption className="flex flex-col justify-end border-l border-stone-900/10 pl-8 text-sm font-light leading-relaxed text-stone-600">
+              <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Tese visual</span>
+              A arquitetura não é pano de fundo. Concreto, vista, luz, sombra, Toile de Jouy, floral e objetos autorais entram como matéria viva da narrativa.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section className="py-24 md:py-32" aria-labelledby="verdeburgo-capitulos">
+          <header className="mb-16 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Capítulos do Projeto</span>
+            <h2 id="verdeburgo-capitulos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Uma leitura vertical de conceito, matéria, espaço e memória.
+            </h2>
+          </header>
+
+          <div className="space-y-24">
+            {verdeburgoChapters.map((chapter, index) => (
+              <section
+                key={chapter.number}
+                className={`grid gap-10 border-t border-stone-900/10 pt-12 lg:grid-cols-2 lg:items-center ${index % 2 === 1 ? "lg:[&>figure]:order-2" : ""}`}
+                aria-labelledby={`verdeburgo-chapter-${chapter.number}`}
+              >
+                <figure className="relative aspect-[4/3] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
+                  <ImageWithFallback
+                    src={chapter.image}
+                    alt={chapter.alt}
+                    mode="cover"
+                    imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
+                  />
+                </figure>
+                <div className="max-w-xl">
+                  <span className="mb-8 block font-serif text-5xl text-stone-300" aria-hidden="true">{chapter.number}</span>
+                  <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">{chapter.label}</p>
+                  <h3 id={`verdeburgo-chapter-${chapter.number}`} className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
+                    {chapter.title}
+                  </h3>
+                  <p className="mt-8 text-base font-light leading-relaxed text-stone-600 md:text-lg">
+                    {chapter.text}
+                  </p>
+                </div>
+              </section>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-y border-stone-900/10 py-24 md:py-32" aria-labelledby="objetos-autorais">
+          <header className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Objetos Autorais</span>
+              <h2 id="objetos-autorais" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+                Peças entre cenografia, arquitetura efêmera e design de produto.
+              </h2>
+            </div>
+            <p className="text-lg font-light leading-relaxed text-stone-700 md:text-xl">
+              Alguns elementos foram desenvolvidos como dispositivos espaciais para organizar escala, luz, ritmo e memória. As pranchas técnicas não entram como anexo frio: elas revelam a engenharia invisível da experiência.
+            </p>
+          </header>
+
+          <div className="mt-16 grid gap-8 lg:grid-cols-3">
+            {verdeburgoObjects.map((item) => (
+              <article key={item.title} className="flex flex-col border-t border-stone-900/10 pt-8">
+                <figure className="relative aspect-[4/3] overflow-hidden bg-white/40 rounded-sm shadow-sm">
+                  <ImageWithFallback
+                    src={item.image}
+                    alt={item.alt}
+                    mode="cover"
+                    imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
+                  />
+                </figure>
+                <h3 className="mt-8 font-serif text-3xl leading-tight text-stone-950">{item.title}</h3>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-8 py-24 md:py-32 lg:grid-cols-3" aria-label="Engenharia e desenvolvimento">
+          {[
+            ["Montável", "Cada peça precisa existir fisicamente, ser transportável, segura e coerente com o tempo real de montagem."],
+            ["Técnico", "A camada executiva traduz intenção em medidas, materiais, tolerâncias, fixações e leitura de produção."],
+            ["Editorial", "O rigor técnico aparece como valor autoral: a beleza final nasce da precisão invisível entre desenho, matéria e execução."]
+          ].map(([title, text]) => (
+            <section key={title} className="border-t border-stone-900/10 pt-8">
+              <CheckCircle2 className="mb-8 h-5 w-5 text-stone-900" aria-hidden="true" />
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
+              <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
+            </section>
+          ))}
+        </section>
+
+        <footer className="mb-16 bg-stone-950 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
+          <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
+            Cada detalhe foi desenhado para revelar, não decorar.
+          </p>
+          <p className="mx-auto mt-8 max-w-2xl text-sm font-light leading-relaxed text-[#F4F0E9]/70 md:text-base">
+            É a Provence Raiz. Onde arquitetura, paisagem, matéria e memória tornam-se uma única experiência.
+          </p>
+          <div className="mt-12 flex flex-col items-center justify-center gap-5 md:flex-row">
+            <button
+              type="button"
+              onClick={() => navigate("contato")}
+              className="inline-flex items-center gap-3 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+            >
+              Conversar sobre uma experiência <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        </footer>
       </article>
     </PageTransition>
   );
@@ -1317,7 +1642,11 @@ function Contato() {
 
   return (
     <PageTransition>
-      <DynamicSEO title="Contato" />
+      <DynamicSEO
+        title="Contato"
+        description="Contato profissional de Samuel Carrera Paes / Paes Consultoria para direção criativa, experiências, varejo, branding e cenografia."
+        url="contato"
+      />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col justify-between min-h-[85vh] pt-12 relative">
         <header>
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">EDITORIAL CLOSING</span>
@@ -1439,8 +1768,9 @@ export default function SamuelPaesPortfolio() {
     { id: "inicio", num: "01.", label: "INÍCIO" },
     { id: "visao", num: "02.", label: "Visão" },
     { id: "cases", num: "03.", label: "Cases" },
-    { id: "sistema", num: "04.", label: "Sistema" },
-    { id: "contato", num: "05.", label: "Contato" },
+    { id: "verdeburgo", num: "04.", label: "VERDEBURGO" },
+    { id: "sistema", num: "05.", label: "Sistema" },
+    { id: "contato", num: "06.", label: "Contato" },
   ];
 
   const handleNavClick = (id) => {
@@ -1547,7 +1877,7 @@ export default function SamuelPaesPortfolio() {
               animate={{ height: "100vh", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.6, ease: PREMIUM_EASE }}
-              className="lg:hidden absolute top-20 left-0 w-full bg-[#F4F0E9] flex flex-col justify-center px-8 pb-32 shadow-xl"
+              className="lg:hidden absolute top-20 left-0 w-full bg-[#F4F0E9] flex max-h-[calc(100vh-5rem)] flex-col overflow-y-auto px-8 py-16 shadow-xl"
             >
               <div className="flex flex-col gap-6">
                 {navLinks.map((link, idx) => (
@@ -1563,7 +1893,7 @@ export default function SamuelPaesPortfolio() {
                     }`}
                   >
                     <span className="font-serif text-3xl italic opacity-50" aria-hidden="true">{link.num}</span>
-                    <span className="font-serif text-5xl tracking-tight">{link.label}</span>
+                    <span className="font-serif text-4xl tracking-tight sm:text-5xl">{link.label}</span>
                   </motion.button>
                 ))}
               </div>
@@ -1590,6 +1920,7 @@ export default function SamuelPaesPortfolio() {
           {route === "visao" && <Visao key="visao" />}
           {route === "cases" && <Cases key="cases" navigate={navigate} />}
           {route.startsWith("case/") && <CaseDetail key="case-detail" caseId={route.replace("case/", "")} navigate={navigate} />}
+          {route === "verdeburgo" && <Verdeburgo key="verdeburgo" navigate={navigate} />}
           {route === "sistema" && <Sistema key="sistema" navigate={navigate} />}
           {route.startsWith("sistema/") && <SistemaArticle key={route} slug={route.replace("sistema/", "")} navigate={navigate} />}
           {route === "contato" && <Contato key="contato" />}
@@ -1599,9 +1930,6 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
-
-
-
 
 
 
