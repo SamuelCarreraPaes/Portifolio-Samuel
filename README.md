@@ -1,6 +1,6 @@
 # Samuel Carrera Paes - Portfolio
 
-Portfolio oficial de Samuel Carrera Paes / Paes Consultoria, publicado em:
+Ecossistema digital oficial de Samuel Carrera Paes / Paes Consultoria, publicado em:
 
 - https://paesconsultoria.com
 - https://www.paesconsultoria.com
@@ -27,27 +27,37 @@ Arquivos e pontos principais:
 
 ## Conteudo Editorial
 
-A pagina `Visao` apresenta a tese de marca como experiencia continua, conectando online, espaco fisico, atendimento, operacao e jornada omnichannel.
+A pagina `Inicio` apresenta Samuel Paes como diretor criativo, consultor criativo e criador de empresas dentro da tese da Geracao dos Realizadores.
 
-A pagina `VERDEBURGO` apresenta a empresa criativa dedicada ao desenvolvimento de experiencias, cenografias, narrativas e desdobramentos visuais dentro do ecossistema Samuel Carrera Paes. A rota publica `/verdeburgo` inaugura a area com o projeto `Provence Raiz`, incluindo manifesto, leitura editorial do projeto, renders, objetos autorais e pranchas tecnicas.
+A pagina `Visao` explica o ecossistema criativo como metodo, conectando direcao criativa, empresas, marca, eventos, experiencia, comunicacao, operacao, execucao, inteligencia artificial e pensamento estrategico.
+
+A pagina `Ecossistema` substitui a antiga area de cases como porta de entrada para empresas, projetos e biblioteca. A rota publica principal e `/ecossistema`; a rota antiga `/cases` segue funcionando como compatibilidade.
+
+A pagina `BANAL` apresenta a empresa responsavel pela camada de branding, marketing, posicionamento, narrativa, conteudo, campanhas, percepcao de valor e estrategia criativa. Os antigos cases de marketing, varejo, comunicacao e marca passam a aparecer como projetos da BANAL.
+
+A pagina `VERDE BURGO` apresenta a empresa de eventos com solucao completa de buffet, decoracao, bar, cerimonial, planejamento, producao e execucao. Samuel Paes aparece dentro da Verde Burgo como responsavel por direcao criativa, identidade de evento e construcao de linguagem. `Provence Raiz` e apresentado como case/projeto dentro da Verde Burgo, nao como a empresa inteira.
 
 Assets do projeto:
 
+- `public/brands/banal`: imagens selecionadas do pacote BANAL para simbolo, cena fundadora e pranchas de identidade.
+- `public/brands/verde-burgo`: logos, icones, fundos e elementos selecionados do brand pack da Verde Burgo.
 - `assets-source/14_VERDEBURGO/PROVENCE_RAIZ`: imagens originais/editaveis extraidas do PPTX, separadas tambem por slide.
 - `public/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB`: versoes otimizadas usadas pela rota publica `/verdeburgo`.
 - `assets-source/14_VERDEBURGO/PROVENCE_RAIZ/10_REFINAMENTO_USUARIO`: imagens enviadas para refinamento editorial, reenquadramento e futura edicao.
 - `public/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO`: versoes web otimizadas das imagens refinadas usadas na rota publica `/verdeburgo`.
 
-A pagina `Sistema` consolida seis pilares autorais do metodo Samuel Paes e funciona como indice editorial para artigos individuais:
+A pagina `Biblioteca` substitui a antiga area `Sistema` e funciona como espaco para artigos, ensaios, manifestos e pesquisas que sustentam intelectualmente o ecossistema:
 
-- `/sistema/leitura-de-marca` - Leitura de Marca
-- `/sistema/curadoria-de-produto` - Curadoria de Produto
-- `/sistema/narrativa-espacial` - Narrativa Espacial
-- `/sistema/construcao-de-percepcao` - Construcao de Percepcao
-- `/sistema/operacao-criativa` - Operacao Criativa
-- `/sistema/experiencia-fisica` - Experiencia Fisica
+- `/biblioteca/leitura-de-marca` - Leitura de Marca
+- `/biblioteca/curadoria-de-produto` - Curadoria de Produto
+- `/biblioteca/narrativa-espacial` - Narrativa Espacial
+- `/biblioteca/construcao-de-percepcao` - Construcao de Percepcao
+- `/biblioteca/operacao-criativa` - Operacao Criativa
+- `/biblioteca/experiencia-fisica` - Experiencia Fisica
 
-O conteudo foi extraido do material `Sistema_Samuel_Paes_Artigos_Reescritos_Voz_Autoral.docx` e consolidado em `src/sistemaArticles.js`. Cada artigo possui URL limpa, SEO dinamico, tempo estimado de leitura, sumario de secoes, navegacao anterior/proximo e link de retorno ao indice do Sistema.
+As rotas antigas `/sistema` e `/sistema/:slug` seguem funcionando como compatibilidade, mas os canonicals apontam para `/biblioteca`.
+
+O conteudo foi extraido do material `Sistema_Samuel_Paes_Artigos_Reescritos_Voz_Autoral.docx` e consolidado em `src/sistemaArticles.js`. Cada artigo possui URL limpa, SEO dinamico, tempo estimado de leitura, sumario de secoes, navegacao anterior/proximo e link de retorno ao indice da Biblioteca.
 
 ## Validacao Local
 
