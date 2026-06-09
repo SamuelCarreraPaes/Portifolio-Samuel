@@ -460,22 +460,22 @@ const verdeBurgoBrandAssets = {
   slogan: "/brands/verde-burgo/elements/verde-burgo-slogan.png"
 };
 
-const generationPrinciples = [
+const consultancyPrinciples = [
   {
-    title: "Intenção em primeira forma",
-    text: "A inteligência artificial aproxima linguagem e execução. O valor humano passa a estar na direção, na escolha e na responsabilidade sobre o que ganha presença."
+    title: "Direção",
+    text: "Definir intenção, linguagem, critério e prioridade antes de qualquer entrega visual, comercial ou operacional."
   },
   {
-    title: "Autoria como resposta pelo todo",
-    text: "Na era da IA, autoria não é tocar cada parte manualmente. É orquestrar repertórios, validar saídas e responder pela consequência do conjunto."
+    title: "Identidade",
+    text: "Construir coerência entre marca, experiência, comunicação e presença para que cada negócio seja reconhecível."
   },
   {
-    title: "Empresas como sistemas vivos",
-    text: "BANAL e Verde Burgo não aparecem como projetos isolados. Elas funcionam como estruturas criadas para transformar visão em operação, comunicação e experiência."
+    title: "Execução",
+    text: "Levar a estratégia ao mundo real com operação, ritmo, acabamento e responsabilidade sobre o resultado."
   }
 ];
 
-const ecosystemCompanies = [
+const consultancyCompanies = [
   {
     id: "banal",
     name: "BANAL",
@@ -483,7 +483,7 @@ const ecosystemCompanies = [
     route: "banal",
     image: banalAssets.founderScene,
     statement: "O consumo acaba. O signo continua.",
-    description: "Empresa de branding, marketing e estratégia criativa dedicada a transformar observação cultural em posicionamento, conteúdo, campanhas e percepção de valor.",
+    description: "Empresa especializada em branding, marketing, comunicação, varejo e posicionamento para negócios que precisam se tornar mais claros, desejáveis e valiosos.",
     layers: ["Branding", "Marketing", "Posicionamento", "Narrativa", "Conteúdo", "Campanhas"]
   },
   {
@@ -493,19 +493,16 @@ const ecosystemCompanies = [
     route: "verdeburgo",
     image: verdeBurgoBrandAssets.caseCover,
     statement: "Evento bonito é consequência. Evento bem resolvido é estratégia.",
-    description: "Empresa de eventos com solução integrada de buffet, decoração, bar, cerimonial, planejamento, produção e execução, conduzida por direção criativa aplicada.",
+    description: "Empresa de eventos com solução integrada de buffet, decoração, bar, cerimonial, planejamento, produção e execução para festas completas.",
     layers: ["Buffet", "Decoração", "Bar", "Cerimonial", "Planejamento", "Produção"]
-  },
-  {
-    id: "futura",
-    name: "TERCEIRA EMPRESA",
-    eyebrow: "Em desenvolvimento",
-    route: "contato",
-    image: homePortrait,
-    statement: "Uma nova frente para ampliar o ecossistema.",
-    description: "Espaço reservado para a próxima empresa autoral criada a partir da visão estratégica e operacional de Samuel Carrera Paes.",
-    layers: ["Pesquisa", "Estrutura", "Identidade", "Operação"]
   }
+];
+
+const institutionalMetrics = [
+  { number: "4+", label: "Anos", text: "Construindo projetos de marca, varejo, experiência e eventos com direção criativa aplicada." },
+  { number: "100+", label: "Eventos", text: "Vivência prática em operação, bastidores, fornecedores, montagem, atendimento e entrega." },
+  { number: "50+", label: "Projetos", text: "Desenvolvimentos entre branding, comunicação, visual merchandising, campanhas e experiências." },
+  { number: "360°", label: "Entrega", text: "Da estratégia e identidade à execução final, com coerência entre pensamento e presença." }
 ];
 
 const verdeBurgoServices = [
@@ -519,6 +516,15 @@ const verdeBurgoServices = [
   "Identidade visual do evento"
 ];
 
+const verdeBurgoEventFormats = [
+  "Casamentos",
+  "Aniversários",
+  "Eventos corporativos",
+  "Festas especiais",
+  "Recepções",
+  "Experiências de marca"
+];
+
 const verdeBurgoMethod = [
   ["Escuta", "Entender desejo, contexto, orçamento, restrições e nível de tranquilidade que o cliente precisa."],
   ["Desenho", "Criar conceito, narrativa visual, atmosfera e linguagem do evento."],
@@ -527,11 +533,29 @@ const verdeBurgoMethod = [
   ["Presença", "Entregar uma experiência fluida, bonita, resolvida e memorável."]
 ];
 
+const banalServices = [
+  "Branding",
+  "Marketing",
+  "Comunicação",
+  "Varejo",
+  "Posicionamento",
+  "Narrativa",
+  "Conteúdo",
+  "Estratégia criativa"
+];
+
 const banalLayers = [
   ["Branding", "Construção de identidade, assinatura, sistema visual e percepção pública."],
   ["Marketing", "Campanhas, calendário, conteúdo, canais e estratégia de crescimento."],
   ["Narrativa", "Transformação de produto, gesto, cena ou detalhe em linguagem memorável."],
   ["Percepção de valor", "Arquitetura de sinais para fazer uma marca parecer mais clara, desejável e reconhecível."]
+];
+
+const banalProcess = [
+  ["Diagnóstico", "Leitura do negócio, do mercado, dos sinais de marca e dos pontos de confusão na percepção pública."],
+  ["Direção", "Definição de posicionamento, linguagem, narrativa, prioridade comercial e critérios de comunicação."],
+  ["Sistema", "Organização de identidade, conteúdo, campanha, varejo e presença em canais com consistência."],
+  ["Ativação", "Desdobramento em peças, rotinas, campanhas e experiências capazes de sustentar valor no uso real."]
 ];
 
 // --- CUSTOM ROUTER HOOK FOR SEO & SHAREABILITY ---
@@ -582,8 +606,8 @@ function useRouter() {
 function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) {
   useEffect(() => {
     const siteUrl = "https://paesconsultoria.com";
-    const defaultTitle = "Samuel Carrera Paes | Diretor Criativo — Ecossistema Criativo";
-    const defaultDescription = "Ecossistema criativo de Samuel Carrera Paes, diretor criativo e consultor criativo que cria empresas, projetos, identidades, narrativas e sistemas.";
+    const defaultTitle = "Paes Consultoria | Samuel Carrera Paes — Direção Criativa";
+    const defaultDescription = "Paes Consultoria desenvolve negócios, marcas, experiências e projetos por meio de direção criativa, identidade, estratégia, experiência e execução.";
     const pageTitle = !title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`;
     const pageDescription = description || defaultDescription;
     const pageUrl = url ? `${siteUrl}/${url.replace(/^\/+/, "")}` : siteUrl;
@@ -702,29 +726,20 @@ const PageTransition = ({ children, className = "" }) => {
 // --- PÁGINAS ---
 
 function Inicio({ navigate }) {
-  const stats = [
-    { number: "02", label: "Empresas", text: "BANAL e Verde Burgo como frentes autorais do ecossistema." },
-    { number: "11", label: "Projetos", text: "Projetos organizados por empresa, método e território." },
-    { number: "01", label: "Biblioteca", text: "Artigos, ensaios, manifestos e pesquisas para sustentar a visão." },
-    { number: "360°", label: "Presença", text: "Marca, evento, conteúdo, experiência, operação e memória." },
-    { number: "IA", label: "Método", text: "Inteligência artificial como ampliação de repertório, não substituição de direção." },
-  ];
-
   return (
     <PageTransition>
       <DynamicSEO title="Início" />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col justify-center min-h-[85vh] pt-10" aria-labelledby="home-title">
 
-        {/* SELO LOGO + PORTFOLIO 2026 */}
         <header className="mb-12 flex items-center gap-4">
           <img
             src="/images/00_LOGOS/symbol-black-transparent.png"
-            alt="Samuel Carrera Paes Logo"
+            alt="Paes Consultoria"
             className="h-20 md:h-24 lg:h-28 w-auto max-w-none object-contain opacity-100 bg-transparent"
             onError={(e) => e.target.style.display = 'none'}
           />
           <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
-            ECOSSISTEMA · 2026
+            PAES CONSULTORIA · 2026
           </span>
         </header>
 
@@ -735,9 +750,9 @@ function Inicio({ navigate }) {
           transition={{ duration: 1, delay: 0.1, ease: PREMIUM_EASE }}
           className="mt-4 max-w-6xl font-serif text-[13vw] sm:text-[9vw] md:text-[8rem] lg:text-[10.5rem] leading-[0.85] tracking-[-0.02em] text-stone-950 text-balance"
         >
-          Samuel Paes
+          Paes Consultoria
           <br />
-          <span className="italic text-stone-500 font-light pr-4">Diretor Criativo / Consultor Criativo.</span>
+          <span className="italic text-stone-500 font-light pr-4">Direção criativa, estratégia e execução.</span>
         </motion.h1>
 
         <motion.div
@@ -747,16 +762,15 @@ function Inicio({ navigate }) {
           className="mt-16 md:mt-24 max-w-3xl"
         >
           <p className="text-xl md:text-3xl lg:text-4xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 text-balance">
-            "Transformo intenção em presença real por meio de empresas, projetos, identidades, narrativas e sistemas criativos."
+            "Desenvolvemos negócios, marcas, experiências e projetos por meio de uma visão estratégica e criativa unificada."
           </p>
           <p className="mt-8 max-w-2xl text-sm md:text-base leading-relaxed text-stone-600 font-light">
-            Samuel Carrera Paes atua como diretor criativo, consultor criativo e criador de empresas dentro da tese da Geração dos Realizadores: uma forma de trabalho que conecta visão, repertório, inteligência artificial, estética, operação e execução responsável.
+            A Paes Consultoria conecta direção, identidade, experiência, percepção de valor e execução para que negócios de mercados diferentes não pareçam fragmentados. BANAL e Verde Burgo nascem desse mesmo núcleo de visão, método e autoria.
           </p>
         </motion.div>
 
-        {/* --- EDITORIAL STATS GRID --- */}
-        <dl className="mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-16 gap-x-8 border-t border-stone-900/10 pt-16">
-          {stats.map((stat, i) => (
+        <dl className="mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-x-8 border-t border-stone-900/10 pt-16">
+          {institutionalMetrics.map((stat, i) => (
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -771,7 +785,32 @@ function Inicio({ navigate }) {
           ))}
         </dl>
 
-        {/* ECOSSISTEMA EM DESTAQUE */}
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: PREMIUM_EASE }}
+          className="mt-32 grid gap-12 border-t border-stone-900/10 pt-24 lg:grid-cols-[0.75fr_1.25fr]"
+          aria-labelledby="samuel-title"
+        >
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-8 block">SAMUEL PAES</span>
+            <h2 id="samuel-title" className="font-serif text-4xl md:text-6xl tracking-tight leading-tight text-stone-900 text-balance">
+              Samuel Carrera Paes
+              <br />
+              <span className="italic text-stone-500 font-light">Diretor Criativo e Consultor Criativo.</span>
+            </h2>
+          </div>
+          <div className="space-y-7 text-base md:text-xl font-light leading-relaxed text-stone-700">
+            <p>
+              O título não parte de uma disciplina única. Ele combina pensamento multidisciplinar, leitura de contexto, direção criativa, visão estratégica, curiosidade como ferramenta profissional e capacidade de levar ideias para a operação.
+            </p>
+            <p>
+              A função da consultoria é organizar o que muitas vezes aparece disperso: marca, estética, narrativa, experiência, produto, ambiente, equipe, bastidor e entrega. A inteligência artificial pode acelerar repertório e prototipagem, mas a identidade do trabalho está na direção e no julgamento.
+            </p>
+          </div>
+        </motion.section>
+
         <motion.article
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -782,22 +821,22 @@ function Inicio({ navigate }) {
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="flex-1 flex flex-col justify-center">
               <header>
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-6 block">ECOSSISTEMA CRIATIVO</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-6 block">NÚCLEO CONSULTIVO</span>
                 <h2 className="font-serif text-5xl md:text-7xl tracking-tight leading-[0.9] text-stone-900 mb-6 text-balance">
-                  Samuel → visão → empresas → projetos → biblioteca.
+                  O que conecta negócios de mercados diferentes?
                 </h2>
                 <p className="text-sm md:text-base font-light text-stone-600 mb-12 max-w-md leading-relaxed">
-                  O site passa a organizar a produção de Samuel como ecossistema autoral: BANAL concentra marca, marketing e comunicação; Verde Burgo concentra eventos completos com direção criativa aplicada.
+                  Não é tecnologia. Não é variedade de serviços. É direção: uma forma de construir identidade, experiência, execução e percepção de valor com coerência.
                 </p>
 
                 <button
                   type="button"
-                  aria-label="Explorar o ecossistema criativo Samuel Paes"
-                  onClick={() => navigate("ecossistema")}
+                  aria-label="Conhecer a visão da Paes Consultoria"
+                  onClick={() => navigate("visao")}
                   className="group flex w-max items-center gap-5 text-xs font-bold uppercase tracking-[0.25em] text-stone-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-full"
                 >
                   <span className="border-b border-stone-900/20 pb-1 group-hover:text-stone-600 group-hover:border-stone-900 transition-colors duration-300">
-                    Entrar no ecossistema
+                    Ler minha visão
                   </span>
                   <div className="w-12 h-12 rounded-full border border-stone-900/10 flex items-center justify-center group-hover:bg-stone-900 group-hover:border-stone-900 group-hover:text-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                     <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
@@ -809,30 +848,62 @@ function Inicio({ navigate }) {
             <div className="flex-1 w-full aspect-[4/5] lg:aspect-[3/4] relative bg-stone-200/50 overflow-hidden group rounded-sm mt-12 lg:mt-0">
                <ImageWithFallback src={banalAssets.founderScene} mode="cover" alt="Cena fundadora da BANAL com garrafa, vestígio e linguagem de marca" fallbackLabel="BANAL" imageClassName="group-hover:scale-[1.03] transition duration-[2s] ease-out" />
 
-               {/* Tipografia como Textura */}
                <div className="absolute inset-0 pointer-events-none flex flex-col justify-between py-10 px-8 opacity-[0.03]" aria-hidden="true">
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">MARCA</span>
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">PRODUTO</span>
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">ESPAÇO</span>
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">DESEJO</span>
-               </div>
+                  <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">DIREÇÃO</span>
+                  <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">IDENTIDADE</span>
+                  <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">EXPERIÊNCIA</span>
+                  <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">EXECUÇÃO</span>
+                </div>
             </div>
           </div>
         </motion.article>
 
-        {/* --- MAGNETIC CALL TO ACTION --- */}
+        <section className="mt-32 border-t border-stone-900/10 pt-24" aria-labelledby="brand-entrances">
+          <header className="mb-12 max-w-3xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">EMPRESAS ESPECIALIZADAS</span>
+            <h2 id="brand-entrances" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Duas frentes independentes. Uma mesma visão de direção.
+            </h2>
+          </header>
+          <div className="grid gap-8 lg:grid-cols-2">
+            {consultancyCompanies.map((company) => (
+              <article key={company.id} className="group border border-stone-900/10 bg-white/35 transition-colors duration-500 hover:bg-white/70 rounded-sm">
+                <button
+                  type="button"
+                  onClick={() => navigate(company.route)}
+                  className="grid h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm md:grid-cols-[0.85fr_1.15fr]"
+                  aria-label={`Abrir ${company.name}`}
+                >
+                  <figure className="relative min-h-72 overflow-hidden bg-stone-200/50">
+                    <ImageWithFallback src={company.image} alt={`Identidade visual ${company.name}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]" />
+                  </figure>
+                  <div className="flex min-h-full flex-col p-8">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{company.eyebrow}</p>
+                    <h3 className="mt-6 font-serif text-4xl leading-none text-stone-950">{company.name}</h3>
+                    <p className="mt-6 font-serif text-2xl leading-tight text-stone-700 text-balance">{company.statement}</p>
+                    <p className="mt-6 text-sm font-light leading-relaxed text-stone-600">{company.description}</p>
+                    <span className="mt-auto pt-10 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
+                      Conhecer empresa <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                    </span>
+                  </div>
+                </button>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <div className="mt-32 flex items-center justify-between border-t border-stone-900/10 pt-10 pb-16">
           <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-stone-400 hidden md:block">
-            Explore empresas, projetos e biblioteca
+            Direção, identidade, experiência e execução
           </span>
           <button
             type="button"
-            aria-label="Acessar o ecossistema criativo"
-            onClick={() => navigate("ecossistema")}
+            aria-label="Entrar em contato com a Paes Consultoria"
+            onClick={() => navigate("contato")}
             className="group flex items-center gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-full"
           >
             <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-stone-900 group-hover:text-stone-500 transition-colors">
-              Explorar Ecossistema
+              Falar com a consultoria
             </span>
             <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-stone-900/10 flex items-center justify-center group-hover:bg-stone-900 group-hover:text-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-sm">
               <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
@@ -847,36 +918,36 @@ function Inicio({ navigate }) {
 function Visao() {
   return (
     <PageTransition>
-      <DynamicSEO title="Visão Criativa" description="A visão de Samuel Carrera Paes organiza direção criativa, empresas, marca, eventos, experiência, comunicação, operação e inteligência artificial em um ecossistema autoral." url="visao" />
+      <DynamicSEO title="Minha Visão" description="A visão profissional de Samuel Carrera Paes conecta pensamento sistêmico, direção criativa, identidade, estratégia, experiência e excelência de execução." url="visao" />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12">
         <header>
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CREATIVE STATEMENT</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">POSICIONAMENTO PROFISSIONAL</span>
           <h1 className="font-serif text-6xl md:text-[8rem] leading-[0.85] tracking-tighter text-stone-950 max-w-5xl text-balance">
-            Visão
+            Minha
             <br />
-            <span className="text-stone-500 italic font-light">Criativa.</span>
+            <span className="text-stone-500 italic font-light">Visão.</span>
           </h1>
           <p className="mt-16 text-xl md:text-3xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 max-w-4xl text-balance">
-            "Uma visão criativa só se torna real quando vira estrutura: empresa, método, linguagem, operação, experiência e memória."
+            "Estratégia, estética e operação não deveriam ser departamentos separados. Quando funcionam juntos, constroem identidade, confiança e valor percebido."
           </p>
         </header>
 
         <section className="mt-24 grid gap-12 border-y border-stone-900/10 py-16 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="experiencia-continua-title">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">ECOSSISTEMA COMO MÉTODO</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">CONSULTORIA COMO MÉTODO</span>
             <h2 id="experiencia-continua-title" className="font-serif text-4xl md:text-6xl leading-tight text-stone-950 text-balance">
-              Direção criativa não termina na ideia. Ela organiza empresas capazes de operar a ideia.
+              Direção criativa só tem valor quando melhora a leitura, a decisão e a execução de um negócio.
             </h2>
           </div>
           <div className="space-y-7 text-base md:text-xl font-light leading-relaxed text-stone-700">
             <p>
-              O trabalho de Samuel Carrera Paes parte de uma pergunta prática: como transformar intenção em presença real? A resposta não é apenas um portfólio de entregas, mas um ecossistema de empresas, projetos e pensamento.
+              Meu trabalho parte de pensamento sistêmico: entender como marca, produto, ambiente, atendimento, comunicação, equipe e operação se afetam. Uma decisão estética nunca é apenas estética; ela altera percepção, confiança, desejo e comportamento.
             </p>
             <p>
-              A BANAL concentra a camada de marca, marketing, posicionamento, narrativa, conteúdo e percepção de valor. A Verde Burgo concentra a camada de eventos, festas, buffet, decoração, bar, cerimonial, planejamento e execução.
+              A Paes Consultoria organiza essa leitura para transformar intenção em estrutura. BANAL atua onde o desafio é marca, varejo, comunicação e posicionamento. Verde Burgo atua onde o desafio é evento, hospitalidade, festa, experiência e produção.
             </p>
             <p>
-              A inteligência artificial entra como ampliação de repertório, prototipagem e velocidade de primeira forma. Mas a direção continua humana: escolher, editar, validar, organizar e responder pelo todo.
+              Tecnologia e inteligência artificial podem acelerar repertório, teste e prototipagem. Mas elas não substituem direção, critério, responsabilidade e entendimento humano do contexto.
             </p>
           </div>
         </section>
@@ -885,23 +956,23 @@ function Visao() {
           <ol className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mt-32 border-t border-stone-900/10 pt-16">
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">01</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Direção Criativa</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Definir intenção, linguagem, critério e presença antes da execução visual ou operacional.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Pensamento Sistêmico</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Ler o negócio como conjunto: marca, público, linguagem, canal, operação, espaço e entrega.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">02</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Empresas Autorais</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Criar estruturas de negócio capazes de sustentar marca, comunicação, evento e experiência.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Identidade como Estratégia</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Transformar identidade em ferramenta de decisão, diferenciação, comunicação e valor percebido.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">03</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Operação e Execução</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Fazer a linguagem sobreviver ao bastidor, ao cronograma, ao orçamento e ao uso real.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Experiência e Percepção</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Projetar os sinais que fazem uma marca, loja ou evento ser compreendido antes de ser explicado.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">04</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Biblioteca</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Produzir artigos, manifestos e pesquisas que sustentam intelectualmente o ecossistema.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Excelência de Execução</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Garantir que a estratégia apareça no detalhe, no cronograma, no acabamento e na experiência real.</p>
             </li>
           </ol>
         </section>
@@ -921,7 +992,7 @@ function Visao() {
 
         <footer className="mt-32 md:mt-48 bg-stone-950 text-stone-50 px-8 py-24 md:py-32 rounded-sm text-center shadow-xl">
           <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight max-w-5xl mx-auto font-light text-balance">
-            "A IA amplifica a intenção, mas não cria direção. A direção nasce de uma visão capaz de responder pelo todo."
+            "Clareza estratégica, estética consistente e execução cuidadosa são ferramentas de negócio."
           </h2>
         </footer>
       </article>
@@ -929,35 +1000,35 @@ function Visao() {
   );
 }
 
-function Ecossistema({ navigate }) {
+function PaesConsultoria({ navigate }) {
   return (
     <PageTransition>
       <DynamicSEO
-        title="Ecossistema"
-        description="Ecossistema criativo Samuel Paes: BANAL para marca, marketing e comunicação; Verde Burgo para eventos, festas, buffet, decoração, bar e cerimonial com direção criativa aplicada."
-        url="ecossistema"
+        title="Paes Consultoria"
+        description="Paes Consultoria é o núcleo estratégico e criativo que origina negócios, marcas, experiências, projetos e soluções com direção, identidade e execução."
+        url=""
         image={banalAssets.founderScene}
       />
-      <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="ecossistema-title">
+      <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="consultoria-title">
         <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ECOSSISTEMA</span>
-            <h1 id="ecossistema-title" className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
-              Empresas antes de projetos isolados.
+            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PAES CONSULTORIA</span>
+            <h1 id="consultoria-title" className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
+              A visão central antes das especializações.
             </h1>
           </div>
           <div className="max-w-3xl self-end">
             <p className="text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
-              O trabalho de Samuel Paes se organiza como um ecossistema criativo autoral: visão, empresas, projetos e biblioteca.
+              A Paes Consultoria é o núcleo estratégico e criativo que orienta negócios, marcas, experiências, projetos e soluções.
             </p>
             <p className="mt-8 text-base font-light leading-relaxed text-stone-600 md:text-lg">
-              As empresas não são vitrines conceituais. Elas são estruturas criadas ou dirigidas para transformar intenção em presença real: marca, marketing, evento, experiência, operação e memória.
+              BANAL e Verde Burgo atuam em mercados diferentes, mas compartilham a mesma base: direção, identidade, experiência, execução e coerência de valor.
             </p>
           </div>
         </header>
 
-        <section className="grid gap-8 border-b border-stone-900/10 py-16 md:grid-cols-3" aria-label="Princípios da Geração dos Realizadores">
-          {generationPrinciples.map((item, index) => (
+        <section className="grid gap-8 border-b border-stone-900/10 py-16 md:grid-cols-3" aria-label="Princípios da Paes Consultoria">
+          {consultancyPrinciples.map((item, index) => (
             <article key={item.title} className="border-t border-stone-900/10 pt-8">
               <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <h2 className="mt-8 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{item.title}</h2>
@@ -970,12 +1041,12 @@ function Ecossistema({ navigate }) {
           <header className="mb-16 max-w-4xl">
             <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">EMPRESAS</span>
             <h2 id="empresas-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Cada empresa concentra uma camada da visão.
+              Empresas especializadas, não seções secundárias.
             </h2>
           </header>
 
-          <div className="grid gap-8 lg:grid-cols-3">
-            {ecosystemCompanies.map((company) => (
+          <div className="grid gap-8 lg:grid-cols-2">
+            {consultancyCompanies.map((company) => (
               <article key={company.id} className="group flex min-h-full flex-col border border-stone-900/10 bg-white/35 transition-colors duration-500 hover:bg-white/70 rounded-sm">
                 <button
                   type="button"
@@ -1011,11 +1082,11 @@ function Ecossistema({ navigate }) {
             <div>
               <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PROJETOS</span>
               <h2 id="projetos-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-                Projetos organizados dentro das empresas.
+                Projetos com destino claro.
               </h2>
             </div>
             <p className="max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              Os antigos projetos de marca, varejo, campanhas, conteúdo, posicionamento e experiência de loja passam a compor a camada BANAL. Provence Raiz passa a ser projeto dentro da Verde Burgo.
+              Projetos de branding, comunicação, varejo, posicionamento e conteúdo pertencem à BANAL. Projetos de festas, hospitalidade, produção e eventos pertencem à Verde Burgo.
             </p>
           </header>
 
@@ -1024,7 +1095,7 @@ function Ecossistema({ navigate }) {
               <div className="mb-10 flex items-center justify-between gap-6 border-b border-stone-900/10 pb-8">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">BANAL</p>
-                  <h3 className="mt-3 font-serif text-4xl text-stone-950">Marketing, marca e comunicação.</h3>
+                  <h3 className="mt-3 font-serif text-4xl text-stone-950">Branding, marketing e comunicação.</h3>
                 </div>
                 <button type="button" onClick={() => navigate("banal")} className="hidden shrink-0 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 md:block">
                   Ver empresa
@@ -1045,12 +1116,12 @@ function Ecossistema({ navigate }) {
 
             <article className="flex flex-col border border-stone-900/10 bg-white/35 p-8 rounded-sm">
               <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">VERDE BURGO</p>
-              <h3 className="mt-3 font-serif text-4xl text-stone-950">Eventos completos com direção criativa.</h3>
+              <h3 className="mt-3 font-serif text-4xl text-stone-950">Eventos completos, do planejamento à execução.</h3>
               <figure className="mt-8 aspect-[4/3] overflow-hidden bg-stone-200/50 rounded-sm">
                 <ImageWithFallback src={verdeburgoAssets.mesaRefinada} alt="Projeto Provence Raiz dentro da Verde Burgo" mode="cover" imageClassName="transition-transform duration-[1.5s] hover:scale-[1.03]" />
               </figure>
               <p className="mt-8 text-sm font-light leading-relaxed text-stone-600">
-                Provence Raiz é o primeiro case da Verde Burgo: um projeto de evento que articula buffet, decoração, bar, cerimonial, ambientação, papelaria, atmosfera, narrativa e experiência.
+                Provence Raiz é um projeto dentro da Verde Burgo: uma referência de como buffet, decoração, bar, cerimonial, ambientação, papelaria e produção podem operar em uma mesma identidade.
               </p>
               <button type="button" onClick={() => navigate("verdeburgo")} className="mt-auto pt-10 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
                 Ver Verde Burgo <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
@@ -1068,9 +1139,10 @@ function Banal({ navigate }) {
     <PageTransition>
       <DynamicSEO
         title="BANAL"
-        description="BANAL é a empresa de branding, marketing, posicionamento, narrativa, conteúdo, campanhas e percepção de valor dentro do ecossistema Samuel Paes."
+        description="BANAL é a empresa de branding, marketing, comunicação, varejo, posicionamento, narrativa e estratégia criativa da Paes Consultoria."
         url="banal"
         image={banalAssets.symbol}
+        schemaType="Organization"
       />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="banal-title">
         <section className="grid gap-10 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.9fr_1.1fr]">
@@ -1080,7 +1152,7 @@ function Banal({ navigate }) {
               BANAL.
             </h1>
             <p className="mt-10 max-w-xl font-serif text-3xl leading-tight text-stone-700 md:text-5xl text-balance">
-              Nada é só banal.
+              Marcas mais claras, desejáveis e valiosas.
             </p>
           </div>
           <figure className="aspect-[4/3] overflow-hidden bg-stone-200/50 rounded-sm">
@@ -1097,11 +1169,27 @@ function Banal({ navigate }) {
           </div>
           <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
             <p>
-              A BANAL nasce de uma crítica ao consumo, mas não termina nela. Observa o ponto em que uma embalagem, uma vitrine, um post, uma frase ou um detalhe deixa de ser neutro e passa a carregar promessa.
+              A BANAL ajuda negócios a construírem identidade, comunicação e posicionamento com mais clareza. O trabalho vai além de aparência: organiza sinais, narrativa, canais, conteúdo, campanhas e presença comercial.
             </p>
             <p>
-              Dentro do ecossistema Samuel Paes, a BANAL concentra branding, marketing, posicionamento, narrativa, conteúdo, campanhas, percepção de valor e estratégia criativa.
+              A empresa atua na camada em que marca e mercado se encontram: o modo como uma empresa se apresenta, explica seu valor, cria desejo, sustenta coerência e melhora sua percepção pública.
             </p>
+          </div>
+        </section>
+
+        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-servicos">
+          <header className="mb-14 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">SERVIÇOS</span>
+            <h2 id="banal-servicos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Uma estrutura para tornar negócios mais legíveis.
+            </h2>
+          </header>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {banalServices.map((service) => (
+              <div key={service} className="border border-stone-900/10 bg-white/35 px-5 py-5 rounded-sm">
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{service}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -1112,6 +1200,24 @@ function Banal({ navigate }) {
               <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
             </article>
           ))}
+        </section>
+
+        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-processo">
+          <header className="mb-14 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PROCESSO</span>
+            <h2 id="banal-processo" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Do diagnóstico à ativação.
+            </h2>
+          </header>
+          <ol className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {banalProcess.map(([name, text], index) => (
+              <li key={name} className="border-t border-stone-900/10 pt-8">
+                <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{name}</h3>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
+              </li>
+            ))}
+          </ol>
         </section>
 
         <section className="py-24 md:py-32" aria-labelledby="banal-projetos">
@@ -1136,6 +1242,21 @@ function Banal({ navigate }) {
             ))}
           </div>
         </section>
+
+        <footer className="mb-16 bg-stone-950 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
+          <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
+            Sua marca precisa ficar mais clara para vender, comunicar ou crescer?
+          </p>
+          <div className="mt-12 flex justify-center">
+            <button
+              type="button"
+              onClick={() => navigate("contato")}
+              className="inline-flex items-center gap-3 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+            >
+              Conversar com a BANAL <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        </footer>
       </article>
     </PageTransition>
   );
@@ -1150,7 +1271,7 @@ function CaseDetail({ caseId, navigate }) {
       <PageTransition>
         <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
           <h2 className="font-serif text-4xl mb-4">Case não encontrado.</h2>
-          <button onClick={() => navigate("ecossistema")} className="text-xs font-bold uppercase tracking-[0.2em] border-b border-stone-900 pb-1 hover:text-stone-600 transition-colors">Voltar ao Ecossistema</button>
+          <button onClick={() => navigate("banal")} className="text-xs font-bold uppercase tracking-[0.2em] border-b border-stone-900 pb-1 hover:text-stone-600 transition-colors">Voltar à BANAL</button>
         </div>
       </PageTransition>
     );
@@ -1386,17 +1507,17 @@ function Verdeburgo({ navigate }) {
 
         <section className="grid gap-12 border-b border-stone-900/10 py-24 md:py-32 lg:grid-cols-[0.9fr_1.1fr]" aria-labelledby="verdeburgo-manifesto">
           <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Manifesto</span>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">POSICIONAMENTO</span>
             <h2 id="verdeburgo-manifesto" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl lg:text-7xl text-balance">
-              Evento bonito é consequência. Evento bem resolvido é estratégia.
+              Uma empresa para resolver eventos por completo.
             </h2>
           </div>
           <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
             <p>
-              A Verde Burgo existe para resolver a vida de quem quer fazer uma festa. A empresa organiza o caminho inteiro: escuta, planejamento, buffet, decoração, bar, cerimonial, bastidores, fornecedores, montagem e execução.
+              A Verde Burgo existe para resolver a vida de quem quer fazer uma festa. A empresa integra planejamento, buffet, decoração, bar, cerimonial, fornecedores, bastidores, montagem e execução em uma única condução.
             </p>
             <p>
-              O diferencial está na direção criativa aplicada. Samuel Paes desenvolve a identidade dos eventos para que ambientação, papelaria, bar, comida, cerimônia, luz, narrativa e experiência pareçam parte de uma mesma linguagem.
+              O diferencial está na direção criativa aplicada aos eventos. Samuel Paes desenvolve a identidade da experiência para que comida, bar, cerimônia, decoração, ambientação, papelaria e atendimento funcionem com a mesma linguagem.
             </p>
           </div>
         </section>
@@ -1405,10 +1526,10 @@ function Verdeburgo({ navigate }) {
           <header className="mb-14 max-w-4xl">
             <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Solução Completa</span>
             <h2 id="verdeburgo-servicos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Uma festa como comunicação 360 graus.
+              Da primeira conversa ao último detalhe de execução.
             </h2>
             <p className="mt-8 max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              Uma festa bem feita não é soma de fornecedores. É uma identidade aplicada: buffet, decoração, bar, cerimonial, ambientação, papelaria, atmosfera e experiência precisam conversar.
+              Uma festa bem feita não depende do cliente coordenar dezenas de partes soltas. A Verde Burgo organiza serviço, estética, produção e bastidor para entregar uma experiência coerente e tranquila.
             </p>
           </header>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -1429,10 +1550,26 @@ function Verdeburgo({ navigate }) {
           </ol>
         </section>
 
+        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="verdeburgo-formatos">
+          <header className="mb-14 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">FORMATOS DE EVENTO</span>
+            <h2 id="verdeburgo-formatos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Festas, celebrações e experiências com operação completa.
+            </h2>
+          </header>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {verdeBurgoEventFormats.map((format) => (
+              <div key={format} className="border border-stone-900/10 bg-white/35 px-5 py-5 rounded-sm">
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{format}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section id="provence-raiz" className="scroll-mt-32 border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="provence-title">
           <header className="grid gap-12 lg:grid-cols-[0.65fr_1.35fr]">
             <aside>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Projeto Inaugural</span>
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Projeto / Referência</span>
               <dl className="grid grid-cols-2 gap-6 border-t border-stone-900/10 pt-8 lg:grid-cols-1">
                 <div>
                   <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Projeto</dt>
@@ -1453,7 +1590,7 @@ function Verdeburgo({ navigate }) {
                 Provence Raiz.
               </h2>
               <p className="mt-10 max-w-4xl text-xl font-light leading-relaxed text-stone-600 md:text-3xl text-balance">
-                Um case dentro da Verde Burgo: evento completo conduzido por identidade criativa, ambientação, buffet, bar, cerimonial, objetos autorais, atmosfera e operação.
+                Um projeto dentro da Verde Burgo: evento completo conduzido por planejamento, identidade visual, ambientação, buffet, bar, cerimonial, objetos autorais, atmosfera e operação.
               </p>
             </div>
           </header>
@@ -1585,7 +1722,7 @@ function Biblioteca({ navigate }) {
     <PageTransition>
       <DynamicSEO
         title="Biblioteca"
-        description="Biblioteca Samuel Paes: artigos, ensaios, manifestos e pesquisas que sustentam a visão do ecossistema criativo, da BANAL e da Verde Burgo."
+        description="Biblioteca Samuel Paes: artigos, ensaios, pesquisas e reflexões sobre branding, varejo, eventos, hospitalidade, posicionamento, percepção e direção criativa."
         url="biblioteca"
       />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12" aria-labelledby="sistema-title">
@@ -1595,7 +1732,7 @@ function Biblioteca({ navigate }) {
             Biblioteca.
           </h1>
           <p className="text-xl md:text-3xl font-light text-stone-600 max-w-3xl mb-24 leading-relaxed text-balance">
-            Artigos, ensaios, manifestos e pesquisas para sustentar intelectualmente o ecossistema Samuel Paes: marca, evento, IA, percepção, desejo, operação e presença.
+            Artigos, ensaios e pesquisas para construir autoridade em branding, varejo, hospitalidade, eventos, narrativa, posicionamento, percepção, direção criativa e construção de negócios.
           </p>
         </header>
 
@@ -1892,7 +2029,7 @@ function Contato() {
     <PageTransition>
       <DynamicSEO
         title="Contato"
-        description="Contato profissional de Samuel Carrera Paes / Paes Consultoria para direção criativa, experiências, varejo, branding e cenografia."
+        description="Contato profissional da Paes Consultoria para direção criativa, branding, marketing, varejo, eventos, experiências e execução."
         url="contato"
       />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col justify-between min-h-[85vh] pt-12 relative">
@@ -1956,7 +2093,7 @@ function Contato() {
 
           <div className="flex flex-col items-center justify-center pt-20 border-t border-stone-900/10">
             <p className="text-sm font-light text-stone-500 mb-10 max-w-md text-center leading-relaxed text-balance">
-              Disponível para projetos de direção criativa, consultoria de marca e experiência física de varejo.
+              Disponível para projetos de direção criativa, consultoria de marca, varejo, eventos, experiências e execução.
             </p>
             <a
               href="https://wa.me/5531981184250"
@@ -2014,10 +2151,11 @@ export default function SamuelPaesPortfolio() {
 
   const navLinks = [
     { id: "inicio", num: "01.", label: "INÍCIO" },
-    { id: "visao", num: "02.", label: "Visão" },
-    { id: "ecossistema", num: "03.", label: "Ecossistema" },
-    { id: "biblioteca", num: "04.", label: "Biblioteca" },
-    { id: "contato", num: "05.", label: "Contato" },
+    { id: "visao", num: "02.", label: "Minha Visão" },
+    { id: "biblioteca", num: "03.", label: "Biblioteca" },
+    { id: "banal", num: "04.", label: "BANAL" },
+    { id: "verdeburgo", num: "05.", label: "VERDE BURGO" },
+    { id: "contato", num: "06.", label: "Contato" },
   ];
 
   const handleNavClick = (id) => {
@@ -2027,7 +2165,8 @@ export default function SamuelPaesPortfolio() {
 
   const isCaseDetail = route.startsWith("case/");
   const isBibliotecaDetail = route.startsWith("biblioteca/") || route.startsWith("sistema/");
-  const isEcossistemaArea = route === "ecossistema" || route === "cases" || route === "banal" || route === "verdeburgo" || isCaseDetail;
+  const isConsultoriaArea = route === "inicio" || route === "ecossistema" || route === "paes-consultoria";
+  const isBanalArea = route === "banal" || route === "cases" || isCaseDetail;
 
   return (
     <div className="min-h-screen bg-[#F4F0E9] text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
@@ -2062,7 +2201,7 @@ export default function SamuelPaesPortfolio() {
           </div>
 
           {/* MENU CENTRAL */}
-          <div className="hidden lg:flex flex-1 justify-center gap-4 xl:gap-10" role="menubar">
+          <div className="hidden lg:flex flex-1 justify-center gap-4 xl:gap-6" role="menubar">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -2071,7 +2210,7 @@ export default function SamuelPaesPortfolio() {
                 aria-label={`Página ${link.label}`}
                 onClick={() => handleNavClick(link.id)}
                 className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm px-2 pb-1 border-b-2 ${
-                  (route === link.id || (link.id === "ecossistema" && isEcossistemaArea) || (link.id === "biblioteca" && isBibliotecaDetail))
+                  (route === link.id || (link.id === "inicio" && isConsultoriaArea) || (link.id === "banal" && isBanalArea) || (link.id === "biblioteca" && isBibliotecaDetail))
                     ? "text-stone-900 border-stone-900"
                     : "text-stone-400 border-transparent hover:text-stone-900 hover:border-stone-900/20"
                 }`}
@@ -2085,10 +2224,10 @@ export default function SamuelPaesPortfolio() {
           <div className="hidden lg:flex w-1/4 justify-end items-center gap-6 xl:gap-8">
             <button
               type="button"
-              onClick={() => handleNavClick("ecossistema")}
+              onClick={() => handleNavClick("contato")}
               className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-900 border-b border-stone-900/30 pb-1 hover:text-stone-600 hover:border-stone-900 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             >
-              Entrar no Ecossistema
+              Falar com a Consultoria
             </button>
             <a
               href="https://wa.me/5531981184250"
@@ -2137,7 +2276,7 @@ export default function SamuelPaesPortfolio() {
                     type="button"
                     onClick={() => handleNavClick(link.id)}
                     className={`flex items-baseline gap-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 p-3 rounded-sm transition-colors duration-300 ${
-                      (route === link.id || (link.id === "ecossistema" && isEcossistemaArea) || (link.id === "biblioteca" && isBibliotecaDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
+                      (route === link.id || (link.id === "inicio" && isConsultoriaArea) || (link.id === "banal" && isBanalArea) || (link.id === "biblioteca" && isBibliotecaDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
                     }`}
                   >
                     <span className="font-serif text-3xl italic opacity-50" aria-hidden="true">{link.num}</span>
@@ -2151,7 +2290,7 @@ export default function SamuelPaesPortfolio() {
                  transition={{ delay: 0.4, ease: PREMIUM_EASE }}
                  className="mt-16 pt-8 border-t border-stone-900/10 flex justify-between items-center px-2"
               >
-                <button type="button" onClick={() => handleNavClick("ecossistema")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Ver Ecossistema</button>
+                <button type="button" onClick={() => handleNavClick("contato")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Falar agora</button>
                 <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer" className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-900 flex items-center gap-2 focus-visible:outline-none focus-visible:underline hover:text-stone-600 transition-colors">
                   WhatsApp <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
                 </a>
@@ -2166,7 +2305,8 @@ export default function SamuelPaesPortfolio() {
         <AnimatePresence mode="wait">
           {route === "inicio" && <Inicio key="inicio" navigate={navigate} />}
           {route === "visao" && <Visao key="visao" />}
-          {(route === "ecossistema" || route === "cases") && <Ecossistema key="ecossistema" navigate={navigate} />}
+          {(route === "ecossistema" || route === "paes-consultoria") && <PaesConsultoria key="paes-consultoria" navigate={navigate} />}
+          {route === "cases" && <Banal key="cases-compat" navigate={navigate} />}
           {route === "banal" && <Banal key="banal" navigate={navigate} />}
           {route.startsWith("case/") && <CaseDetail key="case-detail" caseId={route.replace("case/", "")} navigate={navigate} />}
           {route === "verdeburgo" && <Verdeburgo key="verdeburgo" navigate={navigate} />}

@@ -1,6 +1,6 @@
-# Samuel Carrera Paes - Portfolio
+# Samuel Carrera Paes - Paes Consultoria
 
-Ecossistema digital oficial de Samuel Carrera Paes / Paes Consultoria, publicado em:
+Site institucional oficial de Samuel Carrera Paes / Paes Consultoria, publicado em:
 
 - https://paesconsultoria.com
 - https://www.paesconsultoria.com
@@ -14,39 +14,70 @@ Ecossistema digital oficial de Samuel Carrera Paes / Paes Consultoria, publicado
 - Lucide React
 - Vercel
 
+## Arquitetura de Posicionamento
+
+A estrutura atual posiciona a Paes Consultoria como o nucleo estrategico e criativo central.
+
+Logica publica:
+
+```text
+Paes Consultoria
+-> Minha Visao
+-> Biblioteca
+-> BANAL
+-> VERDE BURGO
+-> Contato
+```
+
+A Paes Consultoria concentra direcao, identidade, experiencia, estrategia, percepcao de valor e execucao.
+
+- `BANAL`: empresa especializada em branding, marketing, comunicacao, varejo, posicionamento, narrativa, conteudo e estrategia criativa.
+- `VERDE BURGO`: empresa de eventos com buffet, decoracao, bar, cerimonial, planejamento, producao e execucao.
+- `Biblioteca`: hub de autoridade intelectual sobre branding, varejo, hospitalidade, eventos, narrativa, posicionamento, percepcao, direcao criativa e construcao de negocios.
+
+## Rotas Publicas
+
+| Rota | Funcao |
+| --- | --- |
+| `/` | Apresentacao institucional da Paes Consultoria. |
+| `/visao` | Posicionamento profissional de Samuel Carrera Paes. |
+| `/biblioteca` | Artigos, ensaios, pesquisas e reflexoes de autoridade. |
+| `/banal` | Pagina institucional da BANAL. |
+| `/verdeburgo` | Pagina institucional da Verde Burgo. |
+| `/contato` | Contato profissional. |
+| `/case/:id` | Projetos de branding, marketing, varejo e comunicacao vinculados a BANAL. |
+
+Rotas antigas preservadas por compatibilidade:
+
+| Rota antiga | Comportamento atual |
+| --- | --- |
+| `/cases` | Renderiza BANAL, pois os cases antigos pertencem a essa empresa. |
+| `/sistema` | Renderiza Biblioteca. |
+| `/sistema/:slug` | Renderiza o artigo equivalente em Biblioteca. |
+| `/ecossistema` | Renderiza uma leitura institucional da Paes Consultoria com canonical para a raiz. |
+
 ## SEO e Indexacao
 
-O site foi preparado para associar o nome `Samuel Carrera Paes` ao dominio publico `paesconsultoria.com`.
+O site foi preparado para associar `Samuel Carrera Paes`, `Paes Consultoria`, `BANAL` e `Verde Burgo` a intencoes de busca distintas.
 
 Arquivos e pontos principais:
 
 - `index.html`: titulo, description, canonical, Open Graph, Twitter Card e JSON-LD `Person`/`WebSite`.
-- `src/App.jsx`: SEO dinamico com dominio canonico `https://paesconsultoria.com` e texto visivel com o nome completo.
+- `src/App.jsx`: SEO dinamico com dominio canonico `https://paesconsultoria.com`.
 - `public/robots.txt`: permite indexacao e declara o sitemap.
-- `public/sitemap.xml`: declara a homepage canonica.
+- `public/sitemap.xml`: declara as rotas canonicas atuais.
 
 ## Conteudo Editorial
 
-A pagina `Inicio` apresenta Samuel Paes como diretor criativo, consultor criativo e criador de empresas dentro da tese da Geracao dos Realizadores.
+A pagina `Inicio` apresenta a Paes Consultoria como nucleo estrategico e criativo que desenvolve negocios, marcas, experiencias e projetos por meio de direcao, identidade, estrategia, experiencia e execucao.
 
-A pagina `Visao` explica o ecossistema criativo como metodo, conectando direcao criativa, empresas, marca, eventos, experiencia, comunicacao, operacao, execucao, inteligencia artificial e pensamento estrategico.
+A pagina `Minha Visao` explica o posicionamento profissional de Samuel Carrera Paes: pensamento sistemico, identidade como estrategia, experiencia e percepcao, excelencia de execucao e uso de tecnologia como ferramenta, nao como identidade.
 
-A pagina `Ecossistema` substitui a antiga area de cases como porta de entrada para empresas, projetos e biblioteca. A rota publica principal e `/ecossistema`; a rota antiga `/cases` segue funcionando como compatibilidade.
+A pagina `BANAL` apresenta uma empresa com hero, posicionamento, servicos, processo, cases e CTA. Os antigos projetos de marketing, varejo, comunicacao e marca aparecem como projetos da BANAL.
 
-A pagina `BANAL` apresenta a empresa responsavel pela camada de branding, marketing, posicionamento, narrativa, conteudo, campanhas, percepcao de valor e estrategia criativa. Os antigos cases de marketing, varejo, comunicacao e marca passam a aparecer como projetos da BANAL.
+A pagina `VERDE BURGO` apresenta uma empresa de eventos com solucao completa: buffet, decoracao, bar, cerimonial, planejamento, producao, execucao e formatos de evento. `Provence Raiz` aparece como projeto/referencia dentro da Verde Burgo.
 
-A pagina `VERDE BURGO` apresenta a empresa de eventos com solucao completa de buffet, decoracao, bar, cerimonial, planejamento, producao e execucao. Samuel Paes aparece dentro da Verde Burgo como responsavel por direcao criativa, identidade de evento e construcao de linguagem. `Provence Raiz` e apresentado como case/projeto dentro da Verde Burgo, nao como a empresa inteira.
-
-Assets do projeto:
-
-- `public/brands/banal`: imagens selecionadas do pacote BANAL para simbolo, cena fundadora e pranchas de identidade.
-- `public/brands/verde-burgo`: logos, icones, fundos e elementos selecionados do brand pack da Verde Burgo.
-- `assets-source/14_VERDEBURGO/PROVENCE_RAIZ`: imagens originais/editaveis extraidas do PPTX, separadas tambem por slide.
-- `public/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB`: versoes otimizadas usadas pela rota publica `/verdeburgo`.
-- `assets-source/14_VERDEBURGO/PROVENCE_RAIZ/10_REFINAMENTO_USUARIO`: imagens enviadas para refinamento editorial, reenquadramento e futura edicao.
-- `public/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO`: versoes web otimizadas das imagens refinadas usadas na rota publica `/verdeburgo`.
-
-A pagina `Biblioteca` substitui a antiga area `Sistema` e funciona como espaco para artigos, ensaios, manifestos e pesquisas que sustentam intelectualmente o ecossistema:
+A pagina `Biblioteca` substitui a antiga area `Sistema` e funciona como hub de autoridade:
 
 - `/biblioteca/leitura-de-marca` - Leitura de Marca
 - `/biblioteca/curadoria-de-produto` - Curadoria de Produto
@@ -55,9 +86,14 @@ A pagina `Biblioteca` substitui a antiga area `Sistema` e funciona como espaco p
 - `/biblioteca/operacao-criativa` - Operacao Criativa
 - `/biblioteca/experiencia-fisica` - Experiencia Fisica
 
-As rotas antigas `/sistema` e `/sistema/:slug` seguem funcionando como compatibilidade, mas os canonicals apontam para `/biblioteca`.
+## Assets
 
-O conteudo foi extraido do material `Sistema_Samuel_Paes_Artigos_Reescritos_Voz_Autoral.docx` e consolidado em `src/sistemaArticles.js`. Cada artigo possui URL limpa, SEO dinamico, tempo estimado de leitura, sumario de secoes, navegacao anterior/proximo e link de retorno ao indice da Biblioteca.
+- `public/brands/banal`: imagens selecionadas do pacote BANAL para simbolo, cena fundadora e pranchas de identidade.
+- `public/brands/verde-burgo`: logos, icones, fundos e elementos selecionados do brand pack da Verde Burgo.
+- `assets-source/14_VERDEBURGO/PROVENCE_RAIZ`: imagens originais/editaveis extraidas do PPTX.
+- `public/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB`: versoes otimizadas usadas pela rota publica `/verdeburgo`.
+- `assets-source/14_VERDEBURGO/PROVENCE_RAIZ/10_REFINAMENTO_USUARIO`: imagens enviadas para refinamento editorial, reenquadramento e futura edicao.
+- `public/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO`: versoes web otimizadas das imagens refinadas usadas na rota publica `/verdeburgo`.
 
 ## Validacao Local
 
@@ -91,8 +127,8 @@ Em seguida, solicitar indexacao no Google Search Console e Bing Webmaster Tools.
 
 ## IndexNow
 
-O site tambem possui uma chave publica IndexNow em:
+O site possui uma chave publica IndexNow em:
 
 - `public/9ce105cc8fc09b27ee455038a876fc0a.txt`
 
-Use essa chave para notificar Bing e mecanismos participantes quando a homepage for atualizada.
+Use essa chave para notificar Bing e mecanismos participantes quando rotas importantes forem atualizadas.
