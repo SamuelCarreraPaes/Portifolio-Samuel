@@ -441,6 +441,8 @@ const verdeburgoObjects = [
 const banalAssets = {
   symbol: "/brands/banal/banal-symbol-primary.jpg",
   minimalSymbol: "/brands/banal/banal-symbol-minimal.jpg",
+  transparentLogo: "/brands/banal/media/banal-logo-horizontal-transparent.png",
+  flyLoop: "/brands/banal/media/banal-fly-loop.mp4",
   identityDark: "/brands/banal/banal-identity-dark.jpg",
   showcase: "/brands/banal/banal-brand-showcase.jpg",
   guideline: "/brands/banal/banal-guideline-board.jpg",
@@ -457,7 +459,8 @@ const verdeBurgoBrandAssets = {
   greenHero: "/brands/verde-burgo/backgrounds/verde-burgo-bg-hero-verde.jpg",
   caseCover: "/brands/verde-burgo/backgrounds/verde-burgo-bg-case-cover.jpg",
   palette: "/brands/verde-burgo/elements/verde-burgo-paleta.png",
-  slogan: "/brands/verde-burgo/elements/verde-burgo-slogan.png"
+  slogan: "/brands/verde-burgo/elements/verde-burgo-slogan.png",
+  developmentLoop: "/brands/verde-burgo/media/verdeburgo-in-development-hoop-loop.mp4"
 };
 
 const consultancyPrinciples = [
@@ -713,6 +716,15 @@ const PageTransition = ({ children, className = "" }) => {
   );
 };
 
+function playMutedLoop(event) {
+  const video = event.currentTarget;
+  video.muted = true;
+  const playback = video.play();
+  if (playback?.catch) {
+    playback.catch(() => {});
+  }
+}
+
 // --- PÁGINAS ---
 
 function Inicio({ navigate }) {
@@ -744,11 +756,11 @@ function Inicio({ navigate }) {
             aria-label="Abrir BANAL"
           >
             <img
-              src={banalAssets.minimalSymbol}
+              src={banalAssets.transparentLogo}
               alt="BANAL"
               loading="eager"
               decoding="async"
-              className="h-24 w-24 object-contain grayscale contrast-125 transition duration-700 group-hover:grayscale-0 md:h-28 md:w-28"
+              className="h-auto w-full max-w-xs object-contain transition duration-700 group-hover:scale-[1.02] md:max-w-sm"
             />
           </button>
 
@@ -1075,8 +1087,19 @@ function Banal({ navigate }) {
               Marcas mais claras, desejáveis e valiosas.
             </p>
           </div>
-          <figure className="aspect-[4/3] overflow-hidden bg-stone-200/50 rounded-sm">
-            <ImageWithFallback src={banalAssets.symbol} alt="Símbolo BANAL, garrafa e marimbondo" mode="cover" loading="eager" />
+          <figure className="aspect-[4/3] overflow-hidden bg-stone-950 rounded-sm">
+            <video
+              src={banalAssets.flyLoop}
+              aria-label="Vídeo em loop da mosca da BANAL"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              onLoadedData={playMutedLoop}
+              onCanPlay={playMutedLoop}
+              className="h-full w-full object-cover"
+            />
           </figure>
         </section>
 
@@ -1435,28 +1458,43 @@ function Verdeburgo({ navigate }) {
           </header>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {[
-              ["Provence Raiz", "Projeto publicado", verdeBurgoBrandAssets.caseCover, scrollToProvence],
-              ["Casamentos", "Em desenvolvimento", verdeburgoAssets.cerimonia, null],
-              ["Aniversários", "Em desenvolvimento", verdeburgoAssets.mesa, null],
-              ["Eventos corporativos", "Em desenvolvimento", verdeburgoAssets.bar, null]
-            ].map(([title, status, image, action]) => (
-              <article key={title} className="group border-t border-stone-900/10 pt-8">
+              { title: "Provence Raiz", status: "Projeto publicado", media: verdeburgoAssets.hero, type: "image", action: scrollToProvence },
+              { title: "Casamentos", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=casamentos`, type: "video" },
+              { title: "Aniversários", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=aniversarios`, type: "video" },
+              { title: "Eventos corporativos", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=corporativos`, type: "video" }
+            ].map((project) => (
+              <article key={project.title} className="group border-t border-stone-900/10 pt-8">
                 <button
                   type="button"
-                  onClick={action || undefined}
-                  disabled={!action}
+                  onClick={project.action || undefined}
+                  disabled={!project.action}
                   className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm disabled:cursor-default"
                 >
                   <figure className="aspect-[4/5] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
-                    <ImageWithFallback
-                      src={image}
-                      alt={`Projeto Verde Burgo: ${title}`}
-                      mode="cover"
-                      imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]"
-                    />
+                    {project.type === "video" ? (
+                      <video
+                        src={project.media}
+                        aria-label={`${project.title} em desenvolvimento`}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        onLoadedData={playMutedLoop}
+                        onCanPlay={playMutedLoop}
+                        className="h-full w-full object-cover transition-transform duration-[1.5s] group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <ImageWithFallback
+                        src={project.media}
+                        alt={`Projeto Verde Burgo: ${project.title}`}
+                        mode="cover"
+                        imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]"
+                      />
+                    )}
                   </figure>
-                  <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{status}</p>
-                  <h3 className="mt-3 font-serif text-3xl leading-tight text-stone-950 text-balance">{title}</h3>
+                  <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.status}</p>
+                  <h3 className="mt-3 font-serif text-3xl leading-tight text-stone-950 text-balance">{project.title}</h3>
                 </button>
               </article>
             ))}
@@ -1993,7 +2031,8 @@ function Contato() {
       text: "Para projetos de branding, comunicação, conteúdo, campanhas, varejo, reposicionamento e percepção de valor.",
       href: "https://wa.me/5531981184250?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20BANAL%20sobre%20marca%2C%20marketing%20ou%20posicionamento.",
       label: "Contact BANAL",
-      image: banalAssets.minimalSymbol
+      image: banalAssets.transparentLogo,
+      imageClassName: "h-auto w-40 object-contain"
     },
     {
       name: "VERDE BURGO",
@@ -2001,7 +2040,8 @@ function Contato() {
       text: "Para festas, casamentos, aniversários, eventos corporativos e projetos com buffet, decoração, bar, cerimonial e produção.",
       href: "https://wa.me/5531981184250?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20VERDE%20BURGO%20sobre%20um%20evento%20ou%20festa.",
       label: "Contact VERDE BURGO",
-      image: verdeBurgoBrandAssets.logo
+      image: verdeBurgoBrandAssets.logo,
+      imageClassName: "h-16 w-16 object-contain"
     }
   ];
 
@@ -2029,7 +2069,7 @@ function Contato() {
               <article key={choice.name} className="group flex min-h-[28rem] flex-col justify-between border border-stone-900/10 bg-white/30 p-8 transition-colors duration-500 hover:bg-white/70 rounded-sm md:p-10">
                 <div>
                   <div className="mb-10 flex items-start justify-between gap-8">
-                    <img src={choice.image} alt={choice.name} className="h-16 w-16 object-contain grayscale contrast-125" loading="lazy" decoding="async" />
+                    <img src={choice.image} alt={choice.name} className={`${choice.imageClassName} grayscale contrast-125`} loading="lazy" decoding="async" />
                     <span className="text-right text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{choice.eyebrow}</span>
                   </div>
                   <h2 className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">{choice.name}</h2>
@@ -2137,8 +2177,22 @@ export default function SamuelPaesPortfolio() {
   ];
 
   const companyLinks = [
-    { id: "banal", label: "BANAL", image: banalAssets.minimalSymbol },
-    { id: "verdeburgo", label: "Verde Burgo", image: verdeBurgoBrandAssets.logo },
+    {
+      id: "banal",
+      label: "BANAL",
+      image: banalAssets.transparentLogo,
+      buttonClassName: "w-[7.25rem]",
+      mobileButtonClassName: "w-[4.75rem]",
+      imageClassName: "h-auto w-[5.75rem] md:w-[6.25rem]"
+    },
+    {
+      id: "verdeburgo",
+      label: "Verde Burgo",
+      image: verdeBurgoBrandAssets.logo,
+      buttonClassName: "w-12",
+      mobileButtonClassName: "w-10",
+      imageClassName: "h-7 w-7"
+    },
   ];
 
   const handleNavClick = (id) => {
@@ -2166,7 +2220,14 @@ export default function SamuelPaesPortfolio() {
               className={`group flex items-center gap-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${isConsultoriaArea ? "text-stone-950" : "text-stone-700 hover:text-stone-950"}`}
               aria-label="Ir para a página inicial"
             >
-              <span className="font-serif text-3xl leading-none tracking-tight md:text-4xl">SP</span>
+              <img
+                src="/images/00_LOGOS/symbol-black-navbar.png"
+                alt=""
+                aria-hidden="true"
+                className="h-9 w-9 object-contain md:h-11 md:w-11"
+                loading="eager"
+                decoding="async"
+              />
               <span className="hidden text-[10px] font-bold uppercase tracking-[0.3em] text-stone-500 sm:block">Paes Consultoria</span>
             </button>
           </div>
@@ -2199,9 +2260,9 @@ export default function SamuelPaesPortfolio() {
                   type="button"
                   onClick={() => handleNavClick(company.id)}
                   aria-label={`Abrir ${company.label}`}
-                  className={`flex h-12 w-12 items-center justify-center border transition-colors duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${active ? "border-stone-900 bg-white/70" : "border-stone-900/10 bg-white/20 hover:border-stone-900/30 hover:bg-white/60"}`}
+                  className={`flex h-12 ${company.buttonClassName} items-center justify-center border px-2 transition-colors duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${active ? "border-stone-900 bg-white/70" : "border-stone-900/10 bg-white/20 hover:border-stone-900/30 hover:bg-white/60"}`}
                 >
-                  <img src={company.image} alt={company.label} className="h-7 w-7 object-contain grayscale contrast-125" loading="lazy" decoding="async" />
+                  <img src={company.image} alt={company.label} className={`${company.imageClassName} object-contain grayscale contrast-125`} loading="lazy" decoding="async" />
                 </button>
               );
             })}
@@ -2216,9 +2277,9 @@ export default function SamuelPaesPortfolio() {
                   type="button"
                   onClick={() => handleNavClick(company.id)}
                   aria-label={`Abrir ${company.label}`}
-                  className={`flex h-10 w-10 items-center justify-center border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${active ? "border-stone-900 bg-white/70" : "border-stone-900/10 bg-white/20"}`}
+                  className={`flex h-10 ${company.mobileButtonClassName} items-center justify-center border px-1.5 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${active ? "border-stone-900 bg-white/70" : "border-stone-900/10 bg-white/20"}`}
                 >
-                  <img src={company.image} alt={company.label} className="h-6 w-6 object-contain grayscale contrast-125" loading="lazy" decoding="async" />
+                  <img src={company.image} alt={company.label} className={`${company.imageClassName} max-h-6 object-contain grayscale contrast-125`} loading="lazy" decoding="async" />
                 </button>
               );
             })}

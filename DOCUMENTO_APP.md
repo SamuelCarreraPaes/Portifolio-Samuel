@@ -197,7 +197,9 @@ Arquivos centrais:
 | `public/sitemap.xml` | Sitemap canonico. |
 | `README.md` | Documentacao tecnica. |
 | `public/brands/banal` | Assets da BANAL. |
+| `public/brands/banal/media` | Logo horizontal transparente e video da mosca em loop. |
 | `public/brands/verde-burgo` | Assets da Verde Burgo. |
+| `public/brands/verde-burgo/media` | Video de desenvolvimento usado nos cards futuros da Verde Burgo. |
 
 ## 11. SEO
 

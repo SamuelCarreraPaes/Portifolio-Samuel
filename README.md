@@ -91,7 +91,9 @@ A pagina `Biblioteca` substitui a antiga area `Sistema` e funciona como hub de a
 ## Assets
 
 - `public/brands/banal`: imagens selecionadas do pacote BANAL para simbolo, cena fundadora e pranchas de identidade.
+- `public/brands/banal/media`: logo horizontal transparente da BANAL e video em loop da mosca para a pagina institucional da marca.
 - `public/brands/verde-burgo`: logos, icones, fundos e elementos selecionados do brand pack da Verde Burgo.
+- `public/brands/verde-burgo/media`: video de desenvolvimento usado nos cards futuros da Verde Burgo.
 - `assets-source/14_VERDEBURGO/PROVENCE_RAIZ`: imagens originais/editaveis extraidas do PPTX.
 - `public/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB`: versoes otimizadas usadas pela rota publica `/verdeburgo`.
 - `assets-source/14_VERDEBURGO/PROVENCE_RAIZ/10_REFINAMENTO_USUARIO`: imagens enviadas para refinamento editorial, reenquadramento e futura edicao.
