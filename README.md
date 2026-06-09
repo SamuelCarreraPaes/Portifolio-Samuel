@@ -29,12 +29,14 @@ Arquivos e pontos principais:
 
 A pagina `Visao` apresenta a tese de marca como experiencia continua, conectando online, espaco fisico, atendimento, operacao e jornada omnichannel.
 
-A pagina `VERDEBURGO` apresenta a plataforma criativa de experiencias, cenografias e narrativas espaciais autorais dentro do ecossistema Samuel Carrera Paes. A rota publica `/verdeburgo` inaugura a area com o projeto `Provence Raiz`, incluindo manifesto, leitura editorial do projeto, renders, objetos autorais e pranchas tecnicas.
+A pagina `VERDEBURGO` apresenta a empresa criativa dedicada ao desenvolvimento de experiencias, cenografias, narrativas e desdobramentos visuais dentro do ecossistema Samuel Carrera Paes. A rota publica `/verdeburgo` inaugura a area com o projeto `Provence Raiz`, incluindo manifesto, leitura editorial do projeto, renders, objetos autorais e pranchas tecnicas.
 
 Assets do projeto:
 
 - `assets-source/14_VERDEBURGO/PROVENCE_RAIZ`: imagens originais/editaveis extraidas do PPTX, separadas tambem por slide.
 - `public/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB`: versoes otimizadas usadas pela rota publica `/verdeburgo`.
+- `assets-source/14_VERDEBURGO/PROVENCE_RAIZ/10_REFINAMENTO_USUARIO`: imagens enviadas para refinamento editorial, reenquadramento e futura edicao.
+- `public/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO`: versoes web otimizadas das imagens refinadas usadas na rota publica `/verdeburgo`.
 
 A pagina `Sistema` consolida seis pilares autorais do metodo Samuel Paes e funciona como indice editorial para artigos individuais:
 

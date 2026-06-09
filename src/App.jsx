@@ -329,6 +329,7 @@ const homePortrait = "/images/13_VISAO/about-transition.png";
 const PREMIUM_EASE = [0.22, 1, 0.36, 1];
 
 const verdeburgoBase = "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB";
+const verdeburgoRefinement = "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO";
 
 const verdeburgoAssets = {
   logo: `${verdeburgoBase}/logo-verdeburgo-eventos.png`,
@@ -347,7 +348,16 @@ const verdeburgoAssets = {
   escada: `${verdeburgoBase}/provence-raiz-escada-cascata-floral.jpg`,
   pilastras: `${verdeburgoBase}/prancha-tecnica-pilastras-cenograficas-altar.jpg`,
   luminariaCarretel: `${verdeburgoBase}/prancha-tecnica-luminaria-pendulo-carretel.jpg`,
-  luminariaSuspensa: `${verdeburgoBase}/prancha-tecnica-luminaria-cenografica-suspensa.jpg`
+  luminariaSuspensa: `${verdeburgoBase}/prancha-tecnica-luminaria-cenografica-suspensa.jpg`,
+  moodboardIntegrado: `${verdeburgoRefinement}/moodboard-integracao-atmosfera-provence.jpg`,
+  materiaTextura: `${verdeburgoRefinement}/board-materia-textura-cores.jpg`,
+  volumeNatural: `${verdeburgoRefinement}/board-volume-natural-nunca-artificial.jpg`,
+  cerimoniaRefinada: `${verdeburgoRefinement}/render-cerimonia-altar-passarela-refinado.jpg`,
+  mesaRefinada: `${verdeburgoRefinement}/render-mesa-bolo-mural-toile-refinado.jpg`,
+  escadaRefinada: `${verdeburgoRefinement}/render-escada-cascata-floral-refinado.jpg`,
+  pilastrasRefinada: `${verdeburgoRefinement}/pilastras-refinada.jpg`,
+  luminariaCarretelRefinada: `${verdeburgoRefinement}/prancha-tecnica-luminaria-carretel-refinada.jpg`,
+  luminariaGaiola: `${verdeburgoRefinement}/prancha-tecnica-luminaria-gaiola-cenografica.jpg`
 };
 
 const verdeburgoChapters = [
@@ -363,41 +373,47 @@ const verdeburgoChapters = [
     number: "02",
     label: "Linguagem Visual",
     title: "Toile de Jouy como memória gráfica, não como estampa decorativa.",
-    text: "A linguagem combina romantismo provençal, luxo silencioso e uma materialidade tátil: linho natural, madeira, metal champagne, porcelana azul e branca, voal translúcido e luz quente.",
-    image: verdeburgoAssets.materiaReal,
-    alt: "Moodboard de materiais naturais, texturas, Toile de Jouy e paleta suave."
+    text: "A imagem de fundo funciona como uma reinterpretação contemporânea do Toile de Jouy: menos reprodução histórica, mais memória gráfica. Azul, matéria, papel, textura e luz aparecem como camadas de atmosfera.",
+    image: verdeburgoAssets.materiaTextura,
+    alt: "Prancha de matéria, textura, cores e Toile de Jouy para Provence Raiz.",
+    mode: "contain",
+    frameClassName: "aspect-[4/5]"
   },
   {
     number: "03",
     label: "Arquitetura",
-    title: "A Casa Giardini não é pano de fundo. É matéria viva.",
-    text: "Varanda, salão, concreto aparente, luz natural e vista para as colinas de Confins orientam a narrativa. O espaço real conduz o desenho cenográfico, em vez de ser disfarçado por ele.",
+    title: "O espaço como campo de leitura, não como vitrine.",
+    text: "A Casa Giardini entra como escala, luz, vazio, percurso e sombra. O lugar não é anunciado como produto; ele atua como pano de fundo vivo para que a atmosfera, os objetos e a narrativa ganhem corpo.",
     image: verdeburgoAssets.planta,
     alt: "Planta de implantação da Casa Giardini para o projeto Provence Raiz."
   },
   {
     number: "04",
     label: "Floral",
-    title: "Volume orgânico, nunca preenchimento.",
-    text: "O floral procura movimento, respiro e irregularidade controlada, como se a paisagem tivesse atravessado a arquitetura. Blush, ivory e dusty blue aparecem como ritmo, não como fórmula.",
-    image: verdeburgoAssets.floral,
-    alt: "Estudo floral com volume natural, flores claras e referências botânicas."
+    title: "Volume natural, nunca artificial.",
+    text: "O floral procura imperfeição elegante: hastes aparentes, assimetria, respiro e azul distribuído como ritmo pictórico. Nada plástico, nada compacto; a pergunta é se parece que nasceu ali.",
+    image: verdeburgoAssets.volumeNatural,
+    alt: "Prancha floral Volume Natural Nunca Artificial com flores do projeto Provence Raiz.",
+    mode: "contain",
+    frameClassName: "aspect-[16/9]"
   },
   {
     number: "05",
     label: "Cerimônia",
     title: "Uma cena em deslocamento.",
     text: "A passarela preserva o respiro central, os florais conduzem o olhar, os voais filtram a luz e o altar surge como extensão natural do espaço.",
-    image: verdeburgoAssets.cerimonia,
-    alt: "Render da cerimônia Provence Raiz com passarela, florais e altar."
+    image: verdeburgoAssets.cerimoniaRefinada,
+    alt: "Render refinado da cerimônia Provence Raiz com passarela, florais, luminária e altar.",
+    frameClassName: "aspect-[3/4]"
   },
   {
     number: "06",
     label: "Permanência",
     title: "Hospitalidade como experiência, não passagem.",
     text: "Bar, lounge, mesa do bolo e escada criam zonas de permanência. Cada ambiente sustenta uma qualidade: chegada, encontro, contemplação, memória e fotografia.",
-    image: verdeburgoAssets.lounge,
-    alt: "Render do lounge Provence Raiz com sofá em linho, tapete azul e atmosfera residencial."
+    image: verdeburgoAssets.escadaRefinada,
+    alt: "Render refinado da escada Provence Raiz com cascata floral orgânica.",
+    frameClassName: "aspect-square"
   }
 ];
 
@@ -405,20 +421,20 @@ const verdeburgoObjects = [
   {
     title: "Pilastras Cenográficas",
     text: "Estruturam o altar como presença arquitetônica temporária. Não simulam permanência: criam verticalidade, enquadramento e solenidade.",
-    image: verdeburgoAssets.pilastras,
-    alt: "Prancha técnica das pilastras cenográficas para altar Provence Raiz."
+    image: verdeburgoAssets.pilastrasRefinada,
+    alt: "Prancha técnica refinada das pilastras cenográficas para altar Provence Raiz."
   },
   {
     title: "Luminária Carretel",
     text: "Nasce da tensão entre objeto rústico e peça cenográfica refinada. Madeira clara, difusão leitosa e luz quente constroem uma presença suspensa e silenciosa.",
-    image: verdeburgoAssets.luminariaCarretel,
-    alt: "Prancha técnica da luminária pêndulo carretel cenográfico Provence Raiz."
+    image: verdeburgoAssets.luminariaCarretelRefinada,
+    alt: "Prancha técnica refinada da luminária pêndulo carretel cenográfico Provence Raiz."
   },
   {
-    title: "Luminária Cenográfica Suspensa",
-    text: "Amplia a escala da celebração sem perder delicadeza. Estrutura metálica, difusores translúcidos e luz interna transformam o objeto em eixo vertical de cena.",
-    image: verdeburgoAssets.luminariaSuspensa,
-    alt: "Prancha técnica da luminária cenográfica suspensa Provence Raiz."
+    title: "Luminária Gaiola",
+    text: "Aparece como arquitetura suspensa: metal champagne, vidro texturizado, tecido interno e luz quente. Não é ornamento solto; é dispositivo de escala e atmosfera.",
+    image: verdeburgoAssets.luminariaGaiola,
+    alt: "Prancha técnica da luminária pendente gaiola cenográfica Provence Raiz."
   }
 ];
 
@@ -540,12 +556,13 @@ function ImageWithFallback({ src, alt, imageClassName = "", fallbackLabel, loadi
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const isNatural = mode === "natural";
+  const isContain = mode === "contain";
 
   return (
     <div 
       role="img" 
       aria-label={alt || fallbackLabel} 
-      className={`w-full bg-stone-200/40 flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-visible'}`}
+      className={`w-full bg-stone-200/40 flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-hidden'}`}
     >
       {!error ? (
         <picture>
@@ -557,7 +574,7 @@ function ImageWithFallback({ src, alt, imageClassName = "", fallbackLabel, loadi
             onLoad={() => setIsLoaded(true)}
             onError={() => setError(true)}
             className={`w-full transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              isNatural ? "h-auto block object-contain" : "h-full absolute inset-0 object-cover"
+              isNatural ? "h-auto block object-contain" : `h-full absolute inset-0 ${isContain ? "object-contain" : "object-cover"}`
             } object-center ${
               isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
             } ${imageClassName}`}
@@ -1110,7 +1127,7 @@ function Verdeburgo({ navigate }) {
     <PageTransition>
       <DynamicSEO
         title="VERDEBURGO"
-        description="VERDEBURGO é a plataforma criativa de Samuel Carrera Paes para experiências, cenografias e narrativas espaciais autorais. Provence Raiz inaugura esta linguagem."
+        description="VERDEBURGO é uma empresa criativa dedicada ao desenvolvimento de experiências, cenografias, narrativas e desdobramentos visuais. Provence Raiz inaugura esta linguagem."
         url="verdeburgo"
         image={verdeburgoAssets.hero}
         schemaType="CreativeWork"
@@ -1142,14 +1159,14 @@ function Verdeburgo({ navigate }) {
 
             <div className="max-w-5xl">
               <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.35em] text-[#F4F0E9]/70">
-                Plataforma Criativa
+                Empresa Criativa
               </span>
               <h1 id="verdeburgo-title" className="max-w-full overflow-hidden font-serif text-[16vw] leading-[0.82] tracking-tight sm:text-6xl md:text-[7rem] lg:text-[9rem] 2xl:text-[10rem] text-balance">
                 <span className="sm:hidden">VERDE<br />BURGO.</span>
                 <span className="hidden sm:inline">VERDEBURGO.</span>
               </h1>
               <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed text-[#F4F0E9]/85 md:text-2xl text-balance">
-                Plataforma criativa dedicada ao desenvolvimento de experiências, cenografias e narrativas espaciais autorais dentro do ecossistema Samuel Carrera Paes.
+                Empresa criativa dedicada ao desenvolvimento de experiências, cenografias, narrativas e desdobramentos visuais dentro do ecossistema Samuel Carrera Paes.
               </p>
             </div>
 
@@ -1168,7 +1185,7 @@ function Verdeburgo({ navigate }) {
           <div>
             <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Manifesto</span>
             <h2 id="verdeburgo-manifesto" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl lg:text-7xl text-balance">
-              Não desenhamos eventos. Construímos narrativas habitáveis.
+              Não desenhamos eventos. Construímos atmosferas.
             </h2>
           </div>
           <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
@@ -1211,10 +1228,10 @@ function Verdeburgo({ navigate }) {
           </header>
 
           <figure className="mt-20 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-            <div className="relative aspect-[16/10] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
+            <div className="relative aspect-[4/3] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
               <ImageWithFallback
-                src={verdeburgoAssets.mesa}
-                alt="Render da mesa do bolo Provence Raiz com Toile de Jouy, luminárias e florais."
+                src={verdeburgoAssets.mesaRefinada}
+                alt="Render refinado da mesa do bolo Provence Raiz com Toile de Jouy, luminárias e florais."
                 mode="cover"
                 loading="eager"
                 imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
@@ -1222,7 +1239,7 @@ function Verdeburgo({ navigate }) {
             </div>
             <figcaption className="flex flex-col justify-end border-l border-stone-900/10 pl-8 text-sm font-light leading-relaxed text-stone-600">
               <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Tese visual</span>
-              A arquitetura não é pano de fundo. Concreto, vista, luz, sombra, Toile de Jouy, floral e objetos autorais entram como matéria viva da narrativa.
+              O espaço atua como pano de fundo vivo: concreto, luz, sombra, percurso, Toile de Jouy, floral e objetos autorais sustentam a atmosfera sem competir com a experiência.
             </figcaption>
           </figure>
         </section>
@@ -1242,11 +1259,11 @@ function Verdeburgo({ navigate }) {
                 className={`grid gap-10 border-t border-stone-900/10 pt-12 lg:grid-cols-2 lg:items-center ${index % 2 === 1 ? "lg:[&>figure]:order-2" : ""}`}
                 aria-labelledby={`verdeburgo-chapter-${chapter.number}`}
               >
-                <figure className="relative aspect-[4/3] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
+                <figure className={`relative overflow-hidden bg-stone-200/40 rounded-sm shadow-sm ${chapter.frameClassName || "aspect-[4/3]"}`}>
                   <ImageWithFallback
                     src={chapter.image}
                     alt={chapter.alt}
-                    mode="cover"
+                    mode={chapter.mode || "cover"}
                     imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
                   />
                 </figure>
@@ -1285,7 +1302,7 @@ function Verdeburgo({ navigate }) {
                   <ImageWithFallback
                     src={item.image}
                     alt={item.alt}
-                    mode="cover"
+                    mode="contain"
                     imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
                   />
                 </figure>
@@ -1930,10 +1947,6 @@ export default function SamuelPaesPortfolio() {
     </div>
   );
 }
-
-
-
-
 
 
 
