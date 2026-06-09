@@ -22,11 +22,11 @@ Logica publica:
 
 ```text
 Paes Consultoria
+-> abertura institucional limpa
 -> Minha Visao
+-> empresas: BANAL / VERDE BURGO
 -> Biblioteca
--> BANAL
--> VERDE BURGO
--> Contato
+-> Contato por frente comercial
 ```
 
 A Paes Consultoria concentra direcao, identidade, experiencia, estrategia, percepcao de valor e execucao.
@@ -69,13 +69,15 @@ Arquivos e pontos principais:
 
 ## Conteudo Editorial
 
-A pagina `Inicio` apresenta a Paes Consultoria como nucleo estrategico e criativo que desenvolve negocios, marcas, experiencias e projetos por meio de direcao, identidade, estrategia, experiencia e execucao.
+A pagina `Inicio` apresenta somente a tese institucional essencial: Paes Consultoria, logos de BANAL e Verde Burgo, Direcao Criativa e Estrategia, e a frase de posicionamento central. A explicacao conceitual fica concentrada em `Minha Visao`.
 
 A pagina `Minha Visao` explica o posicionamento profissional de Samuel Carrera Paes: pensamento sistemico, identidade como estrategia, experiencia e percepcao, excelencia de execucao e uso de tecnologia como ferramenta, nao como identidade.
 
-A pagina `BANAL` apresenta uma empresa com hero, posicionamento, servicos, processo, cases e CTA. Os antigos projetos de marketing, varejo, comunicacao e marca aparecem como projetos da BANAL.
+A pagina `BANAL` apresenta uma empresa com hero, galeria de projetos logo no inicio, servicos, explicacao institucional, processo e CTA. Os antigos projetos de marketing, varejo, comunicacao e marca aparecem como projetos da BANAL.
 
-A pagina `VERDE BURGO` apresenta uma empresa de eventos com solucao completa: buffet, decoracao, bar, cerimonial, planejamento, producao, execucao e formatos de evento. `Provence Raiz` aparece como projeto/referencia dentro da Verde Burgo.
+A pagina `VERDE BURGO` apresenta uma empresa de eventos com solucao completa: buffet, decoracao, bar, cerimonial, planejamento, producao e execucao. A pagina abre com galeria de projetos, depois servicos, explicacao institucional, metodo e o detalhamento de `Provence Raiz` como projeto/referencia dentro da Verde Burgo.
+
+A pagina `Contato` direciona o usuario para `Contact BANAL` ou `Contact VERDE BURGO`, evitando uma chamada generica de consultoria.
 
 A pagina `Biblioteca` substitui a antiga area `Sistema` e funciona como hub de autoridade:
 

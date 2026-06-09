@@ -4,7 +4,7 @@
 
 O site `paesconsultoria.com` foi reposicionado para apresentar a Paes Consultoria como nucleo estrategico e criativo central.
 
-A estrutura deixa de comunicar um conjunto abstrato de empresas e passa a comunicar uma consultoria madura, clara e institucional, capaz de originar negocios, marcas, experiencias, projetos e solucoes.
+A estrutura deixa de comunicar um portfolio tradicional ou um conjunto abstrato de empresas. A homepage agora funciona como uma abertura institucional limpa, em que a Paes Consultoria aparece como visao central e BANAL/VERDE BURGO aparecem como marcas originadas por essa visao.
 
 ## 2. Tese Central
 
@@ -22,20 +22,22 @@ O elo entre as empresas nao e categoria de mercado. O elo e:
 - autoria;
 - visao estrategica;
 - execucao;
-- Samuel Carrera Paes.
+- criterio autoral.
 
 ## 3. Estrutura Publica
 
 Navegacao atual:
 
 ```text
-Inicio
+SP / Paes Consultoria
 Minha Visao
 Biblioteca
-BANAL
-VERDE BURGO
 Contato
+[BANAL logo]
+[VERDE BURGO logo]
 ```
+
+As empresas aparecem como entidades de marca, nao apenas como itens de menu.
 
 ## 4. Rotas
 
@@ -60,20 +62,18 @@ Rotas antigas preservadas por compatibilidade:
 
 ## 5. Paes Consultoria
 
-A homepage responde a pergunta:
-
-> O que conecta negocios que operam em mercados diferentes?
-
-A resposta do site e:
-
-- direcao;
-- identidade;
-- experiencia;
-- execucao;
-- coerencia;
-- percepcao de valor.
-
 A Paes Consultoria desenvolve negocios, marcas, experiencias e projetos por meio de uma visao estrategica e criativa unificada.
+
+Hero atual:
+
+```text
+PAES CONSULTORIA
+[BANAL] [VERDE BURGO]
+Direcao Criativa e Estrategia
+Desenvolvemos negocios, marcas, experiencias e projetos por meio de uma visao estrategica e criativa unificada.
+```
+
+A explicacao conceitual saiu da homepage e foi concentrada em `Minha Visao`.
 
 ## 6. Samuel Carrera Paes
 
@@ -118,10 +118,10 @@ Camadas:
 Estrutura da pagina:
 
 - hero;
-- posicionamento;
-- servicos;
-- processo;
 - cases;
+- servicos;
+- explicacao institucional;
+- processo;
 - CTA.
 
 ## 8. VERDE BURGO
@@ -146,11 +146,11 @@ O diferencial e a direcao criativa aplicada aos eventos. Ela torna comida, bar, 
 Estrutura da pagina:
 
 - hero;
-- posicionamento;
-- servicos;
-- metodo;
-- formatos de evento;
 - projetos;
+- servicos;
+- explicacao institucional;
+- metodo;
+- Provence Raiz como projeto em detalhe;
 - CTA.
 
 Importante:
@@ -223,7 +223,14 @@ Antes de publicar:
 - checagem de canonical;
 - checagem de sitemap.
 
-## 13. Proximos Passos
+## 13. Contato
+
+A pagina de contato direciona o usuario para a frente correta:
+
+- `Contact BANAL`: marca, marketing, comunicacao, varejo, posicionamento e percepcao de valor.
+- `Contact VERDE BURGO`: eventos, festas, buffet, decoracao, bar, cerimonial e producao.
+
+## 14. Proximos Passos
 
 1. Refinar assets editoriais da Verde Burgo.
 2. Expandir cases BANAL por tipo de desafio.
