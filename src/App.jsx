@@ -442,6 +442,7 @@ const banalAssets = {
   symbol: "/brands/banal/banal-symbol-primary.jpg",
   minimalSymbol: "/brands/banal/banal-symbol-minimal.jpg",
   transparentLogo: "/brands/banal/media/banal-logo-horizontal-transparent.png",
+  balancedLogo: "/brands/banal/media/banal-logo-balanced.png",
   flyLoop: "/brands/banal/media/banal-fly-loop.mp4",
   identityDark: "/brands/banal/banal-identity-dark.jpg",
   showcase: "/brands/banal/banal-brand-showcase.jpg",
@@ -454,6 +455,7 @@ const banalAssets = {
 
 const verdeBurgoBrandAssets = {
   logo: "/brands/verde-burgo/logos/verde-burgo-logo-principal.png",
+  balancedLogo: "/brands/verde-burgo/logos/verde-burgo-logo-balanced.png",
   icon: "/brands/verde-burgo/icons/verde-burgo-icon-principal.png",
   hero: "/brands/verde-burgo/backgrounds/verde-burgo-bg-hero-branco-neve.jpg",
   greenHero: "/brands/verde-burgo/backgrounds/verde-burgo-bg-hero-verde.jpg",
@@ -752,16 +754,18 @@ function Inicio({ navigate }) {
           <button
             type="button"
             onClick={() => navigate("banal")}
-            className="group flex min-h-40 items-center justify-center border border-stone-900/10 bg-white/20 p-8 transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            className="group flex min-h-40 items-center justify-center border border-stone-900/10 bg-white/20 px-8 py-10 transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             aria-label="Abrir BANAL"
           >
-            <img
-              src={banalAssets.transparentLogo}
-              alt="BANAL"
-              loading="eager"
-              decoding="async"
-              className="h-auto w-full max-w-xs object-contain transition duration-700 group-hover:scale-[1.02] md:max-w-sm"
-            />
+            <span className="flex h-28 w-full max-w-[18rem] items-center justify-center md:h-32">
+              <img
+                src={banalAssets.balancedLogo}
+                alt="BANAL"
+                loading="eager"
+                decoding="async"
+                className="max-h-full w-full object-contain transition duration-700 group-hover:scale-[1.02]"
+              />
+            </span>
           </button>
 
           <div className="hidden h-px w-16 bg-stone-900/20 md:block" aria-hidden="true" />
@@ -769,16 +773,18 @@ function Inicio({ navigate }) {
           <button
             type="button"
             onClick={() => navigate("verdeburgo")}
-            className="group flex min-h-40 items-center justify-center border border-stone-900/10 bg-white/20 p-8 transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            className="group flex min-h-40 items-center justify-center border border-stone-900/10 bg-white/20 px-8 py-10 transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             aria-label="Abrir Verde Burgo"
           >
-            <img
-              src={verdeBurgoBrandAssets.logo}
-              alt="Verde Burgo"
-              loading="eager"
-              decoding="async"
-              className="h-24 w-24 object-contain grayscale contrast-125 transition duration-700 group-hover:grayscale-0 md:h-28 md:w-28"
-            />
+            <span className="flex h-28 w-full max-w-[18rem] items-center justify-center md:h-32">
+              <img
+                src={verdeBurgoBrandAssets.balancedLogo}
+                alt="Verde Burgo"
+                loading="eager"
+                decoding="async"
+                className="h-full w-full object-contain grayscale contrast-125 transition duration-700 group-hover:grayscale-0 group-hover:scale-[1.02]"
+              />
+            </span>
           </button>
         </motion.div>
 
@@ -2031,7 +2037,7 @@ function Contato() {
       text: "Para projetos de branding, comunicação, conteúdo, campanhas, varejo, reposicionamento e percepção de valor.",
       href: "https://wa.me/5531981184250?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20BANAL%20sobre%20marca%2C%20marketing%20ou%20posicionamento.",
       label: "Contact BANAL",
-      image: banalAssets.transparentLogo,
+      image: banalAssets.balancedLogo,
       imageClassName: "h-auto w-40 object-contain"
     },
     {
@@ -2040,7 +2046,7 @@ function Contato() {
       text: "Para festas, casamentos, aniversários, eventos corporativos e projetos com buffet, decoração, bar, cerimonial e produção.",
       href: "https://wa.me/5531981184250?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20VERDE%20BURGO%20sobre%20um%20evento%20ou%20festa.",
       label: "Contact VERDE BURGO",
-      image: verdeBurgoBrandAssets.logo,
+      image: verdeBurgoBrandAssets.balancedLogo,
       imageClassName: "h-16 w-16 object-contain"
     }
   ];
@@ -2180,18 +2186,18 @@ export default function SamuelPaesPortfolio() {
     {
       id: "banal",
       label: "BANAL",
-      image: banalAssets.transparentLogo,
-      buttonClassName: "w-[7.25rem]",
-      mobileButtonClassName: "w-[4.75rem]",
-      imageClassName: "h-auto w-[5.75rem] md:w-[6.25rem]"
+      image: banalAssets.balancedLogo,
+      buttonClassName: "w-[5.75rem]",
+      mobileButtonClassName: "w-[4.25rem]",
+      imageClassName: "h-8 w-full md:h-9"
     },
     {
       id: "verdeburgo",
       label: "Verde Burgo",
-      image: verdeBurgoBrandAssets.logo,
-      buttonClassName: "w-12",
-      mobileButtonClassName: "w-10",
-      imageClassName: "h-7 w-7"
+      image: verdeBurgoBrandAssets.balancedLogo,
+      buttonClassName: "w-[5.75rem]",
+      mobileButtonClassName: "w-[4.25rem]",
+      imageClassName: "h-8 w-full md:h-9"
     },
   ];
 
