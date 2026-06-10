@@ -2,6 +2,7 @@ import { readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { authorityAtlas, authorityServices } from "../src/authorityMap.js";
 import { sistemaArticleCards } from "../src/sistemaArticleCards.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -33,6 +34,7 @@ const baseRoutes = [
   { path: "/banal", priority: "0.9", title: "BANAL | Branding, Marketing e Posicionamento" },
   { path: "/verdeburgo", priority: "0.9", title: "Verde Burgo Eventos | Eventos, Buffet, Decoração e Cerimonial" },
   { path: "/biblioteca", priority: "0.8", title: "Biblioteca Samuel Paes" },
+  { path: `/atlas/${authorityAtlas.slug}`, priority: "0.7", title: "Mapa do Ecossistema | Samuel Carrera Paes" },
   { path: "/contato", priority: "0.7", title: "Contato Paes Consultoria" }
 ];
 
@@ -48,7 +50,13 @@ const articlePages = sistemaArticleCards.map((article) => ({
   title: `${article.editorialTitle} | Biblioteca Samuel Paes`
 }));
 
-const allRoutes = [...baseRoutes, ...casePages, ...articlePages];
+const servicePages = authorityServices.map((service) => ({
+  path: `/servicos/${service.slug}`,
+  priority: "0.55",
+  title: `${service.title} | ${service.company} | Samuel Carrera Paes`
+}));
+
+const allRoutes = [...baseRoutes, ...casePages, ...articlePages, ...servicePages];
 
 function escapeXml(value) {
   return String(value)
@@ -176,6 +184,7 @@ Sitemap: ${siteUrl}/sitemap-images.xml
 function buildLlmsTxt() {
   const caseList = casePages.map((item) => `- ${item.title}: ${siteUrl}${item.path}`).join("\n");
   const articleList = articlePages.map((item) => `- ${item.title}: ${siteUrl}${item.path}`).join("\n");
+  const serviceList = servicePages.map((item) => `- ${item.title}: ${siteUrl}${item.path}`).join("\n");
 
   return `# Paes Consultoria / Samuel Carrera Paes
 
@@ -196,7 +205,11 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 - BANAL: ${siteUrl}/banal
 - Verde Burgo Eventos: ${siteUrl}/verdeburgo
 - Biblioteca Samuel Paes: ${siteUrl}/biblioteca
+- Mapa do Ecossistema: ${siteUrl}/atlas/${authorityAtlas.slug}
 - Contato: ${siteUrl}/contato
+
+## Servicos e territorios canonicos
+${serviceList}
 
 ## Cases BANAL / Paes Consultoria
 ${caseList}

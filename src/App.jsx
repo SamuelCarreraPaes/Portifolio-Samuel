@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
 
+import { authorityAtlas, authorityServiceGroups, authorityServices, getAuthorityService } from "./authorityMap";
 import { sistemaArticleCards } from "./sistemaArticleCards";
 
 // --- DADOS DOS 11 CASES OFICIAIS COM NARRATIVA PROFUNDA E TAGS DE FILTRO ---
@@ -340,6 +341,10 @@ const SEO_KEYWORDS = [
   "branding",
   "marketing",
   "eventos",
+  "buffet",
+  "decoração",
+  "bar",
+  "cerimonial",
   "varejo",
   "visual merchandising",
   "direção criativa",
@@ -377,7 +382,20 @@ function getPaesEntity() {
     "logo": absoluteUrl("/images/00_LOGOS/logo-full-transparent.png"),
     "founder": { "@id": `${SITE_URL}/#samuel-carrera-paes` },
     "sameAs": [SAMUEL_INSTAGRAM],
-    "knowsAbout": SEO_KEYWORDS
+    "knowsAbout": SEO_KEYWORDS,
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Serviços e territórios do ecossistema Samuel Paes",
+      "itemListElement": authorityServices.map((service) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": service.title,
+          "url": `${SITE_URL}/servicos/${service.slug}`,
+          "provider": { "@id": `${SITE_URL}/#paes-consultoria` }
+        }
+      }))
+    }
   };
 }
 
@@ -584,16 +602,6 @@ const consultancyCompanies = [
   }
 ];
 
-const verdeBurgoServices = [
-  "Buffet",
-  "Decoração",
-  "Bar",
-  "Cerimonial",
-  "Planejamento",
-  "Produção",
-  "Execução"
-];
-
 const verdeBurgoEventFormats = [
   "Casamentos",
   "Aniversários",
@@ -609,14 +617,6 @@ const verdeBurgoMethod = [
   ["Curadoria", "Selecionar fornecedores, materiais, menu, bar, ambientação, papelaria e detalhes."],
   ["Operação", "Planejar fluxos, bastidores, cronograma, montagem, equipe e execução."],
   ["Presença", "Entregar uma experiência fluida, bonita, resolvida e memorável."]
-];
-
-const banalServices = [
-  "Branding",
-  "Marketing",
-  "Posicionamento",
-  "Narrativa",
-  "Percepção de valor"
 ];
 
 const banalLayers = [
@@ -761,6 +761,11 @@ function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) 
       ...(schemaType === "Article" ? {
         "datePublished": SEO_LAST_MODIFIED,
         "articleSection": "Biblioteca Samuel Paes"
+      } : {}),
+      ...(schemaType === "Service" ? {
+        "serviceType": title,
+        "provider": { "@id": `${SITE_URL}/#paes-consultoria` },
+        "areaServed": "Brasil"
       } : {})
     };
 
@@ -923,7 +928,7 @@ function Inicio({ navigate }) {
           </p>
         </motion.div>
 
-        <div className="mt-24 grid gap-4 border-t border-stone-900/10 pt-10 md:grid-cols-3">
+        <div className="mt-24 grid gap-4 border-t border-stone-900/10 pt-10 md:grid-cols-2 lg:grid-cols-4">
           <button
             type="button"
             onClick={() => navigate("visao")}
@@ -949,6 +954,17 @@ function Inicio({ navigate }) {
               <ArrowUpRight className="h-4 w-4 text-stone-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
             </button>
           ))}
+          <button
+            type="button"
+            onClick={() => navigate(`atlas/${authorityAtlas.slug}`)}
+            className="group flex items-center justify-between border border-stone-900/10 bg-white/20 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+          >
+            <span>
+              <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">04</span>
+              <span className="mt-2 block font-serif text-2xl text-stone-950">Mapa</span>
+            </span>
+            <ArrowUpRight className="h-4 w-4 text-stone-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+          </button>
         </div>
       </section>
     </PageTransition>
@@ -1262,11 +1278,17 @@ function Banal({ navigate }) {
               Uma estrutura para tornar negócios mais legíveis, desejáveis e consistentes.
             </h2>
           </header>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-            {banalServices.map((service) => (
-              <div key={service} className="border border-stone-900/10 bg-white/35 px-5 py-5 rounded-sm">
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{service}</p>
-              </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {authorityServices.filter((service) => service.group === "marca").map((service) => (
+              <button
+                key={service.slug}
+                type="button"
+                onClick={() => navigate(`servicos/${service.slug}`)}
+                className="group border border-stone-900/10 bg-white/35 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+              >
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{service.title}</p>
+                <p className="mt-3 text-xs font-light leading-relaxed text-stone-500">{service.statement}</p>
+              </button>
             ))}
           </div>
         </section>
@@ -1640,11 +1662,17 @@ function Verdeburgo({ navigate }) {
               Uma festa bem feita não depende do cliente coordenar dezenas de partes soltas. A Verde Burgo organiza serviço, estética, produção e bastidor para entregar uma experiência coerente e tranquila.
             </p>
           </header>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {verdeBurgoServices.map((service) => (
-              <div key={service} className="border border-stone-900/10 bg-white/35 px-5 py-5 rounded-sm">
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{service}</p>
-              </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {authorityServices.filter((service) => service.group === "eventos").map((service) => (
+              <button
+                key={service.slug}
+                type="button"
+                onClick={() => navigate(`servicos/${service.slug}`)}
+                className="group border border-stone-900/10 bg-white/35 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+              >
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{service.title}</p>
+                <p className="mt-3 text-xs font-light leading-relaxed text-stone-500">{service.statement}</p>
+              </button>
             ))}
           </div>
           <div className="mt-16 grid gap-4 border-t border-stone-900/10 pt-12 md:grid-cols-2 lg:grid-cols-3">
@@ -2144,6 +2172,249 @@ function SistemaArticle({ slug, navigate }) {
   );
 }
 
+function EcosystemAtlas({ navigate }) {
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title="Mapa do Ecossistema"
+        description="Mapa editorial dos serviços, empresas, cases e artigos associados a Samuel Carrera Paes, Paes Consultoria, BANAL e Verde Burgo Eventos."
+        url={`atlas/${authorityAtlas.slug}`}
+      />
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12">
+        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.78fr_1.22fr]">
+          <div>
+            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ATLAS EDITORIAL</span>
+            <h1 className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
+              {authorityAtlas.title}.
+            </h1>
+          </div>
+          <div className="self-end max-w-3xl">
+            <p className="text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
+              {authorityAtlas.subtitle}
+            </p>
+            <p className="mt-8 text-base font-light leading-relaxed text-stone-600 md:text-lg">
+              {authorityAtlas.description}
+            </p>
+          </div>
+        </header>
+
+        <section className="border-b border-stone-900/10 py-16" aria-label="Entidades do ecossistema">
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              ["Samuel Carrera Paes", "Direção criativa, consultoria criativa, repertório, inteligência artificial aplicada, estratégia e execução."],
+              ["BANAL", "Branding, marketing, posicionamento, narrativa, conteúdo, campanhas, varejo e percepção de valor."],
+              ["Verde Burgo Eventos", "Eventos completos com buffet, decoração, bar, cerimonial, planejamento, produção e direção criativa."]
+            ].map(([title, text]) => (
+              <section key={title} className="border-t border-stone-900/10 pt-8">
+                <h2 className="font-serif text-3xl leading-tight text-stone-950">{title}</h2>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
+              </section>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-20 md:py-28" aria-labelledby="atlas-servicos-title">
+          <header className="mb-14 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">SERVIÇOS E TERRITÓRIOS</span>
+            <h2 id="atlas-servicos-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Uma malha leve para conectar nome, empresa, serviço, case e pensamento.
+            </h2>
+          </header>
+
+          <div className="space-y-16">
+            {authorityServiceGroups.map((group) => {
+              const groupServices = authorityServices.filter((service) => service.group === group.id);
+              return (
+                <section key={group.id} aria-labelledby={`atlas-group-${group.id}`}>
+                  <div className="mb-8 grid gap-6 border-t border-stone-900/10 pt-8 lg:grid-cols-[0.42fr_1fr]">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">{group.label}</p>
+                    </div>
+                    <p id={`atlas-group-${group.id}`} className="max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
+                      {group.description}
+                    </p>
+                  </div>
+                  <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    {groupServices.map((service) => (
+                      <button
+                        key={service.slug}
+                        type="button"
+                        onClick={() => navigate(`servicos/${service.slug}`)}
+                        className="group min-h-64 border border-stone-900/10 bg-white/25 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                      >
+                        <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-400">{service.company}</span>
+                        <h3 className="mt-6 font-serif text-3xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{service.title}</h3>
+                        <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{service.statement}</p>
+                        <span className="mt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">
+                          Ler território <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        </section>
+      </article>
+    </PageTransition>
+  );
+}
+
+function AuthorityServicePage({ slug, navigate }) {
+  const service = getAuthorityService(slug);
+
+  if (!service) {
+    return (
+      <PageTransition>
+        <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
+          <h1 className="font-serif text-4xl text-stone-950">Serviço não encontrado.</h1>
+          <button
+            type="button"
+            onClick={() => navigate(`atlas/${authorityAtlas.slug}`)}
+            className="mt-8 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900"
+          >
+            Voltar ao mapa do ecossistema
+          </button>
+        </div>
+      </PageTransition>
+    );
+  }
+
+  const relatedCases = service.relatedCases.map((id) => casesData.find((item) => item.id === id)).filter(Boolean);
+  const relatedArticles = service.relatedArticles.map((articleSlug) => sistemaArticleCards.find((item) => item.slug === articleSlug)).filter(Boolean);
+  const peerServices = authorityServices.filter((item) => item.group === service.group && item.slug !== service.slug).slice(0, 3);
+
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title={service.title}
+        description={`${service.title} por Samuel Carrera Paes / ${service.company}: ${service.statement}`}
+        url={`servicos/${service.slug}`}
+        schemaType="Service"
+      />
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12">
+        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.78fr_1.22fr]">
+          <div>
+            <button
+              type="button"
+              onClick={() => navigate(`atlas/${authorityAtlas.slug}`)}
+              className="mb-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Mapa do Ecossistema
+            </button>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">{service.company}</span>
+            <h1 className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
+              {service.title}.
+            </h1>
+          </div>
+          <div className="self-end max-w-3xl">
+            <p className="text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
+              {service.statement}
+            </p>
+            <p className="mt-8 text-base font-light leading-relaxed text-stone-600 md:text-lg">
+              {service.description}
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate(service.companyRoute)}
+              className="mt-10 inline-flex items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              Ver {service.company} <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        </header>
+
+        <section className="grid gap-12 border-b border-stone-900/10 py-16 lg:grid-cols-[0.42fr_1fr]" aria-labelledby="aplicacoes-title">
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">APLICAÇÕES</span>
+            <h2 id="aplicacoes-title" className="mt-8 font-serif text-4xl leading-tight text-stone-950 md:text-5xl text-balance">
+              Onde esse território aparece.
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-3 self-start">
+            {service.applications.map((item) => (
+              <span key={item} className="rounded-full border border-stone-900/10 bg-white/35 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-stone-500">
+                {item}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-12 border-b border-stone-900/10 py-16 lg:grid-cols-2" aria-label="Conexões do serviço">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">CASES RELACIONADOS</span>
+            {relatedCases.length > 0 ? (
+              <div className="space-y-5">
+                {relatedCases.map((project) => (
+                  <button
+                    key={project.id}
+                    type="button"
+                    onClick={() => navigate(`case/${project.id}`)}
+                    className="group flex w-full items-center justify-between gap-6 border-t border-stone-900/10 pt-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                  >
+                    <span>
+                      <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{project.client}</span>
+                      <span className="mt-2 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{project.title}</span>
+                    </span>
+                    <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => navigate("verdeburgo")}
+                className="group flex w-full items-center justify-between gap-6 border-t border-stone-900/10 pt-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+              >
+                <span>
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Projeto publicado</span>
+                  <span className="mt-2 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">Provence Raiz dentro da Verde Burgo</span>
+                </span>
+                <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+              </button>
+            )}
+          </div>
+
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ARTIGOS RELACIONADOS</span>
+            <div className="space-y-5">
+              {relatedArticles.map((article) => (
+                <button
+                  key={article.slug}
+                  type="button"
+                  onClick={() => navigate(`biblioteca/${article.slug}`)}
+                  className="group flex w-full items-center justify-between gap-6 border-t border-stone-900/10 pt-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                >
+                  <span>
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{article.title}</span>
+                    <span className="mt-2 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{article.editorialTitle}</span>
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <nav className="grid gap-5 py-16 md:grid-cols-3" aria-label="Territórios relacionados">
+          {peerServices.map((item) => (
+            <button
+              key={item.slug}
+              type="button"
+              onClick={() => navigate(`servicos/${item.slug}`)}
+              className="group min-h-36 border border-stone-900/10 bg-white/25 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.company}</span>
+              <span className="mt-4 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{item.title}</span>
+            </button>
+          ))}
+        </nav>
+      </article>
+    </PageTransition>
+  );
+}
+
 function Contato() {
   const [toast, setToast] = useState(null);
 
@@ -2339,7 +2610,8 @@ export default function SamuelPaesPortfolio() {
 
   const isCaseDetail = route.startsWith("case/");
   const isBibliotecaDetail = route.startsWith("biblioteca/") || route.startsWith("sistema/");
-  const isConsultoriaArea = route === "inicio" || route === "ecossistema" || route === "paes-consultoria";
+  const isAtlasRoute = route === `atlas/${authorityAtlas.slug}` || route.startsWith("servicos/");
+  const isConsultoriaArea = route === "inicio" || route === "ecossistema" || route === "paes-consultoria" || isAtlasRoute;
   const isBanalArea = route === "banal" || route === "cases" || isCaseDetail;
   const isVerdeBurgoArea = route === "verdeburgo";
 
@@ -2496,6 +2768,8 @@ export default function SamuelPaesPortfolio() {
           {(route === "biblioteca" || route === "sistema") && <Biblioteca key="biblioteca" navigate={navigate} />}
           {route.startsWith("biblioteca/") && <SistemaArticle key={route} slug={route.replace("biblioteca/", "")} navigate={navigate} />}
           {route.startsWith("sistema/") && <SistemaArticle key={route} slug={route.replace("sistema/", "")} navigate={navigate} />}
+          {route === `atlas/${authorityAtlas.slug}` && <EcosystemAtlas key="ecosystem-atlas" navigate={navigate} />}
+          {route.startsWith("servicos/") && <AuthorityServicePage key={route} slug={route.replace("servicos/", "")} navigate={navigate} />}
           {route === "contato" && <Contato key="contato" />}
         </AnimatePresence>
       </main>

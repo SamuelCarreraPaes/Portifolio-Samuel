@@ -26,6 +26,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://paesconsultoria.com/atlas/samuel-carrera-paes</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://paesconsultoria.com/contato</loc>
     <lastmod>2026-06-10</lastmod>
     <priority>0.7</priority>
@@ -114,5 +119,70 @@
     <loc>https://paesconsultoria.com/biblioteca/experiencia-fisica</loc>
     <lastmod>2026-06-10</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/direcao-criativa</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/consultoria-criativa</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/branding</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/marketing</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/posicionamento</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/conteudo-e-narrativa</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/varejo-e-visual-merchandising</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/eventos</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/buffet</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/decoracao</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/bar</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/cerimonial</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/servicos/planejamento-e-producao</loc>
+    <lastmod>2026-06-10</lastmod>
+    <priority>0.55</priority>
   </url>
 </urlset>
