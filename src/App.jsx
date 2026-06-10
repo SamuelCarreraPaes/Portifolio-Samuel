@@ -18,7 +18,7 @@ const casesData = [
     territory: "Brand Transition",
     deliverables: "Curadoria, Styling, Campanha",
     directorsNote: "Reposicionar exige precisão. Preservamos a alma da marca, mas alteramos a lente. O desafio não foi mudar o produto, foi reposicionar o desejo.",
-    thumb: "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_03.png",
+    thumb: "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_08.png",
     blocks: [
       ["Abertura", "Este projeto marcou o início de uma transição estratégica de posicionamento para a Val Fortunatto — uma multimarca mineira consolidada no varejo feminino contemporâneo."],
       ["Contexto & Desafio", "O objetivo central foi reconstruir a percepção estética da marca, sofisticando sua comunicação visual e aproximando um público mais jovem, sem romper com a elegância e a maturidade já reconhecidas pela cliente tradicional da loja."],
