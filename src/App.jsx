@@ -323,6 +323,89 @@ const casesData = [
 
 const homePortrait = "/images/13_VISAO/about-transition.png";
 
+const SITE_URL = "https://paesconsultoria.com";
+const SEO_LAST_MODIFIED = "2026-06-10";
+const SAMUEL_INSTAGRAM = "https://instagram.com/samuelcarrerapaes";
+const VERDE_BURGO_INSTAGRAM = "https://instagram.com/verdeburgoeventos";
+const DEFAULT_OG_IMAGE = homePortrait;
+const SEO_KEYWORDS = [
+  "Samuel Carrera Paes",
+  "Samuel Paes",
+  "Paes Consultoria",
+  "Consultoria Paes",
+  "diretor criativo",
+  "consultor criativo",
+  "BANAL marketing",
+  "Verde Burgo Eventos",
+  "branding",
+  "marketing",
+  "eventos",
+  "varejo",
+  "visual merchandising",
+  "direção criativa",
+  "experiência de marca"
+];
+
+function absoluteUrl(path = "") {
+  if (!path) return SITE_URL;
+  if (/^https?:\/\//i.test(path)) return path;
+  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+function getSamuelEntity() {
+  return {
+    "@type": "Person",
+    "@id": `${SITE_URL}/#samuel-carrera-paes`,
+    "name": "Samuel Carrera Paes",
+    "alternateName": "Samuel Paes",
+    "url": SITE_URL,
+    "image": absoluteUrl(homePortrait),
+    "jobTitle": "Diretor Criativo / Consultor Criativo",
+    "sameAs": [SAMUEL_INSTAGRAM],
+    "worksFor": { "@id": `${SITE_URL}/#paes-consultoria` },
+    "knowsAbout": SEO_KEYWORDS
+  };
+}
+
+function getPaesEntity() {
+  return {
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#paes-consultoria`,
+    "name": "Paes Consultoria",
+    "alternateName": ["Consultoria Paes", "Samuel Carrera Paes"],
+    "url": SITE_URL,
+    "logo": absoluteUrl("/images/00_LOGOS/logo-full-transparent.png"),
+    "founder": { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+    "sameAs": [SAMUEL_INSTAGRAM],
+    "knowsAbout": SEO_KEYWORDS
+  };
+}
+
+function getBrandEntities() {
+  return [
+    {
+      "@type": "Brand",
+      "@id": `${SITE_URL}/#banal`,
+      "name": "BANAL",
+      "url": `${SITE_URL}/banal`,
+      "logo": absoluteUrl("/brands/banal/media/banal-logo-balanced.png"),
+      "parentOrganization": { "@id": `${SITE_URL}/#paes-consultoria` },
+      "description": "Empresa de branding, marketing, posicionamento, narrativa, campanhas e percepção de valor."
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#verde-burgo-eventos`,
+      "name": "Verde Burgo Eventos",
+      "alternateName": "Verde Burgo",
+      "url": `${SITE_URL}/verdeburgo`,
+      "logo": absoluteUrl("/brands/verde-burgo/logos/verde-burgo-logo-balanced.png"),
+      "sameAs": [VERDE_BURGO_INSTAGRAM],
+      "parentOrganization": { "@id": `${SITE_URL}/#paes-consultoria` },
+      "description": "Empresa de eventos com buffet, decoração, bar, cerimonial, planejamento, produção e execução com direção criativa aplicada."
+    }
+  ];
+}
+
 // --- CURVAS DE TRANSIÇÃO PREMIUM ---
 const PREMIUM_EASE = [0.22, 1, 0.36, 1];
 
@@ -598,12 +681,12 @@ function useRouter() {
 // --- DYNAMIC SEO INJECTION ---
 function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) {
   useEffect(() => {
-    const siteUrl = "https://paesconsultoria.com";
     const defaultTitle = "Paes Consultoria | Samuel Carrera Paes — Direção Criativa";
-    const defaultDescription = "Paes Consultoria desenvolve negócios, marcas, experiências e projetos por meio de direção criativa, identidade, estratégia, experiência e execução.";
+    const defaultDescription = "Paes Consultoria, de Samuel Carrera Paes, desenvolve negócios, marcas, experiências, eventos, cases e artigos por meio de direção criativa, identidade, estratégia e execução.";
     const pageTitle = !title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`;
     const pageDescription = description || defaultDescription;
-    const pageUrl = url ? `${siteUrl}/${url.replace(/^\/+/, "")}` : siteUrl;
+    const pageUrl = url ? absoluteUrl(url.replace(/^\/+/, "")) : SITE_URL;
+    const pageImage = absoluteUrl(image || DEFAULT_OG_IMAGE);
     document.title = pageTitle;
 
     // Update or inject meta description
@@ -615,13 +698,23 @@ function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) 
     }
     metaDesc.content = pageDescription;
 
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement("meta");
+      metaKeywords.name = "keywords";
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = SEO_KEYWORDS.join(", ");
+
     const seoSelectors = [
       ["link[rel='canonical']", "href", pageUrl],
       ["meta[property='og:title']", "content", pageTitle],
       ["meta[property='og:description']", "content", pageDescription],
       ["meta[property='og:url']", "content", pageUrl],
+      ["meta[property='og:image']", "content", pageImage],
       ["meta[name='twitter:title']", "content", pageTitle],
-      ["meta[name='twitter:description']", "content", pageDescription]
+      ["meta[name='twitter:description']", "content", pageDescription],
+      ["meta[name='twitter:image']", "content", pageImage]
     ];
 
     seoSelectors.forEach(([selector, attribute, value]) => {
@@ -640,21 +733,45 @@ function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) 
       document.head.appendChild(script);
     }
 
+    const pageEntity = {
+      "@type": schemaType,
+      "@id": `${pageUrl}#primary`,
+      "name": pageTitle,
+      "headline": pageTitle,
+      "description": pageDescription,
+      "url": pageUrl,
+      "mainEntityOfPage": pageUrl,
+      "inLanguage": "pt-BR",
+      "image": pageImage,
+      "dateModified": SEO_LAST_MODIFIED,
+      "author": { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+      "creator": { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+      "publisher": { "@id": `${SITE_URL}/#paes-consultoria` },
+      "keywords": SEO_KEYWORDS.join(", "),
+      "about": [
+        { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+        { "@id": `${SITE_URL}/#paes-consultoria` },
+        { "@id": `${SITE_URL}/#banal` },
+        { "@id": `${SITE_URL}/#verde-burgo-eventos` }
+      ],
+      "mentions": [
+        { "@id": `${SITE_URL}/#banal` },
+        { "@id": `${SITE_URL}/#verde-burgo-eventos` }
+      ],
+      ...(schemaType === "Article" ? {
+        "datePublished": SEO_LAST_MODIFIED,
+        "articleSection": "Biblioteca Samuel Paes"
+      } : {})
+    };
+
     const schemaData = {
       "@context": "https://schema.org",
-      "@type": schemaType,
-      "name": pageTitle,
-      ...(schemaType === "Article" ? {
-        "headline": pageTitle,
-        "author": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
-        "mainEntityOfPage": pageUrl,
-        "dateModified": "2026-05-24"
-      } : {}),
-      "description": pageDescription,
-      "image": image ? `${siteUrl}${image}` : `${siteUrl}${homePortrait}`,
-      "creator": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
-      "about": { "@type": "Person", "name": "Samuel Carrera Paes", "alternateName": "Samuel Paes" },
-      "url": pageUrl
+      "@graph": [
+        getSamuelEntity(),
+        getPaesEntity(),
+        ...getBrandEntities(),
+        pageEntity
+      ]
     };
     script.text = JSON.stringify(schemaData);
 
@@ -732,6 +849,14 @@ function Inicio({ navigate }) {
     <PageTransition>
       <DynamicSEO title="Início" />
       <section className="mx-auto flex min-h-[85vh] max-w-[90rem] flex-col justify-center px-6 pt-10 lg:px-12" aria-labelledby="home-title">
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: PREMIUM_EASE }}
+          className="mb-10 text-[10px] font-bold uppercase tracking-[0.35em] text-stone-400"
+        >
+          Samuel Carrera Paes · Diretor Criativo / Consultor Criativo
+        </motion.p>
         <motion.h1
           id="home-title"
           initial={{ opacity: 0, y: 24 }}
@@ -758,7 +883,7 @@ function Inicio({ navigate }) {
             <span className="flex h-28 w-full max-w-[18rem] items-center justify-center md:h-32">
               <img
                 src={banalAssets.balancedLogo}
-                alt="BANAL"
+                alt="BANAL, empresa de branding e marketing dirigida por Samuel Carrera Paes"
                 loading="eager"
                 decoding="async"
                 className="max-h-full w-full object-contain transition duration-700 group-hover:scale-[1.02]"
@@ -777,7 +902,7 @@ function Inicio({ navigate }) {
             <span className="flex h-28 w-full max-w-[18rem] items-center justify-center md:h-32">
               <img
                 src={verdeBurgoBrandAssets.balancedLogo}
-                alt="Verde Burgo"
+                alt="Verde Burgo Eventos, empresa de eventos com direção criativa de Samuel Paes"
                 loading="eager"
                 decoding="async"
                 className="h-full w-full object-contain grayscale contrast-125 transition duration-700 group-hover:grayscale-0 group-hover:scale-[1.02]"
@@ -794,7 +919,7 @@ function Inicio({ navigate }) {
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-stone-400">Direção Criativa e Estratégia</p>
           <p className="mt-6 text-xl font-light leading-relaxed tracking-tight text-stone-800 md:text-3xl lg:text-4xl text-balance">
-            Desenvolvemos negócios, marcas, experiências e projetos por meio de uma visão estratégica e criativa unificada.
+            Samuel Carrera Paes desenvolve negócios, marcas, experiências e projetos por meio de uma visão estratégica e criativa unificada.
           </p>
         </motion.div>
 
@@ -991,7 +1116,7 @@ function PaesConsultoria({ navigate }) {
                   aria-label={`Abrir empresa ${company.name}`}
                 >
                   <figure className="relative aspect-[4/3] overflow-hidden bg-stone-200/50">
-                    <ImageWithFallback src={company.image} alt={`Imagem da empresa ${company.name}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]" />
+                    <ImageWithFallback src={company.image} alt={`Imagem da empresa ${company.name} no ecossistema criativo de Samuel Carrera Paes`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]" />
                   </figure>
                   <div className="flex flex-1 flex-col p-8">
                     <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{company.eyebrow}</p>
@@ -1041,7 +1166,7 @@ function PaesConsultoria({ navigate }) {
                 {casesData.slice(0, 6).map((project) => (
                   <button key={project.id} type="button" onClick={() => navigate(`case/${project.id}`)} className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm">
                     <figure className="relative aspect-[4/3] overflow-hidden bg-stone-200/50 rounded-sm">
-                      <ImageWithFallback src={project.thumb} alt={`Projeto BANAL: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+                      <ImageWithFallback src={project.thumb} alt={`Projeto BANAL por Samuel Carrera Paes: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
                     </figure>
                     <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.territory}</p>
                     <h4 className="mt-2 font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{project.title}</h4>
@@ -1054,7 +1179,7 @@ function PaesConsultoria({ navigate }) {
               <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">VERDE BURGO</p>
               <h3 className="mt-3 font-serif text-4xl text-stone-950">Eventos completos, do planejamento à execução.</h3>
               <figure className="mt-8 aspect-[4/3] overflow-hidden bg-stone-200/50 rounded-sm">
-                <ImageWithFallback src={verdeburgoAssets.mesaRefinada} alt="Projeto Provence Raiz dentro da Verde Burgo" mode="cover" imageClassName="transition-transform duration-[1.5s] hover:scale-[1.03]" />
+                <ImageWithFallback src={verdeburgoAssets.mesaRefinada} alt="Projeto Provence Raiz dentro da Verde Burgo, com direção criativa de Samuel Paes" mode="cover" imageClassName="transition-transform duration-[1.5s] hover:scale-[1.03]" />
               </figure>
               <p className="mt-8 text-sm font-light leading-relaxed text-stone-600">
                 Provence Raiz é um projeto dentro da Verde Burgo: uma referência de como buffet, decoração, bar, cerimonial, ambientação, papelaria e produção podem operar em uma mesma identidade.
@@ -1119,7 +1244,7 @@ function Banal({ navigate }) {
               <article key={project.id} className="group">
                 <button type="button" onClick={() => navigate(`case/${project.id}`)} className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm">
                   <figure className="aspect-[4/5] overflow-hidden bg-stone-200/50 rounded-sm">
-                    <ImageWithFallback src={project.thumb} alt={`Projeto BANAL: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+                    <ImageWithFallback src={project.thumb} alt={`Projeto BANAL por Samuel Carrera Paes: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
                   </figure>
                   <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.territory}</p>
                   <h3 className="mt-3 font-serif text-3xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{project.title}</h3>
@@ -1265,7 +1390,7 @@ function CaseDetail({ caseId, navigate }) {
           </dl>
 
           <figure className="w-full bg-stone-200/50 relative overflow-visible mb-24 rounded-sm flex justify-center m-0 p-0 shadow-sm">
-            <ImageWithFallback src={c.thumb} mode="natural" alt={`Fotografia de destaque do projeto ${c.title}`} imageClassName="max-h-[85vh]" />
+            <ImageWithFallback src={c.thumb} mode="natural" alt={`Fotografia de destaque do projeto ${c.title}, direção criativa de Samuel Carrera Paes para Paes Consultoria`} imageClassName="max-h-[85vh]" />
           </figure>
         </header>
 
@@ -1310,7 +1435,7 @@ function CaseDetail({ caseId, navigate }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {sliceImgs.map((img, i) => (
                         <figure key={i} className={`w-full bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm ${i === 0 || i % 3 === 0 ? 'md:col-span-2' : ''}`}>
-                           <ImageWithFallback src={img} alt={`Exposição temática de ${subTitle} - detalhe fotográfico ${i+1}`} mode="natural" imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out" />
+                           <ImageWithFallback src={img} alt={`Exposição temática de ${subTitle} por Samuel Carrera Paes - detalhe fotográfico ${i+1}`} mode="natural" imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out" />
                         </figure>
                       ))}
                     </div>
@@ -1331,7 +1456,7 @@ function CaseDetail({ caseId, navigate }) {
                     <ImageWithFallback
                       src={img}
                       mode="natural"
-                      alt={`Detalhe curatorial do projeto ${c.title} - fotografia ${idx+1}`}
+                      alt={`Detalhe curatorial do projeto ${c.title} por Samuel Carrera Paes - fotografia ${idx+1}`}
                       imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out"
                     />
                   </figure>
@@ -2118,6 +2243,14 @@ function Contato() {
                 className="text-sm font-light text-stone-900 hover:text-stone-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm p-1 -ml-1 w-fit block"
               >
                 @samuelcarrerapaes
+              </a>
+              <a
+                href="https://instagram.com/verdeburgoeventos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-light text-stone-900 hover:text-stone-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm p-1 -ml-1 w-fit block"
+              >
+                @verdeburgoeventos
               </a>
               <button
                 type="button"
