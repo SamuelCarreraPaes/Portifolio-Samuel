@@ -304,7 +304,7 @@ const casesData = [
     territory: "Lançamento de Coleção",
     deliverables: "Styling, Vitrine 2D, Cenografia",
     directorsNote: "O verão tropical flerta com o clichê. Optamos pela sombra da floresta e pelo rigor da alfaiataria. Transformar escapismo em luxo absoluto é a nossa premissa.",
-    thumb: "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_01.png",
+    thumb: "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_04.png",
     blocks: [
       ["Abertura", "A cápsula Paraíso Tropical foi desenvolvida como entrada de verão, partindo de uma estampa exclusiva profundamente inspirada na densa força visual da Mata Atlântica brasileira."],
       ["Contexto & Desafio", "Evitar o clichê do paraíso tropical praiano solar simples. O desafio foi trazer a profundidade orgânica da flora e fauna misturadas aos tons clássicos, neutros e ao estilo 'navy' elegante da marca."],
