@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://paesconsultoria.com/banal</loc>
+    <loc>https://paesconsultoria.com/empresas/banal</loc>
     <image:image>
       <image:loc>https://paesconsultoria.com/brands/banal/banal-brand-showcase.jpg</image:loc>
       <image:title>banal brand showcase | Samuel Carrera Paes</image:title>
@@ -60,7 +60,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://paesconsultoria.com/verdeburgo</loc>
+    <loc>https://paesconsultoria.com/empresas/verde-burgo</loc>
     <image:image>
       <image:loc>https://paesconsultoria.com/brands/verde-burgo/backgrounds/verde-burgo-bg-case-cover.jpg</image:loc>
       <image:title>verde burgo bg case cover | Samuel Carrera Paes</image:title>
@@ -100,146 +100,6 @@
       <image:loc>https://paesconsultoria.com/brands/verde-burgo/logos/verde-burgo-logo-principal.png</image:loc>
       <image:title>verde burgo logo principal | Samuel Carrera Paes</image:title>
       <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: verde burgo logo principal.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg</image:loc>
-      <image:title>hero mural toile de jouy provence raiz | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: hero mural toile de jouy provence raiz.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/logo-verdeburgo-eventos.png</image:loc>
-      <image:title>logo verdeburgo eventos | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: logo verdeburgo eventos.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/prancha-tecnica-luminaria-cenografica-suspensa.jpg</image:loc>
-      <image:title>prancha tecnica luminaria cenografica suspensa | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: prancha tecnica luminaria cenografica suspensa.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/prancha-tecnica-luminaria-pendulo-carretel.jpg</image:loc>
-      <image:title>prancha tecnica luminaria pendulo carretel | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: prancha tecnica luminaria pendulo carretel.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/prancha-tecnica-pilastras-cenograficas-altar.jpg</image:loc>
-      <image:title>prancha tecnica pilastras cenograficas altar | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: prancha tecnica pilastras cenograficas altar.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-bar-hospitalidade-toile-lavanda.jpg</image:loc>
-      <image:title>provence raiz bar hospitalidade toile lavanda | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz bar hospitalidade toile lavanda.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-bar-toile-pinheiros-luminarias.jpg</image:loc>
-      <image:title>provence raiz bar toile pinheiros luminarias | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz bar toile pinheiros luminarias.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-cerimonia-passarela-altar.jpg</image:loc>
-      <image:title>provence raiz cerimonia passarela altar | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz cerimonia passarela altar.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-escada-cascata-floral.jpg</image:loc>
-      <image:title>provence raiz escada cascata floral | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz escada cascata floral.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-estudo-floral-volume-natural.jpg</image:loc>
-      <image:title>provence raiz estudo floral volume natural | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz estudo floral volume natural.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-lounge-residencial-linho-azul.jpg</image:loc>
-      <image:title>provence raiz lounge residencial linho azul | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz lounge residencial linho azul.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-mesa-bolo-toile-lustres.jpg</image:loc>
-      <image:title>provence raiz mesa bolo toile lustres | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz mesa bolo toile lustres.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-cerimonia.jpg</image:loc>
-      <image:title>provence raiz moodboard cerimonia | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz moodboard cerimonia.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-lounge.jpg</image:loc>
-      <image:title>provence raiz moodboard lounge | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz moodboard lounge.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-materia-real.jpg</image:loc>
-      <image:title>provence raiz moodboard materia real | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz moodboard materia real.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-materialidade-antiga.jpg</image:loc>
-      <image:title>provence raiz moodboard materialidade antiga | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz moodboard materialidade antiga.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-mesa-bolo.jpg</image:loc>
-      <image:title>provence raiz moodboard mesa bolo | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz moodboard mesa bolo.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-planta-casa-giardini.jpg</image:loc>
-      <image:title>provence raiz planta casa giardini | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: provence raiz planta casa giardini.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-materia-textura-cores.jpg</image:loc>
-      <image:title>board materia textura cores | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: board materia textura cores.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-volume-natural-nunca-artificial.jpg</image:loc>
-      <image:title>board volume natural nunca artificial | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: board volume natural nunca artificial.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/moodboard-integracao-atmosfera-provence.jpg</image:loc>
-      <image:title>moodboard integracao atmosfera provence | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: moodboard integracao atmosfera provence.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/pilastras-refinada.jpg</image:loc>
-      <image:title>pilastras refinada | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: pilastras refinada.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/prancha-tecnica-luminaria-carretel-refinada.jpg</image:loc>
-      <image:title>prancha tecnica luminaria carretel refinada | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: prancha tecnica luminaria carretel refinada.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/prancha-tecnica-luminaria-gaiola-cenografica.jpg</image:loc>
-      <image:title>prancha tecnica luminaria gaiola cenografica | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: prancha tecnica luminaria gaiola cenografica.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg</image:loc>
-      <image:title>render cerimonia altar passarela refinado | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: render cerimonia altar passarela refinado.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-escada-cascata-floral-refinado.jpg</image:loc>
-      <image:title>render escada cascata floral refinado | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: render escada cascata floral refinado.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-mesa-bolo-mural-toile-alternativo.jpg</image:loc>
-      <image:title>render mesa bolo mural toile alternativo | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: render mesa bolo mural toile alternativo.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-mesa-bolo-mural-toile-refinado.jpg</image:loc>
-      <image:title>render mesa bolo mural toile refinado | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes: render mesa bolo mural toile refinado.</image:caption>
     </image:image>
   </url>
   <url>
@@ -333,6 +193,26 @@
       <image:loc>https://paesconsultoria.com/images/12_LOGO/samuel-paes-symbol-white.png</image:loc>
       <image:title>samuel paes symbol white | Samuel Carrera Paes</image:title>
       <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e ecossistema criativo de Samuel Carrera Paes / Paes Consultoria: samuel paes symbol white.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/social/linkedin/linkedin-company-cover-paes-consultoria.png</image:loc>
+      <image:title>linkedin company cover paes consultoria | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e ecossistema criativo de Samuel Carrera Paes / Paes Consultoria: linkedin company cover paes consultoria.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/social/linkedin/linkedin-company-logo-paes-consultoria.png</image:loc>
+      <image:title>linkedin company logo paes consultoria | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e ecossistema criativo de Samuel Carrera Paes / Paes Consultoria: linkedin company logo paes consultoria.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/social/linkedin/linkedin-launch-post-ecosystem.png</image:loc>
+      <image:title>linkedin launch post ecosystem | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e ecossistema criativo de Samuel Carrera Paes / Paes Consultoria: linkedin launch post ecosystem.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/social/linkedin/linkedin-profile-cover-samuel-paes.png</image:loc>
+      <image:title>linkedin profile cover samuel paes | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e ecossistema criativo de Samuel Carrera Paes / Paes Consultoria: linkedin profile cover samuel paes.</image:caption>
     </image:image>
   </url>
   <url>
@@ -709,11 +589,154 @@
     </image:image>
   </url>
   <url>
-    <loc>https://paesconsultoria.com/visao</loc>
+    <loc>https://paesconsultoria.com/sobre/samuel-carrera-paes</loc>
     <image:image>
       <image:loc>https://paesconsultoria.com/images/13_VISAO/about-transition.png</image:loc>
       <image:title>about transition | Samuel Carrera Paes</image:title>
-      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e visão profissional de Samuel Carrera Paes, diretor criativo e consultor criativo: about transition.</image:caption>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e perfil de Samuel Carrera Paes, diretor criativo e consultor criativo: about transition.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/projetos/provence-raiz</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg</image:loc>
+      <image:title>hero mural toile de jouy provence raiz | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: hero mural toile de jouy provence raiz.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/logo-verdeburgo-eventos.png</image:loc>
+      <image:title>logo verdeburgo eventos | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: logo verdeburgo eventos.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/prancha-tecnica-luminaria-cenografica-suspensa.jpg</image:loc>
+      <image:title>prancha tecnica luminaria cenografica suspensa | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: prancha tecnica luminaria cenografica suspensa.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/prancha-tecnica-luminaria-pendulo-carretel.jpg</image:loc>
+      <image:title>prancha tecnica luminaria pendulo carretel | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: prancha tecnica luminaria pendulo carretel.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/prancha-tecnica-pilastras-cenograficas-altar.jpg</image:loc>
+      <image:title>prancha tecnica pilastras cenograficas altar | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: prancha tecnica pilastras cenograficas altar.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-bar-hospitalidade-toile-lavanda.jpg</image:loc>
+      <image:title>provence raiz bar hospitalidade toile lavanda | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz bar hospitalidade toile lavanda.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-bar-toile-pinheiros-luminarias.jpg</image:loc>
+      <image:title>provence raiz bar toile pinheiros luminarias | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz bar toile pinheiros luminarias.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-cerimonia-passarela-altar.jpg</image:loc>
+      <image:title>provence raiz cerimonia passarela altar | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz cerimonia passarela altar.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-escada-cascata-floral.jpg</image:loc>
+      <image:title>provence raiz escada cascata floral | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz escada cascata floral.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-estudo-floral-volume-natural.jpg</image:loc>
+      <image:title>provence raiz estudo floral volume natural | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz estudo floral volume natural.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-lounge-residencial-linho-azul.jpg</image:loc>
+      <image:title>provence raiz lounge residencial linho azul | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz lounge residencial linho azul.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-mesa-bolo-toile-lustres.jpg</image:loc>
+      <image:title>provence raiz mesa bolo toile lustres | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz mesa bolo toile lustres.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-cerimonia.jpg</image:loc>
+      <image:title>provence raiz moodboard cerimonia | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz moodboard cerimonia.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-lounge.jpg</image:loc>
+      <image:title>provence raiz moodboard lounge | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz moodboard lounge.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-materia-real.jpg</image:loc>
+      <image:title>provence raiz moodboard materia real | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz moodboard materia real.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-materialidade-antiga.jpg</image:loc>
+      <image:title>provence raiz moodboard materialidade antiga | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz moodboard materialidade antiga.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-mesa-bolo.jpg</image:loc>
+      <image:title>provence raiz moodboard mesa bolo | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz moodboard mesa bolo.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-planta-casa-giardini.jpg</image:loc>
+      <image:title>provence raiz planta casa giardini | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: provence raiz planta casa giardini.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-materia-textura-cores.jpg</image:loc>
+      <image:title>board materia textura cores | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: board materia textura cores.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-volume-natural-nunca-artificial.jpg</image:loc>
+      <image:title>board volume natural nunca artificial | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: board volume natural nunca artificial.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/moodboard-integracao-atmosfera-provence.jpg</image:loc>
+      <image:title>moodboard integracao atmosfera provence | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: moodboard integracao atmosfera provence.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/pilastras-refinada.jpg</image:loc>
+      <image:title>pilastras refinada | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: pilastras refinada.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/prancha-tecnica-luminaria-carretel-refinada.jpg</image:loc>
+      <image:title>prancha tecnica luminaria carretel refinada | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: prancha tecnica luminaria carretel refinada.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/prancha-tecnica-luminaria-gaiola-cenografica.jpg</image:loc>
+      <image:title>prancha tecnica luminaria gaiola cenografica | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: prancha tecnica luminaria gaiola cenografica.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg</image:loc>
+      <image:title>render cerimonia altar passarela refinado | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: render cerimonia altar passarela refinado.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-escada-cascata-floral-refinado.jpg</image:loc>
+      <image:title>render escada cascata floral refinado | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: render escada cascata floral refinado.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-mesa-bolo-mural-toile-alternativo.jpg</image:loc>
+      <image:title>render mesa bolo mural toile alternativo | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: render mesa bolo mural toile alternativo.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-mesa-bolo-mural-toile-refinado.jpg</image:loc>
+      <image:title>render mesa bolo mural toile refinado | Samuel Carrera Paes</image:title>
+      <image:caption>Imagem associada a Samuel Carrera Paes, Paes Consultoria e Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes: render mesa bolo mural toile refinado.</image:caption>
     </image:image>
   </url>
 </urlset>

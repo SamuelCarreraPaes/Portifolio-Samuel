@@ -30,10 +30,13 @@ const caseRoutes = [
 
 const baseRoutes = [
   { path: "/", priority: "1.0", title: "Samuel Carrera Paes | Paes Consultoria" },
+  { path: "/sobre/samuel-carrera-paes", priority: "0.95", title: "Samuel Carrera Paes | Direção Criativa e Consultoria Criativa" },
   { path: "/visao", priority: "0.9", title: "Minha Visão | Samuel Carrera Paes" },
-  { path: "/banal", priority: "0.9", title: "BANAL | Branding, Marketing e Posicionamento" },
-  { path: "/verdeburgo", priority: "0.9", title: "Verde Burgo Eventos | Eventos, Buffet, Decoração e Cerimonial" },
+  { path: "/empresas/banal", priority: "0.9", title: "BANAL | Branding, Marketing e Presença" },
+  { path: "/empresas/verde-burgo", priority: "0.9", title: "Verde Burgo | Eventos, Experiências e Direção Criativa" },
+  { path: "/projetos/provence-raiz", priority: "0.82", title: "Provence Raiz | Projeto e Experiência Criativa" },
   { path: "/biblioteca", priority: "0.8", title: "Biblioteca Samuel Paes" },
+  { path: "/biblioteca/geracao-dos-realizadores", priority: "0.75", title: "Geração dos Realizadores | Biblioteca Paes Consultoria" },
   { path: `/atlas/${authorityAtlas.slug}`, priority: "0.7", title: "Mapa do Ecossistema | Samuel Carrera Paes" },
   { path: "/contato", priority: "0.7", title: "Contato Paes Consultoria" }
 ];
@@ -103,17 +106,19 @@ function pageForImage(publicPath) {
   const foundCase = caseRoutes.find(([, , folder]) => publicPath.includes(`/images/${folder}`));
   if (foundCase) return `/case/${foundCase[0]}`;
 
-  if (publicPath.includes("/brands/banal/")) return "/banal";
-  if (publicPath.includes("/brands/verde-burgo/")) return "/verdeburgo";
-  if (publicPath.includes("/images/14_VERDEBURGO/")) return "/verdeburgo";
-  if (publicPath.includes("/images/13_VISAO/")) return "/visao";
+  if (publicPath.includes("/brands/banal/")) return "/empresas/banal";
+  if (publicPath.includes("/brands/verde-burgo/")) return "/empresas/verde-burgo";
+  if (publicPath.includes("/images/14_VERDEBURGO/")) return "/projetos/provence-raiz";
+  if (publicPath.includes("/images/13_VISAO/")) return "/sobre/samuel-carrera-paes";
   if (publicPath.includes("/images/00_LOGOS/") || publicPath.includes("/images/12_LOGO/")) return "/";
   return "/";
 }
 
 function contextForImage(pagePath) {
-  if (pagePath === "/banal") return "BANAL, empresa de branding, marketing, posicionamento e estratégia criativa da Paes Consultoria";
-  if (pagePath === "/verdeburgo") return "Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes";
+  if (pagePath === "/empresas/banal") return "BANAL, empresa de branding, marketing, posicionamento e estratégia criativa da Paes Consultoria";
+  if (pagePath === "/empresas/verde-burgo") return "Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes";
+  if (pagePath === "/projetos/provence-raiz") return "Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes";
+  if (pagePath === "/sobre/samuel-carrera-paes") return "perfil de Samuel Carrera Paes, diretor criativo e consultor criativo";
   if (pagePath === "/visao") return "visão profissional de Samuel Carrera Paes, diretor criativo e consultor criativo";
   if (pagePath.startsWith("/case/")) {
     const page = casePages.find((item) => item.path === pagePath);
@@ -196,15 +201,19 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 ## Entidades principais
 - Samuel Carrera Paes: diretor criativo / consultor criativo. Instagram: ${samuelInstagram}
 - Paes Consultoria: nucleo estrategico e criativo. Site: ${siteUrl}
-- BANAL: empresa de branding, marketing, posicionamento, narrativa, campanhas, conteudo, varejo e percepcao de valor. Pagina: ${siteUrl}/banal
-- Verde Burgo Eventos: empresa de eventos com buffet, decoracao, bar, cerimonial, planejamento, producao e execucao com direcao criativa aplicada. Instagram: ${verdeBurgoInstagram}. Pagina: ${siteUrl}/verdeburgo
+- BANAL: empresa de branding, marketing, posicionamento, narrativa, campanhas, conteudo, varejo e percepcao de valor. Pagina: ${siteUrl}/empresas/banal
+- Verde Burgo Eventos: empresa de eventos com buffet, decoracao, bar, cerimonial, planejamento, producao e execucao com direcao criativa aplicada. Instagram: ${verdeBurgoInstagram}. Pagina: ${siteUrl}/empresas/verde-burgo
+- Provence Raiz: projeto de evento dentro da Verde Burgo. Pagina: ${siteUrl}/projetos/provence-raiz
 
 ## Paginas canonicas
 - Inicio: ${siteUrl}
+- Samuel Carrera Paes: ${siteUrl}/sobre/samuel-carrera-paes
 - Minha Visao: ${siteUrl}/visao
-- BANAL: ${siteUrl}/banal
-- Verde Burgo Eventos: ${siteUrl}/verdeburgo
+- BANAL: ${siteUrl}/empresas/banal
+- Verde Burgo Eventos: ${siteUrl}/empresas/verde-burgo
+- Provence Raiz: ${siteUrl}/projetos/provence-raiz
 - Biblioteca Samuel Paes: ${siteUrl}/biblioteca
+- Geracao dos Realizadores: ${siteUrl}/biblioteca/geracao-dos-realizadores
 - Mapa do Ecossistema: ${siteUrl}/atlas/${authorityAtlas.slug}
 - Contato: ${siteUrl}/contato
 

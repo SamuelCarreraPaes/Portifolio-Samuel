@@ -8,15 +8,19 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 ## Entidades principais
 - Samuel Carrera Paes: diretor criativo / consultor criativo. Instagram: https://instagram.com/samuelcarrerapaes
 - Paes Consultoria: nucleo estrategico e criativo. Site: https://paesconsultoria.com
-- BANAL: empresa de branding, marketing, posicionamento, narrativa, campanhas, conteudo, varejo e percepcao de valor. Pagina: https://paesconsultoria.com/banal
-- Verde Burgo Eventos: empresa de eventos com buffet, decoracao, bar, cerimonial, planejamento, producao e execucao com direcao criativa aplicada. Instagram: https://instagram.com/verdeburgoeventos. Pagina: https://paesconsultoria.com/verdeburgo
+- BANAL: empresa de branding, marketing, posicionamento, narrativa, campanhas, conteudo, varejo e percepcao de valor. Pagina: https://paesconsultoria.com/empresas/banal
+- Verde Burgo Eventos: empresa de eventos com buffet, decoracao, bar, cerimonial, planejamento, producao e execucao com direcao criativa aplicada. Instagram: https://instagram.com/verdeburgoeventos. Pagina: https://paesconsultoria.com/empresas/verde-burgo
+- Provence Raiz: projeto de evento dentro da Verde Burgo. Pagina: https://paesconsultoria.com/projetos/provence-raiz
 
 ## Paginas canonicas
 - Inicio: https://paesconsultoria.com
+- Samuel Carrera Paes: https://paesconsultoria.com/sobre/samuel-carrera-paes
 - Minha Visao: https://paesconsultoria.com/visao
-- BANAL: https://paesconsultoria.com/banal
-- Verde Burgo Eventos: https://paesconsultoria.com/verdeburgo
+- BANAL: https://paesconsultoria.com/empresas/banal
+- Verde Burgo Eventos: https://paesconsultoria.com/empresas/verde-burgo
+- Provence Raiz: https://paesconsultoria.com/projetos/provence-raiz
 - Biblioteca Samuel Paes: https://paesconsultoria.com/biblioteca
+- Geracao dos Realizadores: https://paesconsultoria.com/biblioteca/geracao-dos-realizadores
 - Mapa do Ecossistema: https://paesconsultoria.com/atlas/samuel-carrera-paes
 - Contato: https://paesconsultoria.com/contato
 

@@ -405,7 +405,7 @@ function getBrandEntities() {
       "@type": "Brand",
       "@id": `${SITE_URL}/#banal`,
       "name": "BANAL",
-      "url": `${SITE_URL}/banal`,
+      "url": `${SITE_URL}/empresas/banal`,
       "logo": absoluteUrl("/brands/banal/media/banal-logo-balanced.png"),
       "parentOrganization": { "@id": `${SITE_URL}/#paes-consultoria` },
       "description": "Empresa de branding, marketing, posicionamento, narrativa, campanhas e percepção de valor."
@@ -415,7 +415,7 @@ function getBrandEntities() {
       "@id": `${SITE_URL}/#verde-burgo-eventos`,
       "name": "Verde Burgo Eventos",
       "alternateName": "Verde Burgo",
-      "url": `${SITE_URL}/verdeburgo`,
+      "url": `${SITE_URL}/empresas/verde-burgo`,
       "logo": absoluteUrl("/brands/verde-burgo/logos/verde-burgo-logo-balanced.png"),
       "sameAs": [VERDE_BURGO_INSTAGRAM],
       "parentOrganization": { "@id": `${SITE_URL}/#paes-consultoria` },
@@ -584,7 +584,7 @@ const consultancyCompanies = [
     id: "banal",
     name: "BANAL",
     eyebrow: "Marca · Marketing · Comunicação",
-    route: "banal",
+    route: "empresas/banal",
     image: banalAssets.founderScene,
     statement: "O consumo acaba. O signo continua.",
     description: "Empresa especializada em branding, marketing, comunicação, varejo e posicionamento para negócios que precisam se tornar mais claros, desejáveis e valiosos.",
@@ -594,7 +594,7 @@ const consultancyCompanies = [
     id: "verdeburgo",
     name: "VERDE BURGO",
     eyebrow: "Eventos · Festas · Operação Completa",
-    route: "verdeburgo",
+    route: "empresas/verde-burgo",
     image: verdeBurgoBrandAssets.caseCover,
     statement: "Evento bonito é consequência. Evento bem resolvido é estratégia.",
     description: "Empresa de eventos com solução integrada de buffet, decoração, bar, cerimonial, planejamento, produção e execução para festas completas.",
@@ -679,11 +679,11 @@ function useRouter() {
 }
 
 // --- DYNAMIC SEO INJECTION ---
-function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) {
+function DynamicSEO({ title, fullTitle, description, url, image, schemaType = "WebPage", schemaExtra = {}, graphExtra = [] }) {
   useEffect(() => {
     const defaultTitle = "Paes Consultoria | Samuel Carrera Paes — Direção Criativa";
     const defaultDescription = "Paes Consultoria, de Samuel Carrera Paes, desenvolve negócios, marcas, experiências, eventos, cases e artigos por meio de direção criativa, identidade, estratégia e execução.";
-    const pageTitle = !title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`;
+    const pageTitle = fullTitle || (!title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`);
     const pageDescription = description || defaultDescription;
     const pageUrl = url ? absoluteUrl(url.replace(/^\/+/, "")) : SITE_URL;
     const pageImage = absoluteUrl(image || DEFAULT_OG_IMAGE);
@@ -766,7 +766,8 @@ function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) 
         "serviceType": title,
         "provider": { "@id": `${SITE_URL}/#paes-consultoria` },
         "areaServed": "Brasil"
-      } : {})
+      } : {}),
+      ...schemaExtra
     };
 
     const schemaData = {
@@ -775,12 +776,13 @@ function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) 
         getSamuelEntity(),
         getPaesEntity(),
         ...getBrandEntities(),
+        ...graphExtra,
         pageEntity
       ]
     };
     script.text = JSON.stringify(schemaData);
 
-  }, [title, description, url, image, schemaType]);
+  }, [title, fullTitle, description, url, image, schemaType, schemaExtra, graphExtra]);
 
   return null;
 }
@@ -847,7 +849,173 @@ function playMutedLoop(event) {
   }
 }
 
+function EditorialConnectionGrid({ eyebrow = "CONEXÕES", title, description, items, links, navigate }) {
+  const gridItems = items || links || [];
+  const titleId = `${eyebrow.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-")}-title`;
+
+  return (
+    <section className="border-t border-stone-900/10 py-16" aria-labelledby={title ? titleId : undefined}>
+      <header className="mb-10 max-w-4xl">
+        <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">{eyebrow}</span>
+        {title && (
+          <h2 id={titleId} className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
+            {title}
+          </h2>
+        )}
+        {description && (
+          <p className="mt-6 max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
+            {description}
+          </p>
+        )}
+      </header>
+      <nav className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" aria-label={eyebrow}>
+        {gridItems.map((item) => (
+          <button
+            key={item.route}
+            type="button"
+            onClick={() => navigate(item.route)}
+            className="group min-h-36 border border-stone-900/10 bg-white/25 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.eyebrow || "Conexão"}</span>
+            <span className="mt-4 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{item.title || item.label}</span>
+            {item.text && <span className="mt-4 block text-sm font-light leading-relaxed text-stone-600">{item.text}</span>}
+          </button>
+        ))}
+      </nav>
+    </section>
+  );
+}
+
 // --- PÁGINAS ---
+
+function SamuelEntityPage({ navigate }) {
+  const connections = [
+    {
+      eyebrow: "Núcleo",
+      title: "Paes Consultoria",
+      text: "A estrutura que organiza visão, direção criativa, consultoria e construção de presença.",
+      route: "paes-consultoria"
+    },
+    {
+      eyebrow: "Empresa",
+      title: "BANAL",
+      text: "A camada de branding, marketing, conteúdo, comunicação e percepção de valor.",
+      route: "empresas/banal"
+    },
+    {
+      eyebrow: "Empresa",
+      title: "Verde Burgo",
+      text: "A frente de eventos, experiências, produção e direção criativa aplicada ao encontro real.",
+      route: "empresas/verde-burgo"
+    },
+    {
+      eyebrow: "Projeto",
+      title: "Provence Raiz",
+      text: "Um case de atmosfera, evento, identidade visual e experiência dentro da Verde Burgo.",
+      route: "projetos/provence-raiz"
+    },
+    {
+      eyebrow: "Biblioteca",
+      title: "Geração dos Realizadores",
+      text: "O conceito que organiza criação, execução, tecnologia, repertório e presença.",
+      route: "biblioteca/geracao-dos-realizadores"
+    },
+    {
+      eyebrow: "Atlas",
+      title: "Mapa do Ecossistema",
+      text: "Serviços, empresas, cases e artigos conectados em uma malha pública de leitura.",
+      route: `atlas/${authorityAtlas.slug}`
+    }
+  ];
+
+  return (
+    <PageTransition>
+      <DynamicSEO
+        fullTitle="Samuel Carrera Paes | Direção Criativa e Consultoria Criativa"
+        description="Conheça Samuel Carrera Paes, diretor criativo e consultor criativo à frente da Paes Consultoria, com atuação em branding, eventos e ecossistemas de presença."
+        url="sobre/samuel-carrera-paes"
+        image={homePortrait}
+        schemaType="ProfilePage"
+        schemaExtra={{
+          mainEntity: { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+          about: [
+            { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+            { "@id": `${SITE_URL}/#paes-consultoria` },
+            { "@id": `${SITE_URL}/#banal` },
+            { "@id": `${SITE_URL}/#verde-burgo-eventos` }
+          ]
+        }}
+      />
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="samuel-entity-title">
+        <header className="grid gap-14 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.78fr_1.22fr]">
+          <div>
+            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">SOBRE SAMUEL CARRERA PAES</span>
+            <h1 id="samuel-entity-title" className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
+              Diretor criativo, consultor criativo e criador de ecossistemas de presença.
+            </h1>
+          </div>
+          <div className="self-end">
+            <p className="max-w-3xl text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
+              Samuel Carrera Paes atua na interseção entre direção criativa, consultoria, branding, eventos, comunicação e experiência.
+            </p>
+            <p className="mt-8 max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
+              Seu trabalho parte de uma pergunta central: como transformar intenção em presença real? A resposta se organiza em estratégia, linguagem, percepção, operação e execução, sempre com atenção ao que uma marca, empresa ou evento precisa sustentar no mundo.
+            </p>
+          </div>
+        </header>
+
+        <section className="grid gap-12 border-b border-stone-900/10 py-16 lg:grid-cols-[0.72fr_1.28fr]" aria-labelledby="samuel-atuacao-title">
+          <figure className="bg-[#F4F0E9]">
+            <ImageWithFallback
+              src={homePortrait}
+              mode="natural"
+              alt="Retrato editorial de Samuel Carrera Paes, diretor criativo e consultor criativo da Paes Consultoria"
+              imageClassName="mix-blend-multiply"
+              fallbackLabel="Samuel Carrera Paes"
+            />
+          </figure>
+          <div className="self-center">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ATUAÇÃO</span>
+            <h2 id="samuel-atuacao-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Criar não apenas peças, mas sistemas capazes de continuar operando.
+            </h2>
+            <div className="mt-10 space-y-7 text-base font-light leading-relaxed text-stone-700 md:text-xl">
+              <p>
+                A direção criativa aparece como critério: define linguagem, ordena repertório e conecta imagem, experiência e decisão. A consultoria criativa aparece como método: lê contexto, identifica ruídos e constrói caminhos possíveis sem separar pensamento de execução.
+              </p>
+              <p>
+                A Paes Consultoria funciona como núcleo dessa visão. A BANAL concentra a camada de branding, marketing, conteúdo, comunicação e presença. A Verde Burgo atua no campo de eventos, experiências, produção e direção criativa aplicada. Provence Raiz entra como projeto que materializa atmosfera, memória e operação dentro desse ecossistema.
+              </p>
+              <p>
+                A Biblioteca organiza a dimensão intelectual do trabalho: artigos, ensaios e conceitos que ajudam a sustentar publicamente a relação entre criação, percepção, valor e presença.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="grid gap-8 border-b border-stone-900/10 py-16 md:grid-cols-3" aria-label="Territórios de atuação de Samuel Carrera Paes">
+          {[
+            ["Direção criativa", "Transformar estratégia em linguagem, atmosfera, narrativa e experiência reconhecível."],
+            ["Consultoria criativa", "Ler marca, mercado, operação e percepção para orientar decisões com clareza."],
+            ["Ecossistema de presença", "Conectar empresas, projetos, serviços e pensamento em uma estrutura autoral e legível."]
+          ].map(([title, text]) => (
+            <section key={title} className="border-t border-stone-900/10 pt-8">
+              <h2 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h2>
+              <p className="mt-5 text-sm font-light leading-relaxed text-stone-600 md:text-base">{text}</p>
+            </section>
+          ))}
+        </section>
+
+        <EditorialConnectionGrid
+          eyebrow="MALHA DO ECOSSISTEMA"
+          title="As frentes públicas que organizam a atuação de Samuel Carrera Paes."
+          items={connections}
+          navigate={navigate}
+        />
+      </article>
+    </PageTransition>
+  );
+}
 
 function Inicio({ navigate }) {
   return (
@@ -881,7 +1049,7 @@ function Inicio({ navigate }) {
         >
           <button
             type="button"
-            onClick={() => navigate("banal")}
+            onClick={() => navigate("empresas/banal")}
             className="group flex min-h-40 items-center justify-center border border-stone-900/10 bg-white/20 px-8 py-10 transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             aria-label="Abrir BANAL"
           >
@@ -900,7 +1068,7 @@ function Inicio({ navigate }) {
 
           <button
             type="button"
-            onClick={() => navigate("verdeburgo")}
+            onClick={() => navigate("empresas/verde-burgo")}
             className="group flex min-h-40 items-center justify-center border border-stone-900/10 bg-white/20 px-8 py-10 transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             aria-label="Abrir Verde Burgo"
           >
@@ -928,14 +1096,25 @@ function Inicio({ navigate }) {
           </p>
         </motion.div>
 
-        <div className="mt-24 grid gap-4 border-t border-stone-900/10 pt-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-24 grid gap-4 border-t border-stone-900/10 pt-10 md:grid-cols-2 lg:grid-cols-5">
+          <button
+            type="button"
+            onClick={() => navigate("sobre/samuel-carrera-paes")}
+            className="group flex items-center justify-between border border-stone-900/10 bg-white/20 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+          >
+            <span>
+              <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">01</span>
+              <span className="mt-2 block font-serif text-2xl text-stone-950">Samuel</span>
+            </span>
+            <ArrowUpRight className="h-4 w-4 text-stone-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+          </button>
           <button
             type="button"
             onClick={() => navigate("visao")}
             className="group flex items-center justify-between border border-stone-900/10 bg-white/20 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
           >
             <span>
-              <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">01</span>
+              <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">02</span>
               <span className="mt-2 block font-serif text-2xl text-stone-950">Minha Visão</span>
             </span>
             <ArrowUpRight className="h-4 w-4 text-stone-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
@@ -948,7 +1127,7 @@ function Inicio({ navigate }) {
               className="group flex items-center justify-between border border-stone-900/10 bg-white/20 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             >
               <span>
-                <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{String(index + 2).padStart(2, "0")}</span>
+                <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{String(index + 3).padStart(2, "0")}</span>
                 <span className="mt-2 block font-serif text-2xl text-stone-950">{company.name}</span>
               </span>
               <ArrowUpRight className="h-4 w-4 text-stone-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
@@ -960,7 +1139,7 @@ function Inicio({ navigate }) {
             className="group flex items-center justify-between border border-stone-900/10 bg-white/20 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
           >
             <span>
-              <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">04</span>
+              <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">05</span>
               <span className="mt-2 block font-serif text-2xl text-stone-950">Mapa</span>
             </span>
             <ArrowUpRight className="h-4 w-4 text-stone-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
@@ -1174,7 +1353,7 @@ function PaesConsultoria({ navigate }) {
                   <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">BANAL</p>
                   <h3 className="mt-3 font-serif text-4xl text-stone-950">Branding, marketing e comunicação.</h3>
                 </div>
-                <button type="button" onClick={() => navigate("banal")} className="hidden shrink-0 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 md:block">
+                <button type="button" onClick={() => navigate("empresas/banal")} className="hidden shrink-0 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 md:block">
                   Ver empresa
                 </button>
               </div>
@@ -1200,7 +1379,7 @@ function PaesConsultoria({ navigate }) {
               <p className="mt-8 text-sm font-light leading-relaxed text-stone-600">
                 Provence Raiz é um projeto dentro da Verde Burgo: uma referência de como buffet, decoração, bar, cerimonial, ambientação, papelaria e produção podem operar em uma mesma identidade.
               </p>
-              <button type="button" onClick={() => navigate("verdeburgo")} className="mt-auto pt-10 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
+              <button type="button" onClick={() => navigate("empresas/verde-burgo")} className="mt-auto pt-10 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
                 Ver Verde Burgo <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
               </button>
             </article>
@@ -1216,10 +1395,19 @@ function Banal({ navigate }) {
     <PageTransition>
       <DynamicSEO
         title="BANAL"
+        fullTitle="BANAL | Branding, Marketing e Presença"
         description="BANAL é a empresa de branding, marketing, comunicação, varejo, posicionamento, narrativa e estratégia criativa da Paes Consultoria."
-        url="banal"
-        image={banalAssets.symbol}
-        schemaType="Organization"
+        url="empresas/banal"
+        image={banalAssets.balancedLogo}
+        schemaType="CollectionPage"
+        schemaExtra={{
+          mainEntity: { "@id": `${SITE_URL}/#banal` },
+          about: [
+            { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+            { "@id": `${SITE_URL}/#paes-consultoria` },
+            { "@id": `${SITE_URL}/#banal` }
+          ]
+        }}
       />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="banal-title">
         <section className="grid gap-10 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.9fr_1.1fr]">
@@ -1338,6 +1526,18 @@ function Banal({ navigate }) {
           </ol>
         </section>
 
+        <EditorialConnectionGrid
+          eyebrow="Conexões da BANAL"
+          title="A empresa dentro do ecossistema."
+          description="A BANAL concentra os territórios de branding, marketing, comunicação, varejo, conteúdo, campanhas e percepção de valor dentro da arquitetura criativa de Samuel Carrera Paes."
+          links={[
+            { label: "Samuel Carrera Paes", text: "Direção criativa e visão que orientam a empresa.", route: "sobre/samuel-carrera-paes" },
+            { label: "Mapa do ecossistema", text: "Serviços, empresas, cases e biblioteca em uma leitura única.", route: `atlas/${authorityAtlas.slug}` },
+            { label: "Biblioteca", text: "Artigos que sustentam pensamento, método e repertório.", route: "biblioteca" }
+          ]}
+          navigate={navigate}
+        />
+
         <footer className="mb-16 bg-stone-950 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
           <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
             Sua marca precisa ficar mais clara para vender, comunicar ou crescer?
@@ -1366,7 +1566,7 @@ function CaseDetail({ caseId, navigate }) {
       <PageTransition>
         <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
           <h2 className="font-serif text-4xl mb-4">Case não encontrado.</h2>
-          <button onClick={() => navigate("banal")} className="text-xs font-bold uppercase tracking-[0.2em] border-b border-stone-900 pb-1 hover:text-stone-600 transition-colors">Voltar à BANAL</button>
+          <button onClick={() => navigate("empresas/banal")} className="text-xs font-bold uppercase tracking-[0.2em] border-b border-stone-900 pb-1 hover:text-stone-600 transition-colors">Voltar à BANAL</button>
         </div>
       </PageTransition>
     );
@@ -1495,7 +1695,7 @@ function CaseDetail({ caseId, navigate }) {
         >
           <button
             type="button"
-            onClick={() => navigate("banal")}
+            onClick={() => navigate("empresas/banal")}
             className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-stone-500 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 border border-stone-900/20 md:border-transparent rounded-sm"
           >
             <ArrowLeftCircle className="w-5 h-5 hidden sm:block" aria-hidden="true" /> BANAL <span className="hidden sm:inline">Projetos</span>
@@ -1538,18 +1738,25 @@ function CaseDetail({ caseId, navigate }) {
 }
 
 function Verdeburgo({ navigate }) {
-  const scrollToProvence = () => {
-    document.getElementById("provence-raiz")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  const openProvence = () => navigate("projetos/provence-raiz");
 
   return (
     <PageTransition>
       <DynamicSEO
         title="Verde Burgo"
+        fullTitle="Verde Burgo | Eventos, Experiências e Direção Criativa"
         description="Verde Burgo é uma empresa de eventos com buffet, decoração, bar, cerimonial, planejamento, produção e execução, com direção criativa aplicada por Samuel Paes."
-        url="verdeburgo"
+        url="empresas/verde-burgo"
         image={verdeBurgoBrandAssets.caseCover}
-        schemaType="Organization"
+        schemaType="CollectionPage"
+        schemaExtra={{
+          mainEntity: { "@id": `${SITE_URL}/#verde-burgo-eventos` },
+          about: [
+            { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+            { "@id": `${SITE_URL}/#paes-consultoria` },
+            { "@id": `${SITE_URL}/#verde-burgo-eventos` }
+          ]
+        }}
       />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="verdeburgo-title">
         <section className="relative min-h-[78vh] w-full max-w-full overflow-hidden bg-stone-950 text-[#F4F0E9] rounded-sm" aria-label="Abertura Verde Burgo">
@@ -1591,7 +1798,7 @@ function Verdeburgo({ navigate }) {
 
             <button
               type="button"
-              onClick={scrollToProvence}
+              onClick={openProvence}
               className="group mt-14 inline-flex w-fit items-center gap-4 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
             >
               Ver Provence Raiz
@@ -1609,7 +1816,7 @@ function Verdeburgo({ navigate }) {
           </header>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Provence Raiz", status: "Projeto publicado", media: verdeburgoAssets.hero, type: "image", action: scrollToProvence },
+              { title: "Provence Raiz", status: "Projeto publicado", media: verdeburgoAssets.hero, type: "image", action: openProvence },
               { title: "Casamentos", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=casamentos`, type: "video" },
               { title: "Aniversários", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=aniversarios`, type: "video" },
               { title: "Eventos corporativos", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=corporativos`, type: "video" }
@@ -1851,6 +2058,18 @@ function Verdeburgo({ navigate }) {
           ))}
         </section>
 
+        <EditorialConnectionGrid
+          eyebrow="Conexões da Verde Burgo"
+          title="Evento como empresa, projeto e linguagem."
+          description="A Verde Burgo concentra eventos completos. Provence Raiz mostra uma aplicação publicada dessa visão, enquanto a Biblioteca sustenta o pensamento sobre experiência, presença e execução."
+          links={[
+            { label: "Provence Raiz", text: "Projeto publicado dentro da Verde Burgo.", route: "projetos/provence-raiz" },
+            { label: "Samuel Carrera Paes", text: "Direção criativa e identidade aplicada aos eventos.", route: "sobre/samuel-carrera-paes" },
+            { label: "Geração dos Realizadores", text: "A tese que conecta visão, operação e presença real.", route: "biblioteca/geracao-dos-realizadores" }
+          ]}
+          navigate={navigate}
+        />
+
         <footer className="mb-16 bg-stone-950 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
           <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
             Cada detalhe foi desenhado para revelar, não decorar.
@@ -1868,6 +2087,281 @@ function Verdeburgo({ navigate }) {
             </button>
           </div>
         </footer>
+      </article>
+    </PageTransition>
+  );
+}
+
+function ProvenceRaizPage({ navigate }) {
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title="Provence Raiz"
+        fullTitle="Provence Raiz | Projeto e Experiência Criativa"
+        description="Provence Raiz é um projeto dentro da Verde Burgo, com evento completo, direção criativa, identidade visual, ambientação, buffet, bar, cerimonial e produção."
+        url="projetos/provence-raiz"
+        image={verdeburgoAssets.hero}
+        schemaType="CreativeWork"
+        schemaExtra={{
+          name: "Provence Raiz",
+          creator: { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+          isPartOf: { "@id": `${SITE_URL}/#verde-burgo-eventos` },
+          about: [
+            "eventos",
+            "direção criativa",
+            "cenografia",
+            "hospitalidade",
+            "identidade de evento",
+            "Verde Burgo Eventos"
+          ]
+        }}
+      />
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="provence-page-title">
+        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.68fr_1.32fr]">
+          <aside>
+            <button
+              type="button"
+              onClick={() => navigate("empresas/verde-burgo")}
+              className="mb-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Verde Burgo
+            </button>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Projeto publicado</span>
+            <dl className="grid gap-6 border-t border-stone-900/10 pt-8">
+              {[
+                ["Empresa", "Verde Burgo Eventos"],
+                ["Direção criativa", "Samuel Carrera Paes"],
+                ["Território", "Casamento, evento e experiência"],
+                ["Camadas", "Buffet, decoração, bar, cerimonial, ambientação e produção"]
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{label}</dt>
+                  <dd className="mt-2 text-sm font-light leading-relaxed text-stone-700">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+
+          <div className="self-end">
+            <h1 id="provence-page-title" className="font-serif text-6xl leading-[0.82] tracking-tight text-stone-950 md:text-[8rem] text-balance">
+              Provence Raiz.
+            </h1>
+            <p className="mt-10 max-w-4xl text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
+              Um projeto dentro da Verde Burgo que mostra como uma festa pode funcionar como comunicação 360 graus: serviço, matéria, decoração, bar, cerimônia, papelaria, percurso e atmosfera sustentando a mesma identidade.
+            </p>
+          </div>
+        </header>
+
+        <figure className="grid gap-6 border-b border-stone-900/10 py-16 lg:grid-cols-[1.25fr_0.75fr]">
+          <div className="relative aspect-[16/10] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
+            <ImageWithFallback
+              src={verdeburgoAssets.hero}
+              alt="Mural contemporâneo inspirado em Toile de Jouy para o projeto Provence Raiz da Verde Burgo, com direção criativa de Samuel Carrera Paes."
+              mode="cover"
+              loading="eager"
+              imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
+            />
+          </div>
+          <figcaption className="flex flex-col justify-end border-l border-stone-900/10 pl-8 text-sm font-light leading-relaxed text-stone-600">
+            <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Imagem matriz</span>
+            A memória gráfica aparece como linguagem de evento, não como estampa decorativa. Ela cria pano de fundo, repertório e coerência para a experiência física.
+          </figcaption>
+        </figure>
+
+        <section className="grid gap-12 border-b border-stone-900/10 py-24 md:py-32 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="provence-system-title">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sistema do projeto</span>
+            <h2 id="provence-system-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Não é cenário isolado. É identidade aplicada ao evento inteiro.
+            </h2>
+          </div>
+          <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
+            <p>
+              Provence Raiz organiza a festa como uma experiência completa. O espaço não aparece como vitrine de decoração, mas como matéria viva da narrativa: luz, textura, desenho, cheiro, comida, rito, circulação e permanência precisam conversar.
+            </p>
+            <p>
+              A Verde Burgo entra como operação integrada. Samuel Paes entra como direção criativa, construindo a linguagem que permite que buffet, decoração, bar, cerimonial e produção trabalhem dentro de uma única presença.
+            </p>
+            <p>
+              O valor do projeto está na coerência entre desejo e execução. Uma festa sofisticada precisa ser bonita, possível, montável, servida com precisão e lembrada como experiência.
+            </p>
+          </div>
+        </section>
+
+        <section className="py-24 md:py-32" aria-labelledby="provence-camadas-title">
+          <header className="mb-16 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Camadas visuais</span>
+            <h2 id="provence-camadas-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Da referência gráfica ao objeto físico.
+            </h2>
+          </header>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Mesa e hospitalidade",
+                image: verdeburgoAssets.mesaRefinada,
+                alt: "Mesa de bolo Provence Raiz com mural Toile de Jouy, luminárias e composição floral da Verde Burgo.",
+                text: "A mesa funciona como ponto de permanência, serviço e memória visual."
+              },
+              {
+                title: "Cerimônia",
+                image: verdeburgoAssets.cerimoniaRefinada,
+                alt: "Cerimônia Provence Raiz com passarela, altar e flores em direção criativa da Verde Burgo.",
+                text: "A cerimônia precisa sustentar emoção, eixo visual, escala e leitura do rito."
+              },
+              {
+                title: "Volume natural",
+                image: verdeburgoAssets.volumeNatural,
+                alt: "Estudo floral Volume Natural, Nunca Artificial do projeto Provence Raiz.",
+                text: "O floral entra com assimetria, hastes aparentes e imperfeição elegante."
+              },
+              {
+                title: "Pilastras cenográficas",
+                image: verdeburgoAssets.pilastrasRefinada,
+                alt: "Prancha técnica de pilastras cenográficas para altar Provence Raiz.",
+                text: "A peça cenográfica organiza presença, escala e leitura sem fechar o espaço."
+              },
+              {
+                title: "Luminária carretel",
+                image: verdeburgoAssets.luminariaCarretelRefinada,
+                alt: "Prancha técnica da luminária pêndulo carretel cenográfico Provence Raiz.",
+                text: "O objeto traduz atmosfera em engenharia de luz, material e montagem."
+              },
+              {
+                title: "Escada floral",
+                image: verdeburgoAssets.escadaRefinada,
+                alt: "Escada com cascata floral no projeto Provence Raiz da Verde Burgo.",
+                text: "O percurso também comunica, criando transição entre chegada, memória e experiência."
+              }
+            ].map((item) => (
+              <article key={item.title} className="border-t border-stone-900/10 pt-8">
+                <figure className="relative aspect-[4/3] overflow-hidden bg-white/40 rounded-sm shadow-sm">
+                  <ImageWithFallback src={item.image} alt={item.alt} mode="cover" imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]" />
+                </figure>
+                <h3 className="mt-8 font-serif text-3xl leading-tight text-stone-950">{item.title}</h3>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <EditorialConnectionGrid
+          eyebrow="Conexões do projeto"
+          title="Provence Raiz dentro da malha do ecossistema."
+          description="A página conecta o projeto à Verde Burgo, à direção criativa de Samuel Carrera Paes e aos serviços que tornam o evento executável."
+          links={[
+            { label: "Verde Burgo Eventos", text: "Empresa de eventos completos com direção criativa aplicada.", route: "empresas/verde-burgo" },
+            { label: "Eventos", text: "Festas como experiência integrada de serviço, operação e identidade.", route: "servicos/eventos" },
+            { label: "Decoração", text: "Atmosfera construída com matéria, memória e intenção.", route: "servicos/decoracao" }
+          ]}
+          navigate={navigate}
+        />
+      </article>
+    </PageTransition>
+  );
+}
+
+function GeracaoDosRealizadoresPage({ navigate }) {
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title="Geração dos Realizadores"
+        fullTitle="Geração dos Realizadores | Biblioteca Paes Consultoria"
+        description="A Geração dos Realizadores organiza a tese de Samuel Carrera Paes sobre visão, repertório, inteligência artificial, direção criativa, operação e execução."
+        url="biblioteca/geracao-dos-realizadores"
+        image={homePortrait}
+        schemaType="Article"
+        schemaExtra={{
+          headline: "Geração dos Realizadores",
+          author: { "@id": `${SITE_URL}/#samuel-carrera-paes` },
+          publisher: { "@id": `${SITE_URL}/#paes-consultoria` },
+          about: [
+            "direção criativa",
+            "consultoria criativa",
+            "inteligência artificial",
+            "execução",
+            "ecossistemas criativos"
+          ]
+        }}
+      />
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="geracao-title">
+        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.7fr_1.3fr]">
+          <aside>
+            <button
+              type="button"
+              onClick={() => navigate("biblioteca")}
+              className="mb-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Biblioteca
+            </button>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Manifesto / Tese</span>
+            <p className="border-t border-stone-900/10 pt-8 text-sm font-light leading-relaxed text-stone-600">
+              Texto matriz para entender Samuel Carrera Paes como diretor criativo, consultor criativo e criador de empresas, sistemas, identidades e narrativas.
+            </p>
+          </aside>
+          <div className="self-end">
+            <h1 id="geracao-title" className="font-serif text-5xl leading-[0.85] tracking-tight text-stone-950 md:text-[7rem] text-balance">
+              A Geração dos Realizadores.
+            </h1>
+            <p className="mt-10 max-w-4xl text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
+              Uma geração que não separa repertório de execução, inteligência de presença, estética de operação. Ela cria empresas, métodos, campanhas, eventos e sistemas capazes de transformar intenção em realidade.
+            </p>
+          </div>
+        </header>
+
+        <section className="grid gap-12 border-b border-stone-900/10 py-24 md:py-32 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="geracao-contexto-title">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Contexto</span>
+            <h2 id="geracao-contexto-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Criar já não é apenas imaginar. É estruturar, testar, operar e publicar.
+            </h2>
+          </div>
+          <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
+            <p>
+              A tese parte de uma mudança clara: repertório, ferramentas digitais, inteligência artificial e execução ficaram mais próximos. O profissional que apenas idealiza perde força. O realizador ganha relevância porque consegue conduzir a visão até a presença concreta.
+            </p>
+            <p>
+              No ecossistema Samuel Paes, essa lógica aparece em três camadas. A Paes Consultoria organiza visão, diagnóstico e direção. A BANAL traduz marca, marketing e percepção. A Verde Burgo transforma evento, festa, serviço e atmosfera em experiência integrada.
+            </p>
+            <p>
+              A Geração dos Realizadores não celebra pressa. Ela exige critério. A execução só vira valor quando nasce de leitura, identidade, operação e coerência.
+            </p>
+          </div>
+        </section>
+
+        <section className="py-24 md:py-32" aria-labelledby="geracao-pilares-title">
+          <header className="mb-16 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Pilares</span>
+            <h2 id="geracao-pilares-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              O pensamento que sustenta o ecossistema.
+            </h2>
+          </header>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Visão", "A capacidade de formular uma direção própria antes de escolher forma, canal ou ferramenta."],
+              ["Repertório", "A leitura de referências, contextos, materiais, comportamentos e sinais culturais."],
+              ["Sistema", "A organização de empresas, serviços, conteúdos e processos para que a ideia tenha continuidade."],
+              ["Execução", "A disciplina de fazer a visão sobreviver ao orçamento, ao tempo, à equipe e ao mundo real."]
+            ].map(([title, text]) => (
+              <section key={title} className="border-t border-stone-900/10 pt-8">
+                <h3 className="font-serif text-3xl leading-tight text-stone-950">{title}</h3>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
+              </section>
+            ))}
+          </div>
+        </section>
+
+        <EditorialConnectionGrid
+          eyebrow="Leitura relacionada"
+          title="A tese aplicada no site."
+          description="Esta página funciona como base intelectual para as empresas, os serviços e os projetos do ecossistema."
+          links={[
+            { label: "Samuel Carrera Paes", text: "Diretor criativo, consultor criativo e criador do ecossistema.", route: "sobre/samuel-carrera-paes" },
+            { label: "BANAL", text: "A frente de marca, marketing, posicionamento e narrativa.", route: "empresas/banal" },
+            { label: "Verde Burgo", text: "A frente de eventos, festas, serviço, atmosfera e execução.", route: "empresas/verde-burgo" }
+          ]}
+          navigate={navigate}
+        />
       </article>
     </PageTransition>
   );
@@ -1893,6 +2387,25 @@ function Biblioteca({ navigate }) {
         </header>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 border-t border-stone-900/10 pt-16">
+          <article className="group flex min-h-[24rem] flex-col border border-stone-900/20 bg-stone-950 text-[#F4F0E9] transition-all duration-700 hover:bg-stone-800 rounded-sm md:col-span-2 lg:col-span-1">
+            <button
+              type="button"
+              onClick={() => navigate("biblioteca/geracao-dos-realizadores")}
+              aria-label="Ler artigo A Geração dos Realizadores"
+              className="flex h-full flex-col p-8 md:p-10 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              <span className="font-serif text-4xl mb-8 text-[#F4F0E9]/35" aria-hidden="true">00.</span>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] mb-3">Manifesto</h3>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F4F0E9]/55 mb-6 block">Visão, IA, operação e execução</span>
+              <p className="font-serif text-2xl leading-tight mb-6 text-balance">A Geração dos Realizadores</p>
+              <p className="text-sm font-light text-[#F4F0E9]/70 leading-relaxed mb-8">
+                A tese que apresenta Samuel Carrera Paes como diretor criativo, consultor criativo e criador de empresas, métodos, narrativas e sistemas.
+              </p>
+              <span className="mt-auto inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em]">
+                Ler tese <ArrowRightCircle className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+              </span>
+            </button>
+          </article>
           {sistemaArticleCards.map((card) => (
             <article key={card.num} className="group flex min-h-[24rem] flex-col border border-stone-900/10 bg-white/40 transition-all duration-700 hover:bg-white/80 hover:border-stone-900/25 rounded-sm">
               <button
@@ -2364,7 +2877,7 @@ function AuthorityServicePage({ slug, navigate }) {
             ) : (
               <button
                 type="button"
-                onClick={() => navigate("verdeburgo")}
+                onClick={() => navigate("projetos/provence-raiz")}
                 className="group flex w-full items-center justify-between gap-6 border-t border-stone-900/10 pt-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
               >
                 <span>
@@ -2579,14 +3092,15 @@ export default function SamuelPaesPortfolio() {
   }, [isMenuOpen]);
 
   const navLinks = [
-    { id: "visao", num: "01.", label: "Minha Visão" },
-    { id: "biblioteca", num: "02.", label: "Biblioteca" },
-    { id: "contato", num: "03.", label: "Contato" },
+    { id: "sobre/samuel-carrera-paes", num: "01.", label: "Sobre" },
+    { id: "visao", num: "02.", label: "Minha Visão" },
+    { id: "biblioteca", num: "03.", label: "Biblioteca" },
+    { id: "contato", num: "04.", label: "Contato" },
   ];
 
   const companyLinks = [
     {
-      id: "banal",
+      id: "empresas/banal",
       label: "BANAL",
       image: banalAssets.balancedLogo,
       buttonClassName: "w-[5.75rem]",
@@ -2594,7 +3108,7 @@ export default function SamuelPaesPortfolio() {
       imageClassName: "h-8 w-full md:h-9"
     },
     {
-      id: "verdeburgo",
+      id: "empresas/verde-burgo",
       label: "Verde Burgo",
       image: verdeBurgoBrandAssets.balancedLogo,
       buttonClassName: "w-[5.75rem]",
@@ -2611,9 +3125,9 @@ export default function SamuelPaesPortfolio() {
   const isCaseDetail = route.startsWith("case/");
   const isBibliotecaDetail = route.startsWith("biblioteca/") || route.startsWith("sistema/");
   const isAtlasRoute = route === `atlas/${authorityAtlas.slug}` || route.startsWith("servicos/");
-  const isConsultoriaArea = route === "inicio" || route === "ecossistema" || route === "paes-consultoria" || isAtlasRoute;
-  const isBanalArea = route === "banal" || route === "cases" || isCaseDetail;
-  const isVerdeBurgoArea = route === "verdeburgo";
+  const isConsultoriaArea = route === "inicio" || route === "ecossistema" || route === "paes-consultoria" || route === "sobre/samuel-carrera-paes" || isAtlasRoute;
+  const isBanalArea = route === "banal" || route === "empresas/banal" || route === "cases" || isCaseDetail;
+  const isVerdeBurgoArea = route === "verdeburgo" || route === "empresas/verde-burgo" || route === "projetos/provence-raiz";
 
   return (
     <div className="min-h-screen bg-[#F4F0E9] text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
@@ -2662,7 +3176,7 @@ export default function SamuelPaesPortfolio() {
 
           <div className="hidden w-1/4 items-center justify-end gap-4 lg:flex">
             {companyLinks.map((company) => {
-              const active = company.id === "banal" ? isBanalArea : isVerdeBurgoArea;
+              const active = company.id === "empresas/banal" ? isBanalArea : isVerdeBurgoArea;
               return (
                 <button
                   key={company.id}
@@ -2679,7 +3193,7 @@ export default function SamuelPaesPortfolio() {
 
           <div className="ml-auto flex items-center gap-2 lg:hidden">
             {companyLinks.map((company) => {
-              const active = company.id === "banal" ? isBanalArea : isVerdeBurgoArea;
+              const active = company.id === "empresas/banal" ? isBanalArea : isVerdeBurgoArea;
               return (
                 <button
                   key={company.id}
@@ -2759,14 +3273,17 @@ export default function SamuelPaesPortfolio() {
       <main id="main-content">
         <AnimatePresence mode="wait">
           {route === "inicio" && <Inicio key="inicio" navigate={navigate} />}
+          {route === "sobre/samuel-carrera-paes" && <SamuelEntityPage key="samuel-carrera-paes" navigate={navigate} />}
           {route === "visao" && <Visao key="visao" />}
           {(route === "ecossistema" || route === "paes-consultoria") && <PaesConsultoria key="paes-consultoria" navigate={navigate} />}
           {route === "cases" && <Banal key="cases-compat" navigate={navigate} />}
-          {route === "banal" && <Banal key="banal" navigate={navigate} />}
+          {(route === "banal" || route === "empresas/banal") && <Banal key="banal" navigate={navigate} />}
           {route.startsWith("case/") && <CaseDetail key="case-detail" caseId={route.replace("case/", "")} navigate={navigate} />}
-          {route === "verdeburgo" && <Verdeburgo key="verdeburgo" navigate={navigate} />}
+          {(route === "verdeburgo" || route === "empresas/verde-burgo") && <Verdeburgo key="verdeburgo" navigate={navigate} />}
+          {route === "projetos/provence-raiz" && <ProvenceRaizPage key="provence-raiz" navigate={navigate} />}
           {(route === "biblioteca" || route === "sistema") && <Biblioteca key="biblioteca" navigate={navigate} />}
-          {route.startsWith("biblioteca/") && <SistemaArticle key={route} slug={route.replace("biblioteca/", "")} navigate={navigate} />}
+          {route === "biblioteca/geracao-dos-realizadores" && <GeracaoDosRealizadoresPage key="geracao-dos-realizadores" navigate={navigate} />}
+          {route.startsWith("biblioteca/") && route !== "biblioteca/geracao-dos-realizadores" && <SistemaArticle key={route} slug={route.replace("biblioteca/", "")} navigate={navigate} />}
           {route.startsWith("sistema/") && <SistemaArticle key={route} slug={route.replace("sistema/", "")} navigate={navigate} />}
           {route === `atlas/${authorityAtlas.slug}` && <EcosystemAtlas key="ecosystem-atlas" navigate={navigate} />}
           {route.startsWith("servicos/") && <AuthorityServicePage key={route} slug={route.replace("servicos/", "")} navigate={navigate} />}
