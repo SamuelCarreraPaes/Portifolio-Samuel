@@ -1,8 +1,21 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { PREMIUM_EASE } from "../motionConfig";
 
-export function ImageWithFallback({ src, alt, imageClassName = "", fallbackLabel, loading = "lazy", mode = "natural" }) {
+export function ImageWithFallback({
+  src,
+  alt,
+  imageClassName = "",
+  fallbackLabel,
+  loading = "lazy",
+  mode = "natural",
+  sources = [],
+  srcSet,
+  sizes,
+  width,
+  height,
+  fetchPriority
+}) {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const isNatural = mode === "natural";
@@ -10,17 +23,25 @@ export function ImageWithFallback({ src, alt, imageClassName = "", fallbackLabel
 
   return (
     <div
-      role="img"
-      aria-label={alt || fallbackLabel}
+      role={error ? "img" : undefined}
+      aria-label={error ? alt || fallbackLabel : undefined}
       className={`w-full bg-stone-200/40 flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-hidden'}`}
     >
       {!error ? (
         <picture>
+          {sources.map((source) => (
+            <source key={`${source.type || "source"}-${source.srcSet}`} {...source} />
+          ))}
           <img
             src={src}
+            srcSet={srcSet}
+            sizes={sizes}
             alt={alt || fallbackLabel}
             loading={loading}
             decoding="async"
+            width={width}
+            height={height}
+            fetchPriority={fetchPriority}
             onLoad={() => setIsLoaded(true)}
             onError={() => setError(true)}
             className={`w-full transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${
@@ -40,12 +61,14 @@ export function ImageWithFallback({ src, alt, imageClassName = "", fallbackLabel
 }
 
 export const PageTransition = ({ children, className = "" }) => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12, scale: 0.99 }}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.99 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -8, scale: 0.99 }}
-      transition={{ duration: 0.6, ease: PREMIUM_EASE }}
+      exit={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -8, scale: 0.99 }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6, ease: PREMIUM_EASE }}
       className={`min-h-screen pt-24 pb-32 ${className}`}
     >
       {children}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
 
@@ -2206,9 +2206,32 @@ function AuthorityServicePage({ slug, navigate }) {
 function Contato() {
   const [toast, setToast] = useState(null);
 
-  const handleCopy = (text, type) => {
-    navigator.clipboard.writeText(text);
-    setToast(`${type} copiado com sucesso!`);
+  const copyText = async (text) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.top = "-1000px";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    const copied = document.execCommand("copy");
+    document.body.removeChild(textarea);
+    return copied;
+  };
+
+  const handleCopy = async (text, type) => {
+    try {
+      const copied = await copyText(text);
+      setToast(copied ? `${type} copiado com sucesso!` : `${type}: ${text}`);
+    } catch {
+      setToast(`${type}: ${text}`);
+    }
     setTimeout(() => setToast(null), 3000);
   };
 
@@ -2350,11 +2373,52 @@ function Contato() {
   );
 }
 
+function NotFoundPage({ route, navigate }) {
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title="Página não encontrada"
+        description="A rota solicitada não foi encontrada no ecossistema Paes Consultoria. Continue pela visão, empresas, biblioteca ou contato."
+        url={route || "404"}
+      />
+      <article className="mx-auto flex min-h-[70vh] max-w-[90rem] flex-col justify-center px-6 pt-12 lg:px-12" aria-labelledby="not-found-title">
+        <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">404 · ROTA NÃO ENCONTRADA</span>
+        <h1 id="not-found-title" className="max-w-5xl font-serif text-5xl leading-none tracking-[-0.02em] text-stone-950 md:text-7xl">
+          Esta página não existe no ecossistema público.
+        </h1>
+        <p className="mt-8 max-w-2xl text-lg font-light leading-relaxed text-stone-600">
+          O caminho pode ter mudado, ou o conteúdo ainda não foi publicado. Continue pela visão de Samuel Carrera Paes, pelas empresas ou pela Biblioteca.
+        </p>
+        <nav className="mt-12 flex flex-wrap gap-4" aria-label="Rotas de recuperação">
+          {[
+            ["inicio", "Início"],
+            ["empresas/banal", "BANAL"],
+            ["empresas/verde-burgo", "Verde Burgo"],
+            ["biblioteca", "Biblioteca"],
+            ["contato", "Contato"]
+          ].map(([target, label]) => (
+            <button
+              key={target}
+              type="button"
+              onClick={() => navigate(target)}
+              className="border border-stone-900/15 bg-white/25 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900 transition-colors hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+      </article>
+    </PageTransition>
+  );
+}
+
 // --- APP PRINCIPAL E NAVBAR ---
 
 export default function SamuelPaesPortfolio() {
   const { route, navigate } = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButtonRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   // Prevent scroll when mobile menu is open (Acessibilidade + UX)
   useEffect(() => {
@@ -2364,6 +2428,55 @@ export default function SamuelPaesPortfolio() {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+
+    const focusableSelector = [
+      "a[href]",
+      "button:not([disabled])",
+      "textarea:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "[tabindex]:not([tabindex='-1'])"
+    ].join(",");
+
+    const focusFirstItem = () => {
+      const firstItem = mobileMenuRef.current?.querySelector(focusableSelector);
+      firstItem?.focus();
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+        return;
+      }
+
+      if (event.key !== "Tab" || !mobileMenuRef.current) return;
+
+      const focusableItems = Array.from(mobileMenuRef.current.querySelectorAll(focusableSelector));
+      if (!focusableItems.length) return;
+
+      const firstItem = focusableItems[0];
+      const lastItem = focusableItems[focusableItems.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault();
+        firstItem.focus();
+      }
+    };
+
+    window.requestAnimationFrame(focusFirstItem);
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isMenuOpen]);
 
   const navLinks = [
@@ -2403,6 +2516,26 @@ export default function SamuelPaesPortfolio() {
   const isConsultoriaArea = route === "inicio" || route === "ecossistema" || route === "paes-consultoria" || route === "sobre/samuel-carrera-paes" || isAtlasRoute;
   const isBanalArea = route === "banal" || route === "empresas/banal" || route === "cases" || isCaseDetail;
   const isVerdeBurgoArea = route === "verdeburgo" || route === "empresas/verde-burgo" || route === "projetos/provence-raiz";
+  const routeMatches =
+    route === "inicio" ||
+    route === "sobre/samuel-carrera-paes" ||
+    route === "visao" ||
+    route === "ecossistema" ||
+    route === "paes-consultoria" ||
+    route === "cases" ||
+    route === "banal" ||
+    route === "empresas/banal" ||
+    route.startsWith("case/") ||
+    route === "verdeburgo" ||
+    route === "empresas/verde-burgo" ||
+    route === "projetos/provence-raiz" ||
+    route === "biblioteca" ||
+    route === "sistema" ||
+    route.startsWith("biblioteca/") ||
+    route.startsWith("sistema/") ||
+    route === `atlas/${authorityAtlas.slug}` ||
+    route.startsWith("servicos/") ||
+    route === "contato";
 
   return (
     <div className="min-h-screen bg-[#F4F0E9] text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
@@ -2430,23 +2563,26 @@ export default function SamuelPaesPortfolio() {
             </button>
           </div>
 
-          <div className="hidden flex-1 justify-center gap-4 lg:flex xl:gap-6" role="menubar">
-            {navLinks.map((link) => (
+          <div className="hidden flex-1 justify-center gap-4 lg:flex xl:gap-6">
+            {navLinks.map((link) => {
+              const active = route === link.id || (link.id === "biblioteca" && isBibliotecaDetail);
+              return (
               <button
                 key={link.id}
                 type="button"
-                role="menuitem"
+                aria-current={active ? "page" : undefined}
                 aria-label={`Página ${link.label}`}
                 onClick={() => handleNavClick(link.id)}
                 className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm px-2 pb-1 border-b-2 ${
-                  (route === link.id || (link.id === "biblioteca" && isBibliotecaDetail))
+                  active
                     ? "text-stone-900 border-stone-900"
                     : "text-stone-400 border-transparent hover:text-stone-900 hover:border-stone-900/20"
                 }`}
               >
                 <span className="opacity-50" aria-hidden="true">{link.num}</span> {link.label}
               </button>
-            ))}
+              );
+            })}
           </div>
 
           <div className="hidden w-1/4 items-center justify-end gap-4 lg:flex">
@@ -2457,6 +2593,7 @@ export default function SamuelPaesPortfolio() {
                   key={company.id}
                   type="button"
                   onClick={() => handleNavClick(company.id)}
+                  aria-current={active ? "page" : undefined}
                   aria-label={`Abrir ${company.label}`}
                   className={`flex h-12 ${company.buttonClassName} items-center justify-center border px-2 transition-colors duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${active ? "border-stone-900 bg-white/70" : "border-stone-900/10 bg-white/20 hover:border-stone-900/30 hover:bg-white/60"}`}
                 >
@@ -2474,6 +2611,7 @@ export default function SamuelPaesPortfolio() {
                   key={company.id}
                   type="button"
                   onClick={() => handleNavClick(company.id)}
+                  aria-current={active ? "page" : undefined}
                   aria-label={`Abrir ${company.label}`}
                   className={`flex h-9 shrink-0 ${company.mobileButtonClassName} items-center justify-center border px-1 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm sm:h-10 sm:px-1.5 ${active ? "border-stone-900 bg-white/70" : "border-stone-900/10 bg-white/20"}`}
                 >
@@ -2486,6 +2624,7 @@ export default function SamuelPaesPortfolio() {
           {/* Menu Mobile Toggle */}
           <button
             type="button"
+            ref={menuButtonRef}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
@@ -2501,6 +2640,7 @@ export default function SamuelPaesPortfolio() {
           {isMenuOpen && (
             <motion.div
               id="mobile-menu"
+              ref={mobileMenuRef}
               role="dialog"
               aria-modal="true"
               aria-label="Menu de navegação móvel"
@@ -2518,6 +2658,7 @@ export default function SamuelPaesPortfolio() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: idx * 0.08, ease: PREMIUM_EASE }}
                     type="button"
+                    aria-current={(route === link.id || (link.id === "biblioteca" && isBibliotecaDetail)) ? "page" : undefined}
                     onClick={() => handleNavClick(link.id)}
                     className={`flex items-baseline gap-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 p-3 rounded-sm transition-colors duration-300 ${
                       (route === link.id || (link.id === "biblioteca" && isBibliotecaDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
@@ -2563,6 +2704,7 @@ export default function SamuelPaesPortfolio() {
           {route === `atlas/${authorityAtlas.slug}` && <EcosystemAtlas key="ecosystem-atlas" navigate={navigate} />}
           {route.startsWith("servicos/") && <AuthorityServicePage key={route} slug={route.replace("servicos/", "")} navigate={navigate} />}
           {route === "contato" && <Contato key="contato" />}
+          {!routeMatches && <NotFoundPage key="not-found" route={route} navigate={navigate} />}
         </AnimatePresence>
       </main>
 

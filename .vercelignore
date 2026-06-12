@@ -1,7 +1,12 @@
 assets-source/
-*.backup-*.html
-src/*.backup-*.jsx
-src/*.backup-*.css
-src/*.bak-*
-preview-*.log
-preview-*.err.log
+docs/
+*.zip
+*.log
+*.err.log
+*.backup*
+*.bak*
+~$*
+src/Ctrl + S.txt
+src/*.backup*
+src/*.bak*
+public/social/

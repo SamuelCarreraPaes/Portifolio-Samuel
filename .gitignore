@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+*.err.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -28,3 +29,11 @@ dist/
 *.zip
 desktop.ini
 .vercel
+
+# Historical/local artifacts
+*.backup*
+*.bak*
+~$*
+src/Ctrl + S.txt
+assets-source/
+docs/codex-artifacts-temp/
