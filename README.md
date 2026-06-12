@@ -40,10 +40,14 @@ A Paes Consultoria concentra direcao, identidade, experiencia, estrategia, perce
 | Rota | Funcao |
 | --- | --- |
 | `/` | Apresentacao institucional da Paes Consultoria. |
+| `/sobre/samuel-carrera-paes` | Perfil autoral de Samuel Carrera Paes. |
 | `/visao` | Posicionamento profissional de Samuel Carrera Paes. |
 | `/biblioteca` | Artigos, ensaios, pesquisas e reflexoes de autoridade. |
-| `/banal` | Pagina institucional da BANAL. |
-| `/verdeburgo` | Pagina institucional da Verde Burgo. |
+| `/empresas/banal` | Pagina institucional da BANAL. |
+| `/empresas/verde-burgo` | Pagina institucional da Verde Burgo. |
+| `/projetos/provence-raiz` | Projeto Provence Raiz dentro da Verde Burgo. |
+| `/atlas/samuel-carrera-paes` | Mapa editorial de servicos, empresas, cases e artigos. |
+| `/servicos/:slug` | Paginas de autoridade por servico/territorio. |
 | `/contato` | Contato profissional. |
 | `/case/:id` | Projetos de branding, marketing, varejo e comunicacao vinculados a BANAL. |
 
@@ -55,6 +59,8 @@ Rotas antigas preservadas por compatibilidade:
 | `/sistema` | Renderiza Biblioteca. |
 | `/sistema/:slug` | Renderiza o artigo equivalente em Biblioteca. |
 | `/ecossistema` | Renderiza uma leitura institucional da Paes Consultoria com canonical para a raiz. |
+| `/banal` | Alias para BANAL. |
+| `/verdeburgo` | Alias para Verde Burgo. |
 
 ## SEO e Indexacao
 
@@ -63,9 +69,24 @@ O site foi preparado para associar `Samuel Carrera Paes`, `Paes Consultoria`, `B
 Arquivos e pontos principais:
 
 - `index.html`: titulo, description, canonical, Open Graph, Twitter Card e JSON-LD `Person`/`WebSite`.
-- `src/App.jsx`: SEO dinamico com dominio canonico `https://paesconsultoria.com`.
+- `src/seo.jsx`: SEO dinamico por rota com dominio canonico `https://paesconsultoria.com`.
+- `src/seoData.js`: entidades JSON-LD, palavras-chave, utilitarios de URL e dados de autoridade.
 - `public/robots.txt`: permite indexacao e declara o sitemap.
 - `public/sitemap.xml`: declara as rotas canonicas atuais.
+- `public/sitemap-images.xml`: associa imagens publicas a Samuel Carrera Paes, Paes Consultoria, BANAL e Verde Burgo.
+
+## Arquitetura de Codigo
+
+O site foi modularizado para reduzir o peso de `src/App.jsx` e separar dados, infraestrutura e componentes reutilizaveis:
+
+- `src/App.jsx`: orquestracao das paginas, navegação global e renderizacao das rotas.
+- `src/data/cases.js`: dados dos cases de marca, varejo, comunicacao e marketing vinculados a BANAL.
+- `src/data/ecosystem.js`: dados de Paes Consultoria, BANAL, Verde Burgo, Provence Raiz, ativos e metodos.
+- `src/components/shared.jsx`: componentes compartilhados de imagem, transicao e grade editorial.
+- `src/router.js`: roteador leve com suporte a pathname e aliases antigos.
+- `src/seo.jsx` e `src/seoData.js`: SEO dinamico e dados estruturados.
+- `src/motionConfig.js`: curva de movimento premium e helper para videos sem som em loop.
+- `src/index.css`: tokens globais minimos, foco visivel e suporte a reduced motion.
 
 ## Conteudo Editorial
 

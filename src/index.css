@@ -1,12 +1,20 @@
 @import "tailwindcss";
 
+:root {
+  --sp-paper: #f4f0e9;
+  --sp-ink: #1c1917;
+  --sp-muted: #78716c;
+  --sp-line: rgba(28, 25, 23, 0.1);
+  --sp-focus: #1c1917;
+}
+
 html,
 body,
 #root {
   margin: 0;
+  min-height: 100%;
   padding: 0;
   width: 100%;
-  min-height: 100%;
 }
 
 html {
@@ -14,153 +22,34 @@ html {
 }
 
 body {
+  background: var(--sp-paper);
+  color: var(--sp-ink);
   overflow-x: hidden;
 }
-/* NAVBAR LOGO — Samuel Paes
-   Aumenta apenas o símbolo pequeno da barra superior,
-   sem aumentar o texto hero "Samuel Paes / Diretor Criativo".
-*/
-nav img[src*="symbol-black-transparent"],
-header img[src*="symbol-black-transparent"] {
-  width: 96px !important;
-  height: 96px !important;
-  max-width: none !important;
-  object-fit: contain !important;
-  transform: scale(1.15) !important;
-  transform-origin: left center !important;
-  background: transparent !important;
-  mix-blend-mode: multiply;
-  opacity: 1 !important;
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-nav,
-header {
-  overflow: visible !important;
+:focus-visible {
+  outline: 2px solid var(--sp-focus);
+  outline-offset: 3px;
 }
 
-
-
-/* LOGO DA NAVBAR — ajuste definitivo */
-.navbar-logo {
-  width: 120px !important;
-  height: 120px !important;
-  max-width: none !important;
-  min-width: 120px !important;
-  object-fit: contain !important;
-  display: block !important;
-  background: transparent !important;
-  opacity: 1 !important;
-  transform: scale(1.15) !important;
-  transform-origin: left center !important;
-  position: relative !important;
-  z-index: 999 !important;
+.site-mark {
+  aspect-ratio: 1;
+  display: block;
+  object-fit: contain;
 }
 
-nav,
-header {
-  overflow: visible !important;
-}
-
-
-/* LOGO FINAL DA NAVBAR */
-.navbar-logo-final {
-  width: 72px !important;
-  height: 72px !important;
-  min-width: 72px !important;
-  max-width: none !important;
-  object-fit: contain !important;
-  display: block !important;
-  background: transparent !important;
-  opacity: 1 !important;
-  transform: none !important;
-  position: relative !important;
-  z-index: 999 !important;
-}
-
-nav,
-header {
-  overflow: visible !important;
-}
-
-@media (min-width: 768px) {
-  .navbar-logo-final {
-    width: 86px !important;
-    height: 86px !important;
-    min-width: 86px !important;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
-
-
-/* AJUSTE FINAL — LOGO PEQUENA DA NAVBAR */
-nav > div:first-child {
-  overflow: visible !important;
-  min-width: 120px !important;
-  width: 120px !important;
-  max-width: 120px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-}
-
-nav > div:first-child img {
-  width: 72px !important;
-  height: 72px !important;
-  min-width: 72px !important;
-  max-width: none !important;
-  object-fit: contain !important;
-  display: block !important;
-  opacity: 1 !important;
-  background: transparent !important;
-  transform: scale(1.15) !important;
-  transform-origin: left center !important;
-}
-
-nav {
-  overflow: visible !important;
-}
-
-
-
-/* =========================================================
-   LOGOS — manter somente a logo da navbar fixa
-   Esconde logos repetidas no hero, seções e rodapé.
-   ========================================================= */
-
-/* Esconde logos fora da barra */
-main img[src*="/images/00_LOGOS/"],
-section img[src*="/images/00_LOGOS/"],
-footer img[src*="/images/00_LOGOS/"],
-main img[src*="/images/12_LOGO/"],
-section img[src*="/images/12_LOGO/"],
-footer img[src*="/images/12_LOGO/"] {
-  display: none !important;
-}
-
-/* Mantém a logo da navbar visível */
-nav img[src*="/images/00_LOGOS/"],
-header img[src*="/images/00_LOGOS/"],
-nav img[src*="/images/12_LOGO/"],
-header img[src*="/images/12_LOGO/"] {
-  display: block !important;
-  opacity: 1 !important;
-  background: transparent !important;
-  object-fit: contain !important;
-}
-
-/* Tamanho equilibrado da logo fixa da barra */
-nav > div:first-child img,
-header > div:first-child img {
-  width: 64px !important;
-  height: 64px !important;
-  min-width: 64px !important;
-  max-width: none !important;
-  object-fit: contain !important;
-  transform: none !important;
-}
-
-/* Garante que a barra não corte a logo */
-nav,
-header {
-  overflow: visible !important;
-}
-

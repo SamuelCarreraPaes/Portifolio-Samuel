@@ -192,7 +192,15 @@ Arquivos centrais:
 
 | Arquivo | Funcao |
 | --- | --- |
-| `src/App.jsx` | Rotas, componentes, SEO dinamico e conteudo principal. |
+| `src/App.jsx` | Orquestracao das paginas, renderizacao das rotas e navegacao global. |
+| `src/data/cases.js` | Dados dos cases vinculados a BANAL. |
+| `src/data/ecosystem.js` | Dados de BANAL, Verde Burgo, Provence Raiz, ativos e metodos. |
+| `src/components/shared.jsx` | Componentes reutilizaveis de imagem, transicao e grade editorial. |
+| `src/router.js` | Roteador leve baseado em pathname/hash, preservando aliases publicos. |
+| `src/seo.jsx` | Componente de SEO dinamico por rota. |
+| `src/seoData.js` | Constantes, entidades JSON-LD e utilitarios de URL para autoridade/indexacao. |
+| `src/motionConfig.js` | Curva de animacao premium e helper de video em loop sem som. |
+| `src/index.css` | Tokens globais minimos, foco visivel, base de layout e reduced motion. |
 | `index.html` | SEO base, metatags e dados estruturados. |
 | `public/sitemap.xml` | Sitemap canonico. |
 | `README.md` | Documentacao tecnica. |
@@ -240,3 +248,57 @@ A pagina de contato direciona o usuario para a frente correta:
 4. Preparar subdominios futuros:
    - `banal.paesconsultoria.com`
    - `verdeburgo.paesconsultoria.com`
+
+## 15. Plano de Entrega Atual
+
+A entrega atual deve ser feita em PRs pequenos a partir da branch `codex/entity-seo-ecosystem`, com preview Vercel antes de qualquer publicacao em producao.
+
+Sequencia recomendada:
+
+1. Baseline e controle de risco: registrar rotas, aliases, criterios de aceite e estado tecnico.
+2. Refator estrutural sem mudanca visual: reduzir o monolito de `src/App.jsx` extraindo dados, SEO, roteador e componentes compartilhados.
+3. Design system e consistencia: remover CSS emergencial, reduzir `!important`, normalizar foco, motion e dimensoes de marca.
+4. Clareza narrativa: garantir Paes Consultoria como nucleo, BANAL como empresa de marca/marketing, Verde Burgo como empresa de eventos completos e Provence Raiz como projeto.
+5. SEO e autoridade: revisar canonical, JSON-LD, sitemap, image sitemap, `robots.txt` e `llms.txt`.
+6. QA final: validar rotas, build, lint, mobile, desktop, console e imagens.
+
+## 16. Rotas e Aliases que Nao Podem Quebrar
+
+Rotas principais:
+
+- `/`
+- `/sobre/samuel-carrera-paes`
+- `/visao`
+- `/empresas/banal`
+- `/empresas/verde-burgo`
+- `/projetos/provence-raiz`
+- `/biblioteca`
+- `/biblioteca/geracao-dos-realizadores`
+- `/case/case-01`
+- `/atlas/samuel-carrera-paes`
+- `/contato`
+
+Aliases preservados:
+
+- `/cases`
+- `/sistema`
+- `/sistema/:slug`
+- `/ecossistema`
+- `/banal`
+- `/verdeburgo`
+
+## 17. Criterios de Aceite
+
+Antes de publicar:
+
+- `npm run lint` precisa passar.
+- `npm run build` precisa passar.
+- A navegacao por teclado precisa funcionar em menu, cards, CTAs e rotas principais.
+- O foco visivel precisa permanecer claro.
+- A navbar deve manter o simbolo SP / Paes Consultoria.
+- BANAL e Verde Burgo devem estar visual e semanticamente separadas.
+- Verde Burgo deve comunicar empresa de eventos completos: buffet, decoracao, bar, cerimonial, planejamento, producao e execucao.
+- Provence Raiz deve aparecer como projeto dentro da Verde Burgo.
+- Biblioteca deve funcionar como hub intelectual de artigos, ensaios, pesquisas e manifestos.
+- Canonical, JSON-LD, sitemap e image sitemap devem continuar coerentes com `https://paesconsultoria.com/`.
+- Nenhum segredo, token ou `.env` deve ser lido ou exposto.
