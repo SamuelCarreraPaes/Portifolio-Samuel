@@ -2,7 +2,7 @@ export const authorityAtlas = {
   slug: "samuel-carrera-paes",
   title: "Mapa do Ecossistema",
   subtitle: "Uma leitura discreta dos territórios de atuação de Samuel Carrera Paes, Paes Consultoria, BANAL e Verde Burgo Eventos.",
-  description: "O Mapa do Ecossistema organiza serviços, empresas, cases e artigos em uma malha editorial clara: Samuel Carrera Paes como direção criativa central, BANAL como frente de marca e marketing, e Verde Burgo como frente de eventos completos."
+  description: "O Mapa do Ecossistema organiza serviços, empresas, núcleos de case, desdobramentos, artigos e projetos em uma malha editorial clara: Samuel Carrera Paes como direção criativa central, BANAL como frente de marca e marketing com repertório expandido, e Verde Burgo como frente de eventos completos."
 };
 
 export const authorityServiceGroups = [
@@ -14,7 +14,7 @@ export const authorityServiceGroups = [
   {
     id: "marca",
     label: "Marca, marketing e varejo",
-    description: "A frente BANAL: identidade, comunicação, campanhas, posicionamento, conteúdo e percepção de valor."
+    description: "A frente BANAL: identidade, comunicação, campanhas, collabs, posicionamento, conteúdo, varejo e percepção de valor."
   },
   {
     id: "eventos",

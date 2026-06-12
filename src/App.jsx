@@ -4,7 +4,13 @@ import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, Chec
 
 import { authorityAtlas, authorityServiceGroups, authorityServices, getAuthorityService } from "./authorityMap";
 import { sistemaArticleCards } from "./sistemaArticleCards";
-import { casesData } from "./data/cases";
+import {
+  banalCaseGroups,
+  banalRepertoireNotes,
+  banalRepertoireStats,
+  casesData,
+  getBanalCaseGroupByCaseId,
+} from "./data/cases";
 import {
   banalAssets,
   banalLayers,
@@ -478,7 +484,7 @@ function PaesConsultoria({ navigate }) {
               </h2>
             </div>
             <p className="max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              Projetos de branding, comunicação, varejo, posicionamento e conteúdo pertencem à BANAL. Projetos de festas, hospitalidade, produção e eventos pertencem à Verde Burgo.
+              Projetos de branding, comunicação, varejo, posicionamento e conteúdo pertencem à BANAL como núcleos e desdobramentos. Projetos de festas, hospitalidade, produção e eventos pertencem à Verde Burgo, com Provence Raiz como primeiro projeto publicado.
             </p>
           </header>
 
@@ -513,7 +519,7 @@ function PaesConsultoria({ navigate }) {
                 <ImageWithFallback src={verdeburgoAssets.mesaRefinada} alt="Projeto Provence Raiz dentro da Verde Burgo, com direção criativa de Samuel Paes" mode="cover" imageClassName="transition-transform duration-[1.5s] hover:scale-[1.03]" />
               </figure>
               <p className="mt-8 text-sm font-light leading-relaxed text-stone-600">
-                Provence Raiz é um projeto dentro da Verde Burgo: uma referência de como buffet, decoração, bar, cerimonial, ambientação, papelaria e produção podem operar em uma mesma identidade.
+                Provence Raiz é o primeiro projeto publicado dentro da Verde Burgo: uma referência de como buffet, decoração, bar, cerimonial, ambientação, papelaria e produção podem operar em uma mesma identidade.
               </p>
               <button type="button" onClick={() => navigate("empresas/verde-burgo")} className="mt-auto pt-10 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
                 Ver Verde Burgo <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
@@ -532,7 +538,7 @@ function Banal({ navigate }) {
       <DynamicSEO
         title="BANAL"
         fullTitle="BANAL | Branding, Marketing e Presença"
-        description="BANAL é a empresa de branding, marketing, comunicação, varejo, posicionamento, narrativa e estratégia criativa da Paes Consultoria."
+        description="BANAL é a empresa de branding, marketing, comunicação, varejo, posicionamento, narrativa, campanhas, collabs e estratégia criativa da Paes Consultoria."
         url="empresas/banal"
         image={banalAssets.balancedLogo}
         schemaType="CollectionPage"
@@ -572,12 +578,78 @@ function Banal({ navigate }) {
           </figure>
         </section>
 
+        <section className="border-b border-stone-900/10 py-20 md:py-28" aria-labelledby="banal-arquivo">
+          <header className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+            <div>
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ARQUIVO BANAL</span>
+              <h2 id="banal-arquivo" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+                Os cards são núcleos. O repertório é maior.
+              </h2>
+            </div>
+            <div>
+              <p className="max-w-4xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
+                A BANAL não deve ser lida como uma coleção fechada de onze trabalhos. Esses registros funcionam como páginas-mãe: concentram campanhas, ativações, collabs, vitrines, brand transitions, produto próprio, varejo e conteúdo em uma malha editorial que ainda está em expansão.
+              </p>
+              <dl className="mt-10 grid gap-4 sm:grid-cols-3">
+                {banalRepertoireStats.map(([value, label]) => (
+                  <div key={label} className="border-t border-stone-900/10 pt-5">
+                    <dt className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-400">{label}</dt>
+                    <dd className="mt-3 font-serif text-3xl leading-none text-stone-950">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </header>
+
+          <div className="mt-16 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {banalCaseGroups.map((group) => {
+              const parentCase = casesData.find((project) => project.id === group.parentCaseId);
+              return (
+                <article key={group.id} className="flex min-h-full flex-col border border-stone-900/10 bg-white/25 p-6 rounded-sm">
+                  <button
+                    type="button"
+                    onClick={() => parentCase && navigate(`case/${parentCase.id}`)}
+                    className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                  >
+                    <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{group.label}</span>
+                    <h3 className="mt-5 font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{group.title}</h3>
+                    <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{group.summary}</p>
+                  </button>
+                  <div className="mt-8 border-t border-stone-900/10 pt-5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Desdobramentos</p>
+                    <ul className="mt-4 space-y-3">
+                      {group.subprojects.map((item) => (
+                        <li key={item.title} className="text-sm leading-relaxed text-stone-600">
+                          <span className="font-semibold text-stone-900">{item.title}</span>
+                          <span className="text-stone-400"> · {item.type}</span>
+                          <span className="block text-xs font-light text-stone-500">{item.scope}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <ul className="mt-12 grid gap-3 border-t border-stone-900/10 pt-8 md:grid-cols-2">
+            {banalRepertoireNotes.map((note) => (
+              <li key={note} className="text-sm font-light leading-relaxed text-stone-500">
+                {note}
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-projetos">
           <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PROJETOS BANAL</span>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">NÚCLEOS ESTRUTURADOS</span>
             <h2 id="banal-projetos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Projetos de marketing, comunicação, varejo, marca e percepção.
+              Projetos de marketing, comunicação, varejo, marca e percepção que abrem o arquivo.
             </h2>
+            <p className="mt-8 max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
+              Cada card abaixo é uma entrada editorial para um território maior. Alguns são cases independentes; outros reúnem campanhas e collabs que serão aprofundadas à medida que o arquivo visual e narrativo for catalogado.
+            </p>
           </header>
           <div className="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
             {casesData.map((project) => (
@@ -627,10 +699,10 @@ function Banal({ navigate }) {
           <div className="space-y-10">
             <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
               <p>
-                A BANAL é a frente de branding, marketing, posicionamento, narrativa e percepção de valor da Paes Consultoria. Ela existe para negócios que precisam se tornar mais claros para o público, mais desejáveis para o mercado e mais coerentes nos seus canais.
+                A BANAL é a frente de branding, marketing, posicionamento, narrativa, campanhas, collabs, varejo e percepção de valor da Paes Consultoria. Ela existe para negócios que precisam se tornar mais claros para o público, mais desejáveis para o mercado e mais coerentes nos seus canais.
               </p>
               <p>
-                O trabalho vai além de aparência. A empresa organiza sinais, discurso, conteúdo, campanhas, varejo e presença comercial para que marca e mercado falem a mesma língua.
+                O trabalho vai além de aparência. A empresa organiza sinais, discurso, conteúdo, campanhas, collabs, produto, loja e presença comercial para que marca e mercado falem a mesma língua.
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-2">
@@ -665,7 +737,7 @@ function Banal({ navigate }) {
         <EditorialConnectionGrid
           eyebrow="Conexões da BANAL"
           title="A empresa dentro do ecossistema."
-          description="A BANAL concentra os territórios de branding, marketing, comunicação, varejo, conteúdo, campanhas e percepção de valor dentro da arquitetura criativa de Samuel Carrera Paes."
+          description="A BANAL concentra os territórios de branding, marketing, comunicação, varejo, conteúdo, campanhas, collabs, produto próprio e percepção de valor dentro da arquitetura criativa de Samuel Carrera Paes."
           links={[
             { label: "Samuel Carrera Paes", text: "Direção criativa e visão que orientam a empresa.", route: "sobre/samuel-carrera-paes" },
             { label: "Mapa do ecossistema", text: "Serviços, empresas, cases e biblioteca em uma leitura única.", route: `atlas/${authorityAtlas.slug}` },
@@ -710,6 +782,7 @@ function CaseDetail({ caseId, navigate }) {
 
   const isLast = caseIndex === casesData.length - 1;
   const nextCaseId = !isLast ? casesData[caseIndex + 1].id : null;
+  const caseGroup = getBanalCaseGroupByCaseId(c.id);
 
   return (
     <PageTransition>
@@ -723,7 +796,7 @@ function CaseDetail({ caseId, navigate }) {
 
         {/* A. Case Hero */}
         <header className="flex flex-col mb-16">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-6 block">PROJETO BANAL · {c.number}/11</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-6 block">NÚCLEO BANAL · {c.number}/{casesData.length}</span>
           <h1 className="font-serif text-5xl md:text-[6rem] leading-[0.9] text-stone-950 tracking-[-0.02em] mb-8 max-w-5xl text-balance">{c.title}</h1>
           <p className="text-xl md:text-2xl font-light text-stone-600 max-w-3xl mb-12 leading-relaxed text-balance">{c.shortTese}</p>
 
@@ -760,6 +833,31 @@ function CaseDetail({ caseId, navigate }) {
           </blockquote>
         </section>
 
+        {caseGroup && (
+          <section aria-labelledby="case-desdobramentos" className="mb-24 grid gap-8 border-y border-stone-900/10 py-12 md:grid-cols-[0.7fr_1.3fr]">
+            <div>
+              <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ARQUIVO BANAL</span>
+              <h2 id="case-desdobramentos" className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
+                Núcleo e desdobramentos.
+              </h2>
+            </div>
+            <div>
+              <p className="max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
+                {caseGroup.summary}
+              </p>
+              <div className="mt-8 grid gap-4 md:grid-cols-2">
+                {caseGroup.subprojects.map((item) => (
+                  <article key={item.title} className="border border-stone-900/10 bg-white/25 p-5 rounded-sm">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.type}</p>
+                    <h3 className="mt-4 font-serif text-2xl leading-tight text-stone-950">{item.title}</h3>
+                    <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{item.scope}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* C. Strategy Blocks */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-32 border-t border-stone-900/10 pt-16">
           {c.blocks.map(([blockTitle, blockText], idx) => (
@@ -780,9 +878,9 @@ function CaseDetail({ caseId, navigate }) {
           {/* Tratamento Específico para Porti (Case 05) - SUBCURADORIA */}
           {c.id === "case-05" ? (
             <div className="flex flex-col gap-24">
-              {["Natal", "Verão", "Primavera"].map((subTitle, sIdx) => {
-                const sliceStart = sIdx === 0 ? 0 : sIdx === 1 ? 4 : 10;
-                const sliceEnd = sIdx === 0 ? 4 : sIdx === 1 ? 10 : 16;
+              {["Natal", "Verão"].map((subTitle, sIdx) => {
+                const sliceStart = sIdx === 0 ? 0 : 4;
+                const sliceEnd = sIdx === 0 ? 4 : 10;
                 const sliceImgs = c.gallery.slice(sliceStart, sliceEnd);
                 return (
                   <section key={subTitle} aria-labelledby={`subtitle-${sIdx}`}>
@@ -952,7 +1050,7 @@ function Verdeburgo({ navigate }) {
           </header>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Provence Raiz", status: "Projeto publicado", media: verdeburgoAssets.hero, type: "image", action: openProvence },
+              { title: "Provence Raiz", status: "Primeiro projeto publicado", media: verdeburgoAssets.hero, type: "image", action: openProvence },
               { title: "Casamentos", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=casamentos`, type: "video" },
               { title: "Aniversários", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=aniversarios`, type: "video" },
               { title: "Eventos corporativos", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=corporativos`, type: "video" }
@@ -1197,9 +1295,9 @@ function Verdeburgo({ navigate }) {
         <EditorialConnectionGrid
           eyebrow="Conexões da Verde Burgo"
           title="Evento como empresa, projeto e linguagem."
-          description="A Verde Burgo concentra eventos completos. Provence Raiz mostra uma aplicação publicada dessa visão, enquanto a Biblioteca sustenta o pensamento sobre experiência, presença e execução."
+          description="A Verde Burgo concentra eventos completos. Provence Raiz mostra a primeira aplicação publicada dessa visão, enquanto a Biblioteca sustenta o pensamento sobre experiência, presença e execução."
           links={[
-            { label: "Provence Raiz", text: "Projeto publicado dentro da Verde Burgo.", route: "projetos/provence-raiz" },
+            { label: "Provence Raiz", text: "Primeiro projeto publicado dentro da Verde Burgo.", route: "projetos/provence-raiz" },
             { label: "Samuel Carrera Paes", text: "Direção criativa e identidade aplicada aos eventos.", route: "sobre/samuel-carrera-paes" },
             { label: "Geração dos Realizadores", text: "A tese que conecta visão, operação e presença real.", route: "biblioteca/geracao-dos-realizadores" }
           ]}
@@ -1262,7 +1360,7 @@ function ProvenceRaizPage({ navigate }) {
             >
               <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Verde Burgo
             </button>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Projeto publicado</span>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Primeiro projeto publicado</span>
             <dl className="grid gap-6 border-t border-stone-900/10 pt-8">
               {[
                 ["Empresa", "Verde Burgo Eventos"],
@@ -1851,14 +1949,38 @@ function EcosystemAtlas({ navigate }) {
           <div className="grid gap-8 md:grid-cols-3">
             {[
               ["Samuel Carrera Paes", "Direção criativa, consultoria criativa, repertório, inteligência artificial aplicada, estratégia e execução."],
-              ["BANAL", "Branding, marketing, posicionamento, narrativa, conteúdo, campanhas, varejo e percepção de valor."],
-              ["Verde Burgo Eventos", "Eventos completos com buffet, decoração, bar, cerimonial, planejamento, produção e direção criativa."]
+              ["BANAL", "Branding, marketing, posicionamento, narrativa, conteúdo, campanhas, collabs, varejo, produto próprio e percepção de valor."],
+              ["Verde Burgo Eventos", "Eventos completos com buffet, decoração, bar, cerimonial, planejamento, produção e direção criativa. Provence Raiz é o primeiro projeto publicado."]
             ].map(([title, text]) => (
               <section key={title} className="border-t border-stone-900/10 pt-8">
                 <h2 className="font-serif text-3xl leading-tight text-stone-950">{title}</h2>
                 <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
               </section>
             ))}
+          </div>
+          <div className="mt-14 grid gap-8 border-t border-stone-900/10 pt-10 lg:grid-cols-[0.72fr_1.28fr]">
+            <div>
+              <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ARQUIVO DE REPERTÓRIO</span>
+              <h2 className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
+                A malha pública deve crescer sem perder hierarquia.
+              </h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <article className="border border-stone-900/10 bg-white/25 p-6 rounded-sm">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">BANAL</p>
+                <p className="mt-5 font-serif text-3xl leading-tight text-stone-950">{banalCaseGroups.length} núcleos estruturados.</p>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">
+                  Inclui Porti Natal e Verão, Basquiat, Netflix/Tudum, Mangueira, Paraíso Tropical e outros projetos em catalogação editorial.
+                </p>
+              </article>
+              <article className="border border-stone-900/10 bg-white/25 p-6 rounded-sm">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">VERDE BURGO</p>
+                <p className="mt-5 font-serif text-3xl leading-tight text-stone-950">Empresa antes do case.</p>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">
+                  A frente comercial é eventos completos. Provence Raiz funciona como primeiro projeto publicado e demonstração de linguagem.
+                </p>
+              </article>
+            </div>
           </div>
         </section>
 
@@ -1931,6 +2053,10 @@ function AuthorityServicePage({ slug, navigate }) {
   }
 
   const relatedCases = service.relatedCases.map((id) => casesData.find((item) => item.id === id)).filter(Boolean);
+  const relatedBanalGroups = banalCaseGroups.filter((group) => service.relatedCases.includes(group.parentCaseId));
+  const relatedBanalSubprojects = relatedBanalGroups.flatMap((group) =>
+    group.subprojects.map((item) => ({ ...item, parentTitle: group.title }))
+  );
   const relatedArticles = service.relatedArticles.map((articleSlug) => sistemaArticleCards.find((item) => item.slug === articleSlug)).filter(Boolean);
   const peerServices = authorityServices.filter((item) => item.group === service.group && item.slug !== service.slug).slice(0, 3);
 
@@ -2009,6 +2135,19 @@ function AuthorityServicePage({ slug, navigate }) {
                     <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
                   </button>
                 ))}
+                {relatedBanalSubprojects.length > 0 && (
+                  <div className="border-t border-stone-900/10 pt-6">
+                    <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Desdobramentos BANAL</p>
+                    <div className="grid gap-3">
+                      {relatedBanalSubprojects.map((item) => (
+                        <div key={`${item.parentTitle}-${item.title}`} className="bg-white/25 px-4 py-4 rounded-sm">
+                          <p className="text-xs font-semibold text-stone-900">{item.title}</p>
+                          <p className="mt-1 text-xs font-light leading-relaxed text-stone-500">{item.parentTitle} · {item.scope}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <button
@@ -2017,7 +2156,7 @@ function AuthorityServicePage({ slug, navigate }) {
                 className="group flex w-full items-center justify-between gap-6 border-t border-stone-900/10 pt-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
               >
                 <span>
-                  <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Projeto publicado</span>
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Primeiro projeto publicado</span>
                   <span className="mt-2 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">Provence Raiz dentro da Verde Burgo</span>
                 </span>
                 <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />

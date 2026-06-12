@@ -113,16 +113,35 @@ Camadas:
 - posicionamento;
 - narrativa;
 - conteudo;
+- campanhas;
+- collabs;
 - estrategia criativa.
 
 Estrutura da pagina:
 
 - hero;
-- cases;
+- arquivo de repertorio;
+- nucleos estruturados de case;
 - servicos;
 - explicacao institucional;
 - processo;
 - CTA.
+
+Leitura de repertorio:
+
+```text
+Os 11 cards publicados sao nucleos estruturados.
+Eles nao representam a totalidade do repertorio da BANAL.
+Alguns nucleos sao cases independentes; outros reúnem desdobramentos internos.
+```
+
+Desdobramentos confirmados:
+
+- Porti = Natal e Verao.
+- Campanhas & Collabs = Basquiat, Netflix/Tudum e Mangueira.
+- Val Fortunatto Linho permanece como case independente.
+- Paraiso Tropical pertence ao territorio BANAL.
+- Existem outros projetos alem destes nucleos e eles devem entrar em catalogacao editorial antes de virar pagina publica.
 
 ## 8. VERDE BURGO
 
@@ -157,7 +176,7 @@ Importante:
 
 ```text
 Verde Burgo = empresa de eventos
-Provence Raiz = projeto/referencia dentro da Verde Burgo
+Provence Raiz = primeiro projeto publicado/referencia dentro da Verde Burgo
 ```
 
 ## 9. Biblioteca
@@ -193,7 +212,7 @@ Arquivos centrais:
 | Arquivo | Funcao |
 | --- | --- |
 | `src/App.jsx` | Orquestracao das paginas, renderizacao das rotas e navegacao global. |
-| `src/data/cases.js` | Dados dos cases vinculados a BANAL. |
+| `src/data/cases.js` | Dados dos nucleos de case, desdobramentos e repertorio vinculado a BANAL. |
 | `src/data/ecosystem.js` | Dados de BANAL, Verde Burgo, Provence Raiz, ativos e metodos. |
 | `src/components/shared.jsx` | Componentes reutilizaveis de imagem, transicao e grade editorial. |
 | `src/router.js` | Roteador leve baseado em pathname/hash, preservando aliases publicos. |
@@ -217,7 +236,7 @@ O SEO passa a ser centrado em:
 - Samuel Carrera Paes;
 - direcao criativa;
 - consultoria criativa;
-- branding e marketing para BANAL;
+- branding, marketing, campanhas, collabs, varejo e repertorio expandido para BANAL;
 - eventos, buffet, decoracao, bar e cerimonial para Verde Burgo.
 
 ## 12. Validacao Esperada

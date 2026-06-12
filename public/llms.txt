@@ -8,9 +8,9 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 ## Entidades principais
 - Samuel Carrera Paes: diretor criativo / consultor criativo. Instagram: https://instagram.com/samuelcarrerapaes
 - Paes Consultoria: nucleo estrategico e criativo. Site: https://paesconsultoria.com
-- BANAL: empresa de branding, marketing, posicionamento, narrativa, campanhas, conteudo, varejo e percepcao de valor. Pagina: https://paesconsultoria.com/empresas/banal
+- BANAL: empresa de branding, marketing, posicionamento, narrativa, campanhas, collabs, conteudo, varejo, produto proprio e percepcao de valor. Os cases publicados sao nucleos estruturados com desdobramentos internos e arquivo em expansao. Pagina: https://paesconsultoria.com/empresas/banal
 - Verde Burgo Eventos: empresa de eventos com buffet, decoracao, bar, cerimonial, planejamento, producao e execucao com direcao criativa aplicada. Instagram: https://instagram.com/verdeburgoeventos. Pagina: https://paesconsultoria.com/empresas/verde-burgo
-- Provence Raiz: projeto de evento dentro da Verde Burgo. Pagina: https://paesconsultoria.com/projetos/provence-raiz
+- Provence Raiz: primeiro projeto publicado dentro da Verde Burgo. Pagina: https://paesconsultoria.com/projetos/provence-raiz
 
 ## Paginas canonicas
 - Inicio: https://paesconsultoria.com
@@ -39,7 +39,7 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 - Cerimonial | Verde Burgo Eventos | Samuel Carrera Paes: https://paesconsultoria.com/servicos/cerimonial
 - Planejamento e Produção | Verde Burgo Eventos | Samuel Carrera Paes: https://paesconsultoria.com/servicos/planejamento-e-producao
 
-## Cases BANAL / Paes Consultoria
+## Nucleos estruturados BANAL / Paes Consultoria
 - Val Fortunatto — Brand Transition: https://paesconsultoria.com/case/case-01
 - Val Fortunatto Linho — Produto Próprio: https://paesconsultoria.com/case/case-02
 - Ateliê Bambini — Arquitetura de Marca Infantil: https://paesconsultoria.com/case/case-03
@@ -51,6 +51,19 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 - Outerwear — Hotspots & Color Blocking: https://paesconsultoria.com/case/case-09
 - Vintage Denim — Cápsula Heritage: https://paesconsultoria.com/case/case-10
 - Paraíso Tropical — Mata Atlântica: https://paesconsultoria.com/case/case-11
+
+## Desdobramentos mapeados da BANAL
+- Val Fortunatto — Brand Transition: Brand transition. Desdobramentos: Transição estética Val Fortunatto.
+- Val Fortunatto Linho — Produto Próprio: Produto próprio. Desdobramentos: Cápsula em linho.
+- Ateliê Bambini: Arquitetura de marca. Desdobramentos: Ateliê Bambini.
+- R Lovers — Reserva: Calendário comercial. Desdobramentos: R Lovers.
+- Porti — Expansão Física & Cenografia: Varejo físico. Desdobramentos: Porti Natal, Porti Verão.
+- HEXA — Copa do Mundo · Reserva: Cultura e varejo. Desdobramentos: HEXA.
+- Campanhas & Collabs: Collabs e campanhas. Desdobramentos: Basquiat, Netflix / Tudum, Mangueira.
+- Rouge & Gold: Exposição premium. Desdobramentos: Rouge & Gold.
+- Outerwear — Hotspots & Color Blocking: Produto e atenção. Desdobramentos: Outerwear.
+- Vintage Denim — Cápsula Heritage: Heritage e narrativa. Desdobramentos: Vintage Denim.
+- Paraíso Tropical — Mata Atlântica: Lançamento de coleção. Desdobramentos: Paraíso Tropical.
 
 ## Biblioteca e artigos
 - A gramática invisível da marca | Biblioteca Samuel Paes: https://paesconsultoria.com/biblioteca/leitura-de-marca

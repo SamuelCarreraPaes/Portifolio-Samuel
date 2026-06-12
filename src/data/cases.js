@@ -1,4 +1,4 @@
-// --- DADOS DOS 11 CASES OFICIAIS COM NARRATIVA PROFUNDA E TAGS DE FILTRO ---
+// Núcleos estruturados da BANAL. Alguns registros são cases-mãe com desdobramentos internos.
 export const casesData = [
   {
     id: "case-01",
@@ -143,14 +143,7 @@ export const casesData = [
       "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_03.png",
       "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_04.png",
       "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_05.png",
-      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_06.png",
-      // Primavera: 10 a 15
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_01.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_02.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_03.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_04.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_05.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_06.png"
+      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_06.png"
     ]
   },
   {
@@ -314,3 +307,197 @@ export const casesData = [
     ]
   }
 ];
+
+export const banalCaseGroups = [
+  {
+    id: "brand-transition",
+    label: "Brand transition",
+    title: "Val Fortunatto — Brand Transition",
+    parentCaseId: "case-01",
+    summary: "Reposicionamento, curadoria, imagem e sofisticação da percepção para uma multimarca feminina.",
+    subprojects: [
+      {
+        title: "Transição estética Val Fortunatto",
+        type: "Case estruturado",
+        scope: "Curadoria, campanha, styling e leitura de desejo."
+      }
+    ]
+  },
+  {
+    id: "produto-proprio",
+    label: "Produto próprio",
+    title: "Val Fortunatto Linho — Produto Próprio",
+    parentCaseId: "case-02",
+    summary: "Desenvolvimento de produto próprio como extensão da confiança construída pela curadoria da marca.",
+    subprojects: [
+      {
+        title: "Cápsula em linho",
+        type: "Case independente",
+        scope: "Produto, narrativa, campanha e posicionamento comercial."
+      }
+    ]
+  },
+  {
+    id: "arquitetura-infantil",
+    label: "Arquitetura de marca",
+    title: "Ateliê Bambini",
+    parentCaseId: "case-03",
+    summary: "Criação de um universo infantil premium por arquitetura de marca, materialidade e narrativa espacial.",
+    subprojects: [
+      {
+        title: "Ateliê Bambini",
+        type: "Case estruturado",
+        scope: "Brand architecture, posicionamento premium e experiência boutique."
+      }
+    ]
+  },
+  {
+    id: "calendario-comercial",
+    label: "Calendário comercial",
+    title: "R Lovers — Reserva",
+    parentCaseId: "case-04",
+    summary: "Data comercial tratada como experiência de varejo, produto hero e conversão afetiva.",
+    subprojects: [
+      {
+        title: "R Lovers",
+        type: "Ativação sazonal",
+        scope: "Dia dos Namorados, vitrine, exposição e atmosfera de presenteabilidade."
+      }
+    ]
+  },
+  {
+    id: "porti",
+    label: "Varejo físico",
+    title: "Porti — Expansão Física & Cenografia",
+    parentCaseId: "case-05",
+    summary: "Um núcleo de expansão, vitrine e presença física com campanhas sazonais de leitura própria.",
+    subprojects: [
+      {
+        title: "Porti Natal",
+        type: "Desdobramento publicado",
+        scope: "Cenografia metálica, vitrine sazonal e presença física de alto impacto."
+      },
+      {
+        title: "Porti Verão",
+        type: "Desdobramento publicado",
+        scope: "Campanha integrada, cenografia leve e exposição orientada à coleção."
+      }
+    ]
+  },
+  {
+    id: "reserva-copa",
+    label: "Cultura e varejo",
+    title: "HEXA — Copa do Mundo · Reserva",
+    parentCaseId: "case-06",
+    summary: "Tradução do imaginário do futebol brasileiro em experiência comercial coerente com a Reserva.",
+    subprojects: [
+      {
+        title: "HEXA",
+        type: "Campanha sazonal",
+        scope: "Copa do Mundo, produto, styling e experiência de loja."
+      }
+    ]
+  },
+  {
+    id: "collabs",
+    label: "Collabs e campanhas",
+    title: "Campanhas & Collabs",
+    parentCaseId: "case-07",
+    summary: "Um guarda-chuva de colaborações culturais e campanhas que exigiram tradução visual precisa no varejo.",
+    subprojects: [
+      {
+        title: "Basquiat",
+        type: "Collab",
+        scope: "Arte, licenciamento, produto e exposição com força gráfica."
+      },
+      {
+        title: "Netflix / Tudum",
+        type: "Collab",
+        scope: "Entretenimento, conforto, cultura pop e linguagem de loja."
+      },
+      {
+        title: "Mangueira",
+        type: "Collab",
+        scope: "Samba, rua, ancestralidade e tradução cultural sem folclore óbvio."
+      }
+    ]
+  },
+  {
+    id: "exposicao-premium",
+    label: "Exposição premium",
+    title: "Rouge & Gold",
+    parentCaseId: "case-08",
+    summary: "Leitura de loja como galeria comercial: cor, iluminação e composição a serviço da percepção premium.",
+    subprojects: [
+      {
+        title: "Rouge & Gold",
+        type: "Case estruturado",
+        scope: "Color blocking, iluminação, produto e leitura de valor."
+      }
+    ]
+  },
+  {
+    id: "outerwear",
+    label: "Produto e atenção",
+    title: "Outerwear — Hotspots & Color Blocking",
+    parentCaseId: "case-09",
+    summary: "Construção de pontos de calor visual para interromper a leitura automática da loja.",
+    subprojects: [
+      {
+        title: "Outerwear",
+        type: "Ativação de produto",
+        scope: "Jaquetas, hotspots, cor, luz e comportamento de consumo."
+      }
+    ]
+  },
+  {
+    id: "heritage",
+    label: "Heritage e narrativa",
+    title: "Vintage Denim — Cápsula Heritage",
+    parentCaseId: "case-10",
+    summary: "Narrativa de produto construída por memória, materialidade, cenografia e desejo de permanência.",
+    subprojects: [
+      {
+        title: "Vintage Denim",
+        type: "Cápsula",
+        scope: "Produto, memória, ambientação e linguagem heritage."
+      }
+    ]
+  },
+  {
+    id: "paraiso-tropical",
+    label: "Lançamento de coleção",
+    title: "Paraíso Tropical — Mata Atlântica",
+    parentCaseId: "case-11",
+    summary: "Case BANAL de lançamento, campanha e visual merchandising, com Mata Atlântica como argumento visual.",
+    subprojects: [
+      {
+        title: "Paraíso Tropical",
+        type: "Case BANAL",
+        scope: "Coleção, estampa, vitrine, storytelling e experiência de loja."
+      }
+    ]
+  }
+];
+
+export const banalRepertoireNotes = [
+  "Os cards de case são núcleos estruturados, não a totalidade do repertório.",
+  "Porti reúne Natal e Verão como desdobramentos publicados.",
+  "Campanhas & Collabs reúne Basquiat, Netflix/Tudum e Mangueira.",
+  "Val Fortunatto Linho permanece como case independente.",
+  "Paraíso Tropical pertence ao território BANAL.",
+  "Existem outros projetos além destes núcleos e eles devem entrar em catalogação editorial antes de virar página pública."
+];
+
+export const banalRepertoireStats = [
+  [String(casesData.length), "núcleos estruturados"],
+  [
+    String(banalCaseGroups.reduce((total, group) => total + group.subprojects.length, 0)),
+    "desdobramentos mapeados"
+  ],
+  ["em expansão", "arquivo BANAL"]
+];
+
+export function getBanalCaseGroupByCaseId(caseId) {
+  return banalCaseGroups.find((group) => group.parentCaseId === caseId);
+}

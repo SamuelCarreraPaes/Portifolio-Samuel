@@ -31,7 +31,7 @@ Paes Consultoria
 
 A Paes Consultoria concentra direcao, identidade, experiencia, estrategia, percepcao de valor e execucao.
 
-- `BANAL`: empresa especializada em branding, marketing, comunicacao, varejo, posicionamento, narrativa, conteudo e estrategia criativa.
+- `BANAL`: empresa especializada em branding, marketing, comunicacao, varejo, posicionamento, narrativa, conteudo, campanhas, collabs e estrategia criativa. Os cases publicados funcionam como nucleos estruturados com desdobramentos internos e arquivo em expansao.
 - `VERDE BURGO`: empresa de eventos com buffet, decoracao, bar, cerimonial, planejamento, producao e execucao.
 - `Biblioteca`: hub de autoridade intelectual sobre branding, varejo, hospitalidade, eventos, narrativa, posicionamento, percepcao, direcao criativa e construcao de negocios.
 
@@ -49,7 +49,7 @@ A Paes Consultoria concentra direcao, identidade, experiencia, estrategia, perce
 | `/atlas/samuel-carrera-paes` | Mapa editorial de servicos, empresas, cases e artigos. |
 | `/servicos/:slug` | Paginas de autoridade por servico/territorio. |
 | `/contato` | Contato profissional. |
-| `/case/:id` | Projetos de branding, marketing, varejo e comunicacao vinculados a BANAL. |
+| `/case/:id` | Nucleos de case de branding, marketing, varejo e comunicacao vinculados a BANAL. |
 
 Rotas antigas preservadas por compatibilidade:
 
@@ -80,7 +80,7 @@ Arquivos e pontos principais:
 O site foi modularizado para reduzir o peso de `src/App.jsx` e separar dados, infraestrutura e componentes reutilizaveis:
 
 - `src/App.jsx`: orquestracao das paginas, navegação global e renderizacao das rotas.
-- `src/data/cases.js`: dados dos cases de marca, varejo, comunicacao e marketing vinculados a BANAL.
+- `src/data/cases.js`: dados dos nucleos de case, desdobramentos e arquivo de repertorio vinculados a BANAL.
 - `src/data/ecosystem.js`: dados de Paes Consultoria, BANAL, Verde Burgo, Provence Raiz, ativos e metodos.
 - `src/components/shared.jsx`: componentes compartilhados de imagem, transicao e grade editorial.
 - `src/router.js`: roteador leve com suporte a pathname e aliases antigos.
@@ -94,9 +94,9 @@ A pagina `Inicio` apresenta somente a tese institucional essencial: Paes Consult
 
 A pagina `Minha Visao` explica o posicionamento profissional de Samuel Carrera Paes: pensamento sistemico, identidade como estrategia, experiencia e percepcao, excelencia de execucao e uso de tecnologia como ferramenta, nao como identidade.
 
-A pagina `BANAL` apresenta uma empresa com hero, galeria de projetos logo no inicio, servicos, explicacao institucional, processo e CTA. Os antigos projetos de marketing, varejo, comunicacao e marca aparecem como projetos da BANAL.
+A pagina `BANAL` apresenta uma empresa com hero, arquivo de repertorio, nucleos estruturados, servicos, explicacao institucional, processo e CTA. Os antigos projetos de marketing, varejo, comunicacao e marca aparecem como nucleos da BANAL, e alguns reúnem desdobramentos confirmados: Porti Natal e Verao; Basquiat, Netflix/Tudum e Mangueira em Campanhas & Collabs; Val Fortunatto Linho como case independente; Paraiso Tropical como territorio BANAL. Outros projetos permanecem em catalogacao editorial.
 
-A pagina `VERDE BURGO` apresenta uma empresa de eventos com solucao completa: buffet, decoracao, bar, cerimonial, planejamento, producao e execucao. A pagina abre com galeria de projetos, depois servicos, explicacao institucional, metodo e o detalhamento de `Provence Raiz` como projeto/referencia dentro da Verde Burgo.
+A pagina `VERDE BURGO` apresenta uma empresa de eventos com solucao completa: buffet, decoracao, bar, cerimonial, planejamento, producao e execucao. A pagina abre com galeria de formatos/projetos, depois servicos, explicacao institucional, metodo e o detalhamento de `Provence Raiz` como primeiro projeto publicado dentro da Verde Burgo.
 
 A pagina `Contato` direciona o usuario para `Contact BANAL` ou `Contact VERDE BURGO`, evitando uma chamada generica de consultoria.
 

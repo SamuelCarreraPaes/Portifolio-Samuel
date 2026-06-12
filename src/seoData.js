@@ -18,6 +18,9 @@ export const SEO_KEYWORDS = [
   "Verde Burgo Eventos",
   "branding",
   "marketing",
+  "campanhas",
+  "collabs",
+  "produto próprio",
   "eventos",
   "buffet",
   "decoração",
@@ -86,7 +89,7 @@ export function getBrandEntities() {
       "url": `${SITE_URL}/empresas/banal`,
       "logo": absoluteUrl("/brands/banal/media/banal-logo-balanced.png"),
       "parentOrganization": { "@id": `${SITE_URL}/#paes-consultoria` },
-      "description": "Empresa de branding, marketing, posicionamento, narrativa, campanhas e percepção de valor."
+      "description": "Empresa de branding, marketing, posicionamento, narrativa, campanhas, collabs, produto próprio, varejo e percepção de valor."
     },
     {
       "@type": "Organization",

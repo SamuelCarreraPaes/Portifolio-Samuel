@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { authorityAtlas, authorityServices } from "../src/authorityMap.js";
+import { banalCaseGroups } from "../src/data/cases.js";
 import { sistemaArticleCards } from "../src/sistemaArticleCards.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -115,14 +116,14 @@ function pageForImage(publicPath) {
 }
 
 function contextForImage(pagePath) {
-  if (pagePath === "/empresas/banal") return "BANAL, empresa de branding, marketing, posicionamento e estratégia criativa da Paes Consultoria";
+  if (pagePath === "/empresas/banal") return "BANAL, empresa de branding, marketing, campanhas, collabs, produto próprio, varejo, posicionamento e estratégia criativa da Paes Consultoria";
   if (pagePath === "/empresas/verde-burgo") return "Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes";
-  if (pagePath === "/projetos/provence-raiz") return "Provence Raiz, projeto de evento dentro da Verde Burgo com direção criativa de Samuel Carrera Paes";
+  if (pagePath === "/projetos/provence-raiz") return "Provence Raiz, primeiro projeto publicado dentro da Verde Burgo com direção criativa de Samuel Carrera Paes";
   if (pagePath === "/sobre/samuel-carrera-paes") return "perfil de Samuel Carrera Paes, diretor criativo e consultor criativo";
   if (pagePath === "/visao") return "visão profissional de Samuel Carrera Paes, diretor criativo e consultor criativo";
   if (pagePath.startsWith("/case/")) {
     const page = casePages.find((item) => item.path === pagePath);
-    return `${page?.title || "case"} no portfólio de Samuel Carrera Paes / Paes Consultoria`;
+    return `${page?.title || "núcleo de case"} na BANAL, empresa de branding, marketing e varejo do ecossistema Samuel Carrera Paes / Paes Consultoria`;
   }
   return "ecossistema criativo de Samuel Carrera Paes / Paes Consultoria";
 }
@@ -188,6 +189,10 @@ Sitemap: ${siteUrl}/sitemap-images.xml
 
 function buildLlmsTxt() {
   const caseList = casePages.map((item) => `- ${item.title}: ${siteUrl}${item.path}`).join("\n");
+  const banalGroupList = banalCaseGroups.map((group) => {
+    const subprojects = group.subprojects.map((item) => item.title).join(", ");
+    return `- ${group.title}: ${group.label}. Desdobramentos: ${subprojects}.`;
+  }).join("\n");
   const articleList = articlePages.map((item) => `- ${item.title}: ${siteUrl}${item.path}`).join("\n");
   const serviceList = servicePages.map((item) => `- ${item.title}: ${siteUrl}${item.path}`).join("\n");
 
@@ -201,9 +206,9 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 ## Entidades principais
 - Samuel Carrera Paes: diretor criativo / consultor criativo. Instagram: ${samuelInstagram}
 - Paes Consultoria: nucleo estrategico e criativo. Site: ${siteUrl}
-- BANAL: empresa de branding, marketing, posicionamento, narrativa, campanhas, conteudo, varejo e percepcao de valor. Pagina: ${siteUrl}/empresas/banal
+- BANAL: empresa de branding, marketing, posicionamento, narrativa, campanhas, collabs, conteudo, varejo, produto proprio e percepcao de valor. Os cases publicados sao nucleos estruturados com desdobramentos internos e arquivo em expansao. Pagina: ${siteUrl}/empresas/banal
 - Verde Burgo Eventos: empresa de eventos com buffet, decoracao, bar, cerimonial, planejamento, producao e execucao com direcao criativa aplicada. Instagram: ${verdeBurgoInstagram}. Pagina: ${siteUrl}/empresas/verde-burgo
-- Provence Raiz: projeto de evento dentro da Verde Burgo. Pagina: ${siteUrl}/projetos/provence-raiz
+- Provence Raiz: primeiro projeto publicado dentro da Verde Burgo. Pagina: ${siteUrl}/projetos/provence-raiz
 
 ## Paginas canonicas
 - Inicio: ${siteUrl}
@@ -220,8 +225,11 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 ## Servicos e territorios canonicos
 ${serviceList}
 
-## Cases BANAL / Paes Consultoria
+## Nucleos estruturados BANAL / Paes Consultoria
 ${caseList}
+
+## Desdobramentos mapeados da BANAL
+${banalGroupList}
 
 ## Biblioteca e artigos
 ${articleList}
