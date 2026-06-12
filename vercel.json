@@ -1,8 +1,22 @@
 {
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/sobre/samuel-carrera-paes", "destination": "/index.html" },
+    { "source": "/visao", "destination": "/index.html" },
+    { "source": "/ecossistema", "destination": "/index.html" },
+    { "source": "/paes-consultoria", "destination": "/index.html" },
+    { "source": "/cases", "destination": "/index.html" },
+    { "source": "/banal", "destination": "/index.html" },
+    { "source": "/empresas/banal", "destination": "/index.html" },
+    { "source": "/case/:id", "destination": "/index.html" },
+    { "source": "/verdeburgo", "destination": "/index.html" },
+    { "source": "/empresas/verde-burgo", "destination": "/index.html" },
+    { "source": "/projetos/provence-raiz", "destination": "/index.html" },
+    { "source": "/biblioteca", "destination": "/index.html" },
+    { "source": "/biblioteca/:slug", "destination": "/index.html" },
+    { "source": "/sistema", "destination": "/index.html" },
+    { "source": "/sistema/:slug", "destination": "/index.html" },
+    { "source": "/atlas/samuel-carrera-paes", "destination": "/index.html" },
+    { "source": "/servicos/:slug", "destination": "/index.html" },
+    { "source": "/contato", "destination": "/index.html" }
   ]
 }

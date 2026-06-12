@@ -23,6 +23,7 @@ Escopo: estabilizacao tecnica do site Samuel Carrera Paes / Paes Consultoria sem
 - O arquivo vazio rastreado `src/Ctrl + S.txt` foi removido por nao ter funcao de producao.
 - O favicon foi apontado para asset existente (`/favicon.svg`) para remover 404.
 - Foi criada uma 404 utilitaria para rotas sem correspondencia.
+- O rewrite generico da Vercel foi substituido por rewrites explicitos das rotas publicas conhecidas, preservando aliases e permitindo 404 HTTP real para caminhos desconhecidos.
 - O menu mobile recebeu fechamento por Escape, foco inicial, ciclo de Tab e retorno de foco.
 - A navegacao ativa recebeu `aria-current`.
 - O fallback de clipboard foi robustecido no contato.
