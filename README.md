@@ -21,10 +21,11 @@ A estrutura atual posiciona a Paes Consultoria como o nucleo estrategico e criat
 Logica publica:
 
 ```text
-Paes Consultoria
--> abertura institucional limpa
+Samuel Carrera Paes
+-> Paes Consultoria
 -> Minha Visao
 -> empresas: BANAL / VERDE BURGO
+-> projetos
 -> Biblioteca
 -> Contato por frente comercial
 ```
@@ -90,7 +91,7 @@ O site foi modularizado para reduzir o peso de `src/App.jsx` e separar dados, in
 
 ## Conteudo Editorial
 
-A pagina `Inicio` apresenta somente a tese institucional essencial: Paes Consultoria, logos de BANAL e Verde Burgo, Direcao Criativa e Estrategia, e a frase de posicionamento central. A explicacao conceitual fica concentrada em `Minha Visao`.
+A pagina `Inicio` apresenta a tese publica do ecossistema: Samuel Paes como diretor criativo e consultor criativo, Paes Consultoria como estrutura central, BANAL e Verde Burgo como empresas, projetos como provas aplicadas e Biblioteca como producao intelectual.
 
 A pagina `Minha Visao` explica o posicionamento profissional de Samuel Carrera Paes: pensamento sistemico, identidade como estrategia, experiencia e percepcao, excelencia de execucao e uso de tecnologia como ferramenta, nao como identidade.
 
