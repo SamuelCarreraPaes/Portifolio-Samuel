@@ -582,15 +582,27 @@ function PaesConsultoria({ navigate }) {
                 </button>
               </div>
               <div className="grid gap-6 md:grid-cols-2">
-                {casesData.slice(0, 6).map((project) => (
+                {casesData.map((project) => (
                   <button key={project.id} type="button" onClick={() => navigate(`case/${project.id}`)} className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm">
                     <figure className="relative aspect-[4/3] overflow-hidden bg-stone-200/50 rounded-sm">
                       <ImageWithFallback src={project.thumb} alt={`Projeto BANAL por Samuel Carrera Paes: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
                     </figure>
-                    <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.territory}</p>
+                    <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.number} · {project.territory}</p>
                     <h4 className="mt-2 font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{project.title}</h4>
                   </button>
                 ))}
+              </div>
+              <div className="mt-10 flex flex-col gap-4 border-t border-stone-900/10 pt-8 md:flex-row md:items-center md:justify-between">
+                <p className="max-w-xl text-sm font-light leading-relaxed text-stone-600">
+                  A listagem mostra os {casesData.length} núcleos estruturados publicados. Alguns concentram desdobramentos internos, como Porti Natal/Verão e Campanhas & Collabs.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => navigate("empresas/banal")}
+                  className="inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                >
+                  Ver arquivo BANAL <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+                </button>
               </div>
             </article>
 
@@ -646,6 +658,14 @@ function Banal({ navigate }) {
             <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
               A empresa concentra branding, marketing, posicionamento, conteúdo, campanhas, collabs, varejo e percepção de valor dentro da Paes Consultoria.
             </p>
+            <dl className="mt-10 grid max-w-2xl grid-cols-2 gap-4 border-t border-stone-900/10 pt-6 sm:grid-cols-3">
+              {banalRepertoireStats.map(([value, label]) => (
+                <div key={label}>
+                  <dt className="text-[8px] font-bold uppercase leading-relaxed tracking-[0.12em] text-stone-400 sm:text-[9px] sm:tracking-[0.22em]">{label}</dt>
+                  <dd className="mt-3 font-serif text-2xl leading-none text-stone-950 sm:text-3xl">{value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
           <figure className="overflow-hidden border border-stone-900/10 bg-white/35 rounded-sm shadow-sm">
             <div className="aspect-[16/10] overflow-hidden bg-[#F8F5EF]">
@@ -771,7 +791,7 @@ function Banal({ navigate }) {
                   <figure className="aspect-[4/5] overflow-hidden bg-stone-200/50 rounded-sm">
                     <ImageWithFallback src={project.thumb} alt={`Projeto BANAL por Samuel Carrera Paes: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
                   </figure>
-                  <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.territory}</p>
+                  <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.number} · {project.territory}</p>
                   <h3 className="mt-3 font-serif text-3xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{project.title}</h3>
                   <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{project.shortTese}</p>
                 </button>
