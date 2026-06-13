@@ -44,11 +44,9 @@ export function ImageWithFallback({
             fetchPriority={fetchPriority}
             onLoad={() => setIsLoaded(true)}
             onError={() => setError(true)}
-            className={`w-full transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`w-full transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${
               isNatural ? "h-auto block object-contain" : `h-full absolute inset-0 ${isContain ? "object-contain" : "object-cover"}`
-            } object-center ${
-              isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
-            } ${imageClassName}`}
+            } object-center opacity-100 ${isLoaded ? "scale-100" : "scale-[1.01]"} ${imageClassName}`}
           />
         </picture>
       ) : (
