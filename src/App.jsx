@@ -647,19 +647,23 @@ function Banal({ navigate }) {
               A empresa concentra branding, marketing, posicionamento, conteúdo, campanhas, collabs, varejo e percepção de valor dentro da Paes Consultoria.
             </p>
           </div>
-          <figure className="aspect-[4/3] overflow-hidden bg-stone-950 rounded-sm">
-            <video
-              src={banalAssets.flyLoop}
-              aria-label="Vídeo em loop da mosca da BANAL"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              onLoadedData={playMutedLoop}
-              onCanPlay={playMutedLoop}
-              className="h-full w-full object-cover"
-            />
+          <figure className="overflow-hidden border border-stone-900/10 bg-white/35 rounded-sm shadow-sm">
+            <div className="aspect-[16/10] overflow-hidden bg-[#F8F5EF]">
+              <ImageWithFallback
+                src={banalAssets.showcase}
+                alt="Prancha de identidade da BANAL com garrafa, mosca, logotipos e paleta principal."
+                mode="contain"
+                loading="eager"
+                fetchPriority="high"
+                imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
+              />
+            </div>
+            <figcaption className="grid gap-4 border-t border-stone-900/10 p-6 md:grid-cols-[0.7fr_1.3fr]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Identidade BANAL</span>
+              <span className="text-sm font-light leading-relaxed text-stone-600">
+                Marketing, estratégia e desejo tratados como sistema visual, verbal e comercial.
+              </span>
+            </figcaption>
           </figure>
         </section>
 
@@ -929,8 +933,15 @@ function CaseDetail({ caseId, navigate }) {
             </div>
           </dl>
 
-          <figure className="w-full bg-stone-200/50 relative overflow-visible mb-24 rounded-sm flex justify-center m-0 p-0 shadow-sm">
-            <ImageWithFallback src={c.thumb} mode="natural" alt={`Fotografia de destaque do projeto ${c.title}, direção criativa de Samuel Carrera Paes para Paes Consultoria`} imageClassName="max-h-[85vh]" />
+          <figure className="relative mb-24 aspect-[16/9] w-full overflow-hidden bg-stone-200/50 rounded-sm shadow-sm">
+            <ImageWithFallback
+              src={c.thumb}
+              mode="cover"
+              alt={`Fotografia de destaque do projeto ${c.title}, direção criativa de Samuel Carrera Paes para Paes Consultoria`}
+              loading="eager"
+              fetchPriority="high"
+              imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
+            />
           </figure>
         </header>
 
