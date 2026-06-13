@@ -1,5 +1,13 @@
 # Documento do App — Paes Consultoria
 
+## Atualizacao — Fase 2 Visual do Ecossistema
+
+A Fase 2 torna a arquitetura publica mais visivel no proprio site. A homepage passa a apresentar a tese de ecossistema criativo autoral, a Paes Consultoria passa a ser descrita como nucleo que transforma visao em empresas, a BANAL ganha leitura por territorios de atuacao, a Verde Burgo ganha bloco comercial de entrega completa de eventos e a Biblioteca passa a aparecer explicitamente como hub intelectual.
+
+Documento de entrega relacionado:
+
+- `docs/phase-2-visual-ecosystem.md`
+
 ## 1. Objetivo
 
 O site `paesconsultoria.com` foi reposicionado para apresentar a Paes Consultoria como nucleo estrategico e criativo central.
