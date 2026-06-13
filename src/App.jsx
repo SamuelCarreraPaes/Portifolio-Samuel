@@ -239,34 +239,41 @@ function Inicio({ navigate }) {
   return (
     <PageTransition>
       <DynamicSEO title="Início" />
-      <section className="mx-auto flex min-h-[88vh] max-w-[90rem] flex-col px-6 pt-10 lg:px-12" aria-labelledby="home-title">
-        <div className="grid flex-1 gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch">
+      <section className="mx-auto max-w-[96rem] px-6 pt-10 lg:px-12" aria-labelledby="home-title">
+        <div className="grid gap-8 border-b border-stone-900/10 pb-10 lg:min-h-[calc(100vh-9rem)] lg:grid-cols-[1.12fr_0.88fr] lg:items-stretch">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: PREMIUM_EASE }}
-            className="flex min-h-[70vh] flex-col justify-between border-b border-stone-900/10 pb-10 lg:border-b-0 lg:border-r lg:pr-12"
+            className="flex flex-col justify-between border-b border-stone-900/10 pb-8 lg:border-b-0 lg:border-r lg:pr-10 xl:pr-14"
           >
             <div>
-              <p className="mb-10 text-[10px] font-bold uppercase tracking-[0.35em] text-stone-400">
-                Samuel Carrera Paes · Diretor Criativo / Consultor Criativo
+              <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.35em] text-stone-400">
+                Paes Consultoria · Ecossistema Criativo
               </p>
               <h1
                 id="home-title"
-                className="max-w-6xl font-serif text-[14vw] leading-[0.84] tracking-tight text-stone-950 sm:text-[9vw] md:text-[7.6rem] lg:text-[8.5rem] xl:text-[9.6rem] text-balance"
+                className="max-w-6xl font-serif text-[19vw] leading-[0.78] tracking-tight text-stone-950 sm:text-[8.8rem] md:text-[10rem] lg:text-[11rem] xl:text-[12.5rem] text-balance"
               >
-                Ecossistema criativo autoral.
+                Samuel
+                <br aria-hidden="true" />
+                Paes.
               </h1>
-              <p className="mt-10 max-w-3xl text-xl font-light leading-relaxed tracking-tight text-stone-800 md:text-3xl text-balance">
-                Samuel Paes cria empresas, identidades, narrativas e estruturas criativas capazes de transformar intenção em presença real.
-              </p>
+              <div className="mt-10 grid gap-8 border-t border-stone-900/10 pt-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+                <p className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
+                  Diretor Criativo / Consultor Criativo
+                </p>
+                <p className="max-w-2xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
+                  Cria empresas, identidades, narrativas e estruturas criativas capazes de transformar intenção em presença real.
+                </p>
+              </div>
             </div>
 
-            <dl className="mt-14 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <dl className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {homeProofMetrics.map(([value, label]) => (
                 <div key={label} className="border-t border-stone-900/10 pt-5">
-                  <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{label}</dt>
-                  <dd className="mt-3 font-serif text-4xl leading-none text-stone-950">{value}</dd>
+                  <dd className="font-serif text-4xl leading-none text-stone-950">{value}</dd>
+                  <dt className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">{label}</dt>
                 </div>
               ))}
             </dl>
@@ -276,56 +283,32 @@ function Inicio({ navigate }) {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15, ease: PREMIUM_EASE }}
-            className="flex flex-col justify-between gap-8"
+            className="grid gap-6"
           >
-            <section className="grid gap-4" aria-label="Empresas do ecossistema Paes Consultoria">
-              {consultancyCompanies.map((company) => (
-                <button
-                  key={company.id}
-                  type="button"
-                  onClick={() => navigate(company.route)}
-                  className="group grid min-h-[16rem] gap-6 border border-stone-900/10 bg-white/25 p-5 text-left transition-colors duration-500 hover:bg-white/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm sm:grid-cols-[0.9fr_1.1fr]"
-                  aria-label={`Abrir ${company.name}`}
-                >
-                  <figure className="flex min-h-40 items-center justify-center overflow-hidden bg-[#F8F5EF] rounded-sm">
-                    <img
-                      src={company.id === "banal" ? banalAssets.balancedLogo : verdeBurgoBrandAssets.balancedLogo}
-                      alt={`${company.name}, empresa do ecossistema Samuel Carrera Paes`}
-                      loading="eager"
-                      decoding="async"
-                      className="h-28 w-full max-w-[16rem] object-contain transition duration-700 group-hover:scale-[1.03]"
-                    />
-                  </figure>
-                  <div className="flex flex-col justify-between">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{company.eyebrow}</p>
-                      <h2 className="mt-5 font-serif text-4xl leading-none text-stone-950">{company.name}</h2>
-                      <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{company.description}</p>
-                    </div>
-                    <span className="mt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
-                      Entrar <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-                    </span>
-                  </div>
-                </button>
-              ))}
-            </section>
-
-            <section className="border border-stone-900/10 bg-stone-950 p-6 text-[#F4F0E9] rounded-sm" aria-labelledby="home-map-title">
+            <section className="flex min-h-[24rem] flex-col justify-between bg-stone-950 p-7 text-[#F4F0E9] rounded-sm md:p-10" aria-labelledby="home-map-title">
               <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Mapa público</p>
-              <h2 id="home-map-title" className="mt-5 font-serif text-3xl leading-tight md:text-4xl text-balance">
-                Samuel Paes → visão → empresas → projetos → biblioteca.
-              </h2>
-              <div className="mt-8 grid gap-3 sm:grid-cols-5">
+              <div>
+                <h2 id="home-map-title" className="mt-8 font-serif text-4xl leading-[0.95] md:text-6xl lg:text-5xl xl:text-6xl text-balance">
+                  Ecossistema criativo autoral.
+                </h2>
+                <p className="mt-8 max-w-xl text-base font-light leading-relaxed text-[#F4F0E9]/70 md:text-lg">
+                  Uma estrutura pública para conectar visão, empresas, projetos e biblioteca sem reduzir o trabalho a um catálogo de cases.
+                </p>
+              </div>
+              <div className="mt-10 grid gap-2">
                 {ecosystemPublicFlow.map((step) => (
                   <button
                     key={step.title}
                     type="button"
                     onClick={() => navigate(step.route)}
-                    className="group border border-[#F4F0E9]/10 bg-[#F4F0E9]/5 p-4 text-left transition-colors duration-500 hover:bg-[#F4F0E9]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+                    className="group grid grid-cols-[3.5rem_1fr_auto] items-center gap-4 border-t border-[#F4F0E9]/10 py-4 text-left transition-colors duration-500 hover:border-[#F4F0E9]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
                   >
-                    <span className="font-serif text-2xl text-[#F4F0E9]/35" aria-hidden="true">{step.number}</span>
-                    <span className="mt-4 block text-xs font-bold uppercase tracking-[0.2em] text-[#F4F0E9]">{step.title}</span>
-                    <span className="mt-3 block text-[11px] font-light leading-relaxed text-[#F4F0E9]/60">{step.label}</span>
+                    <span className="font-serif text-3xl text-[#F4F0E9]/35" aria-hidden="true">{step.number}</span>
+                    <span>
+                      <span className="block text-sm font-bold uppercase tracking-[0.2em] text-[#F4F0E9]">{step.title}</span>
+                      <span className="mt-1 block text-xs font-light leading-relaxed text-[#F4F0E9]/55">{step.label}</span>
+                    </span>
+                    <ArrowUpRight className="h-4 w-4 text-[#F4F0E9]/50 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
                   </button>
                 ))}
               </div>
@@ -333,33 +316,36 @@ function Inicio({ navigate }) {
           </motion.div>
         </div>
 
-        <section className="mt-12 border-t border-stone-900/10 pt-10" aria-labelledby="home-flow-title">
-          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-            <div>
-              <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Geração dos Realizadores</span>
-              <h2 id="home-flow-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-5xl text-balance">
-                O site agora funciona como sistema de leitura, não como catálogo solto.
-              </h2>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {ecosystemPublicFlow.map((step) => (
-                <button
-                  key={step.number}
-                  type="button"
-                  onClick={() => navigate(step.route)}
-                  className="group flex min-h-full flex-col border border-stone-900/10 bg-white/25 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                >
-                  <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{step.number}</span>
-                  <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{step.label}</p>
-                  <h3 className="mt-3 font-serif text-3xl leading-tight text-stone-950">{step.title}</h3>
-                  <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{step.text}</p>
-                  <span className="mt-auto pt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
-                    Abrir <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
+        <section className="grid gap-6 py-10 md:grid-cols-2" aria-label="Empresas do ecossistema Paes Consultoria">
+          {consultancyCompanies.map((company) => (
+            <button
+              key={company.id}
+              type="button"
+              onClick={() => navigate(company.route)}
+              className="group grid min-h-[22rem] gap-8 border border-stone-900/10 bg-white/30 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm lg:grid-cols-[0.95fr_1.05fr]"
+              aria-label={`Abrir ${company.name}`}
+            >
+              <figure className="flex min-h-56 items-center justify-center overflow-hidden bg-[#F8F5EF] p-8 rounded-sm">
+                <img
+                  src={company.id === "banal" ? banalAssets.balancedLogo : verdeBurgoBrandAssets.balancedLogo}
+                  alt={`${company.name}, empresa do ecossistema Samuel Carrera Paes`}
+                  loading="eager"
+                  decoding="async"
+                  className="max-h-36 w-full max-w-[20rem] object-contain transition duration-700 group-hover:scale-[1.03]"
+                />
+              </figure>
+              <div className="flex flex-col justify-between">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{company.eyebrow}</p>
+                  <h2 className="mt-6 font-serif text-5xl leading-none text-stone-950">{company.name}</h2>
+                  <p className="mt-6 text-base font-light leading-relaxed text-stone-600">{company.description}</p>
+                </div>
+                <span className="mt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
+                  Entrar <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+                </span>
+              </div>
+            </button>
+          ))}
         </section>
       </section>
     </PageTransition>
