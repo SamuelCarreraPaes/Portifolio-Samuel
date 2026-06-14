@@ -921,7 +921,7 @@ function CaseDetail({ caseId, navigate }) {
     <PageTransition>
       <DynamicSEO
         title={`${c.number}. ${c.title}`}
-        description={c.shortTese}
+        description={c.seoDescription || c.shortTese}
         image={c.thumb}
         url={`case/${c.id}`}
       />
@@ -972,6 +972,40 @@ function CaseDetail({ caseId, navigate }) {
             "{c.directorsNote}"
           </blockquote>
         </section>
+
+        {c.caseDepth && (
+          <section aria-labelledby={`case-depth-${c.id}`} className="mb-24 max-w-full overflow-hidden border-y border-stone-900/10 py-14">
+            <header className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+              <div className="min-w-0">
+                <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Leitura ampliada</span>
+                <h2 id={`case-depth-${c.id}`} className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
+                  {c.caseDepth.title}
+                </h2>
+              </div>
+              <p className="min-w-0 max-w-4xl break-words text-base font-light leading-relaxed text-stone-700 md:text-xl">
+                {c.caseDepth.intro}
+              </p>
+            </header>
+
+            <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {c.caseDepth.pillars.map(([title, text], index) => (
+                <article key={title} className="min-w-0 border border-stone-900/10 bg-white/25 p-5 rounded-sm">
+                  <span className="font-serif text-3xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                  <h3 className="mt-5 text-xs font-bold uppercase tracking-[0.22em] text-stone-900">{title}</h3>
+                  <p className="mt-4 break-words text-sm font-light leading-relaxed text-stone-600">{text}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-2 border-t border-stone-900/10 pt-8" aria-label="Territórios associados ao case">
+              {c.caseDepth.signals.map((signal) => (
+                <span key={signal} className="rounded-full border border-stone-900/10 bg-white/30 px-3 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-stone-500">
+                  {signal}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
 
         {caseGroup && (
           <section aria-labelledby="case-desdobramentos" className="mb-24 grid gap-8 border-y border-stone-900/10 py-12 md:grid-cols-[0.7fr_1.3fr]">

@@ -119,12 +119,24 @@ export const casesData = [
     category: "Retail Expansion · Visual Merchandising · Store Experience",
     filterTags: ["SPACE", "RETAIL"],
     shortTese: "A construção física, técnica e cenográfica de uma marca em expansão.",
+    seoDescription: "Case Porti por Samuel Carrera Paes para BANAL e Paes Consultoria: expansão física, visual merchandising, vitrines de Natal e Verão, cenografia comercial e experiência de loja.",
     client: "Porti",
     role: "Direção Criativa",
     territory: "Store Experience",
     deliverables: "Layout, Cenografia, Implantação",
     directorsNote: "Expandir exige preservar a aura. A vitrine é nosso outdoor tridimensional. De geometrias orgânicas a cascatas metálicas, transformamos consumo em espetáculo.",
     thumb: "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_01.png",
+    caseDepth: {
+      title: "Expansão física tratada como sistema de presença.",
+      intro: "Porti não é apenas uma sequência de vitrines sazonais. O case reúne expansão de varejo, implantação visual, campanha integrada, cenografia comercial e leitura operacional de loja. A direção criativa organiza o que aparece no ponto de venda e o que sustenta essa presença no bastidor.",
+      pillars: [
+        ["Expansão de varejo", "A presença física da marca precisava manter coerência entre novas lojas, estoque, manequins, campanha, vitrines e leitura comercial."],
+        ["Porti Natal", "A cascata de esferas metálicas transformou a vitrine em ponto de impacto urbano, com brilho, escala e memória sazonal."],
+        ["Porti Verão", "A campanha de verão trabalhou leveza, produto, cor e cenografia para conectar loja, coleção e comunicação pública."],
+        ["Operação visual", "O projeto exigiu coordenação entre intenção estética, montagem, ritmo comercial e manutenção da experiência no uso real."]
+      ],
+      signals: ["Porti Natal", "Porti Verão", "visual merchandising", "expansão de varejo", "cenografia comercial", "store experience", "vitrine sazonal", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "A atuação com a Porti aconteceu em um momento estratégico de expansão da marca, onde o desafio não era apenas criar vitrines, mas estruturar a presença física em diferentes praças comerciais."],
       ["Contexto & Desafio", "Aberturas simultâneas exigiam que a comunicação das redes sociais se traduzisse em loja. O desafio cobria coordenação visual de implantação, estoques, enxoval de manequins e soluções expositivas alinhadas à narrativa comercial."],
@@ -178,12 +190,24 @@ export const casesData = [
     category: "Brand Collaboration · Visual Merchandising · Cultural Translation",
     filterTags: ["COLLAB", "CULTURE"],
     shortTese: "A complexa fusão de universos de marca, cultura e entretenimento no varejo físico.",
+    seoDescription: "Campanhas & Collabs por Samuel Carrera Paes para BANAL e Paes Consultoria: Basquiat, Netflix/Tudum e Mangueira traduzidos em varejo físico, visual merchandising e experiência de marca.",
     client: "Múltiplos Clientes",
     role: "Direção Criativa",
     territory: "Brand Collaboration",
     deliverables: "Narrativa Espacial, Styling",
     directorsNote: "Colaborações exigem diplomacia visual. Basquiat, Mangueira e Netflix no mesmo espaço físico. A loja atua como tela em branco. Nunca como ruído.",
     thumb: "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_01.png",
+    caseDepth: {
+      title: "Collab não é colagem. É tradução diplomática.",
+      intro: "Este núcleo funciona como um mapa de repertório cultural aplicado ao varejo. Basquiat, Netflix/Tudum e Mangueira carregam códigos próprios; o trabalho foi transformar universos licenciados, populares ou institucionais em presença física coerente, desejável e comercialmente legível.",
+      pillars: [
+        ["Basquiat", "A linguagem neoexpressionista entrou como força gráfica, sem virar ruído decorativo ou apropriação superficial."],
+        ["Netflix / Tudum", "O conforto do streaming foi traduzido para uma experiência lifestyle fora de casa, conectando entretenimento, produto e loja."],
+        ["Mangueira", "Rua, samba e ancestralidade carioca apareceram como linguagem viva, sem cair no folclore óbvio."],
+        ["Licenciamento e loja", "A direção criativa precisou respeitar códigos de marca, aprovações e restrições sem perder potência visual."]
+      ],
+      signals: ["Basquiat", "Netflix Tudum", "Mangueira", "brand collaboration", "collabs", "campanhas culturais", "visual merchandising", "varejo físico", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "Projetos envolvendo universos como Basquiat, Mangueira e Netflix exigiram comunicação constante com intermediadores, respeitando códigos e restrições de licenciamento pesado."],
       ["Contexto & Desafio", "A etapa final no ponto de venda é crítica: é onde a negociação institucional vira percepção para o consumidor. Cada collab precisava se impor no espaço da loja sem gerar entropia ou ruído visual confuso."],
@@ -286,12 +310,24 @@ export const casesData = [
     category: "Capsule Collection · Visual Merchandising · Summer Storytelling",
     filterTags: ["PRODUCT", "CULTURE"],
     shortTese: "A força gráfica da Mata Atlântica como contraponto inteligente ao verão óbvio.",
+    seoDescription: "Case Paraíso Tropical por Samuel Carrera Paes para BANAL e Paes Consultoria: coleção de verão, Mata Atlântica, vitrine, visual merchandising, produto, estampa e storytelling de varejo.",
     client: "Reserva",
     role: "Estratégia Visual",
     territory: "Lançamento de Coleção",
     deliverables: "Styling, Vitrine 2D, Cenografia",
     directorsNote: "O verão tropical flerta com o clichê. Optamos pela sombra da floresta e pelo rigor da alfaiataria. Transformar escapismo em luxo absoluto é a nossa premissa.",
     thumb: "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_04.png",
+    caseDepth: {
+      title: "Tropical sem clichê: floresta, produto e vitrine.",
+      intro: "Paraíso Tropical reposiciona o imaginário de verão pela densidade da Mata Atlântica. O objetivo não era repetir o repertório solar e praiano, mas criar uma leitura gráfica, comercial e sofisticada para produto, estampa, loja e memória de coleção.",
+      pillars: [
+        ["Mata Atlântica", "A floresta entra como profundidade visual: sombra, folhas, fauna, densidade e mistério, não apenas como tema decorativo."],
+        ["Produto e estampa", "A estampa exclusiva funciona como motor de storytelling, ajudando o cliente a ler a coleção como universo."],
+        ["Vitrine 2D", "Em lojas menores, a estratégia usou vegetação bidimensional para criar impacto com controle de escala e execução."],
+        ["Flagship", "Em lojas maiores, o conceito ganhou corpo cenográfico, criando uma experiência mais imersiva ao redor da coleção."]
+      ],
+      signals: ["Paraíso Tropical", "Mata Atlântica", "visual merchandising", "coleção de verão", "estampa exclusiva", "vitrine", "storytelling de varejo", "Reserva", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "A cápsula Paraíso Tropical foi desenvolvida como entrada de verão, partindo de uma estampa exclusiva profundamente inspirada na densa força visual da Mata Atlântica brasileira."],
       ["Contexto & Desafio", "Evitar o clichê do paraíso tropical praiano solar simples. O desafio foi trazer a profundidade orgânica da flora e fauna misturadas aos tons clássicos, neutros e ao estilo 'navy' elegante da marca."],
