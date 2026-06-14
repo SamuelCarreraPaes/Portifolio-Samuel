@@ -3,7 +3,7 @@ import { authorityServices } from "./authorityMap";
 export const homePortrait = "/images/13_VISAO/about-transition.png";
 
 export const SITE_URL = "https://paesconsultoria.com";
-export const SEO_LAST_MODIFIED = "2026-06-10";
+export const SEO_LAST_MODIFIED = "2026-06-14";
 export const SAMUEL_INSTAGRAM = "https://instagram.com/samuelcarrerapaes";
 export const VERDE_BURGO_INSTAGRAM = "https://instagram.com/verdeburgoeventos";
 export const DEFAULT_OG_IMAGE = homePortrait;
@@ -22,12 +22,20 @@ export const SEO_KEYWORDS = [
   "collabs",
   "produto próprio",
   "eventos",
+  "eventos completos",
   "buffet",
   "decoração",
   "bar",
   "cerimonial",
+  "planejamento de eventos",
+  "produção de eventos",
+  "hospitalidade",
+  "Provence Raiz",
   "varejo",
   "visual merchandising",
+  "retail design",
+  "styling",
+  "inteligência artificial aplicada",
   "direção criativa",
   "experiência de marca"
 ];

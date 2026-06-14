@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { authorityAtlas, authorityServices } from "../src/authorityMap.js";
-import { banalCaseGroups } from "../src/data/cases.js";
+import { banalCaseGroups, casesData } from "../src/data/cases.js";
 import { sistemaArticleCards } from "../src/sistemaArticleCards.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,7 +11,7 @@ const root = path.resolve(__dirname, "..");
 const publicDir = path.join(root, "public");
 
 const siteUrl = "https://paesconsultoria.com";
-const lastmod = "2026-06-10";
+const lastmod = "2026-06-14";
 const samuelInstagram = "https://instagram.com/samuelcarrerapaes";
 const verdeBurgoInstagram = "https://instagram.com/verdeburgoeventos";
 
@@ -117,7 +117,7 @@ function pageForImage(publicPath) {
 
 function contextForImage(pagePath) {
   if (pagePath === "/empresas/banal") return "BANAL, empresa de branding, marketing, campanhas, collabs, produto próprio, varejo, posicionamento e estratégia criativa da Paes Consultoria";
-  if (pagePath === "/empresas/verde-burgo") return "Verde Burgo Eventos, empresa de eventos, buffet, decoração, bar e cerimonial com direção criativa de Samuel Paes";
+  if (pagePath === "/empresas/verde-burgo") return "Verde Burgo Eventos, empresa de eventos com buffet, decoração, bar, cerimonial, planejamento, produção e execução com direção criativa de Samuel Paes";
   if (pagePath === "/projetos/provence-raiz") return "Provence Raiz, primeiro projeto publicado dentro da Verde Burgo com direção criativa de Samuel Carrera Paes";
   if (pagePath === "/sobre/samuel-carrera-paes") return "perfil de Samuel Carrera Paes, diretor criativo e consultor criativo";
   if (pagePath === "/visao") return "visão profissional de Samuel Carrera Paes, diretor criativo e consultor criativo";
@@ -188,7 +188,10 @@ Sitemap: ${siteUrl}/sitemap-images.xml
 }
 
 function buildLlmsTxt() {
-  const caseList = casePages.map((item) => `- ${item.title}: ${siteUrl}${item.path}`).join("\n");
+  const caseList = casesData.map((item) => {
+    const signals = item.caseDepth?.signals?.length ? ` Sinais: ${item.caseDepth.signals.join(", ")}.` : "";
+    return `- ${item.title}: ${siteUrl}/case/${item.id}. ${item.seoDescription || item.shortTese}${signals}`;
+  }).join("\n");
   const banalGroupList = banalCaseGroups.map((group) => {
     const subprojects = group.subprojects.map((item) => item.title).join(", ");
     return `- ${group.title}: ${group.label}. Desdobramentos: ${subprojects}.`;
