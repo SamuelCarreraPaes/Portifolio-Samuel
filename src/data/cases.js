@@ -7,12 +7,24 @@ export const casesData = [
     category: "Direção Criativa · Curadoria · Reposicionamento",
     filterTags: ["BRAND", "RETAIL"],
     shortTese: "Uma transição de marca construída pela curadoria, pela imagem e pela sofisticação do desejo.",
+    seoDescription: "Case Val Fortunatto Brand Transition por Samuel Carrera Paes para BANAL e Paes Consultoria: reposicionamento de marca, curadoria de produto, styling, campanha, varejo feminino e percepção premium.",
     client: "Val Fortunatto",
     role: "Direção Criativa",
     territory: "Brand Transition",
     deliverables: "Curadoria, Styling, Campanha",
     directorsNote: "Reposicionar exige precisão. Preservamos a alma da marca, mas alteramos a lente. O desafio não foi mudar o produto, foi reposicionar o desejo.",
     thumb: "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_08.png",
+    caseDepth: {
+      title: "Reposicionamento sem ruptura: mudar a lente, preservar a alma.",
+      intro: "Val Fortunatto Brand Transition é um case de transição estética e estratégica. A marca não precisava abandonar sua cliente tradicional; precisava sofisticar a leitura pública, aproximar um público mais jovem e organizar produto, imagem e desejo em uma nova percepção de valor.",
+      pillars: [
+        ["Curadoria como direção", "A seleção de produto funcionou como ferramenta de reposicionamento, não apenas como escolha comercial."],
+        ["Imagem editorial", "Styling, textura, silhueta e cenário conduziram uma leitura mais madura, premium e contemporânea."],
+        ["Desejo rejuvenescido", "A campanha aproximou a marca de um público mais jovem sem negar a elegância já reconhecida pela cliente tradicional."],
+        ["Percepção de valor", "O trabalho reposicionou o olhar sobre a marca antes de alterar produto, preço ou operação."]
+      ],
+      signals: ["Val Fortunatto", "Brand Transition", "reposicionamento de marca", "curadoria de produto", "styling", "campanha editorial", "varejo feminino", "percepção premium", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "Este projeto marcou o início de uma transição estratégica de posicionamento para a Val Fortunatto — uma multimarca mineira consolidada no varejo feminino contemporâneo."],
       ["Contexto & Desafio", "O objetivo central foi reconstruir a percepção estética da marca, sofisticando sua comunicação visual e aproximando um público mais jovem, sem romper com a elegância e a maturidade já reconhecidas pela cliente tradicional da loja."],
@@ -36,12 +48,24 @@ export const casesData = [
     category: "Produto Próprio · Curadoria Comercial · Direção Criativa",
     filterTags: ["PRODUCT", "BRAND"],
     shortTese: "Quando uma multimarca transforma confiança em produto próprio.",
+    seoDescription: "Case Val Fortunatto Linho por Samuel Carrera Paes para BANAL e Paes Consultoria: produto próprio, cápsula em linho, curadoria comercial, campanha, styling e posicionamento de marca.",
     client: "Val Fortunatto",
     role: "Direção Criativa",
     territory: "Desenvolvimento de Coleção",
     deliverables: "Design de Produto, Campanha, Styling",
     directorsNote: "A curadoria evoluiu para criação. A loja deixou de ser vitrine para ser assinatura. O linho cru foi nosso ponto de partida estrutural.",
     thumb: "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_01.png",
+    caseDepth: {
+      title: "Quando a curadoria vira assinatura própria.",
+      intro: "Val Fortunatto Linho mostra a passagem de uma multimarca que vende o olhar de terceiros para uma marca capaz de assinar produto próprio. A cápsula em linho ocupa o território do casual sofisticado e transforma confiança, repertório e curadoria em uma oferta com identidade.",
+      pillars: [
+        ["Confiança como ativo", "A cliente comprava o olhar da loja, não apenas etiquetas. O produto próprio nasce dessa autoridade acumulada."],
+        ["Linho e permanência", "O tecido organiza uma linguagem de naturalidade, sofisticação e atemporalidade sem competir com o universo de festa."],
+        ["Cápsula estratégica", "A coleção preencheu uma lacuna comercial entre roupa casual e desejo premium."],
+        ["Campanha de assinatura", "Imagem, styling e locação ajudaram a apresentar a Val Fortunatto como autora, não só curadora."]
+      ],
+      signals: ["Val Fortunatto Linho", "produto próprio", "cápsula em linho", "curadoria comercial", "campanha de moda", "styling", "casual sofisticado", "marca autoral", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "Este projeto nasceu de uma leitura estratégica sobre multimarcas contemporâneas: em muitos casos, o valor não está apenas nas marcas comercializadas, mas na confiança construída em torno do nome da própria loja."],
       ["Contexto & Desafio", "As clientes não buscavam apenas uma etiqueta — buscavam o olhar da marca. O desafio era criar uma cápsula de alto verão em linho que não competisse com as marcas de festa, ocupando uma lacuna estratégica: o casual sofisticado."],
@@ -64,12 +88,24 @@ export const casesData = [
     category: "Brand Architecture · Retail Strategy · Premium Positioning",
     filterTags: ["BRAND", "SPACE"],
     shortTese: "A construção de um novo universo para a infância contemporânea.",
+    seoDescription: "Case Ateliê Bambini por Samuel Carrera Paes para BANAL e Paes Consultoria: arquitetura de marca infantil, posicionamento premium, identidade visual, narrativa espacial e varejo boutique.",
     client: "Ateliê Bambini",
     role: "Consultoria Estratégica",
     territory: "Brand Creation",
     deliverables: "Identidade Visual, Narrativa Espacial",
     directorsNote: "Rejeitamos o plástico e o primário. Optamos pela subversão do silêncio. Palha, madeira e pedra elevaram a memória infantil ao status de design.",
     thumb: "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_01.png",
+    caseDepth: {
+      title: "Infância premium sem clichê plástico.",
+      intro: "Ateliê Bambini organiza uma arquitetura de marca para separar percepção popular e experiência boutique. O projeto mostra como uma marca infantil pode abandonar códigos primários e construir um universo de palha, madeira, pedra, silêncio e materialidade sensível.",
+      pillars: [
+        ["Arquitetura de marca", "A estratégia separou a T Kids das lojas de rua e o Ateliê Bambini como frente premium para shopping."],
+        ["Materialidade poética", "Palha, madeira e pedra substituíram a lógica infantil óbvia por uma experiência mais tátil e aspiracional."],
+        ["Narrativa espacial", "A loja passa a funcionar como boutique de memória, cuidado e permanência, não como depósito de produto infantil."],
+        ["Clareza de expansão", "A nova marca criou um caminho mais legível para crescer sem misturar tickets, públicos e expectativas."]
+      ],
+      signals: ["Ateliê Bambini", "arquitetura de marca infantil", "marca infantil premium", "varejo boutique", "identidade visual", "narrativa espacial", "posicionamento premium", "T Kids", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "O Ateliê Bambini nasceu como desdobramento estratégico de um processo maior de consultoria realizado para a T Kids — uma multimarca infantil consolidada há mais de duas décadas."],
       ["Contexto & Desafio", "A T Kids reunia produtos populares e premium no mesmo espaço, gerando um conflito de percepção crítico. Além disso, a marca permanecia visualmente presa à lógica estética de vinte anos atrás num cenário onde o varejo físico se tornou aspiracional."],
