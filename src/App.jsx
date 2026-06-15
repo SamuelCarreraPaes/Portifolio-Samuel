@@ -6,15 +6,11 @@ import { authorityAtlas, authorityServiceGroups, authorityServices, getAuthority
 import { sistemaArticleCards } from "./sistemaArticleCards";
 import {
   banalCaseGroups,
-  banalRepertoireNotes,
-  banalRepertoireStats,
   casesData,
   getBanalCaseGroupByCaseId,
 } from "./data/cases";
 import {
   banalAssets,
-  banalLayers,
-  banalProcess,
   consultancyCompanies,
   consultancyPrinciples,
   verdeBurgoBrandAssets,
@@ -82,12 +78,22 @@ const operatingLanes = [
   ["Biblioteca", "Produção intelectual que documenta método, posicionamento, pesquisa e repertório de Samuel Carrera Paes."],
 ];
 
-const banalTerritories = [
-  ["Marca", "Identidade, posicionamento, assinatura, valor percebido e leitura pública."],
-  ["Marketing", "Campanhas, calendário, conteúdo, canais, collabs e ativação comercial."],
-  ["Varejo", "Visual merchandising, narrativa espacial, produto, ponto de venda e experiência física."],
-  ["Cultura", "Repertório, desejo, sinais, linguagem, memória e construção de presença."],
+const banalIdentityItems = [
+  ["Símbolo", "Assinatura Banal como marca editorial da unidade."],
+  ["Cor", "Paleta usada como código de presença, desejo e leitura."],
+  ["Tom", "Direto, cultural, estratégico e não publicitário demais."],
+  ["Função", "Traduzir estratégia em presença pública."],
+  ["Campo", "Marca, produto, varejo, cultura, campanha e identidade."]
 ];
+
+const banalMethodSteps = [
+  ["Ler", "Mercado, cultura, produto, concorrência e desejo."],
+  ["Posicionar", "Definir lugar, promessa, tensão e diferença."],
+  ["Dar forma", "Construir identidade, linguagem, sistema visual e narrativa."],
+  ["Ativar", "Levar a marca para campanhas, varejo, conteúdo, experiência e presença."]
+];
+
+const banalFeaturedCaseIds = ["case-01", "case-05", "case-07", "case-11"];
 
 const verdeBurgoDeliveryStack = [
   ["Planejamento", "Escuta, orçamento, cronograma, prioridades e condução do processo."],
@@ -642,12 +648,19 @@ function PaesConsultoria({ navigate }) {
 }
 
 function Banal({ navigate }) {
+  const scrollToBanalSection = (sectionId) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const featuredCases = banalFeaturedCaseIds
+    .map((caseId) => casesData.find((project) => project.id === caseId))
+    .filter(Boolean);
+
   return (
     <PageTransition>
       <DynamicSEO
         title="BANAL"
         fullTitle="BANAL | Branding, Marketing e Presença"
-        description="BANAL é a empresa de branding, marketing, comunicação, varejo, posicionamento, narrativa, campanhas, collabs e estratégia criativa da Paes Consultoria."
+        description="BANAL é a frente de identidade, linguagem e mercado da Paes Consultoria: marca, marketing, campanha, varejo, cultura e leitura pública de valor."
         url="empresas/banal"
         image={banalAssets.balancedLogo}
         schemaType="CollectionPage"
@@ -660,219 +673,190 @@ function Banal({ navigate }) {
           ]
         }}
       />
-      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="banal-title">
-        <section className="grid gap-10 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">EMPRESA · MARCA · MARKETING</span>
-            <h1 id="banal-title" className="font-serif text-6xl leading-[0.8] tracking-tighter text-stone-950 md:text-[9rem] text-balance">
-              BANAL.
-            </h1>
-            <p className="mt-10 max-w-xl font-serif text-3xl leading-tight text-stone-700 md:text-5xl text-balance">
-              Marcas mais claras, desejáveis e valiosas.
-            </p>
-            <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
-              A empresa concentra branding, marketing, posicionamento, conteúdo, campanhas, collabs, varejo e percepção de valor dentro da Paes Consultoria.
-            </p>
-            <dl className="mt-10 grid max-w-2xl grid-cols-2 gap-4 border-t border-stone-900/10 pt-6 sm:grid-cols-3">
-              {banalRepertoireStats.map(([value, label]) => (
-                <div key={label}>
-                  <dt className="text-[8px] font-bold uppercase leading-relaxed tracking-[0.12em] text-stone-400 sm:text-[9px] sm:tracking-[0.22em]">{label}</dt>
-                  <dd className="mt-3 font-serif text-2xl leading-none text-stone-950 sm:text-3xl">{value}</dd>
-                </div>
-              ))}
-            </dl>
+      <article className="mx-auto max-w-[90rem] overflow-x-hidden px-6 lg:px-12 pt-12" aria-labelledby="banal-title">
+        <section className="grid gap-10 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.92fr_1.08fr]" aria-labelledby="banal-title">
+          <div className="flex flex-col justify-between">
+            <div>
+              <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">BANAL · MARCA · MERCADO</span>
+              <figure className="mb-12 max-w-sm border border-stone-900/10 bg-white/35 p-8 rounded-sm">
+                <img
+                  src={banalAssets.balancedLogo}
+                  alt="BANAL"
+                  loading="eager"
+                  decoding="async"
+                  className="h-auto w-full object-contain"
+                />
+              </figure>
+              <h1 id="banal-title" className="max-w-5xl font-serif text-5xl leading-[0.88] tracking-tight text-stone-950 md:text-7xl lg:text-8xl text-balance">
+                Marca não é peça. É leitura pública de valor.
+              </h1>
+              <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-2xl text-balance">
+                A Banal é a frente de identidade, linguagem e mercado da Paes Consultoria. Criamos sistemas de presença para marcas que precisam ser compreendidas, lembradas e escolhidas.
+              </p>
+            </div>
+            <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => scrollToBanalSection("trabalhos-banal")}
+                className="inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+              >
+                Ver trabalhos <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToBanalSection("identidade-banal")}
+                className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+              >
+                Entender a Banal
+              </button>
+            </div>
           </div>
-          <figure className="overflow-hidden border border-stone-900/10 bg-white/35 rounded-sm shadow-sm">
-            <div className="aspect-[16/10] overflow-hidden bg-[#F8F5EF]">
+
+          <figure className="min-w-0 overflow-hidden border border-stone-900/10 bg-white/35 rounded-sm shadow-sm">
+            <div className="aspect-[4/5] overflow-hidden bg-[#F8F5EF] md:aspect-[16/13]">
               <ImageWithFallback
                 src={banalAssets.showcase}
-                alt="Prancha de identidade da BANAL com garrafa, mosca, logotipos e paleta principal."
+                alt="Prancha visual da BANAL com símbolo, logotipo, garrafa, mosca e linguagem gráfica."
                 mode="contain"
                 loading="eager"
                 fetchPriority="high"
                 imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
               />
             </div>
-            <figcaption className="grid gap-4 border-t border-stone-900/10 p-6 md:grid-cols-[0.7fr_1.3fr]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Identidade BANAL</span>
-              <span className="text-sm font-light leading-relaxed text-stone-600">
-                Marketing, estratégia e desejo tratados como sistema visual, verbal e comercial.
+            <figcaption className="grid min-w-0 gap-4 border-t border-stone-900/10 p-6 md:grid-cols-[0.7fr_1.3fr]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Identidade Banal</span>
+              <span className="min-w-0 break-words text-sm font-light leading-relaxed text-stone-600">
+                Uma marca para projetos em que linguagem, mercado e cultura precisam se encontrar.
               </span>
             </figcaption>
           </figure>
         </section>
 
-        <section className="border-b border-stone-900/10 py-20 md:py-28" aria-labelledby="banal-territorios">
+        <section id="identidade-banal" className="scroll-mt-32 border-b border-stone-900/10 py-20 md:py-28" aria-labelledby="banal-identidade-title">
           <header className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
             <div>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">TERRITÓRIOS DE ATUAÇÃO</span>
-              <h2 id="banal-territorios" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-                A BANAL organiza a camada pública de desejo, leitura e valor.
-              </h2>
-            </div>
-            <p className="max-w-4xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              O trabalho não começa na peça final. Começa na pergunta sobre como uma marca deve ser percebida, lembrada, desejada e operada em canais reais: loja, campanha, conteúdo, collab, produto, vitrine e presença digital.
-            </p>
-          </header>
-
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {banalTerritories.map(([title, text], index) => (
-              <article key={title} className="border border-stone-900/10 bg-white/30 p-6 rounded-sm">
-                <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-stone-900/10 py-20 md:py-28" aria-labelledby="banal-arquivo">
-          <header className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-            <div>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ARQUIVO BANAL</span>
-              <h2 id="banal-arquivo" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-                Os cards são núcleos. O repertório é maior.
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Identidade Banal</span>
+              <h2 id="banal-identidade-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+                Uma empresa de marca dentro da Paes Consultoria.
               </h2>
             </div>
             <div>
               <p className="max-w-4xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-                A BANAL não deve ser lida como uma coleção fechada de onze trabalhos. Esses registros funcionam como páginas-mãe: concentram campanhas, ativações, collabs, vitrines, brand transitions, produto próprio, varejo e conteúdo em uma malha editorial que ainda está em expansão.
+                A identidade da Banal nasce para reunir repertório, linguagem e direção visual em uma frente própria. Não é um selo decorativo. É uma unidade de pensamento para projetos em que marca, mercado e cultura precisam se encontrar.
               </p>
-              <dl className="mt-10 grid gap-4 sm:grid-cols-3">
-                {banalRepertoireStats.map(([value, label]) => (
-                  <div key={label} className="border-t border-stone-900/10 pt-5">
-                    <dt className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-400">{label}</dt>
-                    <dd className="mt-3 font-serif text-3xl leading-none text-stone-950">{value}</dd>
-                  </div>
+              <div className="mt-12 grid gap-4 md:grid-cols-5">
+                {banalIdentityItems.map(([label, text]) => (
+                  <article key={label} className="border border-stone-900/10 bg-white/30 p-5 rounded-sm">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">{label}</h3>
+                    <p className="mt-4 text-xs font-light leading-relaxed text-stone-500">{text}</p>
+                  </article>
                 ))}
-              </dl>
+              </div>
             </div>
           </header>
-
-          <div className="mt-16 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {banalCaseGroups.map((group) => {
-              const parentCase = casesData.find((project) => project.id === group.parentCaseId);
-              return (
-                <article key={group.id} className="flex min-h-full flex-col border border-stone-900/10 bg-white/25 p-6 rounded-sm">
-                  <button
-                    type="button"
-                    onClick={() => parentCase && navigate(`case/${parentCase.id}`)}
-                    className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                  >
-                    <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{group.label}</span>
-                    <h3 className="mt-5 font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{group.title}</h3>
-                    <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{group.summary}</p>
-                  </button>
-                  <div className="mt-8 border-t border-stone-900/10 pt-5">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Desdobramentos</p>
-                    <ul className="mt-4 space-y-3">
-                      {group.subprojects.map((item) => (
-                        <li key={item.title} className="text-sm leading-relaxed text-stone-600">
-                          <span className="font-semibold text-stone-900">{item.title}</span>
-                          <span className="text-stone-400"> · {item.type}</span>
-                          <span className="block text-xs font-light text-stone-500">{item.scope}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          <ul className="mt-12 grid gap-3 border-t border-stone-900/10 pt-8 md:grid-cols-2">
-            {banalRepertoireNotes.map((note) => (
-              <li key={note} className="text-sm font-light leading-relaxed text-stone-500">
-                {note}
-              </li>
-            ))}
-          </ul>
         </section>
 
-        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-projetos">
-          <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">NÚCLEOS ESTRUTURADOS</span>
-            <h2 id="banal-projetos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Projetos de marketing, comunicação, varejo, marca e percepção que abrem o arquivo.
+        <section className="grid gap-12 border-b border-stone-900/10 py-20 md:py-28 lg:grid-cols-[0.86fr_1.14fr]" aria-labelledby="banal-manifesto-title">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Manifesto</span>
+            <h2 id="banal-manifesto-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              A Banal organiza a camada pública de desejo, leitura e valor.
             </h2>
-            <p className="mt-8 max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
-              Cada card abaixo é uma entrada editorial para um território maior. Alguns são cases independentes; outros reúnem campanhas e collabs que serão aprofundadas à medida que o arquivo visual e narrativo for catalogado.
-            </p>
+          </div>
+          <p className="max-w-4xl self-end text-lg font-light leading-relaxed text-stone-700 md:text-2xl">
+            O trabalho não começa na peça. Começa na leitura: do mercado, do produto, da cultura e da forma como uma marca passa a existir na cabeça das pessoas.
+          </p>
+        </section>
+
+        <section id="trabalhos-banal" className="scroll-mt-32 border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-trabalhos-title">
+          <header className="mb-16 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Arquivo vivo Banal</span>
+            <h2 id="banal-trabalhos-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Trabalhos, sistemas e experimentos de marca organizados por leitura, desejo e valor.
+            </h2>
           </header>
-          <div className="grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-8 gap-y-14 md:grid-cols-2 xl:grid-cols-4">
             {casesData.map((project) => (
               <article key={project.id} className="group">
-                <button type="button" onClick={() => navigate(`case/${project.id}`)} className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm">
+                <button
+                  type="button"
+                  onClick={() => navigate(`case/${project.id}`)}
+                  aria-label={`Ver case BANAL: ${project.title}`}
+                  className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                >
                   <figure className="aspect-[4/5] overflow-hidden bg-stone-200/50 rounded-sm">
-                    <ImageWithFallback src={project.thumb} alt={`Projeto BANAL por Samuel Carrera Paes: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
+                    <ImageWithFallback
+                      src={project.thumb}
+                      alt={`Capa do case ${project.title}, projeto BANAL por Samuel Carrera Paes`}
+                      mode="cover"
+                      imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]"
+                    />
                   </figure>
                   <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.number} · {project.territory}</p>
                   <h3 className="mt-3 font-serif text-3xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{project.title}</h3>
                   <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{project.shortTese}</p>
+                  <ul className="mt-5 flex flex-wrap gap-2" aria-label={`Categorias do case ${project.title}`}>
+                    {project.filterTags.map((tag) => (
+                      <li key={tag} className="border border-stone-900/10 px-3 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-stone-400 rounded-sm">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
                 </button>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-servicos">
-          <header className="mb-14 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">SERVIÇOS</span>
-            <h2 id="banal-servicos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Uma estrutura para tornar negócios mais legíveis, desejáveis e consistentes.
+        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-cases-selecionados">
+          <header className="mb-16 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Trabalhos selecionados</span>
+            <h2 id="banal-cases-selecionados" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Cada projeto revela uma forma de transformar percepção em presença.
             </h2>
           </header>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {authorityServices.filter((service) => service.group === "marca").map((service) => (
-              <button
-                key={service.slug}
-                type="button"
-                onClick={() => navigate(`servicos/${service.slug}`)}
-                className="group border border-stone-900/10 bg-white/35 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-              >
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{service.title}</p>
-                <p className="mt-3 text-xs font-light leading-relaxed text-stone-500">{service.statement}</p>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-24 md:py-32 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="banal-institucional">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">EMPRESA</span>
-            <h2 id="banal-institucional" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              O consumo acaba. O signo continua.
-            </h2>
-          </div>
-          <div className="space-y-10">
-            <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              <p>
-                A BANAL é a frente de branding, marketing, posicionamento, narrativa, campanhas, collabs, varejo e percepção de valor da Paes Consultoria. Ela existe para negócios que precisam se tornar mais claros para o público, mais desejáveis para o mercado e mais coerentes nos seus canais.
-              </p>
-              <p>
-                O trabalho vai além de aparência. A empresa organiza sinais, discurso, conteúdo, campanhas, collabs, produto, loja e presença comercial para que marca e mercado falem a mesma língua.
-              </p>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2">
-              {banalLayers.map(([title, text]) => (
-                <article key={title} className="border-t border-stone-900/10 pt-6">
-                  <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
-                  <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{text}</p>
+          <div className="grid gap-8 lg:grid-cols-2">
+            {featuredCases.map((project) => {
+              const group = banalCaseGroups.find((item) => item.parentCaseId === project.id);
+              return (
+                <article key={project.id} className="group grid gap-6 border border-stone-900/10 bg-white/30 p-5 rounded-sm md:grid-cols-[0.82fr_1.18fr]">
+                  <figure className="aspect-[4/5] overflow-hidden bg-stone-200/50 rounded-sm md:aspect-square">
+                    <ImageWithFallback
+                      src={project.thumb}
+                      alt={`Capa editorial do case selecionado ${project.title}`}
+                      mode="cover"
+                      imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]"
+                    />
+                  </figure>
+                  <div className="flex flex-col justify-between">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{group?.label || project.territory}</p>
+                      <h3 className="mt-5 font-serif text-3xl leading-tight text-stone-950 text-balance">{project.title}</h3>
+                      <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{project.caseDepth?.intro || project.shortTese}</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => navigate(`case/${project.id}`)}
+                      className="mt-8 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                    >
+                      Ver case <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+                    </button>
+                  </div>
                 </article>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </section>
 
-        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-processo">
+        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-metodo-title">
           <header className="mb-14 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PROCESSO</span>
-            <h2 id="banal-processo" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Do diagnóstico à ativação.
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Como atuamos</span>
+            <h2 id="banal-metodo-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Ler, posicionar, dar forma e ativar.
             </h2>
           </header>
           <ol className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {banalProcess.map(([name, text], index) => (
+            {banalMethodSteps.map(([name, text], index) => (
               <li key={name} className="border-t border-stone-900/10 pt-8">
                 <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                 <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{name}</h3>
@@ -882,21 +866,12 @@ function Banal({ navigate }) {
           </ol>
         </section>
 
-        <EditorialConnectionGrid
-          eyebrow="Conexões da BANAL"
-          title="A empresa dentro do ecossistema."
-          description="A BANAL concentra os territórios de branding, marketing, comunicação, varejo, conteúdo, campanhas, collabs, produto próprio e percepção de valor dentro da arquitetura criativa de Samuel Carrera Paes."
-          links={[
-            { label: "Samuel Carrera Paes", text: "Direção criativa e visão que orientam a empresa.", route: "sobre/samuel-carrera-paes" },
-            { label: "Mapa do ecossistema", text: "Serviços, empresas, cases e biblioteca em uma leitura única.", route: `atlas/${authorityAtlas.slug}` },
-            { label: "Biblioteca", text: "Artigos que sustentam pensamento, método e repertório.", route: "biblioteca" }
-          ]}
-          navigate={navigate}
-        />
-
         <footer className="mb-16 bg-stone-950 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
           <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
-            Sua marca precisa ficar mais clara para vender, comunicar ou crescer?
+            Uma marca não precisa aparecer mais. Precisa ser melhor lida.
+          </p>
+          <p className="mx-auto mt-8 max-w-2xl text-sm font-light leading-relaxed text-[#F4F0E9]/70 md:text-base">
+            Vamos organizar a presença pública do seu negócio.
           </p>
           <div className="mt-12 flex justify-center">
             <button
@@ -904,7 +879,7 @@ function Banal({ navigate }) {
               onClick={() => navigate("contato")}
               className="inline-flex items-center gap-3 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
             >
-              Conversar com a BANAL <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+              Conversar com a Paes Consultoria <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </footer>
