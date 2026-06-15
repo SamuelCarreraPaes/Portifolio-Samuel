@@ -286,7 +286,22 @@ function Inicio({ navigate }) {
             className="grid gap-6"
           >
             <section className="flex min-h-[24rem] flex-col justify-between bg-stone-950 p-7 text-[#F4F0E9] rounded-sm md:p-10" aria-labelledby="home-map-title">
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Mapa público</p>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Mapa público</p>
+                <div className="mt-8 grid gap-3 sm:grid-cols-2" aria-label="Estrutura do ecossistema">
+                  {[
+                    ["Paes Consultoria", "Visão e direção"],
+                    ["BANAL", "Marca e marketing"],
+                    ["Verde Burgo", "Eventos completos"],
+                    ["Biblioteca", "Pensamento público"]
+                  ].map(([title, text]) => (
+                    <div key={title} className="border border-[#F4F0E9]/10 p-4 rounded-sm">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#F4F0E9]/80">{title}</p>
+                      <p className="mt-2 text-xs font-light leading-relaxed text-[#F4F0E9]/45">{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <div>
                 <h2 id="home-map-title" className="mt-8 font-serif text-4xl leading-[0.95] md:text-6xl lg:text-5xl xl:text-6xl text-balance">
                   Ecossistema criativo autoral.
@@ -1204,14 +1219,23 @@ function Verdeburgo({ navigate }) {
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={openProvence}
-              className="group mt-14 inline-flex w-fit items-center gap-4 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
-            >
-              Ver Provence Raiz
-              <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </button>
+            <div className="mt-14 flex flex-col gap-5 sm:flex-row sm:items-center">
+              <button
+                type="button"
+                onClick={() => navigate("contato")}
+                className="group inline-flex w-fit items-center gap-4 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+              >
+                Planejar um evento
+                <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={openProvence}
+                className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9]/70 transition-colors hover:text-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+              >
+                Ver Provence Raiz
+              </button>
+            </div>
           </div>
         </section>
 
@@ -1253,6 +1277,9 @@ function Verdeburgo({ navigate }) {
             <h2 id="verdeburgo-projetos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
               Eventos, festas e projetos de hospitalidade organizados por identidade e execução.
             </h2>
+            <p className="mt-8 max-w-3xl text-lg font-light leading-relaxed text-stone-600 md:text-xl">
+              Os projetos aparecem como provas aplicadas da empresa. A oferta principal continua sendo a solução completa para casamentos, aniversários, eventos corporativos e festas especiais.
+            </p>
           </header>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {[
@@ -1512,10 +1539,10 @@ function Verdeburgo({ navigate }) {
 
         <footer className="mb-16 bg-stone-950 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
           <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
-            Cada detalhe foi desenhado para revelar, não decorar.
+            Festa completa, identidade clara e execução tranquila.
           </p>
           <p className="mx-auto mt-8 max-w-2xl text-sm font-light leading-relaxed text-[#F4F0E9]/70 md:text-base">
-            É a Provence Raiz. Onde arquitetura, paisagem, matéria e memória tornam-se uma única experiência.
+            É a Verde Burgo. Provence Raiz é a primeira demonstração publicada dessa lógica: serviço, atmosfera, produção e memória trabalhando como uma experiência única.
           </p>
           <div className="mt-12 flex flex-col items-center justify-center gap-5 md:flex-row">
             <button
@@ -1822,7 +1849,7 @@ function Biblioteca({ navigate }) {
             Biblioteca.
           </h1>
           <p className="text-xl md:text-3xl font-light text-stone-600 max-w-3xl mb-24 leading-relaxed text-balance">
-            Artigos, ensaios e pesquisas para construir autoridade em branding, varejo, hospitalidade, eventos, narrativa, posicionamento, percepção, direção criativa e construção de negócios.
+            Artigos, ensaios e pesquisas para construir autoridade em branding, varejo, hospitalidade, eventos, narrativa, posicionamento, percepção, direção criativa, inteligência artificial aplicada e construção de negócios.
           </p>
         </header>
 
@@ -1835,13 +1862,25 @@ function Biblioteca({ navigate }) {
           </div>
           <div>
             <p className="max-w-4xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              Cada texto deve ampliar a associação pública entre Samuel Carrera Paes, Paes Consultoria, BANAL, Verde Burgo, direção criativa, marketing, eventos, varejo, hospitalidade e sistemas de percepção.
+              Cada texto deve ampliar a associação pública entre Samuel Carrera Paes, Paes Consultoria, BANAL, Verde Burgo, direção criativa, marketing, eventos, varejo, hospitalidade e sistemas de percepção. Ela não é uma área lateral: é a camada intelectual que explica por que as empresas existem e como os projetos devem ser lidos.
             </p>
             <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
               {bibliotecaTerritories.map(([title, text]) => (
                 <article key={title} className="border border-stone-900/10 bg-white/30 p-5 rounded-sm">
                   <h3 className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">{title}</h3>
                   <p className="mt-4 text-xs font-light leading-relaxed text-stone-500">{text}</p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {[
+                ["BANAL", "Artigos que sustentam marca, marketing, varejo, campanhas, collabs e percepção de valor."],
+                ["Verde Burgo", "Textos para afirmar evento como hospitalidade, identidade, serviço, atmosfera e comunicação 360 graus."],
+                ["Samuel Carrera Paes", "Ensaios que conectam visão, repertório, IA, direção criativa, operação e execução."]
+              ].map(([title, text]) => (
+                <article key={title} className="border-l border-stone-900/10 pl-5">
+                  <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
+                  <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{text}</p>
                 </article>
               ))}
             </div>

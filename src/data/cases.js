@@ -128,12 +128,24 @@ export const casesData = [
     category: "Visual Merchandising · Calendário Comercial · Produto Hero",
     filterTags: ["RETAIL"],
     shortTese: "A arquitetura afetiva da conversão orientada por produtos-chave.",
+    seoDescription: "Case R Lovers por Samuel Carrera Paes para BANAL e Paes Consultoria: Dia dos Namorados, calendário comercial, visual merchandising, produto hero, vitrine, presenteabilidade e conversão afetiva no varejo.",
     client: "Reserva",
     role: "Direção Criativa Aplicada",
     territory: "Retail Campaign",
     deliverables: "Vitrinismo, Styling, Exposição",
     directorsNote: "A emoção exige estética exata. Não vendemos peças de inverno, vendemos o cenário onde elas ganham vida. Afeto convertido em performance comercial.",
     thumb: "/images/04_R_LOVERS/SP_CASE04_RLOVERS_01.png",
+    caseDepth: {
+      title: "Afeto como calendário, produto como argumento.",
+      intro: "R Lovers mostra como uma data comercial pode sair do lugar comum quando o varejo trata presenteabilidade como arquitetura de desejo. O Dia dos Namorados deixa de ser tema decorativo e passa a organizar produto hero, vitrine, atmosfera e conversão.",
+      pillars: [
+        ["Calendário comercial", "A data funciona como gatilho de leitura, mas a estratégia está em transformar emoção em decisão de compra."],
+        ["Produto hero", "Jaquetas, mochilas e peças de maior valor ganham contexto afetivo para ampliar desejo e ticket percebido."],
+        ["Vitrine narrativa", "O romantismo aparece como cena, temperatura e memória, não como decoração literal de ocasião."],
+        ["Conversão afetiva", "A campanha aproxima presente, utilidade, inverno e sofisticação dentro de uma mesma leitura comercial."]
+      ],
+      signals: ["R Lovers", "Reserva", "Dia dos Namorados", "calendário comercial", "visual merchandising", "produto hero", "presenteabilidade", "vitrine", "conversão afetiva", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "O projeto R Lovers partiu de uma leitura estratégica do calendário comercial da Reserva, utilizando o Dia dos Namorados para fortalecer produtos de maior valor agregado da coleção de inverno."],
       ["Contexto & Desafio", "Transformar o discurso romântico em experiência física para gerar desejo e aumentar a percepção de valor. Produtos de maior ticket, como jaquetas e mochilas, precisavam de contexto de presenteabilidade num país tropical."],
@@ -201,12 +213,24 @@ export const casesData = [
     category: "Campaign Translation · Retail Experience · Cultural Storytelling",
     filterTags: ["CULTURE", "RETAIL"],
     shortTese: "A tradução do imaginário do futebol brasileiro para o varejo contemporâneo.",
+    seoDescription: "Case HEXA Copa do Mundo por Samuel Carrera Paes para BANAL e Paes Consultoria: Reserva, futebol brasileiro, campanha sazonal, cultura pop, produto, styling e experiência de varejo.",
     client: "Reserva",
     role: "Estratégia Visual",
     territory: "Campanha Sazonal",
     deliverables: "Styling, Exposição de Produto",
     directorsNote: "O futebol é a nossa cultura pop. O desafio foi engarrafar essa euforia com rigor estético. O popular elevado ao premium. O óbvio transformado em desejo.",
     thumb: "/images/06_HEXA/SP_CASE06_HEXA_01.png",
+    caseDepth: {
+      title: "Cultura popular traduzida sem perder sofisticação.",
+      intro: "HEXA organiza o imaginário da Copa do Mundo dentro de uma marca masculina contemporânea. A campanha precisava capturar energia popular, futebol, euforia e nacionalidade sem transformar a loja em fantasia temática.",
+      pillars: [
+        ["Futebol como cultura pop", "O projeto lê a Copa como fenômeno cultural amplo, não apenas como evento esportivo."],
+        ["Tradução de marca", "A linguagem da Reserva preserva sua sofisticação enquanto absorve códigos de torcida, uniforme e vestiário."],
+        ["Produto urbano", "Peças esportivas e utilitárias são reposicionadas como lifestyle, não como figurino de ocasião."],
+        ["Loja como bastidor", "A cenografia de vestiário cria memória, contexto e pertencimento sem disputar com a coleção."]
+      ],
+      signals: ["HEXA", "Copa do Mundo", "Reserva", "futebol brasileiro", "campanha sazonal", "cultura pop", "visual merchandising", "styling", "varejo masculino", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "O projeto HEXA nasceu da necessidade de transformar o universo emocional da Copa do Mundo em uma experiência comercial coerente com o DNA da Reserva."],
       ["Contexto & Desafio", "Traduzir o imaginário cultural do futebol sem cair no clichê visual, preservando a sofisticação masculina. O desafio era manter o cliente fiel que compra o básico, oferecendo-lhe uma atmosfera temática."],
@@ -269,12 +293,24 @@ export const casesData = [
     category: "Exposição Premium · Direção Criativa · Brand Experience",
     filterTags: ["SPACE", "RETAIL"],
     shortTese: "Reestruturação estratégica da leitura visual por meio de cor e cenografia de luz.",
+    seoDescription: "Case Rouge & Gold por Samuel Carrera Paes para BANAL e Paes Consultoria: exposição premium, color blocking, iluminação, retail design, brand experience e percepção de valor.",
     client: "Rouge & Gold",
     role: "Estratégia Visual",
     territory: "Retail Strategy",
     deliverables: "Color Blocking, Iluminação",
     directorsNote: "A arquitetura manipula o olhar. Cor e luz direcionam a atenção. Uma arara perfeitamente iluminada deixa de ser expositor e torna-se um pedestal.",
     thumb: "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_01.png",
+    caseDepth: {
+      title: "A loja como galeria de valor.",
+      intro: "Rouge & Gold trabalha exposição premium como engenharia do olhar. Cor, luz e composição deixam de ser acabamento e passam a estruturar hierarquia, desejo e percepção de valor no espaço físico.",
+      pillars: [
+        ["Leitura visual", "O projeto organiza o percurso do olhar para reduzir ruído e aumentar clareza de produto."],
+        ["Color blocking", "A cor cria blocos de atenção, separa famílias e transforma exposição em argumento."],
+        ["Luz cenográfica", "A iluminação valoriza tecido, volume e detalhe, fazendo o produto parecer mais raro e intencional."],
+        ["Percepção premium", "A loja ganha leitura de galeria comercial, com produto apresentado como peça curada."]
+      ],
+      signals: ["Rouge & Gold", "exposição premium", "color blocking", "iluminação cenográfica", "brand experience", "retail design", "percepção de valor", "visual merchandising", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "Um exercício de exposição premium em que produto, cor e luz funcionam como argumento puro e direto para gerar desejo."],
       ["Contexto & Desafio", "Organizar o olhar do cliente dentro da loja, criando hierarquia visual e a sensação luxuosa de uma galeria comercial de moda."],
@@ -296,12 +332,24 @@ export const casesData = [
     category: "Hotspots · Color Blocking · Estratégia Visual",
     filterTags: ["RETAIL", "PRODUCT"],
     shortTese: "Construir pontos de calor visual para fazer o cliente parar, olhar e desejar.",
+    seoDescription: "Case Outerwear por Samuel Carrera Paes para BANAL e Paes Consultoria: hotspots, color blocking, jaquetas, produto, comportamento de consumo, varejo físico e visual merchandising.",
     client: "Acervo Reserva",
     role: "Direção Criativa Aplicada",
     territory: "Comportamento de Consumo",
     deliverables: "Exposição de Varejo",
     directorsNote: "Inverno pede ruptura visual. O color blocking atua como choque na retina. Interrompemos o fluxo automático. A atenção é a nossa moeda mais cara.",
     thumb: "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_01.png",
+    caseDepth: {
+      title: "Atenção é arquitetura, não acidente.",
+      intro: "Outerwear parte de uma pergunta simples: como fazer o cliente parar em uma loja de leitura rápida? A resposta está em hotspots, contraste cromático, volume de produto e direção de luz para transformar jaquetas em pontos de captura visual.",
+      pillars: [
+        ["Hotspots", "Pontos de calor visual interrompem a navegação automática e criam pausas dentro do percurso."],
+        ["Color blocking", "A tensão entre cores primárias faz o produto aparecer antes mesmo de ser racionalmente lido."],
+        ["Produto volumoso", "Jaquetas e peças de inverno ganham escala, presença e valor quando deixam de parecer estoque."],
+        ["Comportamento de consumo", "A exposição considera a velocidade do olhar, a competição visual da loja e a necessidade de decisão rápida."]
+      ],
+      signals: ["Outerwear", "hotspots", "color blocking", "jaquetas", "visual merchandising", "comportamento de consumo", "varejo físico", "produto", "Reserva", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "Em loja física, o cliente escaneia antes de decidir. Este projeto cria intencionalmente pontos de atração para interromper essa varredura rápida."],
       ["Contexto & Desafio", "Peças de inverno utilitárias e outerwear volumoso precisavam ganhar uma presença visual atraente em uma jornada de compra que é altamente competitiva."],
@@ -321,12 +369,24 @@ export const casesData = [
     category: "Cápsula Heritage · Storytelling · Cenografia",
     filterTags: ["SPACE", "PRODUCT"],
     shortTese: "Uma cápsula de produto transformada em ambiente autêntico de memória e coleção.",
+    seoDescription: "Case Vintage Denim por Samuel Carrera Paes para BANAL e Paes Consultoria: cápsula heritage, denim, storytelling, cenografia, produto, vitrine e memória de marca no varejo.",
     client: "Reserva",
     role: "Direção Criativa",
     territory: "Cenografia de Produto",
     deliverables: "Atmosfera, Vitrine, Props",
     directorsNote: "O denim é a farda da cultura pop. O atrito com o maquinário industrial cria um curto-circuito temporal. Não desenhamos lojas, montamos arquivos vivos.",
     thumb: "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_01.png",
+    caseDepth: {
+      title: "Produto com passado imaginado e presença real.",
+      intro: "Vintage Denim transforma uma cápsula de produto em ambiente de memória. O denim deixa de ser apenas tecido e passa a carregar arquivo, cultura pop, maquinário, desgaste, coleção e sensação de raridade.",
+      pillars: [
+        ["Heritage", "A cápsula ganha densidade quando parece vir de um arquivo vivo, não de uma arara recém-montada."],
+        ["Props reais", "Objetos antigos, polias e máquinas criam atrito material e ajudam a sustentar autenticidade."],
+        ["Storytelling tátil", "Textura, peso, desgaste e cor aproximam produto e narrativa sem depender de explicação longa."],
+        ["Desejo de coleção", "A cenografia faz a peça parecer encontrada, rara e culturalmente carregada."]
+      ],
+      signals: ["Vintage Denim", "cápsula heritage", "denim", "storytelling de produto", "cenografia", "vitrine", "memória de marca", "Reserva", "visual merchandising", "Samuel Carrera Paes"]
+    },
     blocks: [
       ["Abertura", "Denim como memória, atitude e identidade cultural — e não apenas como exposição pragmática de tecido."],
       ["Contexto & Desafio", "O desafio era criar um universo inteiro que fizesse a cápsula de roupas de outono parecer rara, desejada, histórica e carregada de peso e narrativa visual forte."],
