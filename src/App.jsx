@@ -709,19 +709,24 @@ function Banal({ navigate }) {
 
           <figure className="sp-surface-strong min-w-0 overflow-hidden rounded-sm">
             <div className="aspect-[4/5] overflow-hidden bg-[#F8F5EF] md:aspect-[16/13]">
-              <ImageWithFallback
-                src={banalAssets.showcase}
-                alt="Prancha visual da BANAL com símbolo, logotipo, garrafa, mosca e linguagem gráfica."
-                mode="contain"
-                loading="eager"
-                fetchPriority="high"
-                imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
+              <video
+                src={banalAssets.flyLoop}
+                aria-label="Vídeo em loop da mosca dentro da garrafa, símbolo visual da BANAL."
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                poster={banalAssets.balancedLogo}
+                onLoadedData={playMutedLoop}
+                onCanPlay={playMutedLoop}
+                className="h-full w-full object-cover transition-transform duration-[1.5s] hover:scale-[1.02]"
               />
             </div>
             <figcaption className="grid min-w-0 gap-4 border-t border-stone-900/10 p-6 md:grid-cols-[0.7fr_1.3fr]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Identidade Banal</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Símbolo em movimento</span>
               <span className="min-w-0 break-words text-sm font-light leading-relaxed text-stone-600">
-                Uma marca para projetos em que linguagem, mercado e cultura precisam se encontrar.
+                A mosca dentro da garrafa traduz a BANAL como leitura de desejo, atenção e valor cultural.
               </span>
             </figcaption>
           </figure>
@@ -735,7 +740,24 @@ function Banal({ navigate }) {
                 Uma empresa de marca dentro da Paes Consultoria.
               </h2>
             </div>
-            <div>
+            <div className="min-w-0">
+              <figure className="sp-surface-strong mb-10 overflow-hidden rounded-sm">
+                <div className="aspect-[16/10] overflow-hidden bg-[#F8F5EF]">
+                  <ImageWithFallback
+                    src={banalAssets.showcase}
+                    alt="Capa de identidade da BANAL com símbolo, logotipo, garrafa, mosca e aplicações gráficas."
+                    mode="contain"
+                    loading="lazy"
+                    imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
+                  />
+                </div>
+                <figcaption className="grid gap-4 border-t border-stone-900/10 p-5 md:grid-cols-[0.7fr_1.3fr]">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Capa de identidade</span>
+                  <span className="text-xs font-light leading-relaxed text-stone-500">
+                    Sistema visual, símbolo e linguagem reunidos como frente de marca.
+                  </span>
+                </figcaption>
+              </figure>
               <p className="max-w-4xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
                 A identidade da Banal nasce para reunir repertório, linguagem e direção visual em uma frente própria. Não é um selo decorativo. É uma unidade de pensamento para projetos em que marca, mercado e cultura precisam se encontrar.
               </p>
@@ -1114,39 +1136,23 @@ function Verdeburgo({ navigate }) {
         }}
       />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="verdeburgo-title">
-        <section className="relative min-h-[78vh] w-full max-w-full overflow-hidden bg-stone-950 text-[#F4F0E9] rounded-sm" aria-label="Abertura Verde Burgo">
-          <img
-            src={verdeburgoAssets.hero}
-            alt=""
-            aria-hidden="true"
-            loading="eager"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover opacity-55"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/40 via-stone-950/30 to-stone-950/75" aria-hidden="true" />
-          <div className="relative z-10 flex min-h-[78vh] flex-col justify-between p-6 md:p-12 lg:p-16">
-            <header className="flex items-start justify-between gap-8">
+        <section className="grid gap-10 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.92fr_1.08fr]" aria-labelledby="verdeburgo-title">
+          <div className="flex flex-col justify-between">
+            <div>
+              <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">VERDE BURGO · EVENTOS · OPERAÇÃO COMPLETA</span>
+              <figure className="sp-media-frame mb-12 max-w-xs p-8 rounded-sm">
               <img
                 src={verdeBurgoBrandAssets.logo}
-                alt="Verde Burgo"
-                className="h-20 w-20 object-contain brightness-0 invert md:h-28 md:w-28"
+                alt="Verde Burgo Eventos"
+                className="h-auto w-full object-contain"
                 loading="eager"
                 decoding="async"
               />
-              <span className="hidden max-w-[11rem] text-right text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9]/70 sm:block">
-                Buffet · Decoração · Bar · Cerimonial
-              </span>
-            </header>
-
-            <div className="max-w-5xl">
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.35em] text-[#F4F0E9]/70">
-                Empresa de Eventos
-              </span>
-              <h1 id="verdeburgo-title" className="max-w-full overflow-hidden font-serif text-[16vw] leading-[0.82] tracking-tight sm:text-6xl md:text-[7rem] lg:text-[9rem] 2xl:text-[10rem] text-balance">
-                <span className="block sm:inline">VERDE</span>{" "}
-                <span className="block sm:inline">BURGO.</span>
+              </figure>
+              <h1 id="verdeburgo-title" className="max-w-5xl font-serif text-5xl leading-[0.88] tracking-tight text-stone-950 md:text-7xl lg:text-8xl text-balance">
+                Festa completa, identidade clara e execução tranquila.
               </h1>
-              <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed text-[#F4F0E9]/85 md:text-2xl text-balance">
+              <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-2xl text-balance">
                 Eventos com direção criativa. Buffet, decoração, bar, cerimonial, planejamento, produção e execução em uma solução completa para festas e eventos.
               </p>
             </div>
@@ -1155,7 +1161,7 @@ function Verdeburgo({ navigate }) {
               <button
                 type="button"
                 onClick={() => navigate("contato")}
-                className="group inline-flex w-fit items-center gap-4 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+                className="group inline-flex w-fit items-center gap-4 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
               >
                 Planejar um evento
                 <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -1163,12 +1169,40 @@ function Verdeburgo({ navigate }) {
               <button
                 type="button"
                 onClick={openProvence}
-                className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-[#F4F0E9]/70 transition-colors hover:text-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+                className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
               >
                 Ver Provence Raiz
               </button>
             </div>
           </div>
+
+          <figure className="sp-surface-strong min-w-0 overflow-hidden rounded-sm">
+            <div className="relative aspect-[4/5] overflow-hidden bg-[#F8F5EF] md:aspect-[16/13]">
+              <ImageWithFallback
+                src={verdeBurgoBrandAssets.hero}
+                alt="Textura visual Verde Burgo com linguagem gráfica suave para eventos."
+                mode="cover"
+                loading="eager"
+                fetchPriority="high"
+                imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
+              />
+              <div className="absolute inset-0 flex items-center justify-center p-10" aria-hidden="true">
+                <img
+                  src={verdeBurgoBrandAssets.logo}
+                  alt=""
+                  className="h-auto w-36 object-contain opacity-95 md:w-44"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+            </div>
+            <figcaption className="grid min-w-0 gap-4 border-t border-stone-900/10 p-6 md:grid-cols-[0.7fr_1.3fr]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Eventos completos</span>
+              <span className="min-w-0 break-words text-sm font-light leading-relaxed text-stone-600">
+                Uma empresa para integrar buffet, decoração, bar, cerimonial, planejamento e produção em uma mesma linguagem.
+              </span>
+            </figcaption>
+          </figure>
         </section>
 
         <section className="border-b border-stone-900/10 py-20 md:py-28" aria-labelledby="verdeburgo-entrega">
