@@ -25,7 +25,7 @@ export function ImageWithFallback({
     <div
       role={error ? "img" : undefined}
       aria-label={error ? alt || fallbackLabel : undefined}
-      className={`w-full bg-stone-200/40 flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-hidden'}`}
+      className={`sp-image-frame w-full flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-hidden'}`}
     >
       {!error ? (
         <picture>
@@ -44,13 +44,13 @@ export function ImageWithFallback({
             fetchPriority={fetchPriority}
             onLoad={() => setIsLoaded(true)}
             onError={() => setError(true)}
-            className={`w-full transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`w-full transition-[opacity,transform] duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${
               isNatural ? "h-auto block object-contain" : `h-full absolute inset-0 ${isContain ? "object-contain" : "object-cover"}`
             } object-center opacity-100 ${isLoaded ? "scale-100" : "scale-[1.01]"} ${imageClassName}`}
           />
         </picture>
       ) : (
-        <div className={`flex flex-col items-center justify-center p-6 text-center z-0 bg-stone-200/60 ${isNatural ? 'aspect-[4/5]' : 'absolute inset-0'}`}>
+        <div className={`flex flex-col items-center justify-center p-6 text-center z-0 bg-stone-200/40 ${isNatural ? 'aspect-[4/5]' : 'absolute inset-0'}`}>
           <span className="text-[10px] text-stone-500 uppercase tracking-[0.25em] font-semibold">{fallbackLabel}</span>
         </div>
       )}
@@ -63,10 +63,10 @@ export const PageTransition = ({ children, className = "" }) => {
 
   return (
     <motion.div
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.99 }}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -8, scale: 0.99 }}
-      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6, ease: PREMIUM_EASE }}
+      exit={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -4 }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, ease: PREMIUM_EASE }}
       className={`min-h-screen pt-24 pb-32 ${className}`}
     >
       {children}
@@ -99,7 +99,7 @@ export function EditorialConnectionGrid({ eyebrow = "CONEXÕES", title, descript
             key={item.route}
             type="button"
             onClick={() => navigate(item.route)}
-            className="group min-h-36 border border-stone-900/10 bg-white/25 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            className="sp-interactive-card group min-h-36 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
           >
             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.eyebrow || "Conexão"}</span>
             <span className="mt-4 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{item.title || item.label}</span>

@@ -93,8 +93,6 @@ const banalMethodSteps = [
   ["Ativar", "Levar a marca para campanhas, varejo, conteúdo, experiência e presença."]
 ];
 
-const banalFeaturedCaseIds = ["case-01", "case-05", "case-07", "case-11"];
-
 const verdeBurgoDeliveryStack = [
   ["Planejamento", "Escuta, orçamento, cronograma, prioridades e condução do processo."],
   ["Buffet", "Comida como hospitalidade, ritmo de serviço e parte da identidade do encontro."],
@@ -291,7 +289,7 @@ function Inicio({ navigate }) {
             transition={{ duration: 1, delay: 0.15, ease: PREMIUM_EASE }}
             className="grid gap-6"
           >
-            <section className="flex min-h-[24rem] flex-col justify-between bg-stone-950 p-7 text-[#F4F0E9] rounded-sm md:p-10" aria-labelledby="home-map-title">
+            <section className="sp-dark-panel flex min-h-[24rem] flex-col justify-between p-7 text-[#F4F0E9] rounded-sm md:p-10" aria-labelledby="home-map-title">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Mapa público</p>
                 <div className="mt-8 grid gap-3 sm:grid-cols-2" aria-label="Estrutura do ecossistema">
@@ -301,7 +299,7 @@ function Inicio({ navigate }) {
                     ["Verde Burgo", "Eventos completos"],
                     ["Biblioteca", "Pensamento público"]
                   ].map(([title, text]) => (
-                    <div key={title} className="border border-[#F4F0E9]/10 p-4 rounded-sm">
+                    <div key={title} className="border border-[#F4F0E9]/10 bg-[#F4F0E9]/[0.025] p-4 rounded-sm">
                       <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#F4F0E9]/80">{title}</p>
                       <p className="mt-2 text-xs font-light leading-relaxed text-[#F4F0E9]/45">{text}</p>
                     </div>
@@ -343,10 +341,10 @@ function Inicio({ navigate }) {
               key={company.id}
               type="button"
               onClick={() => navigate(company.route)}
-              className="group grid min-h-[22rem] gap-8 border border-stone-900/10 bg-white/30 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm lg:grid-cols-[0.95fr_1.05fr]"
+              className="sp-interactive-card group grid min-h-[22rem] gap-7 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm sm:gap-8 lg:grid-cols-[0.95fr_1.05fr]"
               aria-label={`Abrir ${company.name}`}
             >
-              <figure className="flex min-h-56 items-center justify-center overflow-hidden bg-[#F8F5EF] p-8 rounded-sm">
+              <figure className="sp-media-frame flex min-h-40 items-center justify-center overflow-hidden p-7 rounded-sm sm:min-h-48 md:p-8 lg:min-h-56">
                 <img
                   src={company.id === "banal" ? banalAssets.balancedLogo : verdeBurgoBrandAssets.balancedLogo}
                   alt={`${company.name}, empresa do ecossistema Samuel Carrera Paes`}
@@ -469,7 +467,7 @@ function Visao() {
             </div>
         </figure>
 
-        <footer className="mt-32 md:mt-48 bg-stone-950 text-stone-50 px-8 py-24 md:py-32 rounded-sm text-center shadow-xl">
+        <footer className="sp-cta-dark mt-32 md:mt-48 text-stone-50 px-8 py-24 md:py-32 rounded-sm text-center">
           <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight max-w-5xl mx-auto font-light text-balance">
             "Clareza estratégica, estética consistente e execução cuidadosa são ferramentas de negócio."
           </h2>
@@ -507,7 +505,7 @@ function PaesConsultoria({ navigate }) {
         </header>
 
         <section className="grid gap-8 border-b border-stone-900/10 py-16 lg:grid-cols-[0.9fr_1.1fr]" aria-labelledby="consultoria-operating-title">
-          <div className="bg-stone-950 p-8 text-[#F4F0E9] rounded-sm md:p-10">
+            <div className="sp-dark-panel p-8 text-[#F4F0E9] rounded-sm md:p-10">
             <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Arquitetura pública</span>
             <h2 id="consultoria-operating-title" className="font-serif text-4xl leading-tight md:text-6xl text-balance">
               Uma pessoa, uma visão, empresas especializadas e uma biblioteca que sustenta a tese.
@@ -519,7 +517,7 @@ function PaesConsultoria({ navigate }) {
 
           <div className="grid gap-4 md:grid-cols-2">
             {operatingLanes.map(([title, text], index) => (
-              <article key={title} className="flex min-h-full flex-col border border-stone-900/10 bg-white/30 p-6 rounded-sm">
+              <article key={title} className="sp-surface flex min-h-full flex-col p-6 rounded-sm">
                 <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                 <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
                 <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
@@ -548,14 +546,14 @@ function PaesConsultoria({ navigate }) {
 
           <div className="grid gap-8 lg:grid-cols-2">
             {consultancyCompanies.map((company) => (
-              <article key={company.id} className="group flex min-h-full flex-col border border-stone-900/10 bg-white/35 transition-colors duration-500 hover:bg-white/70 rounded-sm">
+              <article key={company.id} className="sp-interactive-card group flex min-h-full flex-col rounded-sm">
                 <button
                   type="button"
                   onClick={() => navigate(company.route)}
                   className="flex h-full flex-col text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
                   aria-label={`Abrir empresa ${company.name}`}
                 >
-                  <figure className="relative aspect-[4/3] overflow-hidden bg-stone-200/50">
+                  <figure className="sp-media-frame relative aspect-[4/3] overflow-hidden">
                     <ImageWithFallback src={company.image} alt={`Imagem da empresa ${company.name} no ecossistema criativo de Samuel Carrera Paes`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]" />
                   </figure>
                   <div className="flex flex-1 flex-col p-8">
@@ -592,7 +590,7 @@ function PaesConsultoria({ navigate }) {
           </header>
 
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <article className="border border-stone-900/10 bg-white/35 p-8 rounded-sm">
+            <article className="sp-surface-strong p-8 rounded-sm">
               <div className="mb-10 flex items-center justify-between gap-6 border-b border-stone-900/10 pb-8">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">BANAL</p>
@@ -605,7 +603,7 @@ function PaesConsultoria({ navigate }) {
               <div className="grid gap-6 md:grid-cols-2">
                 {casesData.map((project) => (
                   <button key={project.id} type="button" onClick={() => navigate(`case/${project.id}`)} className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm">
-                    <figure className="relative aspect-[4/3] overflow-hidden bg-stone-200/50 rounded-sm">
+                    <figure className="sp-media-frame relative aspect-[4/3] overflow-hidden rounded-sm">
                       <ImageWithFallback src={project.thumb} alt={`Projeto BANAL por Samuel Carrera Paes: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
                     </figure>
                     <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.number} · {project.territory}</p>
@@ -627,10 +625,10 @@ function PaesConsultoria({ navigate }) {
               </div>
             </article>
 
-            <article className="flex flex-col border border-stone-900/10 bg-white/35 p-8 rounded-sm">
+            <article className="sp-surface-strong flex flex-col p-8 rounded-sm">
               <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">VERDE BURGO</p>
               <h3 className="mt-3 font-serif text-4xl text-stone-950">Eventos completos, do planejamento à execução.</h3>
-              <figure className="mt-8 aspect-[4/3] overflow-hidden bg-stone-200/50 rounded-sm">
+              <figure className="sp-media-frame mt-8 aspect-[4/3] overflow-hidden rounded-sm">
                 <ImageWithFallback src={verdeburgoAssets.mesaRefinada} alt="Projeto Provence Raiz dentro da Verde Burgo, com direção criativa de Samuel Paes" mode="cover" imageClassName="transition-transform duration-[1.5s] hover:scale-[1.03]" />
               </figure>
               <p className="mt-8 text-sm font-light leading-relaxed text-stone-600">
@@ -651,9 +649,6 @@ function Banal({ navigate }) {
   const scrollToBanalSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-  const featuredCases = banalFeaturedCaseIds
-    .map((caseId) => casesData.find((project) => project.id === caseId))
-    .filter(Boolean);
 
   return (
     <PageTransition>
@@ -678,7 +673,7 @@ function Banal({ navigate }) {
           <div className="flex flex-col justify-between">
             <div>
               <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">BANAL · MARCA · MERCADO</span>
-              <figure className="mb-12 max-w-sm border border-stone-900/10 bg-white/35 p-8 rounded-sm">
+              <figure className="sp-media-frame mb-12 max-w-sm p-8 rounded-sm">
                 <img
                   src={banalAssets.balancedLogo}
                   alt="BANAL"
@@ -712,7 +707,7 @@ function Banal({ navigate }) {
             </div>
           </div>
 
-          <figure className="min-w-0 overflow-hidden border border-stone-900/10 bg-white/35 rounded-sm shadow-sm">
+          <figure className="sp-surface-strong min-w-0 overflow-hidden rounded-sm">
             <div className="aspect-[4/5] overflow-hidden bg-[#F8F5EF] md:aspect-[16/13]">
               <ImageWithFallback
                 src={banalAssets.showcase}
@@ -746,7 +741,7 @@ function Banal({ navigate }) {
               </p>
               <div className="mt-12 grid gap-4 md:grid-cols-5">
                 {banalIdentityItems.map(([label, text]) => (
-                  <article key={label} className="border border-stone-900/10 bg-white/30 p-5 rounded-sm">
+                  <article key={label} className="sp-surface p-5 rounded-sm">
                     <h3 className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">{label}</h3>
                     <p className="mt-4 text-xs font-light leading-relaxed text-stone-500">{text}</p>
                   </article>
@@ -776,7 +771,7 @@ function Banal({ navigate }) {
             </h2>
           </header>
           <div className="grid gap-x-8 gap-y-14 md:grid-cols-2 xl:grid-cols-4">
-            {casesData.map((project) => (
+            {casesData.map((project, index) => (
               <article key={project.id} className="group">
                 <button
                   type="button"
@@ -784,11 +779,13 @@ function Banal({ navigate }) {
                   aria-label={`Ver case BANAL: ${project.title}`}
                   className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
                 >
-                  <figure className="aspect-[4/5] overflow-hidden bg-stone-200/50 rounded-sm">
+                  <figure className="sp-media-frame aspect-[4/5] overflow-hidden rounded-sm">
                     <ImageWithFallback
                       src={project.thumb}
                       alt={`Capa do case ${project.title}, projeto BANAL por Samuel Carrera Paes`}
                       mode="cover"
+                      loading={index < 4 ? "eager" : "lazy"}
+                      fetchPriority={index < 4 ? "high" : undefined}
                       imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]"
                     />
                   </figure>
@@ -805,46 +802,6 @@ function Banal({ navigate }) {
                 </button>
               </article>
             ))}
-          </div>
-        </section>
-
-        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-cases-selecionados">
-          <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Trabalhos selecionados</span>
-            <h2 id="banal-cases-selecionados" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Cada projeto revela uma forma de transformar percepção em presença.
-            </h2>
-          </header>
-          <div className="grid gap-8 lg:grid-cols-2">
-            {featuredCases.map((project) => {
-              const group = banalCaseGroups.find((item) => item.parentCaseId === project.id);
-              return (
-                <article key={project.id} className="group grid gap-6 border border-stone-900/10 bg-white/30 p-5 rounded-sm md:grid-cols-[0.82fr_1.18fr]">
-                  <figure className="aspect-[4/5] overflow-hidden bg-stone-200/50 rounded-sm md:aspect-square">
-                    <ImageWithFallback
-                      src={project.thumb}
-                      alt={`Capa editorial do case selecionado ${project.title}`}
-                      mode="cover"
-                      imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]"
-                    />
-                  </figure>
-                  <div className="flex flex-col justify-between">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{group?.label || project.territory}</p>
-                      <h3 className="mt-5 font-serif text-3xl leading-tight text-stone-950 text-balance">{project.title}</h3>
-                      <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{project.caseDepth?.intro || project.shortTese}</p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => navigate(`case/${project.id}`)}
-                      className="mt-8 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                    >
-                      Ver case <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-                    </button>
-                  </div>
-                </article>
-              );
-            })}
           </div>
         </section>
 
@@ -866,7 +823,7 @@ function Banal({ navigate }) {
           </ol>
         </section>
 
-        <footer className="mb-16 bg-stone-950 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
+        <footer className="sp-cta-dark mb-16 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
           <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
             Uma marca não precisa aparecer mais. Precisa ser melhor lida.
           </p>
@@ -943,7 +900,7 @@ function CaseDetail({ caseId, navigate }) {
             </div>
           </dl>
 
-          <figure className="relative mb-24 aspect-[16/9] w-full overflow-hidden bg-stone-200/50 rounded-sm shadow-sm">
+          <figure className="sp-media-frame relative mb-24 aspect-[16/9] w-full overflow-hidden rounded-sm">
             <ImageWithFallback
               src={c.thumb}
               mode="cover"
@@ -979,7 +936,7 @@ function CaseDetail({ caseId, navigate }) {
 
             <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {c.caseDepth.pillars.map(([title, text], index) => (
-                <article key={title} className="min-w-0 border border-stone-900/10 bg-white/25 p-5 rounded-sm">
+                <article key={title} className="sp-surface min-w-0 p-5 rounded-sm">
                   <span className="font-serif text-3xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                   <h3 className="mt-5 text-xs font-bold uppercase tracking-[0.22em] text-stone-900">{title}</h3>
                   <p className="mt-4 break-words text-sm font-light leading-relaxed text-stone-600">{text}</p>
@@ -1011,7 +968,7 @@ function CaseDetail({ caseId, navigate }) {
               </p>
               <div className="mt-8 grid gap-4 md:grid-cols-2">
                 {caseGroup.subprojects.map((item) => (
-                  <article key={item.title} className="border border-stone-900/10 bg-white/25 p-5 rounded-sm">
+                  <article key={item.title} className="sp-surface p-5 rounded-sm">
                     <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.type}</p>
                     <h3 className="mt-4 font-serif text-2xl leading-tight text-stone-950">{item.title}</h3>
                     <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{item.scope}</p>
@@ -1054,7 +1011,7 @@ function CaseDetail({ caseId, navigate }) {
                     </header>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {sliceImgs.map((img, i) => (
-                        <figure key={i} className={`w-full bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm ${i === 0 || i % 3 === 0 ? 'md:col-span-2' : ''}`}>
+                        <figure key={i} className={`sp-media-frame w-full group overflow-visible rounded-sm m-0 p-0 ${i === 0 || i % 3 === 0 ? 'md:col-span-2' : ''}`}>
                            <ImageWithFallback src={img} alt={`Exposição temática de ${subTitle} por Samuel Carrera Paes - detalhe fotográfico ${i+1}`} mode="natural" imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out" />
                         </figure>
                       ))}
@@ -1072,7 +1029,7 @@ function CaseDetail({ caseId, navigate }) {
                 else if (c.gallery.length > 5 && idx % 3 === 0) spanClass = "md:col-span-2";
 
                 return (
-                  <figure key={idx} className={`${spanClass} w-full relative bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm`}>
+                  <figure key={idx} className={`${spanClass} sp-media-frame w-full relative group overflow-visible rounded-sm m-0 p-0`}>
                     <ImageWithFallback
                       src={img}
                       mode="natural"
@@ -1238,7 +1195,7 @@ function Verdeburgo({ navigate }) {
 
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {verdeBurgoDeliveryStack.map(([title, text]) => (
-              <article key={title} className="border border-stone-900/10 bg-white/30 p-6 rounded-sm">
+              <article key={title} className="sp-surface p-6 rounded-sm">
                 <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
                 <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
               </article>
@@ -1270,7 +1227,7 @@ function Verdeburgo({ navigate }) {
                   disabled={!project.action}
                   className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm disabled:cursor-default"
                 >
-                  <figure className="aspect-[4/5] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
+                  <figure className="sp-media-frame aspect-[4/5] overflow-hidden rounded-sm">
                     {project.type === "video" ? (
                       <video
                         src={project.media}
@@ -1317,7 +1274,7 @@ function Verdeburgo({ navigate }) {
                 key={service.slug}
                 type="button"
                 onClick={() => navigate(`servicos/${service.slug}`)}
-                className="group border border-stone-900/10 bg-white/35 px-5 py-5 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                className="sp-interactive-card group px-5 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
               >
                 <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{service.title}</p>
                 <p className="mt-3 text-xs font-light leading-relaxed text-stone-500">{service.statement}</p>
@@ -1326,7 +1283,7 @@ function Verdeburgo({ navigate }) {
           </div>
           <div className="mt-16 grid gap-4 border-t border-stone-900/10 pt-12 md:grid-cols-2 lg:grid-cols-3">
             {verdeBurgoEventFormats.map((format) => (
-              <div key={format} className="border border-stone-900/10 bg-white/35 px-5 py-5 rounded-sm">
+              <div key={format} className="sp-surface px-5 py-5 rounded-sm">
                 <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{format}</p>
               </div>
             ))}
@@ -1401,7 +1358,7 @@ function Verdeburgo({ navigate }) {
           </header>
 
           <figure className="mt-20 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-            <div className="relative aspect-[4/3] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
+            <div className="sp-media-frame relative aspect-[4/3] overflow-hidden rounded-sm">
               <ImageWithFallback
                 src={verdeburgoAssets.mesaRefinada}
                 alt="Render refinado da mesa do bolo Provence Raiz com Toile de Jouy, luminárias e florais."
@@ -1432,7 +1389,7 @@ function Verdeburgo({ navigate }) {
                 className={`grid gap-10 border-t border-stone-900/10 pt-12 lg:grid-cols-2 lg:items-center ${index % 2 === 1 ? "lg:[&>figure]:order-2" : ""}`}
                 aria-labelledby={`verdeburgo-chapter-${chapter.number}`}
               >
-                <figure className={`relative overflow-hidden bg-stone-200/40 rounded-sm shadow-sm ${chapter.frameClassName || "aspect-[4/3]"}`}>
+                <figure className={`sp-media-frame relative overflow-hidden rounded-sm ${chapter.frameClassName || "aspect-[4/3]"}`}>
                   <ImageWithFallback
                     src={chapter.image}
                     alt={chapter.alt}
@@ -1471,7 +1428,7 @@ function Verdeburgo({ navigate }) {
           <div className="mt-16 grid gap-8 lg:grid-cols-3">
             {verdeburgoObjects.map((item) => (
               <article key={item.title} className="flex flex-col border-t border-stone-900/10 pt-8">
-                <figure className="relative aspect-[4/3] overflow-hidden bg-white/40 rounded-sm shadow-sm">
+                <figure className="sp-media-frame relative aspect-[4/3] overflow-hidden rounded-sm">
                   <ImageWithFallback
                     src={item.image}
                     alt={item.alt}
@@ -1512,7 +1469,7 @@ function Verdeburgo({ navigate }) {
           navigate={navigate}
         />
 
-        <footer className="mb-16 bg-stone-950 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
+        <footer className="sp-cta-dark mb-16 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
           <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
             Festa completa, identidade clara e execução tranquila.
           </p>
@@ -1595,7 +1552,7 @@ function ProvenceRaizPage({ navigate }) {
         </header>
 
         <figure className="grid gap-6 border-b border-stone-900/10 py-16 lg:grid-cols-[1.25fr_0.75fr]">
-          <div className="relative aspect-[16/10] overflow-hidden bg-stone-200/40 rounded-sm shadow-sm">
+          <div className="sp-media-frame relative aspect-[16/10] overflow-hidden rounded-sm">
             <ImageWithFallback
               src={verdeburgoAssets.hero}
               alt="Mural contemporâneo inspirado em Toile de Jouy para o projeto Provence Raiz da Verde Burgo, com direção criativa de Samuel Carrera Paes."
@@ -1677,7 +1634,7 @@ function ProvenceRaizPage({ navigate }) {
               }
             ].map((item) => (
               <article key={item.title} className="border-t border-stone-900/10 pt-8">
-                <figure className="relative aspect-[4/3] overflow-hidden bg-white/40 rounded-sm shadow-sm">
+                <figure className="sp-media-frame relative aspect-[4/3] overflow-hidden rounded-sm">
                   <ImageWithFallback src={item.image} alt={item.alt} mode="cover" imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]" />
                 </figure>
                 <h3 className="mt-8 font-serif text-3xl leading-tight text-stone-950">{item.title}</h3>
@@ -1841,7 +1798,7 @@ function Biblioteca({ navigate }) {
             </p>
             <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
               {bibliotecaTerritories.map(([title, text]) => (
-                <article key={title} className="border border-stone-900/10 bg-white/30 p-5 rounded-sm">
+                <article key={title} className="sp-surface p-5 rounded-sm">
                   <h3 className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">{title}</h3>
                   <p className="mt-4 text-xs font-light leading-relaxed text-stone-500">{text}</p>
                 </article>
@@ -1883,7 +1840,7 @@ function Biblioteca({ navigate }) {
             </button>
           </article>
           {sistemaArticleCards.map((card) => (
-            <article key={card.num} className="group flex min-h-[24rem] flex-col border border-stone-900/10 bg-white/40 transition-all duration-700 hover:bg-white/80 hover:border-stone-900/25 rounded-sm">
+            <article key={card.num} className="sp-interactive-card group flex min-h-[24rem] flex-col rounded-sm">
               <button
                 type="button"
                 onClick={() => navigate(`biblioteca/${card.slug}`)}
@@ -2131,7 +2088,7 @@ function SistemaArticle({ slug, navigate }) {
           <button
             type="button"
             onClick={() => navigate(`biblioteca/${previous.slug}`)}
-            className="group flex min-h-32 flex-col justify-between border border-stone-900/10 bg-white/30 p-6 text-left rounded-sm hover:bg-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            className="sp-interactive-card group flex min-h-32 flex-col justify-between p-6 text-left rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
           >
             <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
               <ArrowLeftCircle className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden="true" /> Anterior
@@ -2148,7 +2105,7 @@ function SistemaArticle({ slug, navigate }) {
           <button
             type="button"
             onClick={() => navigate(`biblioteca/${next.slug}`)}
-            className="group flex min-h-32 flex-col justify-between border border-stone-900/10 bg-white/30 p-6 text-left rounded-sm hover:bg-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            className="sp-interactive-card group flex min-h-32 flex-col justify-between p-6 text-left rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
           >
             <span className="inline-flex items-center justify-end gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
               Próximo <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -2208,14 +2165,14 @@ function EcosystemAtlas({ navigate }) {
               </h2>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
-              <article className="border border-stone-900/10 bg-white/25 p-6 rounded-sm">
+              <article className="sp-surface p-6 rounded-sm">
                 <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">BANAL</p>
                 <p className="mt-5 font-serif text-3xl leading-tight text-stone-950">{banalCaseGroups.length} núcleos estruturados.</p>
                 <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">
                   Inclui Porti Natal e Verão, Basquiat, Netflix/Tudum, Mangueira, Paraíso Tropical e outros projetos em catalogação editorial.
                 </p>
               </article>
-              <article className="border border-stone-900/10 bg-white/25 p-6 rounded-sm">
+              <article className="sp-surface p-6 rounded-sm">
                 <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">VERDE BURGO</p>
                 <p className="mt-5 font-serif text-3xl leading-tight text-stone-950">Empresa antes do case.</p>
                 <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">
@@ -2253,7 +2210,7 @@ function EcosystemAtlas({ navigate }) {
                         key={service.slug}
                         type="button"
                         onClick={() => navigate(`servicos/${service.slug}`)}
-                        className="group min-h-64 border border-stone-900/10 bg-white/25 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                        className="sp-interactive-card group min-h-64 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
                       >
                         <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-400">{service.company}</span>
                         <h3 className="mt-6 font-serif text-3xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{service.title}</h3>
@@ -2433,7 +2390,7 @@ function AuthorityServicePage({ slug, navigate }) {
               key={item.slug}
               type="button"
               onClick={() => navigate(`servicos/${item.slug}`)}
-              className="group min-h-36 border border-stone-900/10 bg-white/25 p-6 text-left transition-colors duration-500 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+              className="sp-interactive-card group min-h-36 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             >
               <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.company}</span>
               <span className="mt-4 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{item.title}</span>
@@ -2519,7 +2476,7 @@ function Contato() {
         <footer className="mt-auto pt-24">
           <section className="grid gap-8 border-y border-stone-900/10 py-12 md:grid-cols-2" aria-label="Escolhas de contato">
             {contactChoices.map((choice) => (
-              <article key={choice.name} className="group flex min-h-[28rem] flex-col justify-between border border-stone-900/10 bg-white/30 p-8 transition-colors duration-500 hover:bg-white/70 rounded-sm md:p-10">
+              <article key={choice.name} className="sp-interactive-card group flex min-h-[28rem] flex-col justify-between p-8 rounded-sm md:p-10">
                 <div>
                   <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
                     <img src={choice.image} alt={choice.name} className={`${choice.imageClassName} grayscale contrast-125`} loading="lazy" decoding="async" />
@@ -2603,7 +2560,7 @@ function Contato() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
               transition={{ duration: 0.4, ease: PREMIUM_EASE }}
-              className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-6 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] shadow-2xl flex items-center gap-3 z-50 whitespace-nowrap"
+              className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-6 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] shadow-[0_16px_38px_rgba(28,25,23,0.18)] flex items-center gap-3 z-50 whitespace-nowrap"
             >
               <CheckCircle2 className="w-4 h-4 text-stone-300" aria-hidden="true" /> {toast}
             </motion.div>
@@ -2780,10 +2737,10 @@ export default function SamuelPaesPortfolio() {
     route === "contato";
 
   return (
-    <div className="min-h-screen bg-[#F4F0E9] text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
+    <div className="sp-shell min-h-screen text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
 
       {/* NAVBAR GLOBAL FIXA - EDITORIAL */}
-      <header className="fixed inset-x-0 top-0 z-50 bg-[#F4F0E9]/90 backdrop-blur-xl border-b border-stone-900/10 transition-all duration-500">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-stone-900/[0.08] bg-[#F4F0E9]/95 backdrop-blur-md transition-colors duration-500 shadow-[0_1px_0_rgba(28,25,23,0.035)]">
         <nav aria-label="Navegação Principal" className="mx-auto flex h-24 max-w-[90rem] items-center justify-start gap-2 px-4 sm:gap-4 sm:px-6 lg:justify-between lg:px-12">
 
           <div className="flex shrink-0 justify-start lg:w-1/4">
@@ -2837,7 +2794,7 @@ export default function SamuelPaesPortfolio() {
                   onClick={() => handleNavClick(company.id)}
                   aria-current={active ? "page" : undefined}
                   aria-label={`Abrir ${company.label}`}
-                  className={`flex h-12 ${company.buttonClassName} items-center justify-center border px-2 transition-colors duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${active ? "border-stone-900 bg-white/70" : "border-stone-900/10 bg-white/20 hover:border-stone-900/30 hover:bg-white/60"}`}
+                  className={`flex h-12 ${company.buttonClassName} items-center justify-center border px-2 transition-colors duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${active ? "border-stone-900/70 bg-white/75" : "border-stone-900/10 bg-white/20 hover:border-stone-900/30 hover:bg-white/55"}`}
                 >
                   <img src={company.image} alt={company.label} className={`${company.imageClassName} object-contain grayscale contrast-125`} loading="lazy" decoding="async" />
                 </button>
@@ -2855,7 +2812,7 @@ export default function SamuelPaesPortfolio() {
                   onClick={() => handleNavClick(company.id)}
                   aria-current={active ? "page" : undefined}
                   aria-label={`Abrir ${company.label}`}
-                  className={`flex h-9 shrink-0 ${company.mobileButtonClassName} items-center justify-center border px-1 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm sm:h-10 sm:px-1.5 ${active ? "border-stone-900 bg-white/70" : "border-stone-900/10 bg-white/20"}`}
+                  className={`flex h-9 shrink-0 ${company.mobileButtonClassName} items-center justify-center border px-1 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm sm:h-10 sm:px-1.5 ${active ? "border-stone-900/70 bg-white/75" : "border-stone-900/10 bg-white/20"}`}
                 >
                   <img src={company.image} alt={company.label} className={`${company.imageClassName} max-h-5 object-contain grayscale contrast-125 sm:max-h-6`} loading="lazy" decoding="async" />
                 </button>
@@ -2890,7 +2847,7 @@ export default function SamuelPaesPortfolio() {
               animate={{ height: "100vh", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.6, ease: PREMIUM_EASE }}
-              className="lg:hidden absolute top-20 left-0 w-full bg-[#F4F0E9] flex max-h-[calc(100vh-5rem)] flex-col overflow-y-auto px-8 py-16 shadow-xl"
+              className="lg:hidden absolute top-20 left-0 w-full border-t border-stone-900/[0.08] bg-[#F4F0E9] flex max-h-[calc(100vh-5rem)] flex-col overflow-y-auto px-8 py-16 shadow-[0_18px_48px_rgba(28,25,23,0.06)]"
             >
               <div className="flex flex-col gap-6">
                 {navLinks.map((link, idx) => (
