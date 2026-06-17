@@ -71,6 +71,61 @@ const homeProofMetrics = [
   [String(sistemaArticleCards.length + 1), "textos na Biblioteca"],
 ];
 
+const homeAuthorityChips = [
+  "Direção criativa",
+  "Estratégia",
+  "Branding",
+  "Experiências",
+  "Eventos",
+  "Conteúdo"
+];
+
+const homeChallengeCards = [
+  {
+    title: "Visão dispersa",
+    text: "Quando uma ideia existe, mas ainda não virou linguagem, prioridade e presença pública compreensível."
+  },
+  {
+    title: "Experiência fragmentada",
+    text: "Quando marca, conteúdo, espaço, campanha, evento e operação parecem bons isoladamente, mas não sustentam a mesma direção."
+  },
+  {
+    title: "Repertório sem sistema",
+    text: "Quando existe cultura, gosto e ambição, mas falta uma tese para organizar decisões e transformar intenção em entrega."
+  }
+];
+
+const homeServiceCards = [
+  {
+    title: "Diagnóstico criativo",
+    text: "Mapa inicial de problema, tese, prioridade e próximos passos para marcas, projetos e experiências.",
+    route: "servicos/consultoria-criativa"
+  },
+  {
+    title: "Estratégia e posicionamento",
+    text: "Arquitetura de oferta, proposta de valor, mensagem e território público para negócios em evolução.",
+    route: "servicos/posicionamento"
+  },
+  {
+    title: "Identidade e presença",
+    text: "Direção verbal, visual e editorial para transformar visão em uma linguagem reconhecível.",
+    route: "servicos/branding"
+  },
+  {
+    title: "Experiências e eventos",
+    text: "Conceito, narrativa, jornada e operação para experiências presenciais com intenção e acabamento.",
+    route: "servicos/eventos"
+  }
+];
+
+const homeMethodSteps = [
+  ["Diagnóstico", "Entender contexto, ambição, restrições, público e ponto de confusão."],
+  ["Tese", "Definir a ideia central que organiza marca, conteúdo, experiência ou evento."],
+  ["Direção", "Traduzir a tese em linguagem, sistema, repertório e decisões criativas."],
+  ["Execução", "Orientar entregáveis, rituais, produção e implementação no mundo real."],
+  ["Evolução", "Medir, aprender e ajustar sem perder autoria, clareza e consistência."]
+];
+
 const operatingLanes = [
   ["Visão", "A tese que define direção, critérios e linguagem antes do projeto virar peça, campanha ou evento."],
   ["Empresa", "Estruturas criadas para operar mercados específicos com identidade, oferta e repertório próprios."],
@@ -242,7 +297,11 @@ function SamuelEntityPage({ navigate }) {
 function Inicio({ navigate }) {
   return (
     <PageTransition>
-      <DynamicSEO title="Início" />
+      <DynamicSEO
+        title="Início"
+        description="Samuel Carrera Paes e Paes Consultoria: direção criativa para transformar visão em marca, experiência, conteúdo, eventos e execução."
+        url=""
+      />
       <section className="mx-auto max-w-[96rem] px-6 pt-10 lg:px-12" aria-labelledby="home-title">
         <div className="grid gap-8 border-b border-stone-900/10 pb-10 lg:min-h-[calc(100vh-9rem)] lg:grid-cols-[1.12fr_0.88fr] lg:items-stretch">
           <motion.header
@@ -253,23 +312,47 @@ function Inicio({ navigate }) {
           >
             <div>
               <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.35em] text-stone-400">
-                Paes Consultoria · Ecossistema Criativo
+                Samuel Carrera Paes · Paes Consultoria
               </p>
               <h1
                 id="home-title"
-                className="max-w-6xl font-serif text-[19vw] leading-[0.78] tracking-tight text-stone-950 sm:text-[8.8rem] md:text-[10rem] lg:text-[11rem] xl:text-[12.5rem] text-balance"
+                className="max-w-6xl font-serif text-5xl leading-[0.9] tracking-tight text-stone-950 sm:text-6xl md:text-7xl lg:text-8xl xl:text-[8.5rem] text-balance"
               >
-                Samuel
-                <br aria-hidden="true" />
-                Paes.
+                Samuel Paes transforma visão em marca, experiência e execução.
               </h1>
               <div className="mt-10 grid gap-8 border-t border-stone-900/10 pt-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
                 <p className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
                   Diretor Criativo / Consultor Criativo
                 </p>
                 <p className="max-w-2xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-                  Cria empresas, identidades, narrativas e estruturas criativas capazes de transformar intenção em presença real.
+                  A Paes Consultoria ajuda marcas, negócios e projetos autorais a estruturar estratégia, identidade, experiências, eventos e conteúdo com direção criativa.
                 </p>
+              </div>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <button
+                  type="button"
+                  onClick={() => navigate("contato")}
+                  data-analytics-id="home_hero_diagnostico"
+                  className="sp-primary-cta rounded-sm text-[10px] font-bold uppercase tracking-[0.22em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#245071]"
+                >
+                  Solicitar diagnóstico criativo
+                  <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate("paes-consultoria")}
+                  data-analytics-id="home_hero_metodo"
+                  className="sp-secondary-cta w-fit rounded-sm text-[10px] font-bold uppercase tracking-[0.22em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#245071]"
+                >
+                  Ver método e ecossistema
+                </button>
+              </div>
+              <div className="mt-10 flex flex-wrap gap-2" aria-label="Territórios de atuação da Paes Consultoria">
+                {homeAuthorityChips.map((chip) => (
+                  <span key={chip} className="sp-authority-chip inline-flex items-center rounded-sm px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em]">
+                    {chip}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -335,6 +418,75 @@ function Inicio({ navigate }) {
           </motion.div>
         </div>
 
+        <section className="grid gap-10 border-b border-stone-900/10 py-14 lg:grid-cols-[0.72fr_1.28fr]" aria-labelledby="home-problem-title">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">O problema que resolvemos</span>
+            <h2 id="home-problem-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Muitas marcas têm visão. Poucas transformam essa visão em sistema.
+            </h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {homeChallengeCards.map((card) => (
+              <article key={card.title} className="sp-surface p-6 rounded-sm">
+                <h3 className="text-sm font-bold uppercase tracking-[0.22em] text-stone-900">{card.title}</h3>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{card.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-b border-stone-900/10 py-16 md:py-20" aria-labelledby="home-services-title">
+          <header className="mb-12 grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+            <div>
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Serviços vendáveis</span>
+              <h2 id="home-services-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+                O repertório vira oferta quando o próximo passo fica claro.
+              </h2>
+            </div>
+            <p className="max-w-4xl self-end text-lg font-light leading-relaxed text-stone-700 md:text-xl">
+              O pacote v2 reforça uma decisão importante: a Paes Consultoria precisa ser autoral e contratável ao mesmo tempo. Por isso, a home organiza serviços por problema, entrega e destino.
+            </p>
+          </header>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {homeServiceCards.map((service) => (
+              <button
+                key={service.title}
+                type="button"
+                onClick={() => navigate(service.route)}
+                className="sp-interactive-card group flex min-h-72 flex-col p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#245071] rounded-sm"
+              >
+                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Serviço</span>
+                <h3 className="mt-8 font-serif text-3xl leading-tight text-stone-950 group-hover:text-[#263d32] text-balance">{service.title}</h3>
+                <p className="mt-6 text-sm font-light leading-relaxed text-stone-600">{service.text}</p>
+                <span className="mt-auto pt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">
+                  Entender serviço <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-12 border-b border-stone-900/10 py-16 md:py-20 lg:grid-cols-[0.86fr_1.14fr]" aria-labelledby="home-method-title">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Método</span>
+            <h2 id="home-method-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
+              Diagnóstico, tese, direção, execução e evolução.
+            </h2>
+            <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
+              O método reduz risco percebido: antes da estética, existe leitura; antes da peça, existe tese; antes da execução, existe critério.
+            </p>
+          </div>
+          <ol className="grid gap-6 sm:grid-cols-2 xl:grid-cols-5">
+            {homeMethodSteps.map(([name, text], index) => (
+              <li key={name} className="border-t border-stone-900/10 pt-6">
+                <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.22em] text-stone-900">{name}</h3>
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
         <section className="grid gap-6 py-10 md:grid-cols-2" aria-label="Empresas do ecossistema Paes Consultoria">
           {consultancyCompanies.map((company) => (
             <button
@@ -366,6 +518,26 @@ function Inicio({ navigate }) {
             </button>
           ))}
         </section>
+
+        <footer className="sp-cta-dark mb-16 grid gap-10 px-8 py-16 text-[#F4F0E9] rounded-sm md:px-12 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Próximo passo</span>
+            <p className="max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
+              Comece por um diagnóstico criativo antes de transformar intenção em projeto.
+            </p>
+            <p className="mt-8 max-w-2xl text-sm font-light leading-relaxed text-[#F4F0E9]/70 md:text-base">
+              Traga o desafio. A primeira etapa é entender contexto, ambição, linguagem, operação e o que precisa ser decidido agora.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate("contato")}
+            data-analytics-id="home_final_diagnostico"
+            className="inline-flex w-fit items-center justify-center gap-3 border border-[#F4F0E9]/25 px-5 py-4 text-[10px] font-bold uppercase tracking-[0.22em] text-[#F4F0E9] transition-colors hover:border-[#F4F0E9]/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+          >
+            Solicitar diagnóstico <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </footer>
       </section>
     </PageTransition>
   );

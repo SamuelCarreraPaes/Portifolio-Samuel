@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --sp-paper: #f4f0e9;
-  --sp-paper-soft: #f8f5ef;
+  --sp-paper: #f4efe7;
+  --sp-paper-soft: #fffaf2;
   --sp-surface: rgba(255, 253, 248, 0.56);
   --sp-surface-strong: rgba(255, 253, 248, 0.78);
-  --sp-surface-muted: #ebe6dc;
-  --sp-ink: #1c1917;
-  --sp-ink-soft: #332e29;
-  --sp-muted: #78716c;
-  --sp-muted-light: #a8a09a;
-  --sp-line: rgba(28, 25, 23, 0.1);
-  --sp-line-strong: rgba(28, 25, 23, 0.18);
+  --sp-surface-muted: #e7dccd;
+  --sp-ink: #171512;
+  --sp-ink-soft: #3b3630;
+  --sp-muted: #6a6257;
+  --sp-muted-light: #8a8175;
+  --sp-line: rgba(23, 21, 18, 0.12);
+  --sp-line-strong: rgba(23, 21, 18, 0.22);
+  --sp-green: #263d32;
+  --sp-green-hover: #315342;
+  --sp-copper: #8a5a38;
+  --sp-blue: #245071;
   --sp-dark: #11100e;
   --sp-dark-soft: #171410;
-  --sp-focus: #1c1917;
-  --sp-shadow-subtle: 0 1px 0 rgba(28, 25, 23, 0.04), 0 18px 48px rgba(28, 25, 23, 0.025);
+  --sp-focus: #245071;
+  --sp-shadow-subtle: 0 1px 0 rgba(23, 21, 18, 0.04), 0 18px 48px rgba(23, 21, 18, 0.025);
 }
 
 html,
@@ -133,8 +137,59 @@ video {
   border: 1px solid rgba(244, 240, 233, 0.1);
 }
 
+.sp-primary-cta {
+  align-items: center;
+  background: var(--sp-green);
+  border: 1px solid rgba(23, 21, 18, 0.08);
+  color: var(--sp-paper-soft);
+  display: inline-flex;
+  gap: 0.75rem;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.95rem 1.25rem;
+  text-decoration: none;
+  transition:
+    background-color 200ms cubic-bezier(0.2, 0, 0, 1),
+    border-color 200ms cubic-bezier(0.2, 0, 0, 1),
+    transform 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.sp-primary-cta:hover {
+  background: var(--sp-green-hover);
+  transform: translateY(-1px);
+}
+
+.sp-secondary-cta {
+  align-items: center;
+  border-bottom: 1px solid rgba(23, 21, 18, 0.28);
+  color: var(--sp-ink);
+  display: inline-flex;
+  gap: 0.75rem;
+  padding-bottom: 0.45rem;
+  text-decoration: none;
+  transition:
+    border-color 200ms cubic-bezier(0.2, 0, 0, 1),
+    color 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.sp-secondary-cta:hover {
+  border-color: var(--sp-ink);
+  color: var(--sp-green);
+}
+
+.sp-authority-chip {
+  background: rgba(255, 250, 242, 0.44);
+  border: 1px solid var(--sp-line);
+  color: var(--sp-muted);
+  min-height: 2.75rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sp-interactive-card:hover {
+    transform: none;
+  }
+
+  .sp-primary-cta:hover {
     transform: none;
   }
 }
