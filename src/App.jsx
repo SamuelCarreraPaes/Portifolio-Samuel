@@ -302,8 +302,8 @@ function Inicio({ navigate }) {
         description="Samuel Carrera Paes e Paes Consultoria: direção criativa para transformar visão em marca, experiência, conteúdo, eventos e execução."
         url=""
       />
-      <section className="mx-auto max-w-[96rem] px-6 pt-10 lg:px-12" aria-labelledby="home-title">
-        <div className="grid gap-8 border-b border-stone-900/10 pb-10 lg:min-h-[calc(100vh-9rem)] lg:grid-cols-[1.12fr_0.88fr] lg:items-stretch">
+      <section className="mx-auto max-w-[96rem] px-6 pt-8 lg:px-12" aria-labelledby="home-title">
+        <div className="grid gap-8 border-b border-stone-900/10 pb-10 lg:min-h-[calc(100vh-8rem)] lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
           <motion.header
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -316,19 +316,19 @@ function Inicio({ navigate }) {
               </p>
               <h1
                 id="home-title"
-                className="max-w-6xl font-serif text-5xl leading-[0.9] tracking-tight text-stone-950 sm:text-6xl md:text-7xl lg:text-8xl xl:text-[8.5rem] text-balance"
+                className="max-w-5xl font-serif text-5xl leading-[0.96] tracking-tight text-stone-950 sm:text-6xl md:text-7xl lg:text-[4.75rem] xl:text-[5.8rem] 2xl:text-[7rem] text-balance"
               >
-                Samuel Paes transforma visão em marca, experiência e execução.
+                Transformar visão em presença.
               </h1>
-              <div className="mt-10 grid gap-8 border-t border-stone-900/10 pt-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
-                <p className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
+              <div className="mt-7 grid gap-6 border-t border-stone-900/10 pt-6 md:grid-cols-[0.76fr_1.24fr] md:items-start">
+                <p className="font-serif text-3xl leading-tight text-stone-950 md:text-4xl text-balance">
                   Diretor Criativo / Consultor Criativo
                 </p>
-                <p className="max-w-2xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-                  A Paes Consultoria ajuda marcas, negócios e projetos autorais a estruturar estratégia, identidade, experiências, eventos e conteúdo com direção criativa.
+                <p className="max-w-2xl text-base font-light leading-relaxed text-stone-700 md:text-lg">
+                  Sob direção de Samuel Carrera Paes, a Paes Consultoria ajuda marcas, negócios e projetos autorais a estruturar estratégia, identidade, experiências, eventos e conteúdo.
                 </p>
               </div>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <button
                   type="button"
                   onClick={() => navigate("contato")}
@@ -347,7 +347,7 @@ function Inicio({ navigate }) {
                   Ver método e ecossistema
                 </button>
               </div>
-              <div className="mt-10 flex flex-wrap gap-2" aria-label="Territórios de atuação da Paes Consultoria">
+              <div className="mt-8 flex flex-wrap gap-2" aria-label="Territórios de atuação da Paes Consultoria">
                 {homeAuthorityChips.map((chip) => (
                   <span key={chip} className="sp-authority-chip inline-flex items-center rounded-sm px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em]">
                     {chip}
@@ -356,7 +356,7 @@ function Inicio({ navigate }) {
               </div>
             </div>
 
-            <dl className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <dl className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {homeProofMetrics.map(([value, label]) => (
                 <div key={label} className="border-t border-stone-900/10 pt-5">
                   <dd className="font-serif text-4xl leading-none text-stone-950">{value}</dd>
@@ -372,9 +372,15 @@ function Inicio({ navigate }) {
             transition={{ duration: 1, delay: 0.15, ease: PREMIUM_EASE }}
             className="grid gap-6"
           >
-            <section className="sp-dark-panel flex min-h-[24rem] flex-col justify-between p-7 text-[#F4F0E9] rounded-sm md:p-10" aria-labelledby="home-map-title">
+            <section className="sp-dark-panel flex min-h-[24rem] flex-col p-7 text-[#F4F0E9] rounded-sm md:p-9" aria-labelledby="home-map-title">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Mapa público</p>
+                <h2 id="home-map-title" className="mt-6 max-w-xl font-serif text-4xl leading-[0.95] md:text-5xl xl:text-6xl text-balance">
+                  Ecossistema criativo autoral.
+                </h2>
+                <p className="mt-6 max-w-xl text-base font-light leading-relaxed text-[#F4F0E9]/70">
+                  Uma estrutura pública para conectar visão, empresas, projetos e biblioteca sem reduzir o trabalho a um catálogo de cases.
+                </p>
                 <div className="mt-8 grid gap-3 sm:grid-cols-2" aria-label="Estrutura do ecossistema">
                   {[
                     ["Paes Consultoria", "Visão e direção"],
@@ -389,15 +395,7 @@ function Inicio({ navigate }) {
                   ))}
                 </div>
               </div>
-              <div>
-                <h2 id="home-map-title" className="mt-8 font-serif text-4xl leading-[0.95] md:text-6xl lg:text-5xl xl:text-6xl text-balance">
-                  Ecossistema criativo autoral.
-                </h2>
-                <p className="mt-8 max-w-xl text-base font-light leading-relaxed text-[#F4F0E9]/70 md:text-lg">
-                  Uma estrutura pública para conectar visão, empresas, projetos e biblioteca sem reduzir o trabalho a um catálogo de cases.
-                </p>
-              </div>
-              <div className="mt-10 grid gap-2">
+              <div className="mt-8 grid gap-2">
                 {ecosystemPublicFlow.map((step) => (
                   <button
                     key={step.title}
