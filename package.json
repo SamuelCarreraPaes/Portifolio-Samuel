@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "seo": "node scripts/generate-seo-assets.mjs",
+    "smoke": "node scripts/project-os-smoke.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

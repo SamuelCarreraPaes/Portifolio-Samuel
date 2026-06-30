@@ -21,149 +21,25 @@ import {
   verdeburgoObjects,
 } from "./data/ecosystem";
 import { useRouter } from "./router";
+import { isKnownPublicRoute } from "./router/routes";
 import { playMutedLoop, PREMIUM_EASE } from "./motionConfig";
 import { DynamicSEO } from "./seo";
 import { SITE_URL, homePortrait } from "./seoData";
 import { EditorialConnectionGrid, ImageWithFallback, PageTransition } from "./components/shared";
-
-const ecosystemPublicFlow = [
-  {
-    number: "01",
-    title: "Samuel",
-    label: "Direção criativa",
-    text: "Visão, repertório, inteligência artificial, estética, operação e execução reunidos em uma atuação autoral.",
-    route: "sobre/samuel-carrera-paes",
-  },
-  {
-    number: "02",
-    title: "Visão",
-    label: "Tese e método",
-    text: "A Geração dos Realizadores como leitura de mundo: pensar, criar, operar e colocar no mundo real.",
-    route: "visao",
-  },
-  {
-    number: "03",
-    title: "Empresas",
-    label: "Estruturas vivas",
-    text: "BANAL e Verde Burgo são empresas com função própria, não apenas vitrines de trabalhos passados.",
-    route: "paes-consultoria",
-  },
-  {
-    number: "04",
-    title: "Projetos",
-    label: "Provas aplicadas",
-    text: "Cases, campanhas, eventos, atmosferas, ativações, marcas e experiências organizados por frente de atuação.",
-    route: "empresas/banal",
-  },
-  {
-    number: "05",
-    title: "Biblioteca",
-    label: "Produção intelectual",
-    text: "Artigos, ensaios, pesquisas e manifestos que sustentam publicamente o pensamento do ecossistema.",
-    route: "biblioteca",
-  },
-];
-
-const homeProofMetrics = [
-  ["2", "empresas em operação pública"],
-  [String(casesData.length), "núcleos BANAL catalogados"],
-  ["1", "projeto Verde Burgo publicado"],
-  [String(sistemaArticleCards.length + 1), "textos na Biblioteca"],
-];
-
-const homeAuthorityChips = [
-  "Direção criativa",
-  "Estratégia",
-  "Branding",
-  "Experiências",
-  "Eventos",
-  "Conteúdo"
-];
-
-const homeChallengeCards = [
-  {
-    title: "Visão dispersa",
-    text: "Quando uma ideia existe, mas ainda não virou linguagem, prioridade e presença pública compreensível."
-  },
-  {
-    title: "Experiência fragmentada",
-    text: "Quando marca, conteúdo, espaço, campanha, evento e operação parecem bons isoladamente, mas não sustentam a mesma direção."
-  },
-  {
-    title: "Repertório sem sistema",
-    text: "Quando existe cultura, gosto e ambição, mas falta uma tese para organizar decisões e transformar intenção em entrega."
-  }
-];
-
-const homeServiceCards = [
-  {
-    title: "Diagnóstico criativo",
-    text: "Mapa inicial de problema, tese, prioridade e próximos passos para marcas, projetos e experiências.",
-    route: "servicos/consultoria-criativa"
-  },
-  {
-    title: "Estratégia e posicionamento",
-    text: "Arquitetura de oferta, proposta de valor, mensagem e território público para negócios em evolução.",
-    route: "servicos/posicionamento"
-  },
-  {
-    title: "Identidade e presença",
-    text: "Direção verbal, visual e editorial para transformar visão em uma linguagem reconhecível.",
-    route: "servicos/branding"
-  },
-  {
-    title: "Experiências e eventos",
-    text: "Conceito, narrativa, jornada e operação para experiências presenciais com intenção e acabamento.",
-    route: "servicos/eventos"
-  }
-];
-
-const homeMethodSteps = [
-  ["Diagnóstico", "Entender contexto, ambição, restrições, público e ponto de confusão."],
-  ["Tese", "Definir a ideia central que organiza marca, conteúdo, experiência ou evento."],
-  ["Direção", "Traduzir a tese em linguagem, sistema, repertório e decisões criativas."],
-  ["Execução", "Orientar entregáveis, rituais, produção e implementação no mundo real."],
-  ["Evolução", "Medir, aprender e ajustar sem perder autoria, clareza e consistência."]
-];
-
-const operatingLanes = [
-  ["Visão", "A tese que define direção, critérios e linguagem antes do projeto virar peça, campanha ou evento."],
-  ["Empresa", "Estruturas criadas para operar mercados específicos com identidade, oferta e repertório próprios."],
-  ["Projeto", "Aplicações visíveis da visão em marca, marketing, varejo, eventos, hospitalidade e experiência."],
-  ["Biblioteca", "Produção intelectual que documenta método, posicionamento, pesquisa e repertório de Samuel Carrera Paes."],
-];
-
-const banalIdentityItems = [
-  ["Símbolo", "Assinatura Banal como marca editorial da unidade."],
-  ["Cor", "Paleta usada como código de presença, desejo e leitura."],
-  ["Tom", "Direto, cultural, estratégico e não publicitário demais."],
-  ["Função", "Traduzir estratégia em presença pública."],
-  ["Campo", "Marca, produto, varejo, cultura, campanha e identidade."]
-];
-
-const banalMethodSteps = [
-  ["Ler", "Mercado, cultura, produto, concorrência e desejo."],
-  ["Posicionar", "Definir lugar, promessa, tensão e diferença."],
-  ["Dar forma", "Construir identidade, linguagem, sistema visual e narrativa."],
-  ["Ativar", "Levar a marca para campanhas, varejo, conteúdo, experiência e presença."]
-];
-
-const verdeBurgoDeliveryStack = [
-  ["Planejamento", "Escuta, orçamento, cronograma, prioridades e condução do processo."],
-  ["Buffet", "Comida como hospitalidade, ritmo de serviço e parte da identidade do encontro."],
-  ["Decoração", "Atmosfera, matéria, florais, mobiliário, objetos e composição visual."],
-  ["Bar", "Serviço, carta, gesto, circulação, permanência e experiência de recepção."],
-  ["Cerimonial", "Fluxo, protocolo, tranquilidade, bastidor e cuidado com o acontecimento."],
-  ["Execução", "Montagem, fornecedores, equipe, produção, desmontagem e acabamento final."],
-];
-
-const bibliotecaTerritories = [
-  ["Manifesto", "A Geração dos Realizadores e a tese central do ecossistema."],
-  ["Marca", "Branding, percepção, valor, posicionamento e desejo."],
-  ["Varejo", "Loja física, produto, narrativa espacial e experiência."],
-  ["Eventos", "Hospitalidade, festa, identidade, atmosfera e comunicação 360 graus."],
-  ["IA e operação", "Tecnologia, método, repertório, produção e execução."],
-];
+import { CTAButton } from "./components/ui/CTA";
+import {
+  banalIdentityItems,
+  banalMethodSteps,
+  bibliotecaTerritories,
+  ecosystemPublicFlow,
+  homeAuthorityChips,
+  homeChallengeCards,
+  homeMethodSteps,
+  homeProofMetrics,
+  homeServiceCards,
+  operatingLanes,
+  verdeBurgoDeliveryStack,
+} from "./content/ecosystemContent";
 
 function SamuelEntityPage({ navigate }) {
   const connections = [
@@ -329,23 +205,20 @@ function Inicio({ navigate }) {
                 </p>
               </div>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <button
-                  type="button"
+                <CTAButton
                   onClick={() => navigate("contato")}
-                  data-analytics-id="home_hero_diagnostico"
-                  className="sp-primary-cta rounded-sm text-[10px] font-bold uppercase tracking-[0.22em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#245071]"
+                  analyticsId="home_hero_diagnostico"
+                  icon={<ArrowRightCircle className="h-4 w-4" aria-hidden="true" />}
                 >
                   Solicitar diagnóstico criativo
-                  <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
+                </CTAButton>
+                <CTAButton
+                  variant="secondary"
                   onClick={() => navigate("paes-consultoria")}
-                  data-analytics-id="home_hero_metodo"
-                  className="sp-secondary-cta w-fit rounded-sm text-[10px] font-bold uppercase tracking-[0.22em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#245071]"
+                  analyticsId="home_hero_metodo"
                 >
                   Ver método e ecossistema
-                </button>
+                </CTAButton>
               </div>
               <div className="mt-8 flex flex-wrap gap-2" aria-label="Territórios de atuação da Paes Consultoria">
                 {homeAuthorityChips.map((chip) => (
@@ -527,14 +400,14 @@ function Inicio({ navigate }) {
               Traga o desafio. A primeira etapa é entender contexto, ambição, linguagem, operação e o que precisa ser decidido agora.
             </p>
           </div>
-          <button
-            type="button"
+          <CTAButton
+            variant="dark"
             onClick={() => navigate("contato")}
-            data-analytics-id="home_final_diagnostico"
-            className="inline-flex w-fit items-center justify-center gap-3 border border-[#F4F0E9]/25 px-5 py-4 text-[10px] font-bold uppercase tracking-[0.22em] text-[#F4F0E9] transition-colors hover:border-[#F4F0E9]/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
+            analyticsId="home_final_diagnostico"
+            icon={<ArrowRightCircle className="h-4 w-4" aria-hidden="true" />}
           >
-            Solicitar diagnóstico <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-          </button>
+            Solicitar diagnóstico
+          </CTAButton>
         </footer>
       </section>
     </PageTransition>
@@ -2919,26 +2792,7 @@ export default function SamuelPaesPortfolio() {
   const isConsultoriaArea = route === "inicio" || route === "ecossistema" || route === "paes-consultoria" || route === "sobre/samuel-carrera-paes" || isAtlasRoute;
   const isBanalArea = route === "banal" || route === "empresas/banal" || route === "cases" || isCaseDetail;
   const isVerdeBurgoArea = route === "verdeburgo" || route === "empresas/verde-burgo" || route === "projetos/provence-raiz";
-  const routeMatches =
-    route === "inicio" ||
-    route === "sobre/samuel-carrera-paes" ||
-    route === "visao" ||
-    route === "ecossistema" ||
-    route === "paes-consultoria" ||
-    route === "cases" ||
-    route === "banal" ||
-    route === "empresas/banal" ||
-    route.startsWith("case/") ||
-    route === "verdeburgo" ||
-    route === "empresas/verde-burgo" ||
-    route === "projetos/provence-raiz" ||
-    route === "biblioteca" ||
-    route === "sistema" ||
-    route.startsWith("biblioteca/") ||
-    route.startsWith("sistema/") ||
-    route === `atlas/${authorityAtlas.slug}` ||
-    route.startsWith("servicos/") ||
-    route === "contato";
+  const routeMatches = isKnownPublicRoute(route, { atlasSlug: authorityAtlas.slug });
 
   return (
     <div className="sp-shell min-h-screen text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
