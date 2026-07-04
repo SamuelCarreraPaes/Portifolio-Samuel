@@ -2,7 +2,7 @@ export const strategicSeoRoutes = [
   { route: "inicio", title: "Paes Consultoria | Samuel Carrera Paes — Direção Criativa", schemaType: "WebPage" },
   { route: "sobre/samuel-carrera-paes", title: "Samuel Carrera Paes | Direção Criativa e Consultoria Criativa", schemaType: "ProfilePage" },
   { route: "visao", title: "Minha Visão", schemaType: "WebPage" },
-  { route: "cases", title: "Cases", schemaType: "CollectionPage" },
+  { route: "cases", title: "Portfólio de Trabalhos", schemaType: "CollectionPage" },
   { route: "sistema", title: "Sistema de Direção Criativa", schemaType: "CollectionPage" },
   { route: "contato", title: "Contato", schemaType: "WebPage" },
 ];

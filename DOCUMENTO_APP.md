@@ -6,11 +6,19 @@ Em 2026-07-04 foi aplicada a Opção B de retorno estratégico: recuperar a vers
 
 ## Objetivo Da Versão
 
-O site deve voltar a funcionar como um portfólio autoral de direção criativa e consultoria criativa:
+O site deve funcionar como um portfólio autoral amplo de Samuel Carrera Paes, sem ficar preso apenas a branding, marketing ou varejo. A narrativa principal deve comportar direção criativa, imagem, espaço, eventos, cenografia, produto, campanhas, experiências físicas e projetos futuros.
 
 Samuel Paes -> Visão -> Cases -> Sistema -> Contato
 
 BANAL e Verde Burgo deixam de ser arquitetura pública principal nesta fase. O repertório visual, os assets e os caminhos antigos permanecem preservados, mas não são protagonistas da navegação.
+
+## Direção Narrativa Atual
+
+- Samuel Carrera Paes é o centro do site.
+- Marca é um território possível, não a tese inteira.
+- Varejo é um território possível, não o limite do portfólio.
+- A área de cases deve receber trabalhos de naturezas diferentes, incluindo projetos de imagem, espaço, eventos, cenografia, varejo, produto e experiências.
+- Provence Raiz e futuros trabalhos ligados à Verde Burgo devem entrar como projetos/cases quando houver curadoria de conteúdo e assets, não como substitutos da arquitetura principal.
 
 ## Rotas Públicas
 
@@ -18,7 +26,7 @@ BANAL e Verde Burgo deixam de ser arquitetura pública principal nesta fase. O r
 | --- | --- |
 | `/` | Início |
 | `/visao` | Visão criativa e posicionamento autoral |
-| `/cases` | Portfólio de 11 cases |
+| `/cases` | Portfólio de trabalhos selecionados |
 | `/case/:id` | Detalhe de cada case |
 | `/sistema` | Hub editorial dos artigos |
 | `/sistema/:slug` | Artigo individual |

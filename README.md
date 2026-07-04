@@ -54,11 +54,17 @@ O SEO público volta a priorizar:
 - Consultoria Paes
 - direção criativa
 - consultoria criativa
+- portfólio criativo
+- direção de arte
+- cenografia
+- eventos
+- experiência física
+- pesquisa visual
 - branding
 - marketing
+- campanhas
 - varejo
 - visual merchandising
-- experiência de marca
 
 Arquivos principais:
 
