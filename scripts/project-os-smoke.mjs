@@ -2,19 +2,9 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { authorityAtlas, authorityServices } from "../src/authorityMap.js";
-import { casesData } from "../src/data/cases.js";
 import { publicRouteDefinitions, isKnownPublicRoute } from "../src/router/routes.js";
 import { strategicSeoRoutes } from "../src/seoRegistry.js";
 import { sistemaArticleCards } from "../src/sistemaArticleCards.js";
-import {
-  ecosystemPublicFlow,
-  homeServiceCards,
-  verdeBurgoDeliveryStack,
-} from "../src/content/ecosystemContent.js";
-import { analyticsEvents } from "../src/analytics/events.js";
-import { cmsCollections } from "../src/content/cmsModel.js";
-import { aiOpportunities } from "../src/services/ai/opportunities.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -37,14 +27,6 @@ const requiredStaticRoutes = [
   "contato",
 ];
 
-const dynamicSmokeRoutes = [
-  `atlas/${authorityAtlas.slug}`,
-  `case/${casesData[0]?.id}`,
-  `biblioteca/${sistemaArticleCards[0]?.slug}`,
-  `sistema/${sistemaArticleCards[0]?.slug}`,
-  `servicos/${authorityServices[0]?.slug}`,
-];
-
 const checks = [];
 
 function check(name, condition, details = "") {
@@ -52,7 +34,6 @@ function check(name, condition, details = "") {
 }
 
 const appSource = await readFile(path.join(root, "src", "App.jsx"), "utf8");
-const seoSource = await readFile(path.join(root, "src", "seo.jsx"), "utf8");
 const indexHtml = await readFile(path.join(root, "index.html"), "utf8");
 const robots = await readFile(path.join(root, "public", "robots.txt"), "utf8");
 const sitemap = await readFile(path.join(root, "public", "sitemap.xml"), "utf8");
@@ -62,30 +43,28 @@ const packageJson = JSON.parse(await readFile(path.join(root, "package.json"), "
 check("package has lint script", packageJson.scripts?.lint === "eslint .");
 check("package has build script", packageJson.scripts?.build === "vite build");
 check("package has smoke script", packageJson.scripts?.smoke === "node scripts/project-os-smoke.mjs");
-check("App imports extracted ecosystem content", appSource.includes("./content/ecosystemContent"));
-check("App uses route registry for known routes", appSource.includes("isKnownPublicRoute(route"));
-check("DynamicSEO remains in App", (appSource.match(/<DynamicSEO/g) || []).length >= 17);
-check("SEO injects JSON-LD", seoSource.includes("application/ld+json"));
-check("SEO keeps canonical update", seoSource.includes("link[rel='canonical']"));
+check("App exposes recovered Inicio page", appSource.includes("function Inicio"));
+check("App exposes recovered Cases page", appSource.includes("function Cases"));
+check("App exposes recovered Sistema page", appSource.includes("function Sistema"));
+check("App does not expose BANAL company page", !appSource.includes("function Banal"));
+check("App does not expose Verde Burgo company page", !appSource.includes("function Verdeburgo"));
+check("App maps legacy company routes to safe equivalents", appSource.includes('route === "empresas/banal"') && appSource.includes('route === "empresas/verde-burgo"'));
 check("index has base canonical", indexHtml.includes('rel="canonical"'));
+check("index centers Samuel Carrera Paes", indexHtml.includes("Samuel Carrera Paes"));
+check("index no longer promotes BANAL", !indexHtml.includes("BANAL"));
+check("index no longer promotes Verde Burgo", !indexHtml.includes("Verde Burgo"));
 check("robots references sitemap", robots.includes("sitemap.xml") && robots.includes("sitemap-images.xml"));
 check("sitemap contains homepage", sitemap.includes("https://paesconsultoria.com/"));
+check("sitemap contains cases", sitemap.includes("https://paesconsultoria.com/cases"));
+check("sitemap contains sistema", sitemap.includes("https://paesconsultoria.com/sistema"));
+check("sitemap no longer submits company pages", !sitemap.includes("/empresas/banal") && !sitemap.includes("/empresas/verde-burgo"));
 check("image sitemap contains image namespace", imageSitemap.includes("google.com/schemas/sitemap-image"));
-check("home ecosystem flow preserved", ecosystemPublicFlow.length === 5);
-check("home service cards preserved", homeServiceCards.length === 4);
-check("Verde Burgo delivery stack preserved", verdeBurgoDeliveryStack.length === 6);
-check("analytics events mapped without provider", analyticsEvents.length >= 3);
-check("CMS model stays future-only", cmsCollections.every((item) => item.implementation === "future"));
-check("AI opportunities stay hypotheses", aiOpportunities.every((item) => item.status === "hypothesis"));
-check("strategic SEO registry covers key routes", strategicSeoRoutes.length >= 10);
+check("strategic SEO registry covers recovered routes", strategicSeoRoutes.some((item) => item.route === "cases") && strategicSeoRoutes.some((item) => item.route === "sistema"));
+check("sistema article cards available", sistemaArticleCards.length >= 6);
 
 for (const route of requiredStaticRoutes) {
   check(`known static route: ${route}`, publicRouteDefinitions.some((definition) => definition.id === route));
-  check(`route matcher accepts: ${route}`, isKnownPublicRoute(route, { atlasSlug: authorityAtlas.slug }));
-}
-
-for (const route of dynamicSmokeRoutes.filter(Boolean)) {
-  check(`route matcher accepts dynamic: ${route}`, isKnownPublicRoute(route, { atlasSlug: authorityAtlas.slug }));
+  check(`route matcher accepts: ${route}`, isKnownPublicRoute(route));
 }
 
 const failures = checks.filter((item) => !item.ok);
@@ -95,8 +74,8 @@ for (const item of checks) {
 }
 
 if (failures.length) {
-  console.error(`\nProject OS smoke failed: ${failures.length} check(s).`);
+  console.error(`\nProject smoke failed: ${failures.length} check(s).`);
   process.exit(1);
 }
 
-console.log(`\nProject OS smoke passed: ${checks.length} checks.`);
+console.log(`\nProject smoke passed: ${checks.length} checks.`);

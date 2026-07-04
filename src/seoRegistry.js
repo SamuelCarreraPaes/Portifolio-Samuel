@@ -2,24 +2,25 @@ export const strategicSeoRoutes = [
   { route: "inicio", title: "Paes Consultoria | Samuel Carrera Paes — Direção Criativa", schemaType: "WebPage" },
   { route: "sobre/samuel-carrera-paes", title: "Samuel Carrera Paes | Direção Criativa e Consultoria Criativa", schemaType: "ProfilePage" },
   { route: "visao", title: "Minha Visão", schemaType: "WebPage" },
-  { route: "paes-consultoria", title: "Paes Consultoria", schemaType: "WebPage" },
-  { route: "empresas/banal", title: "BANAL", schemaType: "CollectionPage" },
-  { route: "empresas/verde-burgo", title: "Verde Burgo", schemaType: "CollectionPage" },
-  { route: "projetos/provence-raiz", title: "Provence Raiz", schemaType: "CreativeWork" },
-  { route: "biblioteca", title: "Biblioteca", schemaType: "WebPage" },
-  { route: "biblioteca/geracao-dos-realizadores", title: "Geração dos Realizadores", schemaType: "Article" },
+  { route: "cases", title: "Cases", schemaType: "CollectionPage" },
+  { route: "sistema", title: "Sistema de Direção Criativa", schemaType: "CollectionPage" },
   { route: "contato", title: "Contato", schemaType: "WebPage" },
 ];
 
 export const seoAliasCanonicals = {
-  ecossistema: "paes-consultoria",
-  cases: "empresas/banal",
-  banal: "empresas/banal",
-  verdeburgo: "empresas/verde-burgo",
-  sistema: "biblioteca",
+  "sobre/samuel-carrera-paes": "visao",
+  ecossistema: "visao",
+  "paes-consultoria": "visao",
+  banal: "cases",
+  "empresas/banal": "cases",
+  verdeburgo: "cases",
+  "empresas/verde-burgo": "cases",
+  "projetos/provence-raiz": "cases",
+  biblioteca: "sistema",
+  "biblioteca/geracao-dos-realizadores": "sistema",
 };
 
 export function getCanonicalRoute(route) {
-  if (route.startsWith("sistema/")) return route.replace(/^sistema\//, "biblioteca/");
+  if (route.startsWith("biblioteca/")) return route.replace(/^biblioteca\//, "sistema/");
   return seoAliasCanonicals[route] || route;
 }

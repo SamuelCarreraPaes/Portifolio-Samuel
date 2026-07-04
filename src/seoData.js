@@ -5,7 +5,6 @@ export const homePortrait = "/images/13_VISAO/about-transition.png";
 export const SITE_URL = "https://paesconsultoria.com";
 export const SEO_LAST_MODIFIED = "2026-06-14";
 export const SAMUEL_INSTAGRAM = "https://instagram.com/samuelcarrerapaes";
-export const VERDE_BURGO_INSTAGRAM = "https://instagram.com/verdeburgoeventos";
 export const DEFAULT_OG_IMAGE = homePortrait;
 export const SEO_KEYWORDS = [
   "Samuel Carrera Paes",
@@ -14,23 +13,11 @@ export const SEO_KEYWORDS = [
   "Consultoria Paes",
   "diretor criativo",
   "consultor criativo",
-  "BANAL marketing",
-  "Verde Burgo Eventos",
   "branding",
   "marketing",
   "campanhas",
   "collabs",
   "produto próprio",
-  "eventos",
-  "eventos completos",
-  "buffet",
-  "decoração",
-  "bar",
-  "cerimonial",
-  "planejamento de eventos",
-  "produção de eventos",
-  "hospitalidade",
-  "Provence Raiz",
   "varejo",
   "visual merchandising",
   "retail design",
@@ -74,7 +61,7 @@ export function getPaesEntity() {
     "knowsAbout": SEO_KEYWORDS,
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Serviços e territórios do ecossistema Samuel Paes",
+      "name": "Serviços e territórios da Paes Consultoria",
       "itemListElement": authorityServices.map((service) => ({
         "@type": "Offer",
         "itemOffered": {
@@ -89,26 +76,5 @@ export function getPaesEntity() {
 }
 
 export function getBrandEntities() {
-  return [
-    {
-      "@type": "Brand",
-      "@id": `${SITE_URL}/#banal`,
-      "name": "BANAL",
-      "url": `${SITE_URL}/empresas/banal`,
-      "logo": absoluteUrl("/brands/banal/media/banal-logo-balanced.png"),
-      "parentOrganization": { "@id": `${SITE_URL}/#paes-consultoria` },
-      "description": "Empresa de branding, marketing, posicionamento, narrativa, campanhas, collabs, produto próprio, varejo e percepção de valor."
-    },
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#verde-burgo-eventos`,
-      "name": "Verde Burgo Eventos",
-      "alternateName": "Verde Burgo",
-      "url": `${SITE_URL}/empresas/verde-burgo`,
-      "logo": absoluteUrl("/brands/verde-burgo/logos/verde-burgo-logo-balanced.png"),
-      "sameAs": [VERDE_BURGO_INSTAGRAM],
-      "parentOrganization": { "@id": `${SITE_URL}/#paes-consultoria` },
-      "description": "Empresa de eventos com buffet, decoração, bar, cerimonial, planejamento, produção e execução com direção criativa aplicada."
-    }
-  ];
+  return [];
 }

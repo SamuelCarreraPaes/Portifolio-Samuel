@@ -1,414 +1,646 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
 
-import { authorityAtlas, authorityServiceGroups, authorityServices, getAuthorityService } from "./authorityMap";
 import { sistemaArticleCards } from "./sistemaArticleCards";
-import {
-  banalCaseGroups,
-  casesData,
-  getBanalCaseGroupByCaseId,
-} from "./data/cases";
-import {
-  banalAssets,
-  consultancyCompanies,
-  consultancyPrinciples,
-  verdeBurgoBrandAssets,
-  verdeBurgoEventFormats,
-  verdeBurgoMethod,
-  verdeburgoAssets,
-  verdeburgoChapters,
-  verdeburgoObjects,
-} from "./data/ecosystem";
-import { useRouter } from "./router";
-import { isKnownPublicRoute } from "./router/routes";
-import { playMutedLoop, PREMIUM_EASE } from "./motionConfig";
-import { DynamicSEO } from "./seo";
-import { SITE_URL, homePortrait } from "./seoData";
-import { EditorialConnectionGrid, ImageWithFallback, PageTransition } from "./components/shared";
-import { CTAButton } from "./components/ui/CTA";
-import {
-  banalIdentityItems,
-  banalMethodSteps,
-  bibliotecaTerritories,
-  ecosystemPublicFlow,
-  homeAuthorityChips,
-  homeChallengeCards,
-  homeMethodSteps,
-  homeProofMetrics,
-  homeServiceCards,
-  operatingLanes,
-  verdeBurgoDeliveryStack,
-} from "./content/ecosystemContent";
 
-function SamuelEntityPage({ navigate }) {
-  const connections = [
-    {
-      eyebrow: "Núcleo",
-      title: "Paes Consultoria",
-      text: "A estrutura que organiza visão, direção criativa, consultoria e construção de presença.",
-      route: "paes-consultoria"
-    },
-    {
-      eyebrow: "Empresa",
-      title: "BANAL",
-      text: "A camada de branding, marketing, conteúdo, comunicação e percepção de valor.",
-      route: "empresas/banal"
-    },
-    {
-      eyebrow: "Empresa",
-      title: "Verde Burgo",
-      text: "A frente de eventos, experiências, produção e direção criativa aplicada ao encontro real.",
-      route: "empresas/verde-burgo"
-    },
-    {
-      eyebrow: "Projeto",
-      title: "Provence Raiz",
-      text: "Um case de atmosfera, evento, identidade visual e experiência dentro da Verde Burgo.",
-      route: "projetos/provence-raiz"
-    },
-    {
-      eyebrow: "Biblioteca",
-      title: "Geração dos Realizadores",
-      text: "O conceito que organiza criação, execução, tecnologia, repertório e presença.",
-      route: "biblioteca/geracao-dos-realizadores"
-    },
-    {
-      eyebrow: "Atlas",
-      title: "Mapa do Ecossistema",
-      text: "Serviços, empresas, cases e artigos conectados em uma malha pública de leitura.",
-      route: `atlas/${authorityAtlas.slug}`
+// --- DADOS DOS 11 CASES OFICIAIS COM NARRATIVA PROFUNDA E TAGS DE FILTRO ---
+const casesData = [
+  {
+    id: "case-01",
+    number: "01",
+    title: "Val Fortunatto — Brand Transition",
+    category: "Direção Criativa · Curadoria · Reposicionamento",
+    filterTags: ["BRAND", "RETAIL"],
+    shortTese: "Uma transição de marca construída pela curadoria, pela imagem e pela sofisticação do desejo.",
+    client: "Val Fortunatto",
+    role: "Direção Criativa",
+    territory: "Brand Transition",
+    deliverables: "Curadoria, Styling, Campanha",
+    directorsNote: "Reposicionar exige precisão. Preservamos a alma da marca, mas alteramos a lente. O desafio não foi mudar o produto, foi reposicionar o desejo.",
+    thumb: "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_01.png",
+    blocks: [
+      ["Abertura", "Este projeto marcou o início de uma transição estratégica de posicionamento para a Val Fortunatto — uma multimarca mineira consolidada no varejo feminino contemporâneo."],
+      ["Contexto & Desafio", "O objetivo central foi reconstruir a percepção estética da marca, sofisticando sua comunicação visual e aproximando um público mais jovem, sem romper com a elegância e a maturidade já reconhecidas pela cliente tradicional da loja."],
+      ["Estratégia & Execução", "A curadoria de produto (com marcas mineiras como Eminem, Victor Dzenk e Sara Santos) teve papel central. A direção visual foi construída sobre a tensão entre leveza e estrutura, fluidez e monumentalidade. Texturas densas e alfaiataria arquitetônica foram utilizadas para construir uma narrativa visual mais madura."],
+      ["Impacto & Resultados", "Reposicionamento visual estratégico da marca, elevando sua percepção editorial. Fortalecimento da percepção premium e rejuvenescimento gradual da comunicação. Feedback: 'A campanha marcou claramente uma nova fase estética da marca sem perder sua identidade original.'"]
+    ],
+    gallery: [
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_01.png",
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_02.png",
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_03.png",
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_04.png",
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_05.png",
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_06.png",
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_07.png",
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_08.png",
+      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_09.png"
+    ]
+  },
+  {
+    id: "case-02",
+    number: "02",
+    title: "Val Fortunatto Linho — Produto Próprio",
+    category: "Produto Próprio · Curadoria Comercial · Direção Criativa",
+    filterTags: ["PRODUCT", "BRAND"],
+    shortTese: "Quando uma multimarca transforma confiança em produto próprio.",
+    client: "Val Fortunatto",
+    role: "Direção Criativa",
+    territory: "Desenvolvimento de Coleção",
+    deliverables: "Design de Produto, Campanha, Styling",
+    directorsNote: "A curadoria evoluiu para criação. A loja deixou de ser vitrine para ser assinatura. O linho cru foi nosso ponto de partida estrutural.",
+    thumb: "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_01.png",
+    blocks: [
+      ["Abertura", "Este projeto nasceu de uma leitura estratégica sobre multimarcas contemporâneas: em muitos casos, o valor não está apenas nas marcas comercializadas, mas na confiança construída em torno do nome da própria loja."],
+      ["Contexto & Desafio", "As clientes não buscavam apenas uma etiqueta — buscavam o olhar da marca. O desafio era criar uma cápsula de alto verão em linho que não competisse com as marcas de festa, ocupando uma lacuna estratégica: o casual sofisticado."],
+      ["Estratégia & Execução", "Pesquisa de mercado, análise de comportamento e escolha do linho de alta qualidade. A campanha partiu da ideia de uma mulher que consome de forma consciente. O shooting em um casarão evocou memória, permanência e sofisticação natural."],
+      ["Impacto & Resultados", "A inserção de produto próprio no mix fortaleceu a percepção da Val Fortunatto como marca com autoridade autoral, diferenciando-a no mercado. Feedback: 'A cápsula traduziu a essência da Val Fortunatto; a campanha conseguiu mostrar uma mulher sofisticada e atemporal.'"]
+    ],
+    gallery: [
+      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_01.png",
+      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_02.png",
+      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_03.png",
+      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_04.png",
+      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_05.png",
+      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_06.png"
+    ]
+  },
+  {
+    id: "case-03",
+    number: "03",
+    title: "Ateliê Bambini — Arquitetura de Marca Infantil",
+    category: "Brand Architecture · Retail Strategy · Premium Positioning",
+    filterTags: ["BRAND", "SPACE"],
+    shortTese: "A construção de um novo universo para a infância contemporânea.",
+    client: "Ateliê Bambini",
+    role: "Consultoria Estratégica",
+    territory: "Brand Creation",
+    deliverables: "Identidade Visual, Narrativa Espacial",
+    directorsNote: "Rejeitamos o plástico e o primário. Optamos pela subversão do silêncio. Palha, madeira e pedra elevaram a memória infantil ao status de design.",
+    thumb: "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_01.png",
+    blocks: [
+      ["Abertura", "O Ateliê Bambini nasceu como desdobramento estratégico de um processo maior de consultoria realizado para a T Kids — uma multimarca infantil consolidada há mais de duas décadas."],
+      ["Contexto & Desafio", "A T Kids reunia produtos populares e premium no mesmo espaço, gerando um conflito de percepção crítico. Além disso, a marca permanecia visualmente presa à lógica estética de vinte anos atrás num cenário onde o varejo físico se tornou aspiracional."],
+      ["Estratégia & Execução", "Arquitetura estratégica: preservar a T Kids nas lojas de rua acessíveis e construir a Bambini para shopping, com experiência boutique. A identidade abandonou clichês plásticos e primários, baseando-se na materialidade poética da palha, madeira e pedra."],
+      ["Impacto & Resultados", "Reorganização estratégica do posicionamento, criando clareza entre ticket popular e experiência premium. Consolidação de uma visão de expansão futura. Feedback: 'O projeto conseguiu transformar completamente a percepção do que poderia ser uma marca infantil.'"]
+    ],
+    gallery: [
+      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_01.png",
+      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_02.png",
+      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_03.png",
+      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_04.png",
+      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_05.png",
+      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_06.png"
+    ]
+  },
+  {
+    id: "case-04",
+    number: "04",
+    title: "R Lovers — Calendário Comercial",
+    category: "Visual Merchandising · Calendário Comercial · Produto Hero",
+    filterTags: ["RETAIL"],
+    shortTese: "A arquitetura afetiva da conversão orientada por produtos-chave.",
+    client: "Reserva",
+    role: "Direção Criativa Aplicada",
+    territory: "Retail Campaign",
+    deliverables: "Vitrinismo, Styling, Exposição",
+    directorsNote: "A emoção exige estética exata. Não vendemos peças de inverno, vendemos o cenário onde elas ganham vida. Afeto convertido em performance comercial.",
+    thumb: "/images/04_R_LOVERS/SP_CASE04_RLOVERS_01.png",
+    blocks: [
+      ["Abertura", "O projeto R Lovers partiu de uma leitura estratégica do calendário comercial da Reserva, utilizando o Dia dos Namorados para fortalecer produtos de maior valor agregado da coleção de inverno."],
+      ["Contexto & Desafio", "Transformar o discurso romântico em experiência física para gerar desejo e aumentar a percepção de valor. Produtos de maior ticket, como jaquetas e mochilas, precisavam de contexto de presenteabilidade num país tropical."],
+      ["Estratégia & Execução", "Uso de 'produtos hero' como protagonistas da composição visual. A vitrine evitou a banalização e adotou uma atmosfera cinematográfica, afetiva e levemente nostálgica, trazendo um romantismo mais sensorial e conectado ao presente significativo."],
+      ["Impacto & Resultados", "Transformou uma data afetiva em ferramenta estratégica de conversão. Maior destaque para itens de ticket mais alto sem perder sofisticação. Feedback: 'O Dia dos Namorados foi usado como oportunidade real de conversão, não apenas como tema visual.'"]
+    ],
+    gallery: [
+      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_01.png",
+      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_02.png",
+      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_03.png",
+      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_04.png",
+      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_05.png"
+    ]
+  },
+  {
+    id: "case-05",
+    number: "05",
+    title: "Porti — Expansão Física & Cenografia",
+    category: "Retail Expansion · Visual Merchandising · Store Experience",
+    filterTags: ["SPACE", "RETAIL"],
+    shortTese: "A construção física, técnica e cenográfica de uma marca em expansão.",
+    client: "Porti",
+    role: "Direção Criativa",
+    territory: "Store Experience",
+    deliverables: "Layout, Cenografia, Implantação",
+    directorsNote: "Expandir exige preservar a aura. A vitrine é nosso outdoor tridimensional. De geometrias orgânicas a cascatas metálicas, transformamos consumo em espetáculo.",
+    thumb: "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_01.png",
+    blocks: [
+      ["Abertura", "A atuação com a Porti aconteceu em um momento estratégico de expansão da marca, onde o desafio não era apenas criar vitrines, mas estruturar a presença física em diferentes praças comerciais."],
+      ["Contexto & Desafio", "Aberturas simultâneas exigiam que a comunicação das redes sociais se traduzisse em loja. O desafio cobria coordenação visual de implantação, estoques, enxoval de manequins e soluções expositivas alinhadas à narrativa comercial."],
+      ["Estratégia & Execução", "Desenvolvimento técnico e operacional ponta a ponta. As vitrines sazonais atuaram como exemplos dessa metodologia: o Verão trouxe cenografia leve com campanha integrada, enquanto o Natal implantou uma densa cascata de esferas metálicas reflexivas de alto impacto."],
+      ["Impacto & Resultados", "Padronização visual nas lojas inauguradas e forte coerência entre redes sociais e ponto de venda. As vitrines deixaram de ser apenas sazonais. Feedback: 'A atuação ajudou a transformar a expansão em uma experiência visual mais profissional e coerente.'"]
+    ],
+    gallery: [
+      // Natal: 0 a 3
+      "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_01.png",
+      "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_02.png",
+      "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_03.png",
+      "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_04.png",
+      // Verão: 4 a 9
+      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_01.png",
+      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_02.png",
+      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_03.png",
+      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_04.png",
+      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_05.png",
+      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_06.png",
+      // Primavera: 10 a 15
+      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_01.png",
+      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_02.png",
+      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_03.png",
+      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_04.png",
+      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_05.png",
+      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_06.png"
+    ]
+  },
+  {
+    id: "case-06",
+    number: "06",
+    title: "HEXA — Copa do Mundo · Reserva",
+    category: "Campaign Translation · Retail Experience · Cultural Storytelling",
+    filterTags: ["CULTURE", "RETAIL"],
+    shortTese: "A tradução do imaginário do futebol brasileiro para o varejo contemporâneo.",
+    client: "Reserva",
+    role: "Estratégia Visual",
+    territory: "Campanha Sazonal",
+    deliverables: "Styling, Exposição de Produto",
+    directorsNote: "O futebol é a nossa cultura pop. O desafio foi engarrafar essa euforia com rigor estético. O popular elevado ao premium. O óbvio transformado em desejo.",
+    thumb: "/images/06_HEXA/SP_CASE06_HEXA_01.png",
+    blocks: [
+      ["Abertura", "O projeto HEXA nasceu da necessidade de transformar o universo emocional da Copa do Mundo em uma experiência comercial coerente com o DNA da Reserva."],
+      ["Contexto & Desafio", "Traduzir o imaginário cultural do futebol sem cair no clichê visual, preservando a sofisticação masculina. O desafio era manter o cliente fiel que compra o básico, oferecendo-lhe uma atmosfera temática."],
+      ["Estratégia & Execução", "A coleção foi estruturada em duas camadas (esportiva e urbana) reinterpretando polos rugby e jaquetas utilitárias. A cenografia de loja reproduziu os bastidores de um vestiário clássico com foco na assinatura tricolor do pássaro da marca."],
+      ["Impacto & Resultados", "Fortalecimento da identidade temática, integração entre emoção e conversão e aumento de percepção de novidade na loja. Feedback: 'A coleção parecia participar culturalmente daquele momento, e não apenas utilizar o tema comercialmente.'"]
+    ],
+    gallery: [
+      "/images/06_HEXA/SP_CASE06_HEXA_01.png",
+      "/images/06_HEXA/SP_CASE06_HEXA_02.png",
+      "/images/06_HEXA/SP_CASE06_HEXA_03.png"
+    ]
+  },
+  {
+    id: "case-07",
+    number: "07",
+    title: "Campanhas & Collabs",
+    category: "Brand Collaboration · Visual Merchandising · Cultural Translation",
+    filterTags: ["COLLAB", "CULTURE"],
+    shortTese: "A complexa fusão de universos de marca, cultura e entretenimento no varejo físico.",
+    client: "Múltiplos Clientes",
+    role: "Direção Criativa",
+    territory: "Brand Collaboration",
+    deliverables: "Narrativa Espacial, Styling",
+    directorsNote: "Colaborações exigem diplomacia visual. Basquiat, Mangueira e Netflix no mesmo espaço físico. A loja atua como tela em branco. Nunca como ruído.",
+    thumb: "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_01.png",
+    blocks: [
+      ["Abertura", "Projetos envolvendo universos como Basquiat, Mangueira e Netflix exigiram comunicação constante com intermediadores, respeitando códigos e restrições de licenciamento pesado."],
+      ["Contexto & Desafio", "A etapa final no ponto de venda é crítica: é onde a negociação institucional vira percepção para o consumidor. Cada collab precisava se impor no espaço da loja sem gerar entropia ou ruído visual confuso."],
+      ["Estratégia & Execução", "Basquiat injetou neoexpressionismo no varejo. A Mangueira exaltou a rua, o samba e a ancestralidade carioca com matches de estampas, sem folclore óbvio. A Netflix (Tudum) transformou o conforto do streaming pós-pandemia em manifesto lifestyle fora de casa."],
+      ["Impacto & Resultados", "Tradução de universos complexos, validação de diretrizes nacionais e consolidação de experiências físicas alinhadas. Feedback: 'As collabs foram apresentadas com força visual sem perder coerência de marca e aprovação institucional.'"]
+    ],
+    gallery: [
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_01.png",
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_02.png",
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_03.png",
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_MANGUEIRA_01.png",
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_MANGUEIRA_02.png",
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_MANGUEIRA_03.png",
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_NETFLIX_01.png",
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_NETFLIX_02.png",
+      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_NETFLIX_03.png"
+    ]
+  },
+  {
+    id: "case-08",
+    number: "08",
+    title: "Rouge & Gold — Exposição Premium",
+    category: "Exposição Premium · Direção Criativa · Brand Experience",
+    filterTags: ["SPACE", "RETAIL"],
+    shortTese: "Reestruturação estratégica da leitura visual por meio de cor e cenografia de luz.",
+    client: "Rouge & Gold",
+    role: "Estratégia Visual",
+    territory: "Retail Strategy",
+    deliverables: "Color Blocking, Iluminação",
+    directorsNote: "A arquitetura manipula o olhar. Cor e luz direcionam a atenção. Uma arara perfeitamente iluminada deixa de ser expositor e torna-se um pedestal.",
+    thumb: "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_01.png",
+    blocks: [
+      ["Abertura", "Um exercício de exposição premium em que produto, cor e luz funcionam como argumento puro e direto para gerar desejo."],
+      ["Contexto & Desafio", "Organizar o olhar do cliente dentro da loja, criando hierarquia visual e a sensação luxuosa de uma galeria comercial de moda."],
+      ["Estratégia & Execução", "Color blocking intenso, iluminação cenográfica pontual para escupir e valorizar detalhes de tecido, composição de manequins e leitura estruturada e editorial de cada peça."],
+      ["Impacto & Resultados", "Reestruturação estratégica da leitura visual da loja. Aumento da percepção de organização premium. Feedback: 'A loja passou a parecer uma galeria de produto cuidadosamente curada, alterando completamente a percepção do ambiente.'"]
+    ],
+    gallery: [
+      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_01.png",
+      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_02.png",
+      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_03.png",
+      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_04.png",
+      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_05.png"
+    ]
+  },
+  {
+    id: "case-09",
+    number: "09",
+    title: "Outerwear — Hotspots & Color Blocking",
+    category: "Hotspots · Color Blocking · Estratégia Visual",
+    filterTags: ["RETAIL", "PRODUCT"],
+    shortTese: "Construir pontos de calor visual para fazer o cliente parar, olhar e desejar.",
+    client: "Acervo Reserva",
+    role: "Direção Criativa Aplicada",
+    territory: "Comportamento de Consumo",
+    deliverables: "Exposição de Varejo",
+    directorsNote: "Inverno pede ruptura visual. O color blocking atua como choque na retina. Interrompemos o fluxo automático. A atenção é a nossa moeda mais cara.",
+    thumb: "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_01.png",
+    blocks: [
+      ["Abertura", "Em loja física, o cliente escaneia antes de decidir. Este projeto cria intencionalmente pontos de atração para interromper essa varredura rápida."],
+      ["Contexto & Desafio", "Peças de inverno utilitárias e outerwear volumoso precisavam ganhar uma presença visual atraente em uma jornada de compra que é altamente competitiva."],
+      ["Estratégia & Execução", "Implantação de 'hotspots', color blocking estruturado, tensão cromática entre primárias, uso de jaquetas puffer como ímãs visuais com iluminação focal dramática orientada ao olhar de conversão."],
+      ["Impacto & Resultados", "Construção estratégica de atração visual. Melhoria dramática da navegação do cliente dentro do espaço escuro da arquitetura de madeira. Feedback: 'As cores passaram a conduzir naturalmente o olhar do cliente, dando mais força visual à coleção.'"]
+    ],
+    gallery: [
+      "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_01.png",
+      "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_02.png",
+      "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_03.png"
+    ]
+  },
+  {
+    id: "case-10",
+    number: "10",
+    title: "Vintage Denim — Cápsula Heritage",
+    category: "Cápsula Heritage · Storytelling · Cenografia",
+    filterTags: ["SPACE", "PRODUCT"],
+    shortTese: "Uma cápsula de produto transformada em ambiente autêntico de memória e coleção.",
+    client: "Reserva",
+    role: "Direção Criativa",
+    territory: "Cenografia de Produto",
+    deliverables: "Atmosfera, Vitrine, Props",
+    directorsNote: "O denim é a farda da cultura pop. O atrito com o maquinário industrial cria um curto-circuito temporal. Não desenhamos lojas, montamos arquivos vivos.",
+    thumb: "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_01.png",
+    blocks: [
+      ["Abertura", "Denim como memória, atitude e identidade cultural — e não apenas como exposição pragmática de tecido."],
+      ["Contexto & Desafio", "O desafio era criar um universo inteiro que fizesse a cápsula de roupas de outono parecer rara, desejada, histórica e carregada de peso e narrativa visual forte."],
+      ["Estratégia & Execução", "Concepção cenográfica rica inspirada no estilo de um loft de colecionador. Atmosfera 'heritage' forjada com composição cromática tensa, mistura de antiguidades rústicas reais (como polias e máquinas fotográficas antigas), denim pesado e narrativa tátil profunda."],
+      ["Impacto & Resultados", "Criação de uma cenografia altamente narrativa. Aumento vertiginoso do storytelling visual e do impacto comercial da coleção no espaço físico. Feedback: 'A coleção passou a parecer uma experiência completa, criando desejo imediatamente.'"]
+    ],
+    gallery: [
+      "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_01.png",
+      "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_02.png",
+      "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_03.png"
+    ]
+  },
+  {
+    id: "case-11",
+    number: "11",
+    title: "Paraíso Tropical — Mata Atlântica",
+    category: "Capsule Collection · Visual Merchandising · Summer Storytelling",
+    filterTags: ["PRODUCT", "CULTURE"],
+    shortTese: "A força gráfica da Mata Atlântica como contraponto inteligente ao verão óbvio.",
+    client: "Reserva",
+    role: "Estratégia Visual",
+    territory: "Lançamento de Coleção",
+    deliverables: "Styling, Vitrine 2D, Cenografia",
+    directorsNote: "O verão tropical flerta com o clichê. Optamos pela sombra da floresta e pelo rigor da alfaiataria. Transformar escapismo em luxo absoluto é a nossa premissa.",
+    thumb: "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_01.png",
+    blocks: [
+      ["Abertura", "A cápsula Paraíso Tropical foi desenvolvida como entrada de verão, partindo de uma estampa exclusiva profundamente inspirada na densa força visual da Mata Atlântica brasileira."],
+      ["Contexto & Desafio", "Evitar o clichê do paraíso tropical praiano solar simples. O desafio foi trazer a profundidade orgânica da flora e fauna misturadas aos tons clássicos, neutros e ao estilo 'navy' elegante da marca."],
+      ["Estratégia & Execução", "A estampa funcionou como motor cenográfico. Em vitrines de lojas pequenas, aplicaram-se elementos bidimensionais focados na vegetação. Em flagships, recriou-se um imersivo e cenográfico fragmento selvagem florestal para envolver a coleção."],
+      ["Impacto & Resultados", "Valorização absoluta da estampa exclusiva. Integração hábil do produto com uma forte cenografia de escapismo sem perda da leitura do clássico da marca. Feedback: 'O visual merchandising conseguiu conectar floresta, produto e verão de forma clara e comercial.'"]
+    ],
+    gallery: [
+      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_01.png",
+      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_02.png",
+      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_03.png",
+      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_04.png",
+      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_05.png"
+    ]
+  }
+];
+
+const homePortrait = "/images/13_VISAO/about-transition.png";
+
+// --- CURVAS DE TRANSIÇÃO PREMIUM ---
+const PREMIUM_EASE = [0.22, 1, 0.36, 1];
+
+// --- CUSTOM ROUTER HOOK FOR SEO & SHAREABILITY ---
+function getRouteFromLocation() {
+  const pathRoute = window.location.pathname.replace(/^\/+|\/+$/g, "");
+  if (pathRoute && pathRoute !== "index.html") {
+    return decodeURIComponent(pathRoute);
+  }
+
+  const hashRoute = window.location.hash.replace(/^#\/?/, "");
+  return hashRoute || "inicio";
+}
+
+function routeToPath(route) {
+  return route === "inicio" ? "/" : `/${route}`;
+}
+
+function useRouter() {
+  const [route, setRoute] = useState(getRouteFromLocation);
+
+  useEffect(() => {
+    const handleRouteChange = (event) => {
+      const pathRoute = window.location.pathname.replace(/^\/+|\/+$/g, "");
+      const hasPathRoute = Boolean(pathRoute && pathRoute !== "index.html");
+      setRoute(getRouteFromLocation());
+      if (!(event?.type === "hashchange" && hasPathRoute)) {
+        window.scrollTo(0, 0);
+      }
+    };
+    window.addEventListener("hashchange", handleRouteChange);
+    window.addEventListener("popstate", handleRouteChange);
+    return () => {
+      window.removeEventListener("hashchange", handleRouteChange);
+      window.removeEventListener("popstate", handleRouteChange);
+    };
+  }, []);
+
+  const navigate = useCallback((newRoute) => {
+    window.history.pushState(null, "", routeToPath(newRoute));
+    setRoute(newRoute);
+    window.scrollTo(0, 0);
+  }, []);
+
+  return { route, navigate };
+}
+
+// --- DYNAMIC SEO INJECTION ---
+function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) {
+  useEffect(() => {
+    const siteUrl = "https://paesconsultoria.com";
+    const defaultTitle = "Samuel Carrera Paes | Creative Consultant — Paes Consultoria";
+    const defaultDescription = "Portfólio de Samuel Carrera Paes, consultor criativo especializado em direção criativa, visual merchandising, branding, moda, varejo e experiência de marca.";
+    const pageTitle = !title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`;
+    const pageDescription = description || defaultDescription;
+    const pageUrl = url ? `${siteUrl}/${url.replace(/^\/+/, "")}` : siteUrl;
+    document.title = pageTitle;
+
+    // Update or inject meta description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement("meta");
+      metaDesc.name = "description";
+      document.head.appendChild(metaDesc);
     }
+    metaDesc.content = pageDescription;
+
+    const seoSelectors = [
+      ["link[rel='canonical']", "href", pageUrl],
+      ["meta[property='og:title']", "content", pageTitle],
+      ["meta[property='og:description']", "content", pageDescription],
+      ["meta[property='og:url']", "content", pageUrl],
+      ["meta[name='twitter:title']", "content", pageTitle],
+      ["meta[name='twitter:description']", "content", pageDescription]
+    ];
+
+    seoSelectors.forEach(([selector, attribute, value]) => {
+      const tag = document.querySelector(selector);
+      if (tag) {
+        tag.setAttribute(attribute, value);
+      }
+    });
+
+    // Inject or update JSON-LD for rich snippets
+    let script = document.getElementById("seo-json-ld");
+    if (!script) {
+      script = document.createElement("script");
+      script.id = "seo-json-ld";
+      script.type = "application/ld+json";
+      document.head.appendChild(script);
+    }
+
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": schemaType,
+      "name": pageTitle,
+      ...(schemaType === "Article" ? {
+        "headline": pageTitle,
+        "author": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
+        "mainEntityOfPage": pageUrl,
+        "dateModified": "2026-05-24"
+      } : {}),
+      "description": pageDescription,
+      "image": image ? `${siteUrl}${image}` : `${siteUrl}${homePortrait}`,
+      "creator": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
+      "about": { "@type": "Person", "name": "Samuel Carrera Paes", "alternateName": "Samuel Paes" },
+      "url": pageUrl
+    };
+    script.text = JSON.stringify(schemaData);
+
+  }, [title, description, url, image, schemaType]);
+
+  return null;
+}
+
+// --- COMPONENTES DE ALTA PERFORMANCE & UX ---
+
+function ImageWithFallback({ src, alt, imageClassName = "", fallbackLabel, loading = "lazy", mode = "natural" }) {
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const isNatural = mode === "natural";
+
+  return (
+    <div
+      role="img"
+      aria-label={alt || fallbackLabel}
+      className={`w-full bg-stone-200/40 flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-visible'}`}
+    >
+      {!error ? (
+        <picture>
+          <img
+            src={src}
+            alt={alt || fallbackLabel}
+            loading={loading}
+            decoding="async"
+            onLoad={() => setIsLoaded(true)}
+            onError={() => setError(true)}
+            className={`w-full transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              isNatural ? "h-auto block object-contain" : "h-full absolute inset-0 object-cover"
+            } object-center ${
+              isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
+            } ${imageClassName}`}
+          />
+        </picture>
+      ) : (
+        <div className={`flex flex-col items-center justify-center p-6 text-center z-0 bg-stone-200/60 ${isNatural ? 'aspect-[4/5]' : 'absolute inset-0'}`}>
+          <span className="text-[10px] text-stone-500 uppercase tracking-[0.25em] font-semibold">{fallbackLabel}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const PageTransition = ({ children, className = "" }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12, scale: 0.99 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -8, scale: 0.99 }}
+      transition={{ duration: 0.6, ease: PREMIUM_EASE }}
+      className={`min-h-screen pt-24 pb-32 ${className}`}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+// --- PÁGINAS ---
+
+function Inicio({ navigate }) {
+  const stats = [
+    { number: "09+", label: "Anos", text: "Construindo presença no varejo premium." },
+    { number: "40+", label: "Projetos", text: "Campanhas e narrativas espaciais executadas." },
+    { number: "10+", label: "Implantações", text: "Lojas e inaugurações acompanhadas." },
+    { number: "11", label: "Cases", text: "Projetos estratégicos de referência." },
+    { number: "100%", label: "Foco", text: "Construção tátil de percepção de valor." },
   ];
 
   return (
     <PageTransition>
-      <DynamicSEO
-        fullTitle="Samuel Carrera Paes | Direção Criativa e Consultoria Criativa"
-        description="Conheça Samuel Carrera Paes, diretor criativo e consultor criativo à frente da Paes Consultoria, com atuação em branding, eventos e ecossistemas de presença."
-        url="sobre/samuel-carrera-paes"
-        image={homePortrait}
-        schemaType="ProfilePage"
-        schemaExtra={{
-          mainEntity: { "@id": `${SITE_URL}/#samuel-carrera-paes` },
-          about: [
-            { "@id": `${SITE_URL}/#samuel-carrera-paes` },
-            { "@id": `${SITE_URL}/#paes-consultoria` },
-            { "@id": `${SITE_URL}/#banal` },
-            { "@id": `${SITE_URL}/#verde-burgo-eventos` }
-          ]
-        }}
-      />
-      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="samuel-entity-title">
-        <header className="grid gap-14 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.78fr_1.22fr]">
-          <div>
-            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">SOBRE SAMUEL CARRERA PAES</span>
-            <h1 id="samuel-entity-title" className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
-              Diretor criativo, consultor criativo e criador de ecossistemas de presença.
-            </h1>
-          </div>
-          <div className="self-end">
-            <p className="max-w-3xl text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
-              Samuel Carrera Paes atua na interseção entre direção criativa, consultoria, branding, eventos, comunicação e experiência.
-            </p>
-            <p className="mt-8 max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
-              Seu trabalho parte de uma pergunta central: como transformar intenção em presença real? A resposta se organiza em estratégia, linguagem, percepção, operação e execução, sempre com atenção ao que uma marca, empresa ou evento precisa sustentar no mundo.
-            </p>
-          </div>
+      <DynamicSEO title="Início" />
+      <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col justify-center min-h-[85vh] pt-10" aria-labelledby="home-title">
+
+        {/* SELO LOGO + PORTFOLIO 2026 */}
+        <header className="mb-12 flex items-center gap-4">
+          <img
+            src="/images/00_LOGOS/symbol-black-transparent.png"
+            alt="Samuel Carrera Paes Logo"
+            className="h-20 md:h-24 lg:h-28 w-auto max-w-none object-contain opacity-100 bg-transparent"
+            onError={(e) => e.target.style.display = 'none'}
+          />
+          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
+            PORTFÓLIO · 2026
+          </span>
         </header>
 
-        <section className="grid gap-12 border-b border-stone-900/10 py-16 lg:grid-cols-[0.72fr_1.28fr]" aria-labelledby="samuel-atuacao-title">
-          <figure className="bg-[#F4F0E9]">
-            <ImageWithFallback
-              src={homePortrait}
-              mode="natural"
-              alt="Retrato editorial de Samuel Carrera Paes, diretor criativo e consultor criativo da Paes Consultoria"
-              imageClassName="mix-blend-multiply"
-              fallbackLabel="Samuel Carrera Paes"
-            />
-          </figure>
-          <div className="self-center">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ATUAÇÃO</span>
-            <h2 id="samuel-atuacao-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Criar não apenas peças, mas sistemas capazes de continuar operando.
-            </h2>
-            <div className="mt-10 space-y-7 text-base font-light leading-relaxed text-stone-700 md:text-xl">
-              <p>
-                A direção criativa aparece como critério: define linguagem, ordena repertório e conecta imagem, experiência e decisão. A consultoria criativa aparece como método: lê contexto, identifica ruídos e constrói caminhos possíveis sem separar pensamento de execução.
-              </p>
-              <p>
-                A Paes Consultoria funciona como núcleo dessa visão. A BANAL concentra a camada de branding, marketing, conteúdo, comunicação e presença. A Verde Burgo atua no campo de eventos, experiências, produção e direção criativa aplicada. Provence Raiz entra como projeto que materializa atmosfera, memória e operação dentro desse ecossistema.
-              </p>
-              <p>
-                A Biblioteca organiza a dimensão intelectual do trabalho: artigos, ensaios e conceitos que ajudam a sustentar publicamente a relação entre criação, percepção, valor e presença.
-              </p>
-            </div>
-          </div>
-        </section>
+        <motion.h1
+          id="home-title"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.1, ease: PREMIUM_EASE }}
+          className="mt-4 max-w-6xl font-serif text-[13vw] sm:text-[9vw] md:text-[8rem] lg:text-[10.5rem] leading-[0.85] tracking-[-0.02em] text-stone-950 text-balance"
+        >
+          Samuel Carrera Paes
+          <br />
+          <span className="italic text-stone-500 font-light pr-4">Diretor Criativo.</span>
+        </motion.h1>
 
-        <section className="grid gap-8 border-b border-stone-900/10 py-16 md:grid-cols-3" aria-label="Territórios de atuação de Samuel Carrera Paes">
-          {[
-            ["Direção criativa", "Transformar estratégia em linguagem, atmosfera, narrativa e experiência reconhecível."],
-            ["Consultoria criativa", "Ler marca, mercado, operação e percepção para orientar decisões com clareza."],
-            ["Ecossistema de presença", "Conectar empresas, projetos, serviços e pensamento em uma estrutura autoral e legível."]
-          ].map(([title, text]) => (
-            <section key={title} className="border-t border-stone-900/10 pt-8">
-              <h2 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h2>
-              <p className="mt-5 text-sm font-light leading-relaxed text-stone-600 md:text-base">{text}</p>
-            </section>
-          ))}
-        </section>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: PREMIUM_EASE }}
+          className="mt-16 md:mt-24 max-w-3xl"
+        >
+          <p className="text-xl md:text-3xl lg:text-4xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 text-balance">
+            "Construo presença de marca no exato ponto em que a estética, a estratégia e o desejo se tornam uma experiência tangível."
+          </p>
+          <p className="mt-8 max-w-2xl text-sm md:text-base leading-relaxed text-stone-600 font-light">
+            Samuel Carrera Paes atua como consultor criativo em direção criativa, visual merchandising, branding e experiência de marca para moda e varejo.
+          </p>
+        </motion.div>
 
-        <EditorialConnectionGrid
-          eyebrow="MALHA DO ECOSSISTEMA"
-          title="As frentes públicas que organizam a atuação de Samuel Carrera Paes."
-          items={connections}
-          navigate={navigate}
-        />
-      </article>
-    </PageTransition>
-  );
-}
-
-function Inicio({ navigate }) {
-  return (
-    <PageTransition>
-      <DynamicSEO
-        title="Início"
-        description="Samuel Carrera Paes e Paes Consultoria: direção criativa para transformar visão em marca, experiência, conteúdo, eventos e execução."
-        url=""
-      />
-      <section className="mx-auto max-w-[96rem] px-6 pt-8 lg:px-12" aria-labelledby="home-title">
-        <div className="grid gap-8 border-b border-stone-900/10 pb-10 lg:min-h-[calc(100vh-8rem)] lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
-          <motion.header
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: PREMIUM_EASE }}
-            className="flex flex-col justify-between border-b border-stone-900/10 pb-8 lg:border-b-0 lg:border-r lg:pr-10 xl:pr-14"
-          >
-            <div>
-              <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.35em] text-stone-400">
-                Samuel Carrera Paes · Paes Consultoria
-              </p>
-              <h1
-                id="home-title"
-                className="max-w-5xl font-serif text-5xl leading-[0.96] tracking-tight text-stone-950 sm:text-6xl md:text-7xl lg:text-[4.75rem] xl:text-[5.8rem] 2xl:text-[7rem] text-balance"
-              >
-                Transformar visão em presença.
-              </h1>
-              <div className="mt-7 grid gap-6 border-t border-stone-900/10 pt-6 md:grid-cols-[0.76fr_1.24fr] md:items-start">
-                <p className="font-serif text-3xl leading-tight text-stone-950 md:text-4xl text-balance">
-                  Diretor Criativo / Consultor Criativo
-                </p>
-                <p className="max-w-2xl text-base font-light leading-relaxed text-stone-700 md:text-lg">
-                  Sob direção de Samuel Carrera Paes, a Paes Consultoria ajuda marcas, negócios e projetos autorais a estruturar estratégia, identidade, experiências, eventos e conteúdo.
-                </p>
-              </div>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <CTAButton
-                  onClick={() => navigate("contato")}
-                  analyticsId="home_hero_diagnostico"
-                  icon={<ArrowRightCircle className="h-4 w-4" aria-hidden="true" />}
-                >
-                  Solicitar diagnóstico criativo
-                </CTAButton>
-                <CTAButton
-                  variant="secondary"
-                  onClick={() => navigate("paes-consultoria")}
-                  analyticsId="home_hero_metodo"
-                >
-                  Ver método e ecossistema
-                </CTAButton>
-              </div>
-              <div className="mt-8 flex flex-wrap gap-2" aria-label="Territórios de atuação da Paes Consultoria">
-                {homeAuthorityChips.map((chip) => (
-                  <span key={chip} className="sp-authority-chip inline-flex items-center rounded-sm px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em]">
-                    {chip}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <dl className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {homeProofMetrics.map(([value, label]) => (
-                <div key={label} className="border-t border-stone-900/10 pt-5">
-                  <dd className="font-serif text-4xl leading-none text-stone-950">{value}</dd>
-                  <dt className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">{label}</dt>
-                </div>
-              ))}
-            </dl>
-          </motion.header>
-
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.15, ease: PREMIUM_EASE }}
-            className="grid gap-6"
-          >
-            <section className="sp-dark-panel flex min-h-[24rem] flex-col p-7 text-[#F4F0E9] rounded-sm md:p-9" aria-labelledby="home-map-title">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Mapa público</p>
-                <h2 id="home-map-title" className="mt-6 max-w-xl font-serif text-4xl leading-[0.95] md:text-5xl xl:text-6xl text-balance">
-                  Ecossistema criativo autoral.
-                </h2>
-                <p className="mt-6 max-w-xl text-base font-light leading-relaxed text-[#F4F0E9]/70">
-                  Uma estrutura pública para conectar visão, empresas, projetos e biblioteca sem reduzir o trabalho a um catálogo de cases.
-                </p>
-                <div className="mt-8 grid gap-3 sm:grid-cols-2" aria-label="Estrutura do ecossistema">
-                  {[
-                    ["Paes Consultoria", "Visão e direção"],
-                    ["BANAL", "Marca e marketing"],
-                    ["Verde Burgo", "Eventos completos"],
-                    ["Biblioteca", "Pensamento público"]
-                  ].map(([title, text]) => (
-                    <div key={title} className="border border-[#F4F0E9]/10 bg-[#F4F0E9]/[0.025] p-4 rounded-sm">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#F4F0E9]/80">{title}</p>
-                      <p className="mt-2 text-xs font-light leading-relaxed text-[#F4F0E9]/45">{text}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-8 grid gap-2">
-                {ecosystemPublicFlow.map((step) => (
-                  <button
-                    key={step.title}
-                    type="button"
-                    onClick={() => navigate(step.route)}
-                    className="group grid grid-cols-[3.5rem_1fr_auto] items-center gap-4 border-t border-[#F4F0E9]/10 py-4 text-left transition-colors duration-500 hover:border-[#F4F0E9]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
-                  >
-                    <span className="font-serif text-3xl text-[#F4F0E9]/35" aria-hidden="true">{step.number}</span>
-                    <span>
-                      <span className="block text-sm font-bold uppercase tracking-[0.2em] text-[#F4F0E9]">{step.title}</span>
-                      <span className="mt-1 block text-xs font-light leading-relaxed text-[#F4F0E9]/55">{step.label}</span>
-                    </span>
-                    <ArrowUpRight className="h-4 w-4 text-[#F4F0E9]/50 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-                  </button>
-                ))}
-              </div>
-            </section>
-          </motion.div>
-        </div>
-
-        <section className="grid gap-10 border-b border-stone-900/10 py-14 lg:grid-cols-[0.72fr_1.28fr]" aria-labelledby="home-problem-title">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">O problema que resolvemos</span>
-            <h2 id="home-problem-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Muitas marcas têm visão. Poucas transformam essa visão em sistema.
-            </h2>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {homeChallengeCards.map((card) => (
-              <article key={card.title} className="sp-surface p-6 rounded-sm">
-                <h3 className="text-sm font-bold uppercase tracking-[0.22em] text-stone-900">{card.title}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{card.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-stone-900/10 py-16 md:py-20" aria-labelledby="home-services-title">
-          <header className="mb-12 grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-            <div>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Serviços vendáveis</span>
-              <h2 id="home-services-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-                O repertório vira oferta quando o próximo passo fica claro.
-              </h2>
-            </div>
-            <p className="max-w-4xl self-end text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              O pacote v2 reforça uma decisão importante: a Paes Consultoria precisa ser autoral e contratável ao mesmo tempo. Por isso, a home organiza serviços por problema, entrega e destino.
-            </p>
-          </header>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {homeServiceCards.map((service) => (
-              <button
-                key={service.title}
-                type="button"
-                onClick={() => navigate(service.route)}
-                className="sp-interactive-card group flex min-h-72 flex-col p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#245071] rounded-sm"
-              >
-                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Serviço</span>
-                <h3 className="mt-8 font-serif text-3xl leading-tight text-stone-950 group-hover:text-[#263d32] text-balance">{service.title}</h3>
-                <p className="mt-6 text-sm font-light leading-relaxed text-stone-600">{service.text}</p>
-                <span className="mt-auto pt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">
-                  Entender serviço <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                </span>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-16 md:py-20 lg:grid-cols-[0.86fr_1.14fr]" aria-labelledby="home-method-title">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Método</span>
-            <h2 id="home-method-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Diagnóstico, tese, direção, execução e evolução.
-            </h2>
-            <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
-              O método reduz risco percebido: antes da estética, existe leitura; antes da peça, existe tese; antes da execução, existe critério.
-            </p>
-          </div>
-          <ol className="grid gap-6 sm:grid-cols-2 xl:grid-cols-5">
-            {homeMethodSteps.map(([name, text], index) => (
-              <li key={name} className="border-t border-stone-900/10 pt-6">
-                <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.22em] text-stone-900">{name}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section className="grid gap-6 py-10 md:grid-cols-2" aria-label="Empresas do ecossistema Paes Consultoria">
-          {consultancyCompanies.map((company) => (
-            <button
-              key={company.id}
-              type="button"
-              onClick={() => navigate(company.route)}
-              className="sp-interactive-card group grid min-h-[22rem] gap-7 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm sm:gap-8 lg:grid-cols-[0.95fr_1.05fr]"
-              aria-label={`Abrir ${company.name}`}
+        {/* --- EDITORIAL STATS GRID --- */}
+        <dl className="mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-16 gap-x-8 border-t border-stone-900/10 pt-16">
+          {stats.map((stat, i) => (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + (i * 0.1), ease: PREMIUM_EASE }}
+              key={i}
+              className="flex flex-col group"
             >
-              <figure className="sp-media-frame flex min-h-40 items-center justify-center overflow-hidden p-7 rounded-sm sm:min-h-48 md:p-8 lg:min-h-56">
-                <img
-                  src={company.id === "banal" ? banalAssets.balancedLogo : verdeBurgoBrandAssets.balancedLogo}
-                  alt={`${company.name}, empresa do ecossistema Samuel Carrera Paes`}
-                  loading="eager"
-                  decoding="async"
-                  className="max-h-36 w-full max-w-[20rem] object-contain transition duration-700 group-hover:scale-[1.03]"
-                />
-              </figure>
-              <div className="flex flex-col justify-between">
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{company.eyebrow}</p>
-                  <h2 className="mt-6 font-serif text-5xl leading-none text-stone-950">{company.name}</h2>
-                  <p className="mt-6 text-base font-light leading-relaxed text-stone-600">{company.description}</p>
-                </div>
-                <span className="mt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
-                  Entrar <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-                </span>
-              </div>
-            </button>
+              <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-3 block order-2">{stat.label}</dt>
+              <dd className="font-serif text-5xl md:text-6xl text-stone-900 tracking-[-0.02em] mb-4 order-1">{stat.number}</dd>
+              <p className="text-xs md:text-sm font-light text-stone-600 leading-relaxed pr-4 order-3">{stat.text}</p>
+            </motion.div>
           ))}
-        </section>
+        </dl>
 
-        <footer className="sp-cta-dark mb-16 grid gap-10 px-8 py-16 text-[#F4F0E9] rounded-sm md:px-12 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Próximo passo</span>
-            <p className="max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
-              Comece por um diagnóstico criativo antes de transformar intenção em projeto.
-            </p>
-            <p className="mt-8 max-w-2xl text-sm font-light leading-relaxed text-[#F4F0E9]/70 md:text-base">
-              Traga o desafio. A primeira etapa é entender contexto, ambição, linguagem, operação e o que precisa ser decidido agora.
-            </p>
+        {/* FEATURED CASE BLOCK */}
+        <motion.article
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: PREMIUM_EASE }}
+          className="mt-32 border-t border-stone-900/10 pt-24"
+        >
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
+            <div className="flex-1 flex flex-col justify-center">
+              <header>
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-6 block">FEATURED CASE</span>
+                <h2 className="font-serif text-5xl md:text-7xl tracking-tight leading-[0.9] text-stone-900 mb-6 text-balance">
+                  {casesData[0].title.split('—')[0].trim()}
+                </h2>
+                <p className="text-sm md:text-base font-light text-stone-600 mb-12 max-w-md leading-relaxed">
+                  {casesData[0].category}
+                </p>
+
+                <button
+                  type="button"
+                  aria-label={`Explorar o case em destaque: ${casesData[0].title}`}
+                  onClick={() => {
+                    navigate("cases");
+                    setTimeout(() => {
+                      const el = document.getElementById(casesData[0].id);
+                      if (el) {
+                        const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                        window.scrollTo({ top: y, behavior: "smooth" });
+                      }
+                    }, 300);
+                  }}
+                  className="group flex w-max items-center gap-5 text-xs font-bold uppercase tracking-[0.25em] text-stone-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-full"
+                >
+                  <span className="border-b border-stone-900/20 pb-1 group-hover:text-stone-600 group-hover:border-stone-900 transition-colors duration-300">
+                    Ver case em destaque
+                  </span>
+                  <div className="w-12 h-12 rounded-full border border-stone-900/10 flex items-center justify-center group-hover:bg-stone-900 group-hover:border-stone-900 group-hover:text-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                    <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  </div>
+                </button>
+              </header>
+            </div>
+
+            <div className="flex-1 w-full aspect-[4/5] lg:aspect-[3/4] relative bg-stone-200/50 overflow-visible group rounded-sm mt-12 lg:mt-0">
+               <ImageWithFallback src={casesData[0].thumb} mode="cover" alt={`Imagem de destaque do projeto ${casesData[0].title}`} fallbackLabel="Featured Work" imageClassName="group-hover:scale-[1.03] transition duration-[2s] ease-out" />
+
+               {/* Tipografia como Textura */}
+               <div className="absolute inset-0 pointer-events-none flex flex-col justify-between py-10 px-8 opacity-[0.03]" aria-hidden="true">
+                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">MARCA</span>
+                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">PRODUTO</span>
+                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">ESPAÇO</span>
+                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">DESEJO</span>
+               </div>
+            </div>
           </div>
-          <CTAButton
-            variant="dark"
-            onClick={() => navigate("contato")}
-            analyticsId="home_final_diagnostico"
-            icon={<ArrowRightCircle className="h-4 w-4" aria-hidden="true" />}
+        </motion.article>
+
+        {/* --- MAGNETIC CALL TO ACTION --- */}
+        <div className="mt-32 flex items-center justify-between border-t border-stone-900/10 pt-10 pb-16">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-stone-400 hidden md:block">
+            Explore a narrativa visual dos projetos
+          </span>
+          <button
+            type="button"
+            aria-label="Acessar o portfólio completo de cases"
+            onClick={() => navigate("cases")}
+            className="group flex items-center gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-full"
           >
-            Solicitar diagnóstico
-          </CTAButton>
-        </footer>
+            <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-stone-900 group-hover:text-stone-500 transition-colors">
+              Explorar Portfólio
+            </span>
+            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-stone-900/10 flex items-center justify-center group-hover:bg-stone-900 group-hover:text-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-sm">
+              <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
+            </div>
+          </button>
+        </div>
       </section>
     </PageTransition>
   );
@@ -417,57 +649,36 @@ function Inicio({ navigate }) {
 function Visao() {
   return (
     <PageTransition>
-      <DynamicSEO title="Minha Visão" description="A visão profissional de Samuel Carrera Paes conecta pensamento sistêmico, direção criativa, identidade, estratégia, experiência e excelência de execução." url="visao" />
+      <DynamicSEO title="Visão Criativa" description="Direção criativa para construir marcas reconhecíveis no online, no físico e na jornada omnichannel." url="visao" />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12">
         <header>
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">POSICIONAMENTO PROFISSIONAL</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CREATIVE STATEMENT</span>
           <h1 className="font-serif text-6xl md:text-[8rem] leading-[0.85] tracking-tighter text-stone-950 max-w-5xl text-balance">
-            Minha
-            <br aria-hidden="true" />
-            <span className="sr-only"> </span>
-            <span className="text-stone-500 italic font-light">Visão.</span>
+            Visão
+            <br />
+            <span className="text-stone-500 italic font-light">Criativa.</span>
           </h1>
           <p className="mt-16 text-xl md:text-3xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 max-w-4xl text-balance">
-            "Estratégia, estética e operação não deveriam ser departamentos separados. Quando funcionam juntos, constroem identidade, confiança e valor percebido."
+            "A marca não acontece em um único ponto. Ela se constrói na continuidade entre imagem, produto, atendimento, espaço, operação e memória."
           </p>
         </header>
 
         <section className="mt-24 grid gap-12 border-y border-stone-900/10 py-16 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="experiencia-continua-title">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">CONSULTORIA COMO MÉTODO</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">MARCA COMO EXPERIÊNCIA CONTÍNUA</span>
             <h2 id="experiencia-continua-title" className="font-serif text-4xl md:text-6xl leading-tight text-stone-950 text-balance">
-              Direção criativa só tem valor quando melhora a leitura, a decisão e a execução de um negócio.
+              Online cria expectativa. O físico confirma presença. A operação sustenta reconhecimento.
             </h2>
           </div>
           <div className="space-y-7 text-base md:text-xl font-light leading-relaxed text-stone-700">
             <p>
-              Meu trabalho parte de pensamento sistêmico: entender como marca, produto, ambiente, atendimento, comunicação, equipe e operação se afetam. Uma decisão estética nunca é apenas estética; ela altera percepção, confiança, desejo e comportamento.
+              O cliente não encontra uma marca apenas na loja. Ele chega por uma imagem, uma campanha, uma busca, uma conversa no WhatsApp, um catálogo, uma vitrine digital, uma recomendação, um provador, uma embalagem e um pós-venda.
             </p>
             <p>
-              A Paes Consultoria organiza essa leitura para transformar intenção em estrutura. BANAL atua onde o desafio é marca, varejo, comunicação e posicionamento. Verde Burgo atua onde o desafio é evento, hospitalidade, festa, experiência e produção.
+              A visão de Samuel Carrera Paes parte dessa sequência. Direção criativa não é apenas estética de loja: é arquitetura de percepção para que a marca pareça uma só em todos os canais, do primeiro contato online à experiência física e à memória que permanece.
             </p>
             <p>
-              Tecnologia e inteligência artificial podem acelerar repertório, teste e prototipagem. Mas elas não substituem direção, critério, responsabilidade e entendimento humano do contexto.
-            </p>
-          </div>
-        </section>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-16 lg:grid-cols-[0.72fr_1.28fr]" aria-labelledby="samuel-visao-title">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">SAMUEL CARRERA PAES</span>
-            <h2 id="samuel-visao-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Diretor Criativo e Consultor Criativo.
-            </h2>
-          </div>
-          <div className="space-y-7 text-base font-light leading-relaxed text-stone-700 md:text-xl">
-            <p>
-              Samuel Carrera Paes atua a partir de uma leitura multidisciplinar: marca, estética, comportamento, varejo, evento, operação, repertório visual, escrita, tecnologia e execução. A função não é apenas criar uma imagem bonita, mas construir sistemas que façam uma intenção ganhar presença real.
-            </p>
-            <p>
-              Essa visão exige curiosidade e pragmatismo ao mesmo tempo. O pensamento estratégico define direção; a direção criativa transforma essa direção em linguagem; a execução prova se a linguagem consegue existir no mundo sem perder força.
-            </p>
-            <p>
-              Inteligência artificial entra como instrumento de pesquisa, simulação, expansão de repertório e prototipagem. Ela ajuda o processo a acelerar, mas não substitui critério, autoria, escuta, responsabilidade e capacidade de decidir o que deve ou não existir.
+              O varejo físico segue como campo sensível decisivo, porque é nele que corpo, matéria, escala e atendimento testam a promessa. Mas o trabalho começa antes da porta e continua depois da saída: no conteúdo, no calendário comercial, na curadoria digital, no atendimento e na consistência omnichannel.
             </p>
           </div>
         </section>
@@ -476,23 +687,23 @@ function Visao() {
           <ol className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mt-32 border-t border-stone-900/10 pt-16">
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">01</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Pensamento Sistêmico</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Ler o negócio como conjunto: marca, público, linguagem, canal, operação, espaço e entrega.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Leitura de Marca</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Compreender os códigos ocultos da marca e traduzi-los em linguagem reconhecível no conteúdo, no produto, no atendimento e no espaço.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">02</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Identidade como Estratégia</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Transformar identidade em ferramenta de decisão, diferenciação, comunicação e valor percebido.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Produto como Narrativa</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">A exposição deixa de ser armazenamento e vira edição curatorial para vitrine, feed, campanha, catálogo e loja.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">03</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Experiência e Percepção</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Projetar os sinais que fazem uma marca, loja ou evento ser compreendido antes de ser explicado.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Espaço como Mídia</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Projetar a loja como mídia de imersão sem separar sua narrativa dos canais digitais que criam expectativa.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">04</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Excelência de Execução</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Garantir que a estratégia apareça no detalhe, no cronograma, no acabamento e na experiência real.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Percepção como Valor</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Orquestrar imagem, cor, luz, textura, copy, atendimento e ritmo para gerar desejo tangível em cada ponto de contato.</p>
             </li>
           </ol>
         </section>
@@ -510,9 +721,9 @@ function Visao() {
             </div>
         </figure>
 
-        <footer className="sp-cta-dark mt-32 md:mt-48 text-stone-50 px-8 py-24 md:py-32 rounded-sm text-center">
+        <footer className="mt-32 md:mt-48 bg-stone-950 text-stone-50 px-8 py-24 md:py-32 rounded-sm text-center shadow-xl">
           <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight max-w-5xl mx-auto font-light text-balance">
-            "Clareza estratégica, estética consistente e execução cuidadosa são ferramentas de negócio."
+            "Marcas sem presença competem por atenção. Marcas com presença constroem memória."
           </h2>
         </footer>
       </article>
@@ -520,392 +731,98 @@ function Visao() {
   );
 }
 
-function PaesConsultoria({ navigate }) {
+function Cases({ navigate }) {
+  const [activeFilter, setActiveFilter] = useState("ALL");
+  const filters = ["ALL", "BRAND", "PRODUCT", "RETAIL", "CULTURE", "SPACE", "COLLAB"];
+
+  const filteredCases = useMemo(() => {
+    if (activeFilter === "ALL") return casesData;
+    return casesData.filter(c => c.filterTags.includes(activeFilter));
+  }, [activeFilter]);
+
   return (
     <PageTransition>
-      <DynamicSEO
-        title="Paes Consultoria"
-        description="Paes Consultoria é o núcleo estratégico e criativo que origina negócios, marcas, experiências, projetos e soluções com direção, identidade e execução."
-        url=""
-        image={banalAssets.founderScene}
-      />
-      <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="consultoria-title">
-        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PAES CONSULTORIA</span>
-            <h1 id="consultoria-title" className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
-              O núcleo que transforma visão em empresas.
+      <DynamicSEO title="Curated Works" description="11 formas de construir presença por imagem, produto, espaço e experiência." />
+      <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="cases-title">
+
+        {/* --- CURATED WORKS INDEX --- */}
+        <div id="cases-index" className="mb-40">
+          <header>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CURATED WORKS</span>
+            <h1 id="cases-title" className="font-serif text-5xl md:text-[7rem] leading-[0.85] tracking-tighter text-stone-950 max-w-4xl mb-8 text-balance">
+              Cases.
             </h1>
-          </div>
-          <div className="max-w-3xl self-end">
-            <p className="text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
-              A Paes Consultoria é a estrutura central de Samuel Carrera Paes para criar, dirigir e organizar marcas, eventos, projetos, métodos e presença pública.
+            <p className="text-lg md:text-2xl font-light text-stone-600 max-w-2xl mb-16 leading-relaxed">
+              11 formas de construir presença por imagem, produto, espaço e experiência.
             </p>
-            <p className="mt-8 text-base font-light leading-relaxed text-stone-600 md:text-lg">
-              BANAL e Verde Burgo atuam em mercados diferentes, mas compartilham a mesma base: direção criativa, identidade, experiência, operação e coerência de valor.
-            </p>
-          </div>
-        </header>
-
-        <section className="grid gap-8 border-b border-stone-900/10 py-16 lg:grid-cols-[0.9fr_1.1fr]" aria-labelledby="consultoria-operating-title">
-            <div className="sp-dark-panel p-8 text-[#F4F0E9] rounded-sm md:p-10">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-[#F4F0E9]/50">Arquitetura pública</span>
-            <h2 id="consultoria-operating-title" className="font-serif text-4xl leading-tight md:text-6xl text-balance">
-              Uma pessoa, uma visão, empresas especializadas e uma biblioteca que sustenta a tese.
-            </h2>
-            <p className="mt-8 text-base font-light leading-relaxed text-[#F4F0E9]/70 md:text-lg">
-              O site precisa deixar claro que cada frente tem uma função: a Paes Consultoria organiza a visão; a BANAL concentra marca e comunicação; a Verde Burgo concentra eventos completos; os projetos provam a execução; a Biblioteca registra pensamento e repertório.
-            </p>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {operatingLanes.map(([title, text], index) => (
-              <article key={title} className="sp-surface flex min-h-full flex-col p-6 rounded-sm">
-                <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-8 border-b border-stone-900/10 py-16 md:grid-cols-3" aria-label="Princípios da Paes Consultoria">
-          {consultancyPrinciples.map((item, index) => (
-            <article key={item.title} className="border-t border-stone-900/10 pt-8">
-              <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-              <h2 className="mt-8 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{item.title}</h2>
-              <p className="mt-5 text-sm font-light leading-relaxed text-stone-600 md:text-base">{item.text}</p>
-            </article>
-          ))}
-        </section>
-
-        <section className="py-24 md:py-32" aria-labelledby="empresas-title">
-          <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">EMPRESAS</span>
-            <h2 id="empresas-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Empresas especializadas, não seções secundárias.
-            </h2>
           </header>
 
-          <div className="grid gap-8 lg:grid-cols-2">
-            {consultancyCompanies.map((company) => (
-              <article key={company.id} className="sp-interactive-card group flex min-h-full flex-col rounded-sm">
-                <button
-                  type="button"
-                  onClick={() => navigate(company.route)}
-                  className="flex h-full flex-col text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                  aria-label={`Abrir empresa ${company.name}`}
+          <nav className="flex flex-wrap gap-3 mb-16" aria-label="Filtrar cases por território">
+            {filters.map(chip => (
+              <button
+                key={chip}
+                aria-pressed={activeFilter === chip}
+                onClick={() => setActiveFilter(chip)}
+                className={`text-[10px] font-bold uppercase tracking-[0.2em] px-5 py-2.5 border rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 ${
+                  activeFilter === chip
+                  ? 'bg-stone-900 text-white border-stone-900 shadow-md'
+                  : 'bg-transparent text-stone-500 border-stone-900/20 hover:border-stone-900/40 hover:text-stone-800'
+                }`}
+              >
+                {chip}
+              </button>
+            ))}
+          </nav>
+
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
+            <AnimatePresence mode="popLayout">
+              {filteredCases.map((c) => (
+                <motion.article
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5, ease: PREMIUM_EASE }}
+                  key={c.id}
+                  className="group flex flex-col"
                 >
-                  <figure className="sp-media-frame relative aspect-[4/3] overflow-hidden">
-                    <ImageWithFallback src={company.image} alt={`Imagem da empresa ${company.name} no ecossistema criativo de Samuel Carrera Paes`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]" />
-                  </figure>
-                  <div className="flex flex-1 flex-col p-8">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{company.eyebrow}</p>
-                    <h3 className="mt-6 font-serif text-4xl leading-none text-stone-950">{company.name}</h3>
-                    <p className="mt-6 font-serif text-2xl leading-tight text-stone-700 text-balance">{company.statement}</p>
-                    <p className="mt-6 text-sm font-light leading-relaxed text-stone-600">{company.description}</p>
-                    <div className="mt-8 flex flex-wrap gap-2">
-                      {company.layers.map((layer) => (
-                        <span key={layer} className="rounded-full border border-stone-900/10 px-3 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-stone-500">{layer}</span>
-                      ))}
+                  <button
+                    type="button"
+                    aria-label={`Abrir case ${c.number}: ${c.title}`}
+                    className="aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-visible cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block"
+                    onClick={() => navigate(`case/${c.id}`)}
+                  >
+                    <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm rounded-sm">
+                      {c.number}/11
                     </div>
-                    <span className="mt-auto pt-10 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
-                      Entrar <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                    </span>
-                  </div>
-                </button>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-t border-stone-900/10 py-24 md:py-32" aria-labelledby="projetos-title">
-          <header className="mb-16 grid gap-8 lg:grid-cols-[0.65fr_1.35fr]">
-            <div>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PROJETOS</span>
-              <h2 id="projetos-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-                Projetos com destino claro.
-              </h2>
-            </div>
-            <p className="max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              Projetos de branding, comunicação, varejo, posicionamento e conteúdo pertencem à BANAL como núcleos e desdobramentos. Projetos de festas, hospitalidade, produção e eventos pertencem à Verde Burgo, com Provence Raiz como primeiro projeto publicado.
-            </p>
-          </header>
-
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <article className="sp-surface-strong p-8 rounded-sm">
-              <div className="mb-10 flex items-center justify-between gap-6 border-b border-stone-900/10 pb-8">
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">BANAL</p>
-                  <h3 className="mt-3 font-serif text-4xl text-stone-950">Branding, marketing e comunicação.</h3>
-                </div>
-                <button type="button" onClick={() => navigate("empresas/banal")} className="hidden shrink-0 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 md:block">
-                  Ver empresa
-                </button>
-              </div>
-              <div className="grid gap-6 md:grid-cols-2">
-                {casesData.map((project) => (
-                  <button key={project.id} type="button" onClick={() => navigate(`case/${project.id}`)} className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm">
-                    <figure className="sp-media-frame relative aspect-[4/3] overflow-hidden rounded-sm">
-                      <ImageWithFallback src={project.thumb} alt={`Projeto BANAL por Samuel Carrera Paes: ${project.title}`} mode="cover" imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]" />
-                    </figure>
-                    <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.number} · {project.territory}</p>
-                    <h4 className="mt-2 font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{project.title}</h4>
                   </button>
-                ))}
-              </div>
-              <div className="mt-10 flex flex-col gap-4 border-t border-stone-900/10 pt-8 md:flex-row md:items-center md:justify-between">
-                <p className="max-w-xl text-sm font-light leading-relaxed text-stone-600">
-                  A listagem mostra os {casesData.length} núcleos estruturados publicados. Alguns concentram desdobramentos internos, como Porti Natal/Verão e Campanhas & Collabs.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => navigate("empresas/banal")}
-                  className="inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                >
-                  Ver arquivo BANAL <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-                </button>
-              </div>
-            </article>
 
-            <article className="sp-surface-strong flex flex-col p-8 rounded-sm">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">VERDE BURGO</p>
-              <h3 className="mt-3 font-serif text-4xl text-stone-950">Eventos completos, do planejamento à execução.</h3>
-              <figure className="sp-media-frame mt-8 aspect-[4/3] overflow-hidden rounded-sm">
-                <ImageWithFallback src={verdeburgoAssets.mesaRefinada} alt="Projeto Provence Raiz dentro da Verde Burgo, com direção criativa de Samuel Paes" mode="cover" imageClassName="transition-transform duration-[1.5s] hover:scale-[1.03]" />
-              </figure>
-              <p className="mt-8 text-sm font-light leading-relaxed text-stone-600">
-                Provence Raiz é o primeiro projeto publicado dentro da Verde Burgo: uma referência de como buffet, decoração, bar, cerimonial, ambientação, papelaria e produção podem operar em uma mesma identidade.
-              </p>
-              <button type="button" onClick={() => navigate("empresas/verde-burgo")} className="mt-auto pt-10 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
-                Ver Verde Burgo <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-              </button>
-            </article>
-          </div>
-        </section>
+                  <div className="flex flex-col flex-1">
+                    <header className="flex justify-between items-start mb-3">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 w-2/3 leading-relaxed">{c.territory}</p>
+                      <button
+                        type="button"
+                        aria-hidden="true"
+                        tabIndex="-1"
+                        className="text-[9px] font-bold uppercase tracking-[0.2em] text-stone-900 border-b border-stone-900/20 pb-0.5 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      >
+                        Explorar
+                      </button>
+                    </header>
+                    <h2 className="font-serif text-2xl md:text-3xl leading-tight text-stone-900 mb-3 tracking-tight group-hover:text-stone-600 transition-colors duration-300 text-balance">{c.title}</h2>
+                    <p className="text-sm text-stone-600 font-light mb-6 flex-1 leading-relaxed">{c.shortTese}</p>
+
+                    <footer className="border-t border-stone-900/10 pt-4 flex justify-between items-center text-[10px] uppercase tracking-[0.25em] text-stone-400">
+                      <span>Papel: {c.role}</span>
+                    </footer>
+                  </div>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
       </section>
-    </PageTransition>
-  );
-}
-
-function Banal({ navigate }) {
-  const scrollToBanalSection = (sectionId) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  return (
-    <PageTransition>
-      <DynamicSEO
-        title="BANAL"
-        fullTitle="BANAL | Branding, Marketing e Presença"
-        description="BANAL é a frente de identidade, linguagem e mercado da Paes Consultoria: marca, marketing, campanha, varejo, cultura e leitura pública de valor."
-        url="empresas/banal"
-        image={banalAssets.balancedLogo}
-        schemaType="CollectionPage"
-        schemaExtra={{
-          mainEntity: { "@id": `${SITE_URL}/#banal` },
-          about: [
-            { "@id": `${SITE_URL}/#samuel-carrera-paes` },
-            { "@id": `${SITE_URL}/#paes-consultoria` },
-            { "@id": `${SITE_URL}/#banal` }
-          ]
-        }}
-      />
-      <article className="mx-auto max-w-[90rem] overflow-x-hidden px-6 lg:px-12 pt-12" aria-labelledby="banal-title">
-        <section className="grid gap-10 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.92fr_1.08fr]" aria-labelledby="banal-title">
-          <div className="flex flex-col justify-between">
-            <div>
-              <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">BANAL · MARCA · MERCADO</span>
-              <figure className="sp-media-frame mb-12 max-w-sm p-8 rounded-sm">
-                <img
-                  src={banalAssets.balancedLogo}
-                  alt="BANAL"
-                  loading="eager"
-                  decoding="async"
-                  className="h-auto w-full object-contain"
-                />
-              </figure>
-              <h1 id="banal-title" className="max-w-5xl font-serif text-5xl leading-[0.88] tracking-tight text-stone-950 md:text-7xl lg:text-8xl text-balance">
-                Marca não é peça. É leitura pública de valor.
-              </h1>
-              <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-2xl text-balance">
-                A Banal é a frente de identidade, linguagem e mercado da Paes Consultoria. Criamos sistemas de presença para marcas que precisam ser compreendidas, lembradas e escolhidas.
-              </p>
-            </div>
-            <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-              <button
-                type="button"
-                onClick={() => scrollToBanalSection("trabalhos-banal")}
-                className="inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-              >
-                Ver trabalhos <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToBanalSection("identidade-banal")}
-                className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-              >
-                Entender a Banal
-              </button>
-            </div>
-          </div>
-
-          <figure className="sp-surface-strong min-w-0 overflow-hidden rounded-sm">
-            <div className="aspect-[4/5] overflow-hidden bg-[#F8F5EF] md:aspect-[16/13]">
-              <video
-                src={banalAssets.flyLoop}
-                aria-label="Vídeo em loop da mosca dentro da garrafa, símbolo visual da BANAL."
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                poster={banalAssets.balancedLogo}
-                onLoadedData={playMutedLoop}
-                onCanPlay={playMutedLoop}
-                className="h-full w-full object-cover transition-transform duration-[1.5s] hover:scale-[1.02]"
-              />
-            </div>
-            <figcaption className="grid min-w-0 gap-4 border-t border-stone-900/10 p-6 md:grid-cols-[0.7fr_1.3fr]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Símbolo em movimento</span>
-              <span className="min-w-0 break-words text-sm font-light leading-relaxed text-stone-600">
-                A mosca dentro da garrafa traduz a BANAL como leitura de desejo, atenção e valor cultural.
-              </span>
-            </figcaption>
-          </figure>
-        </section>
-
-        <section id="identidade-banal" className="scroll-mt-32 border-b border-stone-900/10 py-20 md:py-28" aria-labelledby="banal-identidade-title">
-          <header className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-            <div>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Identidade Banal</span>
-              <h2 id="banal-identidade-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-                Uma empresa de marca dentro da Paes Consultoria.
-              </h2>
-            </div>
-            <div className="min-w-0">
-              <figure className="sp-surface-strong mb-10 overflow-hidden rounded-sm">
-                <div className="aspect-[16/10] overflow-hidden bg-[#F8F5EF]">
-                  <ImageWithFallback
-                    src={banalAssets.showcase}
-                    alt="Capa de identidade da BANAL com símbolo, logotipo, garrafa, mosca e aplicações gráficas."
-                    mode="contain"
-                    loading="lazy"
-                    imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
-                  />
-                </div>
-                <figcaption className="grid gap-4 border-t border-stone-900/10 p-5 md:grid-cols-[0.7fr_1.3fr]">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Capa de identidade</span>
-                  <span className="text-xs font-light leading-relaxed text-stone-500">
-                    Sistema visual, símbolo e linguagem reunidos como frente de marca.
-                  </span>
-                </figcaption>
-              </figure>
-              <p className="max-w-4xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-                A identidade da Banal nasce para reunir repertório, linguagem e direção visual em uma frente própria. Não é um selo decorativo. É uma unidade de pensamento para projetos em que marca, mercado e cultura precisam se encontrar.
-              </p>
-              <div className="mt-12 grid gap-4 md:grid-cols-5">
-                {banalIdentityItems.map(([label, text]) => (
-                  <article key={label} className="sp-surface p-5 rounded-sm">
-                    <h3 className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">{label}</h3>
-                    <p className="mt-4 text-xs font-light leading-relaxed text-stone-500">{text}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </header>
-        </section>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-20 md:py-28 lg:grid-cols-[0.86fr_1.14fr]" aria-labelledby="banal-manifesto-title">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Manifesto</span>
-            <h2 id="banal-manifesto-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              A Banal organiza a camada pública de desejo, leitura e valor.
-            </h2>
-          </div>
-          <p className="max-w-4xl self-end text-lg font-light leading-relaxed text-stone-700 md:text-2xl">
-            O trabalho não começa na peça. Começa na leitura: do mercado, do produto, da cultura e da forma como uma marca passa a existir na cabeça das pessoas.
-          </p>
-        </section>
-
-        <section id="trabalhos-banal" className="scroll-mt-32 border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-trabalhos-title">
-          <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Arquivo vivo Banal</span>
-            <h2 id="banal-trabalhos-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Trabalhos, sistemas e experimentos de marca organizados por leitura, desejo e valor.
-            </h2>
-          </header>
-          <div className="grid gap-x-8 gap-y-14 md:grid-cols-2 xl:grid-cols-4">
-            {casesData.map((project, index) => (
-              <article key={project.id} className="group">
-                <button
-                  type="button"
-                  onClick={() => navigate(`case/${project.id}`)}
-                  aria-label={`Ver case BANAL: ${project.title}`}
-                  className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                >
-                  <figure className="sp-media-frame aspect-[4/5] overflow-hidden rounded-sm">
-                    <ImageWithFallback
-                      src={project.thumb}
-                      alt={`Capa do case ${project.title}, projeto BANAL por Samuel Carrera Paes`}
-                      mode="cover"
-                      loading={index < 4 ? "eager" : "lazy"}
-                      fetchPriority={index < 4 ? "high" : undefined}
-                      imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.04]"
-                    />
-                  </figure>
-                  <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.number} · {project.territory}</p>
-                  <h3 className="mt-3 font-serif text-3xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{project.title}</h3>
-                  <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{project.shortTese}</p>
-                  <ul className="mt-5 flex flex-wrap gap-2" aria-label={`Categorias do case ${project.title}`}>
-                    {project.filterTags.map((tag) => (
-                      <li key={tag} className="border border-stone-900/10 px-3 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-stone-400 rounded-sm">
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                </button>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="banal-metodo-title">
-          <header className="mb-14 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Como atuamos</span>
-            <h2 id="banal-metodo-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Ler, posicionar, dar forma e ativar.
-            </h2>
-          </header>
-          <ol className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {banalMethodSteps.map(([name, text], index) => (
-              <li key={name} className="border-t border-stone-900/10 pt-8">
-                <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{name}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <footer className="sp-cta-dark mb-16 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
-          <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
-            Uma marca não precisa aparecer mais. Precisa ser melhor lida.
-          </p>
-          <p className="mx-auto mt-8 max-w-2xl text-sm font-light leading-relaxed text-[#F4F0E9]/70 md:text-base">
-            Vamos organizar a presença pública do seu negócio.
-          </p>
-          <div className="mt-12 flex justify-center">
-            <button
-              type="button"
-              onClick={() => navigate("contato")}
-              className="inline-flex items-center gap-3 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
-            >
-              Conversar com a Paes Consultoria <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </div>
-        </footer>
-      </article>
     </PageTransition>
   );
 }
@@ -919,7 +836,7 @@ function CaseDetail({ caseId, navigate }) {
       <PageTransition>
         <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
           <h2 className="font-serif text-4xl mb-4">Case não encontrado.</h2>
-          <button onClick={() => navigate("empresas/banal")} className="text-xs font-bold uppercase tracking-[0.2em] border-b border-stone-900 pb-1 hover:text-stone-600 transition-colors">Voltar à BANAL</button>
+          <button onClick={() => navigate("cases")} className="text-xs font-bold uppercase tracking-[0.2em] border-b border-stone-900 pb-1 hover:text-stone-600 transition-colors">Voltar aos Cases</button>
         </div>
       </PageTransition>
     );
@@ -927,13 +844,12 @@ function CaseDetail({ caseId, navigate }) {
 
   const isLast = caseIndex === casesData.length - 1;
   const nextCaseId = !isLast ? casesData[caseIndex + 1].id : null;
-  const caseGroup = getBanalCaseGroupByCaseId(c.id);
 
   return (
     <PageTransition>
       <DynamicSEO
         title={`${c.number}. ${c.title}`}
-        description={c.seoDescription || c.shortTese}
+        description={c.shortTese}
         image={c.thumb}
         url={`case/${c.id}`}
       />
@@ -941,7 +857,7 @@ function CaseDetail({ caseId, navigate }) {
 
         {/* A. Case Hero */}
         <header className="flex flex-col mb-16">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-6 block">NÚCLEO BANAL · {c.number}/{casesData.length}</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-6 block">CASE {c.number}/11</span>
           <h1 className="font-serif text-5xl md:text-[6rem] leading-[0.9] text-stone-950 tracking-[-0.02em] mb-8 max-w-5xl text-balance">{c.title}</h1>
           <p className="text-xl md:text-2xl font-light text-stone-600 max-w-3xl mb-12 leading-relaxed text-balance">{c.shortTese}</p>
 
@@ -965,15 +881,8 @@ function CaseDetail({ caseId, navigate }) {
             </div>
           </dl>
 
-          <figure className="sp-media-frame relative mb-24 aspect-[16/9] w-full overflow-hidden rounded-sm">
-            <ImageWithFallback
-              src={c.thumb}
-              mode="cover"
-              alt={`Fotografia de destaque do projeto ${c.title}, direção criativa de Samuel Carrera Paes para Paes Consultoria`}
-              loading="eager"
-              fetchPriority="high"
-              imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
-            />
+          <figure className="w-full bg-stone-200/50 relative overflow-visible mb-24 rounded-sm flex justify-center m-0 p-0 shadow-sm">
+            <ImageWithFallback src={c.thumb} mode="natural" alt={`Fotografia de destaque do projeto ${c.title}`} imageClassName="max-h-[85vh]" />
           </figure>
         </header>
 
@@ -984,65 +893,6 @@ function CaseDetail({ caseId, navigate }) {
             "{c.directorsNote}"
           </blockquote>
         </section>
-
-        {c.caseDepth && (
-          <section aria-labelledby={`case-depth-${c.id}`} className="mb-24 max-w-full overflow-hidden border-y border-stone-900/10 py-14">
-            <header className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-              <div className="min-w-0">
-                <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Leitura ampliada</span>
-                <h2 id={`case-depth-${c.id}`} className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
-                  {c.caseDepth.title}
-                </h2>
-              </div>
-              <p className="min-w-0 max-w-4xl break-words text-base font-light leading-relaxed text-stone-700 md:text-xl">
-                {c.caseDepth.intro}
-              </p>
-            </header>
-
-            <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              {c.caseDepth.pillars.map(([title, text], index) => (
-                <article key={title} className="sp-surface min-w-0 p-5 rounded-sm">
-                  <span className="font-serif text-3xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                  <h3 className="mt-5 text-xs font-bold uppercase tracking-[0.22em] text-stone-900">{title}</h3>
-                  <p className="mt-4 break-words text-sm font-light leading-relaxed text-stone-600">{text}</p>
-                </article>
-              ))}
-            </div>
-
-            <div className="mt-10 flex flex-wrap gap-2 border-t border-stone-900/10 pt-8" aria-label="Territórios associados ao case">
-              {c.caseDepth.signals.map((signal) => (
-                <span key={signal} className="rounded-full border border-stone-900/10 bg-white/30 px-3 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-stone-500">
-                  {signal}
-                </span>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {caseGroup && (
-          <section aria-labelledby="case-desdobramentos" className="mb-24 grid gap-8 border-y border-stone-900/10 py-12 md:grid-cols-[0.7fr_1.3fr]">
-            <div>
-              <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ARQUIVO BANAL</span>
-              <h2 id="case-desdobramentos" className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
-                Núcleo e desdobramentos.
-              </h2>
-            </div>
-            <div>
-              <p className="max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
-                {caseGroup.summary}
-              </p>
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-                {caseGroup.subprojects.map((item) => (
-                  <article key={item.title} className="sp-surface p-5 rounded-sm">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.type}</p>
-                    <h3 className="mt-4 font-serif text-2xl leading-tight text-stone-950">{item.title}</h3>
-                    <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{item.scope}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* C. Strategy Blocks */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-32 border-t border-stone-900/10 pt-16">
@@ -1064,9 +914,9 @@ function CaseDetail({ caseId, navigate }) {
           {/* Tratamento Específico para Porti (Case 05) - SUBCURADORIA */}
           {c.id === "case-05" ? (
             <div className="flex flex-col gap-24">
-              {["Natal", "Verão"].map((subTitle, sIdx) => {
-                const sliceStart = sIdx === 0 ? 0 : 4;
-                const sliceEnd = sIdx === 0 ? 4 : 10;
+              {["Natal", "Verão", "Primavera"].map((subTitle, sIdx) => {
+                const sliceStart = sIdx === 0 ? 0 : sIdx === 1 ? 4 : 10;
+                const sliceEnd = sIdx === 0 ? 4 : sIdx === 1 ? 10 : 16;
                 const sliceImgs = c.gallery.slice(sliceStart, sliceEnd);
                 return (
                   <section key={subTitle} aria-labelledby={`subtitle-${sIdx}`}>
@@ -1076,8 +926,8 @@ function CaseDetail({ caseId, navigate }) {
                     </header>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {sliceImgs.map((img, i) => (
-                        <figure key={i} className={`sp-media-frame w-full group overflow-visible rounded-sm m-0 p-0 ${i === 0 || i % 3 === 0 ? 'md:col-span-2' : ''}`}>
-                           <ImageWithFallback src={img} alt={`Exposição temática de ${subTitle} por Samuel Carrera Paes - detalhe fotográfico ${i+1}`} mode="natural" imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out" />
+                        <figure key={i} className={`w-full bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm ${i === 0 || i % 3 === 0 ? 'md:col-span-2' : ''}`}>
+                           <ImageWithFallback src={img} alt={`Exposição temática de ${subTitle} - detalhe fotográfico ${i+1}`} mode="natural" imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out" />
                         </figure>
                       ))}
                     </div>
@@ -1094,11 +944,11 @@ function CaseDetail({ caseId, navigate }) {
                 else if (c.gallery.length > 5 && idx % 3 === 0) spanClass = "md:col-span-2";
 
                 return (
-                  <figure key={idx} className={`${spanClass} sp-media-frame w-full relative group overflow-visible rounded-sm m-0 p-0`}>
+                  <figure key={idx} className={`${spanClass} w-full relative bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm`}>
                     <ImageWithFallback
                       src={img}
                       mode="natural"
-                      alt={`Detalhe curatorial do projeto ${c.title} por Samuel Carrera Paes - fotografia ${idx+1}`}
+                      alt={`Detalhe curatorial do projeto ${c.title} - fotografia ${idx+1}`}
                       imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out"
                     />
                   </figure>
@@ -1110,15 +960,15 @@ function CaseDetail({ caseId, navigate }) {
 
         {/* E. Navigation (Sticky Bottom on Mobile for better UX) */}
         <nav
-          aria-label="Paginação de Projetos BANAL"
+          aria-label="Paginação de Cases"
           className="fixed bottom-0 left-0 w-full bg-[#F4F0E9]/95 backdrop-blur-xl border-t border-stone-900/10 p-4 z-40 md:static md:bg-transparent md:border-t md:border-stone-900/10 md:p-0 md:mt-24 md:pt-12 flex flex-row justify-between items-center gap-4 shadow-[0_-10px_40px_rgba(0,0,0,0.03)] md:shadow-none"
         >
           <button
             type="button"
-            onClick={() => navigate("empresas/banal")}
+            onClick={() => navigate("cases")}
             className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-stone-500 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 border border-stone-900/20 md:border-transparent rounded-sm"
           >
-            <ArrowLeftCircle className="w-5 h-5 hidden sm:block" aria-hidden="true" /> BANAL <span className="hidden sm:inline">Projetos</span>
+            <ArrowLeftCircle className="w-5 h-5 hidden sm:block" aria-hidden="true" /> INÍCIO <span className="hidden sm:inline">de Cases</span>
           </button>
 
           {!isLast ? (
@@ -1127,15 +977,15 @@ function CaseDetail({ caseId, navigate }) {
               onClick={() => navigate(`case/${nextCaseId}`)}
               className="flex flex-1 md:flex-none items-center justify-center md:justify-end gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-white md:text-stone-900 bg-stone-900 md:bg-transparent hover:text-stone-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 rounded-sm shadow-sm md:shadow-none"
             >
-              Próximo <span className="hidden sm:inline">Projeto</span> <ArrowRightCircle className="w-5 h-5 hidden md:block" aria-hidden="true" />
+              Próximo <span className="hidden sm:inline">Case</span> <ArrowRightCircle className="w-5 h-5 hidden md:block" aria-hidden="true" />
             </button>
           ) : (
             <button
               type="button"
-              onClick={() => navigate("biblioteca")}
+              onClick={() => navigate("sistema")}
               className="flex flex-1 md:flex-none items-center justify-center md:justify-end gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-white md:text-stone-900 bg-stone-900 md:bg-transparent hover:text-stone-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 rounded-sm shadow-sm md:shadow-none"
             >
-              Ver Biblioteca <ArrowRightCircle className="w-5 h-5 hidden md:block" aria-hidden="true" />
+              Ver Sistema <ArrowRightCircle className="w-5 h-5 hidden md:block" aria-hidden="true" />
             </button>
           )}
         </nav>
@@ -1157,770 +1007,31 @@ function CaseDetail({ caseId, navigate }) {
   );
 }
 
-function Verdeburgo({ navigate }) {
-  const openProvence = () => navigate("projetos/provence-raiz");
-
+function Sistema({ navigate }) {
   return (
     <PageTransition>
       <DynamicSEO
-        title="Verde Burgo"
-        fullTitle="Verde Burgo | Eventos, Experiências e Direção Criativa"
-        description="Verde Burgo é uma empresa de eventos com buffet, decoração, bar, cerimonial, planejamento, produção e execução, com direção criativa aplicada por Samuel Paes."
-        url="empresas/verde-burgo"
-        image={verdeBurgoBrandAssets.caseCover}
-        schemaType="CollectionPage"
-        schemaExtra={{
-          mainEntity: { "@id": `${SITE_URL}/#verde-burgo-eventos` },
-          about: [
-            { "@id": `${SITE_URL}/#samuel-carrera-paes` },
-            { "@id": `${SITE_URL}/#paes-consultoria` },
-            { "@id": `${SITE_URL}/#verde-burgo-eventos` }
-          ]
-        }}
-      />
-      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="verdeburgo-title">
-        <section className="grid gap-10 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.92fr_1.08fr]" aria-labelledby="verdeburgo-title">
-          <div className="flex flex-col justify-between">
-            <div>
-              <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">VERDE BURGO · EVENTOS · OPERAÇÃO COMPLETA</span>
-              <figure className="sp-media-frame mb-12 max-w-xs p-8 rounded-sm">
-              <img
-                src={verdeBurgoBrandAssets.logo}
-                alt="Verde Burgo Eventos"
-                className="h-auto w-full object-contain"
-                loading="eager"
-                decoding="async"
-              />
-              </figure>
-              <h1 id="verdeburgo-title" className="max-w-5xl font-serif text-5xl leading-[0.88] tracking-tight text-stone-950 md:text-7xl lg:text-8xl text-balance">
-                Festa completa, identidade clara e execução tranquila.
-              </h1>
-              <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-2xl text-balance">
-                Eventos com direção criativa. Buffet, decoração, bar, cerimonial, planejamento, produção e execução em uma solução completa para festas e eventos.
-              </p>
-            </div>
-
-            <div className="mt-14 flex flex-col gap-5 sm:flex-row sm:items-center">
-              <button
-                type="button"
-                onClick={() => navigate("contato")}
-                className="group inline-flex w-fit items-center gap-4 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-              >
-                Planejar um evento
-                <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={openProvence}
-                className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-              >
-                Ver Provence Raiz
-              </button>
-            </div>
-          </div>
-
-          <figure className="sp-surface-strong min-w-0 overflow-hidden rounded-sm">
-            <div className="relative aspect-[4/5] overflow-hidden bg-[#F8F5EF] md:aspect-[16/13]">
-              <ImageWithFallback
-                src={verdeBurgoBrandAssets.hero}
-                alt="Textura visual Verde Burgo com linguagem gráfica suave para eventos."
-                mode="cover"
-                loading="eager"
-                fetchPriority="high"
-                imageClassName="transition-transform duration-[1.5s] hover:scale-[1.02]"
-              />
-              <div className="absolute inset-0 flex items-center justify-center p-10" aria-hidden="true">
-                <img
-                  src={verdeBurgoBrandAssets.logo}
-                  alt=""
-                  className="h-auto w-36 object-contain opacity-95 md:w-44"
-                  loading="eager"
-                  decoding="async"
-                />
-              </div>
-            </div>
-            <figcaption className="grid min-w-0 gap-4 border-t border-stone-900/10 p-6 md:grid-cols-[0.7fr_1.3fr]">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Eventos completos</span>
-              <span className="min-w-0 break-words text-sm font-light leading-relaxed text-stone-600">
-                Uma empresa para integrar buffet, decoração, bar, cerimonial, planejamento e produção em uma mesma linguagem.
-              </span>
-            </figcaption>
-          </figure>
-        </section>
-
-        <section className="border-b border-stone-900/10 py-20 md:py-28" aria-labelledby="verdeburgo-entrega">
-          <header className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
-            <div>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">O que a empresa resolve</span>
-              <h2 id="verdeburgo-entrega" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-                Uma festa completa sem o cliente costurar fornecedores soltos.
-              </h2>
-            </div>
-            <div className="space-y-6">
-              <p className="max-w-4xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-                A Verde Burgo é comercialmente simples de entender: realiza festas e eventos com planejamento, buffet, decoração, bar, cerimonial, produção e execução. A diferença está na direção criativa que faz tudo conversar como uma comunicação 360 graus.
-              </p>
-              <button
-                type="button"
-                onClick={() => navigate("contato")}
-                className="inline-flex items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-              >
-                Planejar um evento <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-              </button>
-            </div>
-          </header>
-
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {verdeBurgoDeliveryStack.map(([title, text]) => (
-              <article key={title} className="sp-surface p-6 rounded-sm">
-                <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="verdeburgo-projetos">
-          <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PROJETOS VERDE BURGO</span>
-            <h2 id="verdeburgo-projetos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Eventos, festas e projetos de hospitalidade organizados por identidade e execução.
-            </h2>
-            <p className="mt-8 max-w-3xl text-lg font-light leading-relaxed text-stone-600 md:text-xl">
-              Os projetos aparecem como provas aplicadas da empresa. A oferta principal continua sendo a solução completa para casamentos, aniversários, eventos corporativos e festas especiais.
-            </p>
-          </header>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "Provence Raiz", status: "Primeiro projeto publicado", media: verdeburgoAssets.hero, type: "image", action: openProvence },
-              { title: "Casamentos", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=casamentos`, type: "video" },
-              { title: "Aniversários", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=aniversarios`, type: "video" },
-              { title: "Eventos corporativos", status: "Em desenvolvimento", media: `${verdeBurgoBrandAssets.developmentLoop}?slot=corporativos`, type: "video" }
-            ].map((project) => (
-              <article key={project.title} className="group border-t border-stone-900/10 pt-8">
-                <button
-                  type="button"
-                  onClick={project.action || undefined}
-                  disabled={!project.action}
-                  className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm disabled:cursor-default"
-                >
-                  <figure className="sp-media-frame aspect-[4/5] overflow-hidden rounded-sm">
-                    {project.type === "video" ? (
-                      <video
-                        src={project.media}
-                        aria-label={`${project.title} em desenvolvimento`}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="auto"
-                        onLoadedData={playMutedLoop}
-                        onCanPlay={playMutedLoop}
-                        className="h-full w-full object-cover transition-transform duration-[1.5s] group-hover:scale-[1.03]"
-                      />
-                    ) : (
-                      <ImageWithFallback
-                        src={project.media}
-                        alt={`Projeto Verde Burgo: ${project.title}`}
-                        mode="cover"
-                        imageClassName="transition-transform duration-[1.5s] group-hover:scale-[1.03]"
-                      />
-                    )}
-                  </figure>
-                  <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{project.status}</p>
-                  <h3 className="mt-3 font-serif text-3xl leading-tight text-stone-950 text-balance">{project.title}</h3>
-                </button>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="verdeburgo-servicos">
-          <header className="mb-14 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Solução Completa</span>
-            <h2 id="verdeburgo-servicos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Da primeira conversa ao último detalhe de execução.
-            </h2>
-            <p className="mt-8 max-w-3xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              Uma festa bem feita não depende do cliente coordenar dezenas de partes soltas. A Verde Burgo organiza serviço, estética, produção e bastidor para entregar uma experiência coerente e tranquila.
-            </p>
-          </header>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {authorityServices.filter((service) => service.group === "eventos").map((service) => (
-              <button
-                key={service.slug}
-                type="button"
-                onClick={() => navigate(`servicos/${service.slug}`)}
-                className="sp-interactive-card group px-5 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-              >
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{service.title}</p>
-                <p className="mt-3 text-xs font-light leading-relaxed text-stone-500">{service.statement}</p>
-              </button>
-            ))}
-          </div>
-          <div className="mt-16 grid gap-4 border-t border-stone-900/10 pt-12 md:grid-cols-2 lg:grid-cols-3">
-            {verdeBurgoEventFormats.map((format) => (
-              <div key={format} className="sp-surface px-5 py-5 rounded-sm">
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-900">{format}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-24 md:py-32 lg:grid-cols-[0.9fr_1.1fr]" aria-labelledby="verdeburgo-manifesto">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">EMPRESA</span>
-            <h2 id="verdeburgo-manifesto" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl lg:text-7xl text-balance">
-              Uma empresa para resolver eventos por completo.
-            </h2>
-          </div>
-          <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-            <p>
-              A Verde Burgo existe para resolver a vida de quem quer fazer uma festa. A empresa integra planejamento, buffet, decoração, bar, cerimonial, fornecedores, bastidores, montagem e execução em uma única condução.
-            </p>
-            <p>
-              O diferencial está na direção criativa aplicada aos eventos. Samuel Paes desenvolve a identidade da experiência para que comida, bar, cerimônia, decoração, ambientação, papelaria e atendimento funcionem com a mesma linguagem.
-            </p>
-            <p>
-              Provence Raiz não é a definição da Verde Burgo. É um projeto dentro dela: uma aplicação da operação completa em um território estético, narrativo e comercial específico.
-            </p>
-          </div>
-        </section>
-
-        <section className="border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="verdeburgo-metodo">
-          <header className="mb-14 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">MÉTODO</span>
-            <h2 id="verdeburgo-metodo" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Identidade, operação e presença no mesmo fluxo.
-            </h2>
-          </header>
-          <ol className="grid gap-8 md:grid-cols-5">
-            {verdeBurgoMethod.map(([name, text], index) => (
-              <li key={name} className="border-t border-stone-900/10 pt-6">
-                <span className="font-serif text-4xl text-stone-300" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{name}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section id="provence-raiz" className="scroll-mt-32 border-b border-stone-900/10 py-24 md:py-32" aria-labelledby="provence-title">
-          <header className="grid gap-12 lg:grid-cols-[0.65fr_1.35fr]">
-            <aside>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Projeto / Referência</span>
-              <dl className="grid grid-cols-2 gap-6 border-t border-stone-900/10 pt-8 lg:grid-cols-1">
-                <div>
-                  <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Projeto</dt>
-                  <dd className="mt-2 font-serif text-2xl text-stone-950">Provence Raiz</dd>
-                </div>
-                <div>
-                  <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Para</dt>
-                  <dd className="mt-2 font-serif text-2xl text-stone-950">Marcelle & Marcus Vinicius</dd>
-                </div>
-                <div>
-                  <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Território</dt>
-                  <dd className="mt-2 text-sm font-light leading-relaxed text-stone-700">Casamento · Evento · Direção Criativa</dd>
-                </div>
-              </dl>
-            </aside>
-            <div>
-              <h2 id="provence-title" className="font-serif text-5xl leading-[0.9] text-stone-950 md:text-7xl lg:text-8xl text-balance">
-                Provence Raiz.
-              </h2>
-              <p className="mt-10 max-w-4xl text-xl font-light leading-relaxed text-stone-600 md:text-3xl text-balance">
-                Um projeto dentro da Verde Burgo: evento completo conduzido por planejamento, identidade visual, ambientação, buffet, bar, cerimonial, objetos autorais, atmosfera e operação.
-              </p>
-            </div>
-          </header>
-
-          <figure className="mt-20 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
-            <div className="sp-media-frame relative aspect-[4/3] overflow-hidden rounded-sm">
-              <ImageWithFallback
-                src={verdeburgoAssets.mesaRefinada}
-                alt="Render refinado da mesa do bolo Provence Raiz com Toile de Jouy, luminárias e florais."
-                mode="cover"
-                loading="eager"
-                imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
-              />
-            </div>
-            <figcaption className="flex flex-col justify-end border-l border-stone-900/10 pl-8 text-sm font-light leading-relaxed text-stone-600">
-              <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Tese visual</span>
-              O espaço atua como pano de fundo vivo: concreto, luz, sombra, percurso, Toile de Jouy, floral e objetos autorais sustentam a atmosfera sem competir com a experiência.
-            </figcaption>
-          </figure>
-        </section>
-
-        <section className="py-24 md:py-32" aria-labelledby="verdeburgo-capitulos">
-          <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Capítulos do Projeto</span>
-            <h2 id="verdeburgo-capitulos" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Uma leitura vertical de conceito, matéria, espaço e memória.
-            </h2>
-          </header>
-
-          <div className="space-y-24">
-            {verdeburgoChapters.map((chapter, index) => (
-              <section
-                key={chapter.number}
-                className={`grid gap-10 border-t border-stone-900/10 pt-12 lg:grid-cols-2 lg:items-center ${index % 2 === 1 ? "lg:[&>figure]:order-2" : ""}`}
-                aria-labelledby={`verdeburgo-chapter-${chapter.number}`}
-              >
-                <figure className={`sp-media-frame relative overflow-hidden rounded-sm ${chapter.frameClassName || "aspect-[4/3]"}`}>
-                  <ImageWithFallback
-                    src={chapter.image}
-                    alt={chapter.alt}
-                    mode={chapter.mode || "cover"}
-                    imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
-                  />
-                </figure>
-                <div className="max-w-xl">
-                  <span className="mb-8 block font-serif text-5xl text-stone-300" aria-hidden="true">{chapter.number}</span>
-                  <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">{chapter.label}</p>
-                  <h3 id={`verdeburgo-chapter-${chapter.number}`} className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
-                    {chapter.title}
-                  </h3>
-                  <p className="mt-8 text-base font-light leading-relaxed text-stone-600 md:text-lg">
-                    {chapter.text}
-                  </p>
-                </div>
-              </section>
-            ))}
-          </div>
-        </section>
-
-        <section className="border-y border-stone-900/10 py-24 md:py-32" aria-labelledby="objetos-autorais">
-          <header className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-            <div>
-              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Objetos Autorais</span>
-              <h2 id="objetos-autorais" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-                Peças entre cenografia, arquitetura efêmera e design de produto.
-              </h2>
-            </div>
-            <p className="text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              Alguns elementos foram desenvolvidos como dispositivos espaciais para organizar escala, luz, ritmo e memória. As pranchas técnicas não entram como anexo frio: elas revelam a engenharia invisível da experiência.
-            </p>
-          </header>
-
-          <div className="mt-16 grid gap-8 lg:grid-cols-3">
-            {verdeburgoObjects.map((item) => (
-              <article key={item.title} className="flex flex-col border-t border-stone-900/10 pt-8">
-                <figure className="sp-media-frame relative aspect-[4/3] overflow-hidden rounded-sm">
-                  <ImageWithFallback
-                    src={item.image}
-                    alt={item.alt}
-                    mode="contain"
-                    imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
-                  />
-                </figure>
-                <h3 className="mt-8 font-serif text-3xl leading-tight text-stone-950">{item.title}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-8 py-24 md:py-32 lg:grid-cols-3" aria-label="Engenharia e desenvolvimento">
-          {[
-            ["Montável", "Cada peça precisa existir fisicamente, ser transportável, segura e coerente com o tempo real de montagem."],
-            ["Técnico", "A camada executiva traduz intenção em medidas, materiais, tolerâncias, fixações e leitura de produção."],
-            ["Editorial", "O rigor técnico aparece como valor autoral: a beleza final nasce da precisão invisível entre desenho, matéria e execução."]
-          ].map(([title, text]) => (
-            <section key={title} className="border-t border-stone-900/10 pt-8">
-              <CheckCircle2 className="mb-8 h-5 w-5 text-stone-900" aria-hidden="true" />
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
-              <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-            </section>
-          ))}
-        </section>
-
-        <EditorialConnectionGrid
-          eyebrow="Conexões da Verde Burgo"
-          title="Evento como empresa, projeto e linguagem."
-          description="A Verde Burgo concentra eventos completos. Provence Raiz mostra a primeira aplicação publicada dessa visão, enquanto a Biblioteca sustenta o pensamento sobre experiência, presença e execução."
-          links={[
-            { label: "Provence Raiz", text: "Primeiro projeto publicado dentro da Verde Burgo.", route: "projetos/provence-raiz" },
-            { label: "Samuel Carrera Paes", text: "Direção criativa e identidade aplicada aos eventos.", route: "sobre/samuel-carrera-paes" },
-            { label: "Geração dos Realizadores", text: "A tese que conecta visão, operação e presença real.", route: "biblioteca/geracao-dos-realizadores" }
-          ]}
-          navigate={navigate}
-        />
-
-        <footer className="sp-cta-dark mb-16 px-8 py-20 text-center text-[#F4F0E9] rounded-sm md:px-16 md:py-28">
-          <p className="mx-auto max-w-5xl font-serif text-3xl leading-tight md:text-5xl lg:text-6xl text-balance">
-            Festa completa, identidade clara e execução tranquila.
-          </p>
-          <p className="mx-auto mt-8 max-w-2xl text-sm font-light leading-relaxed text-[#F4F0E9]/70 md:text-base">
-            É a Verde Burgo. Provence Raiz é a primeira demonstração publicada dessa lógica: serviço, atmosfera, produção e memória trabalhando como uma experiência única.
-          </p>
-          <div className="mt-12 flex flex-col items-center justify-center gap-5 md:flex-row">
-            <button
-              type="button"
-              onClick={() => navigate("contato")}
-              className="inline-flex items-center gap-3 border-b border-[#F4F0E9]/40 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] transition-colors hover:border-[#F4F0E9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F0E9] rounded-sm"
-            >
-              Conversar sobre uma experiência <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </div>
-        </footer>
-      </article>
-    </PageTransition>
-  );
-}
-
-function ProvenceRaizPage({ navigate }) {
-  return (
-    <PageTransition>
-      <DynamicSEO
-        title="Provence Raiz"
-        fullTitle="Provence Raiz | Projeto e Experiência Criativa"
-        description="Provence Raiz é um projeto dentro da Verde Burgo, com evento completo, direção criativa, identidade visual, ambientação, buffet, bar, cerimonial e produção."
-        url="projetos/provence-raiz"
-        image={verdeburgoAssets.hero}
-        schemaType="CreativeWork"
-        schemaExtra={{
-          name: "Provence Raiz",
-          creator: { "@id": `${SITE_URL}/#samuel-carrera-paes` },
-          isPartOf: { "@id": `${SITE_URL}/#verde-burgo-eventos` },
-          about: [
-            "eventos",
-            "direção criativa",
-            "cenografia",
-            "hospitalidade",
-            "identidade de evento",
-            "Verde Burgo Eventos"
-          ]
-        }}
-      />
-      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="provence-page-title">
-        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.68fr_1.32fr]">
-          <aside>
-            <button
-              type="button"
-              onClick={() => navigate("empresas/verde-burgo")}
-              className="mb-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-            >
-              <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Verde Burgo
-            </button>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Primeiro projeto publicado</span>
-            <dl className="grid gap-6 border-t border-stone-900/10 pt-8">
-              {[
-                ["Empresa", "Verde Burgo Eventos"],
-                ["Direção criativa", "Samuel Carrera Paes"],
-                ["Território", "Casamento, evento e experiência"],
-                ["Camadas", "Buffet, decoração, bar, cerimonial, ambientação e produção"]
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{label}</dt>
-                  <dd className="mt-2 text-sm font-light leading-relaxed text-stone-700">{value}</dd>
-                </div>
-              ))}
-            </dl>
-          </aside>
-
-          <div className="self-end">
-            <h1 id="provence-page-title" className="font-serif text-6xl leading-[0.82] tracking-tight text-stone-950 md:text-[8rem] text-balance">
-              Provence Raiz.
-            </h1>
-            <p className="mt-10 max-w-4xl text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
-              Um projeto dentro da Verde Burgo que mostra como uma festa pode funcionar como comunicação 360 graus: serviço, matéria, decoração, bar, cerimônia, papelaria, percurso e atmosfera sustentando a mesma identidade.
-            </p>
-          </div>
-        </header>
-
-        <figure className="grid gap-6 border-b border-stone-900/10 py-16 lg:grid-cols-[1.25fr_0.75fr]">
-          <div className="sp-media-frame relative aspect-[16/10] overflow-hidden rounded-sm">
-            <ImageWithFallback
-              src={verdeburgoAssets.hero}
-              alt="Mural contemporâneo inspirado em Toile de Jouy para o projeto Provence Raiz da Verde Burgo, com direção criativa de Samuel Carrera Paes."
-              mode="cover"
-              loading="eager"
-              imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]"
-            />
-          </div>
-          <figcaption className="flex flex-col justify-end border-l border-stone-900/10 pl-8 text-sm font-light leading-relaxed text-stone-600">
-            <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Imagem matriz</span>
-            A memória gráfica aparece como linguagem de evento, não como estampa decorativa. Ela cria pano de fundo, repertório e coerência para a experiência física.
-          </figcaption>
-        </figure>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-24 md:py-32 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="provence-system-title">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sistema do projeto</span>
-            <h2 id="provence-system-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Não é cenário isolado. É identidade aplicada ao evento inteiro.
-            </h2>
-          </div>
-          <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-            <p>
-              Provence Raiz organiza a festa como uma experiência completa. O espaço não aparece como vitrine de decoração, mas como matéria viva da narrativa: luz, textura, desenho, cheiro, comida, rito, circulação e permanência precisam conversar.
-            </p>
-            <p>
-              A Verde Burgo entra como operação integrada. Samuel Paes entra como direção criativa, construindo a linguagem que permite que buffet, decoração, bar, cerimonial e produção trabalhem dentro de uma única presença.
-            </p>
-            <p>
-              O valor do projeto está na coerência entre desejo e execução. Uma festa sofisticada precisa ser bonita, possível, montável, servida com precisão e lembrada como experiência.
-            </p>
-          </div>
-        </section>
-
-        <section className="py-24 md:py-32" aria-labelledby="provence-camadas-title">
-          <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Camadas visuais</span>
-            <h2 id="provence-camadas-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Da referência gráfica ao objeto físico.
-            </h2>
-          </header>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: "Mesa e hospitalidade",
-                image: verdeburgoAssets.mesaRefinada,
-                alt: "Mesa de bolo Provence Raiz com mural Toile de Jouy, luminárias e composição floral da Verde Burgo.",
-                text: "A mesa funciona como ponto de permanência, serviço e memória visual."
-              },
-              {
-                title: "Cerimônia",
-                image: verdeburgoAssets.cerimoniaRefinada,
-                alt: "Cerimônia Provence Raiz com passarela, altar e flores em direção criativa da Verde Burgo.",
-                text: "A cerimônia precisa sustentar emoção, eixo visual, escala e leitura do rito."
-              },
-              {
-                title: "Volume natural",
-                image: verdeburgoAssets.volumeNatural,
-                alt: "Estudo floral Volume Natural, Nunca Artificial do projeto Provence Raiz.",
-                text: "O floral entra com assimetria, hastes aparentes e imperfeição elegante."
-              },
-              {
-                title: "Pilastras cenográficas",
-                image: verdeburgoAssets.pilastrasRefinada,
-                alt: "Prancha técnica de pilastras cenográficas para altar Provence Raiz.",
-                text: "A peça cenográfica organiza presença, escala e leitura sem fechar o espaço."
-              },
-              {
-                title: "Luminária carretel",
-                image: verdeburgoAssets.luminariaCarretelRefinada,
-                alt: "Prancha técnica da luminária pêndulo carretel cenográfico Provence Raiz.",
-                text: "O objeto traduz atmosfera em engenharia de luz, material e montagem."
-              },
-              {
-                title: "Escada floral",
-                image: verdeburgoAssets.escadaRefinada,
-                alt: "Escada com cascata floral no projeto Provence Raiz da Verde Burgo.",
-                text: "O percurso também comunica, criando transição entre chegada, memória e experiência."
-              }
-            ].map((item) => (
-              <article key={item.title} className="border-t border-stone-900/10 pt-8">
-                <figure className="sp-media-frame relative aspect-[4/3] overflow-hidden rounded-sm">
-                  <ImageWithFallback src={item.image} alt={item.alt} mode="cover" imageClassName="transition-transform duration-[1.5s] ease-out hover:scale-[1.02]" />
-                </figure>
-                <h3 className="mt-8 font-serif text-3xl leading-tight text-stone-950">{item.title}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <EditorialConnectionGrid
-          eyebrow="Conexões do projeto"
-          title="Provence Raiz dentro da malha do ecossistema."
-          description="A página conecta o projeto à Verde Burgo, à direção criativa de Samuel Carrera Paes e aos serviços que tornam o evento executável."
-          links={[
-            { label: "Verde Burgo Eventos", text: "Empresa de eventos completos com direção criativa aplicada.", route: "empresas/verde-burgo" },
-            { label: "Eventos", text: "Festas como experiência integrada de serviço, operação e identidade.", route: "servicos/eventos" },
-            { label: "Decoração", text: "Atmosfera construída com matéria, memória e intenção.", route: "servicos/decoracao" }
-          ]}
-          navigate={navigate}
-        />
-      </article>
-    </PageTransition>
-  );
-}
-
-function GeracaoDosRealizadoresPage({ navigate }) {
-  return (
-    <PageTransition>
-      <DynamicSEO
-        title="Geração dos Realizadores"
-        fullTitle="Geração dos Realizadores | Biblioteca Paes Consultoria"
-        description="A Geração dos Realizadores organiza a tese de Samuel Carrera Paes sobre visão, repertório, inteligência artificial, direção criativa, operação e execução."
-        url="biblioteca/geracao-dos-realizadores"
-        image={homePortrait}
-        schemaType="Article"
-        schemaExtra={{
-          headline: "Geração dos Realizadores",
-          author: { "@id": `${SITE_URL}/#samuel-carrera-paes` },
-          publisher: { "@id": `${SITE_URL}/#paes-consultoria` },
-          about: [
-            "direção criativa",
-            "consultoria criativa",
-            "inteligência artificial",
-            "execução",
-            "ecossistemas criativos"
-          ]
-        }}
-      />
-      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="geracao-title">
-        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.7fr_1.3fr]">
-          <aside>
-            <button
-              type="button"
-              onClick={() => navigate("biblioteca")}
-              className="mb-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-            >
-              <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Biblioteca
-            </button>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Manifesto / Tese</span>
-            <p className="border-t border-stone-900/10 pt-8 text-sm font-light leading-relaxed text-stone-600">
-              Texto matriz para entender Samuel Carrera Paes como diretor criativo, consultor criativo e criador de empresas, sistemas, identidades e narrativas.
-            </p>
-          </aside>
-          <div className="self-end">
-            <h1 id="geracao-title" className="font-serif text-5xl leading-[0.85] tracking-tight text-stone-950 md:text-[7rem] text-balance">
-              A Geração dos Realizadores.
-            </h1>
-            <p className="mt-10 max-w-4xl text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
-              Uma geração que não separa repertório de execução, inteligência de presença, estética de operação. Ela cria empresas, métodos, campanhas, eventos e sistemas capazes de transformar intenção em realidade.
-            </p>
-          </div>
-        </header>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-24 md:py-32 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="geracao-contexto-title">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Contexto</span>
-            <h2 id="geracao-contexto-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Criar já não é apenas imaginar. É estruturar, testar, operar e publicar.
-            </h2>
-          </div>
-          <div className="space-y-7 text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-            <p>
-              A tese parte de uma mudança clara: repertório, ferramentas digitais, inteligência artificial e execução ficaram mais próximos. O profissional que apenas idealiza perde força. O realizador ganha relevância porque consegue conduzir a visão até a presença concreta.
-            </p>
-            <p>
-              No ecossistema Samuel Paes, essa lógica aparece em três camadas. A Paes Consultoria organiza visão, diagnóstico e direção. A BANAL traduz marca, marketing e percepção. A Verde Burgo transforma evento, festa, serviço e atmosfera em experiência integrada.
-            </p>
-            <p>
-              A Geração dos Realizadores não celebra pressa. Ela exige critério. A execução só vira valor quando nasce de leitura, identidade, operação e coerência.
-            </p>
-          </div>
-        </section>
-
-        <section className="py-24 md:py-32" aria-labelledby="geracao-pilares-title">
-          <header className="mb-16 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Pilares</span>
-            <h2 id="geracao-pilares-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              O pensamento que sustenta o ecossistema.
-            </h2>
-          </header>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["Visão", "A capacidade de formular uma direção própria antes de escolher forma, canal ou ferramenta."],
-              ["Repertório", "A leitura de referências, contextos, materiais, comportamentos e sinais culturais."],
-              ["Sistema", "A organização de empresas, serviços, conteúdos e processos para que a ideia tenha continuidade."],
-              ["Execução", "A disciplina de fazer a visão sobreviver ao orçamento, ao tempo, à equipe e ao mundo real."]
-            ].map(([title, text]) => (
-              <section key={title} className="border-t border-stone-900/10 pt-8">
-                <h3 className="font-serif text-3xl leading-tight text-stone-950">{title}</h3>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-              </section>
-            ))}
-          </div>
-        </section>
-
-        <EditorialConnectionGrid
-          eyebrow="Leitura relacionada"
-          title="A tese aplicada no site."
-          description="Esta página funciona como base intelectual para as empresas, os serviços e os projetos do ecossistema."
-          links={[
-            { label: "Samuel Carrera Paes", text: "Diretor criativo, consultor criativo e criador do ecossistema.", route: "sobre/samuel-carrera-paes" },
-            { label: "BANAL", text: "A frente de marca, marketing, posicionamento e narrativa.", route: "empresas/banal" },
-            { label: "Verde Burgo", text: "A frente de eventos, festas, serviço, atmosfera e execução.", route: "empresas/verde-burgo" }
-          ]}
-          navigate={navigate}
-        />
-      </article>
-    </PageTransition>
-  );
-}
-
-function Biblioteca({ navigate }) {
-  return (
-    <PageTransition>
-      <DynamicSEO
-        title="Biblioteca"
-        description="Biblioteca Samuel Paes: artigos, ensaios, pesquisas e reflexões sobre branding, varejo, eventos, hospitalidade, posicionamento, percepção e direção criativa."
-        url="biblioteca"
+        title="Sistema de Direção Criativa"
+        description="Índice editorial com seis artigos autorais do sistema Samuel Carrera Paes para transformar marca, produto, espaço, operação e jornada omnichannel em percepção de valor."
+        url="sistema"
       />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12" aria-labelledby="sistema-title">
         <header>
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">BIBLIOTECA</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CREATIVE SYSTEM</span>
           <h1 id="sistema-title" className="font-serif text-5xl md:text-[7rem] leading-[0.85] tracking-tighter text-stone-950 max-w-4xl mb-8 text-balance">
-            Biblioteca.
+            Sistema de Direção Criativa.
           </h1>
           <p className="text-xl md:text-3xl font-light text-stone-600 max-w-3xl mb-24 leading-relaxed text-balance">
-            Artigos, ensaios e pesquisas para construir autoridade em branding, varejo, hospitalidade, eventos, narrativa, posicionamento, percepção, direção criativa, inteligência artificial aplicada e construção de negócios.
+            Seis artigos sobre a loja física como tecnologia de percepção e sobre os princípios que também organizam presença digital, calendário comercial, atendimento e jornada omnichannel.
           </p>
         </header>
 
-        <section className="grid gap-10 border-y border-stone-900/10 py-16 lg:grid-cols-[0.72fr_1.28fr]" aria-labelledby="biblioteca-territorios">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">HUB INTELECTUAL</span>
-            <h2 id="biblioteca-territorios" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              A Biblioteca sustenta as empresas antes de parecer blog.
-            </h2>
-          </div>
-          <div>
-            <p className="max-w-4xl text-lg font-light leading-relaxed text-stone-700 md:text-xl">
-              Cada texto deve ampliar a associação pública entre Samuel Carrera Paes, Paes Consultoria, BANAL, Verde Burgo, direção criativa, marketing, eventos, varejo, hospitalidade e sistemas de percepção. Ela não é uma área lateral: é a camada intelectual que explica por que as empresas existem e como os projetos devem ser lidos.
-            </p>
-            <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-              {bibliotecaTerritories.map(([title, text]) => (
-                <article key={title} className="sp-surface p-5 rounded-sm">
-                  <h3 className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">{title}</h3>
-                  <p className="mt-4 text-xs font-light leading-relaxed text-stone-500">{text}</p>
-                </article>
-              ))}
-            </div>
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {[
-                ["BANAL", "Artigos que sustentam marca, marketing, varejo, campanhas, collabs e percepção de valor."],
-                ["Verde Burgo", "Textos para afirmar evento como hospitalidade, identidade, serviço, atmosfera e comunicação 360 graus."],
-                ["Samuel Carrera Paes", "Ensaios que conectam visão, repertório, IA, direção criativa, operação e execução."]
-              ].map(([title, text]) => (
-                <article key={title} className="border-l border-stone-900/10 pl-5">
-                  <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">{title}</h3>
-                  <p className="mt-4 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 border-t border-stone-900/10 pt-16">
-          <article className="group flex min-h-[24rem] flex-col border border-stone-900/20 bg-stone-950 text-[#F4F0E9] transition-all duration-700 hover:bg-stone-800 rounded-sm md:col-span-2 lg:col-span-1">
-            <button
-              type="button"
-              onClick={() => navigate("biblioteca/geracao-dos-realizadores")}
-              aria-label="Ler artigo A Geração dos Realizadores"
-              className="flex h-full flex-col p-8 md:p-10 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-            >
-              <span className="font-serif text-4xl mb-8 text-[#F4F0E9]/35" aria-hidden="true">00.</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] mb-3">Manifesto</h3>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F4F0E9]/55 mb-6 block">Visão, IA, operação e execução</span>
-              <p className="font-serif text-2xl leading-tight mb-6 text-balance">A Geração dos Realizadores</p>
-              <p className="text-sm font-light text-[#F4F0E9]/70 leading-relaxed mb-8">
-                A tese que apresenta Samuel Carrera Paes como diretor criativo, consultor criativo e criador de empresas, métodos, narrativas e sistemas.
-              </p>
-              <span className="mt-auto inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em]">
-                Ler tese <ArrowRightCircle className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-              </span>
-            </button>
-          </article>
           {sistemaArticleCards.map((card) => (
-            <article key={card.num} className="sp-interactive-card group flex min-h-[24rem] flex-col rounded-sm">
+            <article key={card.num} className="group flex min-h-[24rem] flex-col border border-stone-900/10 bg-white/40 transition-all duration-700 hover:bg-white/80 hover:border-stone-900/25 rounded-sm">
               <button
                 type="button"
-                onClick={() => navigate(`biblioteca/${card.slug}`)}
+                onClick={() => navigate(`sistema/${card.slug}`)}
                 aria-label={`Ler artigo ${card.editorialTitle}`}
                 className="flex h-full flex-col p-8 md:p-10 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
               >
@@ -2003,9 +1114,9 @@ function SistemaArticle({ slug, navigate }) {
   if (status === "loading") {
     return (
       <PageTransition>
-        <DynamicSEO title="Biblioteca" description="Carregando artigo da Biblioteca Samuel Paes." url={`biblioteca/${slug}`} />
+        <DynamicSEO title="Sistema" description="Carregando artigo do Sistema Samuel Paes." url={`sistema/${slug}`} />
         <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12 min-h-[70vh] flex flex-col justify-center">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">BIBLIOTECA</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">SISTEMA</span>
           <h1 className="font-serif text-5xl md:text-7xl leading-none text-stone-950">Carregando artigo.</h1>
         </section>
       </PageTransition>
@@ -2015,16 +1126,16 @@ function SistemaArticle({ slug, navigate }) {
   if (!article) {
     return (
       <PageTransition>
-        <DynamicSEO title="Artigo não encontrado" description="Artigo da Biblioteca Samuel Paes não encontrado." url={`biblioteca/${slug}`} />
+        <DynamicSEO title="Artigo não encontrado" description="Artigo do Sistema Samuel Paes não encontrado." url={`sistema/${slug}`} />
         <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12 min-h-[70vh] flex flex-col justify-center">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">BIBLIOTECA</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">SISTEMA</span>
           <h1 className="font-serif text-5xl md:text-7xl leading-none text-stone-950 mb-8">Artigo não encontrado.</h1>
           <button
             type="button"
-            onClick={() => navigate("biblioteca")}
+            onClick={() => navigate("sistema")}
             className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 border-b border-stone-900/30 pb-2 hover:border-stone-900 transition-colors"
           >
-            <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Voltar à Biblioteca
+            <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Voltar ao Sistema
           </button>
         </section>
       </PageTransition>
@@ -2043,22 +1154,22 @@ function SistemaArticle({ slug, navigate }) {
       <DynamicSEO
         title={article.editorialTitle}
         description={article.short}
-        url={`biblioteca/${article.slug}`}
+        url={`sistema/${article.slug}`}
         schemaType="Article"
       />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="sistema-article-title">
         <button
           type="button"
-          onClick={() => navigate("biblioteca")}
+          onClick={() => navigate("sistema")}
           className="mb-14 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500 border-b border-stone-900/10 pb-2 hover:text-stone-900 hover:border-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
         >
-          <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Biblioteca
+          <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Sistema
         </button>
 
         <header className="grid gap-14 border-b border-stone-900/10 pb-16 lg:grid-cols-[0.7fr_1.3fr]">
           <aside>
             <span className="font-serif text-7xl text-stone-300 block mb-8" aria-hidden="true">{article.num}.</span>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-5">ARTIGO DA BIBLIOTECA</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-5">ARTIGO DO SISTEMA</p>
             <p className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-2">{article.title}</p>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">{article.phrase}</p>
             <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-stone-900/10 pt-8 lg:grid-cols-1">
@@ -2161,11 +1272,11 @@ function SistemaArticle({ slug, navigate }) {
           </div>
         </div>
 
-        <nav className="grid gap-6 border-t border-stone-900/10 py-12 md:grid-cols-3" aria-label="Navegação entre artigos da Biblioteca">
+        <nav className="grid gap-6 border-t border-stone-900/10 py-12 md:grid-cols-3" aria-label="Navegação entre artigos do Sistema">
           <button
             type="button"
-            onClick={() => navigate(`biblioteca/${previous.slug}`)}
-            className="sp-interactive-card group flex min-h-32 flex-col justify-between p-6 text-left rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            onClick={() => navigate(`sistema/${previous.slug}`)}
+            className="group flex min-h-32 flex-col justify-between border border-stone-900/10 bg-white/30 p-6 text-left rounded-sm hover:bg-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
           >
             <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
               <ArrowLeftCircle className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden="true" /> Anterior
@@ -2174,15 +1285,15 @@ function SistemaArticle({ slug, navigate }) {
           </button>
           <button
             type="button"
-            onClick={() => navigate("biblioteca")}
+            onClick={() => navigate("sistema")}
             className="flex min-h-32 flex-col items-center justify-center border border-stone-900/10 bg-stone-900 text-[#F4F0E9] p-6 text-center rounded-sm hover:bg-stone-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
           >
             <span className="text-[10px] font-bold uppercase tracking-[0.25em]">Todos os artigos</span>
           </button>
           <button
             type="button"
-            onClick={() => navigate(`biblioteca/${next.slug}`)}
-            className="sp-interactive-card group flex min-h-32 flex-col justify-between p-6 text-left rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            onClick={() => navigate(`sistema/${next.slug}`)}
+            className="group flex min-h-32 flex-col justify-between border border-stone-900/10 bg-white/30 p-6 text-left rounded-sm hover:bg-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
           >
             <span className="inline-flex items-center justify-end gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
               Próximo <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -2195,391 +1306,39 @@ function SistemaArticle({ slug, navigate }) {
   );
 }
 
-function EcosystemAtlas({ navigate }) {
-  return (
-    <PageTransition>
-      <DynamicSEO
-        title="Mapa do Ecossistema"
-        description="Mapa editorial dos serviços, empresas, cases e artigos associados a Samuel Carrera Paes, Paes Consultoria, BANAL e Verde Burgo Eventos."
-        url={`atlas/${authorityAtlas.slug}`}
-      />
-      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12">
-        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.78fr_1.22fr]">
-          <div>
-            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ATLAS EDITORIAL</span>
-            <h1 className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
-              {authorityAtlas.title}.
-            </h1>
-          </div>
-          <div className="self-end max-w-3xl">
-            <p className="text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
-              {authorityAtlas.subtitle}
-            </p>
-            <p className="mt-8 text-base font-light leading-relaxed text-stone-600 md:text-lg">
-              {authorityAtlas.description}
-            </p>
-          </div>
-        </header>
-
-        <section className="border-b border-stone-900/10 py-16" aria-label="Entidades do ecossistema">
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              ["Samuel Carrera Paes", "Direção criativa, consultoria criativa, repertório, inteligência artificial aplicada, estratégia e execução."],
-              ["BANAL", "Branding, marketing, posicionamento, narrativa, conteúdo, campanhas, collabs, varejo, produto próprio e percepção de valor."],
-              ["Verde Burgo Eventos", "Eventos completos com buffet, decoração, bar, cerimonial, planejamento, produção e direção criativa. Provence Raiz é o primeiro projeto publicado."]
-            ].map(([title, text]) => (
-              <section key={title} className="border-t border-stone-900/10 pt-8">
-                <h2 className="font-serif text-3xl leading-tight text-stone-950">{title}</h2>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{text}</p>
-              </section>
-            ))}
-          </div>
-          <div className="mt-14 grid gap-8 border-t border-stone-900/10 pt-10 lg:grid-cols-[0.72fr_1.28fr]">
-            <div>
-              <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ARQUIVO DE REPERTÓRIO</span>
-              <h2 className="font-serif text-3xl leading-tight text-stone-950 md:text-5xl text-balance">
-                A malha pública deve crescer sem perder hierarquia.
-              </h2>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <article className="sp-surface p-6 rounded-sm">
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">BANAL</p>
-                <p className="mt-5 font-serif text-3xl leading-tight text-stone-950">{banalCaseGroups.length} núcleos estruturados.</p>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">
-                  Inclui Porti Natal e Verão, Basquiat, Netflix/Tudum, Mangueira, Paraíso Tropical e outros projetos em catalogação editorial.
-                </p>
-              </article>
-              <article className="sp-surface p-6 rounded-sm">
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">VERDE BURGO</p>
-                <p className="mt-5 font-serif text-3xl leading-tight text-stone-950">Empresa antes do case.</p>
-                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">
-                  A frente comercial é eventos completos. Provence Raiz funciona como primeiro projeto publicado e demonstração de linguagem.
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-20 md:py-28" aria-labelledby="atlas-servicos-title">
-          <header className="mb-14 max-w-4xl">
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">SERVIÇOS E TERRITÓRIOS</span>
-            <h2 id="atlas-servicos-title" className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">
-              Uma malha leve para conectar nome, empresa, serviço, case e pensamento.
-            </h2>
-          </header>
-
-          <div className="space-y-16">
-            {authorityServiceGroups.map((group) => {
-              const groupServices = authorityServices.filter((service) => service.group === group.id);
-              return (
-                <section key={group.id} aria-labelledby={`atlas-group-${group.id}`}>
-                  <div className="mb-8 grid gap-6 border-t border-stone-900/10 pt-8 lg:grid-cols-[0.42fr_1fr]">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">{group.label}</p>
-                    </div>
-                    <p id={`atlas-group-${group.id}`} className="max-w-3xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
-                      {group.description}
-                    </p>
-                  </div>
-                  <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                    {groupServices.map((service) => (
-                      <button
-                        key={service.slug}
-                        type="button"
-                        onClick={() => navigate(`servicos/${service.slug}`)}
-                        className="sp-interactive-card group min-h-64 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                      >
-                        <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-400">{service.company}</span>
-                        <h3 className="mt-6 font-serif text-3xl leading-tight text-stone-950 group-hover:text-stone-600 text-balance">{service.title}</h3>
-                        <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">{service.statement}</p>
-                        <span className="mt-8 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">
-                          Ler território <ArrowRightCircle className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
-          </div>
-        </section>
-      </article>
-    </PageTransition>
-  );
-}
-
-function AuthorityServicePage({ slug, navigate }) {
-  const service = getAuthorityService(slug);
-
-  if (!service) {
-    return (
-      <PageTransition>
-        <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
-          <h1 className="font-serif text-4xl text-stone-950">Serviço não encontrado.</h1>
-          <button
-            type="button"
-            onClick={() => navigate(`atlas/${authorityAtlas.slug}`)}
-            className="mt-8 border-b border-stone-900/30 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900"
-          >
-            Voltar ao mapa do ecossistema
-          </button>
-        </div>
-      </PageTransition>
-    );
-  }
-
-  const relatedCases = service.relatedCases.map((id) => casesData.find((item) => item.id === id)).filter(Boolean);
-  const relatedBanalGroups = banalCaseGroups.filter((group) => service.relatedCases.includes(group.parentCaseId));
-  const relatedBanalSubprojects = relatedBanalGroups.flatMap((group) =>
-    group.subprojects.map((item) => ({ ...item, parentTitle: group.title }))
-  );
-  const relatedArticles = service.relatedArticles.map((articleSlug) => sistemaArticleCards.find((item) => item.slug === articleSlug)).filter(Boolean);
-  const peerServices = authorityServices.filter((item) => item.group === service.group && item.slug !== service.slug).slice(0, 3);
-
-  return (
-    <PageTransition>
-      <DynamicSEO
-        title={service.title}
-        description={`${service.title} por Samuel Carrera Paes / ${service.company}: ${service.statement}`}
-        url={`servicos/${service.slug}`}
-        schemaType="Service"
-      />
-      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12">
-        <header className="grid gap-12 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.78fr_1.22fr]">
-          <div>
-            <button
-              type="button"
-              onClick={() => navigate(`atlas/${authorityAtlas.slug}`)}
-              className="mb-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-            >
-              <ArrowLeftCircle className="h-4 w-4" aria-hidden="true" /> Mapa do Ecossistema
-            </button>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">{service.company}</span>
-            <h1 className="font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 md:text-[7rem] text-balance">
-              {service.title}.
-            </h1>
-          </div>
-          <div className="self-end max-w-3xl">
-            <p className="text-xl font-light leading-relaxed text-stone-700 md:text-3xl text-balance">
-              {service.statement}
-            </p>
-            <p className="mt-8 text-base font-light leading-relaxed text-stone-600 md:text-lg">
-              {service.description}
-            </p>
-            <button
-              type="button"
-              onClick={() => navigate(service.companyRoute)}
-              className="mt-10 inline-flex items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-            >
-              Ver {service.company} <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </div>
-        </header>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-16 lg:grid-cols-[0.42fr_1fr]" aria-labelledby="aplicacoes-title">
-          <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">APLICAÇÕES</span>
-            <h2 id="aplicacoes-title" className="mt-8 font-serif text-4xl leading-tight text-stone-950 md:text-5xl text-balance">
-              Onde esse território aparece.
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-3 self-start">
-            {service.applications.map((item) => (
-              <span key={item} className="rounded-full border border-stone-900/10 bg-white/35 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-stone-500">
-                {item}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-12 border-b border-stone-900/10 py-16 lg:grid-cols-2" aria-label="Conexões do serviço">
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">CASES RELACIONADOS</span>
-            {relatedCases.length > 0 ? (
-              <div className="space-y-5">
-                {relatedCases.map((project) => (
-                  <button
-                    key={project.id}
-                    type="button"
-                    onClick={() => navigate(`case/${project.id}`)}
-                    className="group flex w-full items-center justify-between gap-6 border-t border-stone-900/10 pt-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                  >
-                    <span>
-                      <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{project.client}</span>
-                      <span className="mt-2 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{project.title}</span>
-                    </span>
-                    <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-                  </button>
-                ))}
-                {relatedBanalSubprojects.length > 0 && (
-                  <div className="border-t border-stone-900/10 pt-6">
-                    <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Desdobramentos BANAL</p>
-                    <div className="grid gap-3">
-                      {relatedBanalSubprojects.map((item) => (
-                        <div key={`${item.parentTitle}-${item.title}`} className="bg-white/25 px-4 py-4 rounded-sm">
-                          <p className="text-xs font-semibold text-stone-900">{item.title}</p>
-                          <p className="mt-1 text-xs font-light leading-relaxed text-stone-500">{item.parentTitle} · {item.scope}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => navigate("projetos/provence-raiz")}
-                className="group flex w-full items-center justify-between gap-6 border-t border-stone-900/10 pt-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-              >
-                <span>
-                  <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">Primeiro projeto publicado</span>
-                  <span className="mt-2 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">Provence Raiz dentro da Verde Burgo</span>
-                </span>
-                <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-              </button>
-            )}
-          </div>
-
-          <div>
-            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">ARTIGOS RELACIONADOS</span>
-            <div className="space-y-5">
-              {relatedArticles.map((article) => (
-                <button
-                  key={article.slug}
-                  type="button"
-                  onClick={() => navigate(`biblioteca/${article.slug}`)}
-                  className="group flex w-full items-center justify-between gap-6 border-t border-stone-900/10 pt-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                >
-                  <span>
-                    <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{article.title}</span>
-                    <span className="mt-2 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{article.editorialTitle}</span>
-                  </span>
-                  <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <nav className="grid gap-5 py-16 md:grid-cols-3" aria-label="Territórios relacionados">
-          {peerServices.map((item) => (
-            <button
-              key={item.slug}
-              type="button"
-              onClick={() => navigate(`servicos/${item.slug}`)}
-              className="sp-interactive-card group min-h-36 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-            >
-              <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.company}</span>
-              <span className="mt-4 block font-serif text-2xl leading-tight text-stone-950 group-hover:text-stone-600">{item.title}</span>
-            </button>
-          ))}
-        </nav>
-      </article>
-    </PageTransition>
-  );
-}
-
 function Contato() {
   const [toast, setToast] = useState(null);
 
-  const copyText = async (text) => {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-      return true;
-    }
-
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.setAttribute("readonly", "");
-    textarea.style.position = "fixed";
-    textarea.style.top = "-1000px";
-    textarea.style.opacity = "0";
-    document.body.appendChild(textarea);
-    textarea.select();
-    const copied = document.execCommand("copy");
-    document.body.removeChild(textarea);
-    return copied;
-  };
-
-  const handleCopy = async (text, type) => {
-    try {
-      const copied = await copyText(text);
-      setToast(copied ? `${type} copiado com sucesso!` : `${type}: ${text}`);
-    } catch {
-      setToast(`${type}: ${text}`);
-    }
+  const handleCopy = (text, type) => {
+    navigator.clipboard.writeText(text);
+    setToast(`${type} copiado com sucesso!`);
     setTimeout(() => setToast(null), 3000);
   };
 
-  const contactChoices = [
-    {
-      name: "BANAL",
-      eyebrow: "Marca · Marketing · Posicionamento",
-      text: "Para projetos de branding, comunicação, conteúdo, campanhas, varejo, reposicionamento e percepção de valor.",
-      href: "https://wa.me/5531981184250?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20BANAL%20sobre%20marca%2C%20marketing%20ou%20posicionamento.",
-      label: "Contact BANAL",
-      image: banalAssets.balancedLogo,
-      imageClassName: "h-auto w-40 object-contain"
-    },
-    {
-      name: "VERDE BURGO",
-      eyebrow: "Eventos · Buffet · Decoração · Cerimonial",
-      text: "Para festas, casamentos, aniversários, eventos corporativos e projetos com buffet, decoração, bar, cerimonial e produção.",
-      href: "https://wa.me/5531981184250?text=Ol%C3%A1%2C%20quero%20falar%20com%20a%20VERDE%20BURGO%20sobre%20um%20evento%20ou%20festa.",
-      label: "Contact VERDE BURGO",
-      image: verdeBurgoBrandAssets.balancedLogo,
-      imageClassName: "h-16 w-16 object-contain"
-    }
-  ];
-
   return (
     <PageTransition>
-      <DynamicSEO
-        title="Contato"
-        description="Contato profissional da Paes Consultoria para direção criativa, branding, marketing, varejo, eventos, experiências e execução."
-        url="contato"
-      />
+      <DynamicSEO title="Contato" />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col justify-between min-h-[85vh] pt-12 relative">
         <header>
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CONTATO</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">EDITORIAL CLOSING</span>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-stone-950 leading-[1.1] tracking-[-0.02em] max-w-6xl text-balance">
-            Escolha a frente certa para o seu projeto.
+            "Uma marca torna-se inesquecível quando a sua estética deixa de ser aparência e passa a construir <span className="italic font-light text-stone-500">presença</span>."
           </h1>
-          <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed text-stone-600 md:text-2xl text-balance">
-            A Paes Consultoria organiza a visão. BANAL e Verde Burgo conduzem as entregas comerciais de acordo com a natureza do desafio.
-          </p>
         </header>
 
         <footer className="mt-auto pt-24">
-          <section className="grid gap-8 border-y border-stone-900/10 py-12 md:grid-cols-2" aria-label="Escolhas de contato">
-            {contactChoices.map((choice) => (
-              <article key={choice.name} className="sp-interactive-card group flex min-h-[28rem] flex-col justify-between p-8 rounded-sm md:p-10">
-                <div>
-                  <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
-                    <img src={choice.image} alt={choice.name} className={`${choice.imageClassName} grayscale contrast-125`} loading="lazy" decoding="async" />
-                    <span className="text-left text-[10px] font-bold uppercase leading-relaxed tracking-[0.25em] text-stone-400 sm:text-right">{choice.eyebrow}</span>
-                  </div>
-                  <h2 className="font-serif text-4xl leading-tight text-stone-950 md:text-6xl text-balance">{choice.name}</h2>
-                  <p className="mt-8 max-w-xl text-base font-light leading-relaxed text-stone-600 md:text-lg">{choice.text}</p>
-                </div>
-                <a
-                  href={choice.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${choice.label} via WhatsApp`}
-                  className="mt-12 inline-flex w-fit items-center gap-3 border-b border-stone-900/25 pb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                >
-                  {choice.label} <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
-                </a>
-              </article>
-            ))}
-          </section>
+          <address className="not-italic grid grid-cols-2 md:grid-cols-4 gap-10 mb-20 border-t border-stone-900/10 pt-16">
 
-          <address className="not-italic grid grid-cols-2 md:grid-cols-4 gap-10 mb-20 pt-16">
+            {/* INSERÇÃO DA LOGO DE ASSINATURA COMPLETA NO CONTATO / RODAPÉ */}
             <div className="col-span-2 md:col-span-1 flex flex-col items-start">
-              <p className="font-serif text-4xl leading-none text-stone-950">SP</p>
-              <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Paes Consultoria</p>
+              <img
+                src="/images/00_LOGOS/symbol-black-navbar.png"
+                alt="Samuel Carrera Paes - Assinatura e Logo"
+                className="navbar-logo-final"
+                onError={(e) => e.target.style.display = 'none'}
+              />
             </div>
+
             <div className="flex flex-col gap-3 group">
               <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-2">WhatsApp</h2>
               <button
@@ -2602,14 +1361,6 @@ function Contato() {
               >
                 @samuelcarrerapaes
               </a>
-              <a
-                href="https://instagram.com/verdeburgoeventos"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-light text-stone-900 hover:text-stone-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm p-1 -ml-1 w-fit block"
-              >
-                @verdeburgoeventos
-              </a>
               <button
                 type="button"
                 onClick={() => handleCopy("samuel.paes@icloud.com", "E-mail")}
@@ -2625,6 +1376,25 @@ function Contato() {
               <p className="text-sm font-light text-stone-900 p-1 -ml-1">Belo Horizonte — MG</p>
             </div>
           </address>
+
+          <div className="flex flex-col items-center justify-center pt-20 border-t border-stone-900/10">
+            <p className="text-sm font-light text-stone-500 mb-10 max-w-md text-center leading-relaxed text-balance">
+              Disponível para projetos de direção criativa, consultoria de marca e experiência física de varejo.
+            </p>
+            <a
+              href="https://wa.me/5531981184250"
+              target="_blank" rel="noopener noreferrer"
+              aria-label="Iniciar uma conversa via WhatsApp"
+              className="group flex items-center gap-5 text-xs font-bold uppercase tracking-[0.25em] text-stone-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-full"
+            >
+              <span className="border-b border-stone-900/20 pb-1 group-hover:text-stone-600 group-hover:border-stone-900 transition-colors duration-300">
+                Iniciar uma conversa
+              </span>
+              <div className="w-14 h-14 rounded-full border border-stone-900/10 flex items-center justify-center group-hover:bg-stone-900 group-hover:text-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-sm">
+                <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
+              </div>
+            </a>
+          </div>
         </footer>
 
         {/* Toast de Cópia (Acessível) */}
@@ -2637,7 +1407,7 @@ function Contato() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
               transition={{ duration: 0.4, ease: PREMIUM_EASE }}
-              className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-6 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] shadow-[0_16px_38px_rgba(28,25,23,0.18)] flex items-center gap-3 z-50 whitespace-nowrap"
+              className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-6 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] shadow-2xl flex items-center gap-3 z-50 whitespace-nowrap"
             >
               <CheckCircle2 className="w-4 h-4 text-stone-300" aria-hidden="true" /> {toast}
             </motion.div>
@@ -2649,52 +1419,39 @@ function Contato() {
   );
 }
 
-function NotFoundPage({ route, navigate }) {
-  return (
-    <PageTransition>
-      <DynamicSEO
-        title="Página não encontrada"
-        description="A rota solicitada não foi encontrada no ecossistema Paes Consultoria. Continue pela visão, empresas, biblioteca ou contato."
-        url={route || "404"}
-      />
-      <article className="mx-auto flex min-h-[70vh] max-w-[90rem] flex-col justify-center px-6 pt-12 lg:px-12" aria-labelledby="not-found-title">
-        <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">404 · ROTA NÃO ENCONTRADA</span>
-        <h1 id="not-found-title" className="max-w-5xl font-serif text-5xl leading-none tracking-[-0.02em] text-stone-950 md:text-7xl">
-          Esta página não existe no ecossistema público.
-        </h1>
-        <p className="mt-8 max-w-2xl text-lg font-light leading-relaxed text-stone-600">
-          O caminho pode ter mudado, ou o conteúdo ainda não foi publicado. Continue pela visão de Samuel Carrera Paes, pelas empresas ou pela Biblioteca.
-        </p>
-        <nav className="mt-12 flex flex-wrap gap-4" aria-label="Rotas de recuperação">
-          {[
-            ["inicio", "Início"],
-            ["empresas/banal", "BANAL"],
-            ["empresas/verde-burgo", "Verde Burgo"],
-            ["biblioteca", "Biblioteca"],
-            ["contato", "Contato"]
-          ].map(([target, label]) => (
-            <button
-              key={target}
-              type="button"
-              onClick={() => navigate(target)}
-              className="border border-stone-900/15 bg-white/25 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900 transition-colors hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-      </article>
-    </PageTransition>
-  );
-}
-
 // --- APP PRINCIPAL E NAVBAR ---
 
 export default function SamuelPaesPortfolio() {
   const { route, navigate } = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuButtonRef = useRef(null);
-  const mobileMenuRef = useRef(null);
+  const effectiveRoute = useMemo(() => {
+    if (
+      route === "sobre/samuel-carrera-paes" ||
+      route === "paes-consultoria" ||
+      route === "ecossistema" ||
+      route.startsWith("atlas/") ||
+      route.startsWith("servicos/")
+    ) {
+      return "visao";
+    }
+
+    if (
+      route === "banal" ||
+      route === "empresas/banal" ||
+      route === "verdeburgo" ||
+      route === "empresas/verde-burgo" ||
+      route === "projetos/provence-raiz"
+    ) {
+      return "cases";
+    }
+
+    if (route === "biblioteca") return "sistema";
+    if (route.startsWith("biblioteca/")) {
+      return `sistema/${route.replace(/^biblioteca\//, "")}`;
+    }
+
+    return route;
+  }, [route]);
 
   // Prevent scroll when mobile menu is open (Acessibilidade + UX)
   useEffect(() => {
@@ -2706,79 +1463,12 @@ export default function SamuelPaesPortfolio() {
     return () => { document.body.style.overflow = ""; };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    if (!isMenuOpen) return undefined;
-
-    const focusableSelector = [
-      "a[href]",
-      "button:not([disabled])",
-      "textarea:not([disabled])",
-      "input:not([disabled])",
-      "select:not([disabled])",
-      "[tabindex]:not([tabindex='-1'])"
-    ].join(",");
-
-    const focusFirstItem = () => {
-      const firstItem = mobileMenuRef.current?.querySelector(focusableSelector);
-      firstItem?.focus();
-    };
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setIsMenuOpen(false);
-        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
-        return;
-      }
-
-      if (event.key !== "Tab" || !mobileMenuRef.current) return;
-
-      const focusableItems = Array.from(mobileMenuRef.current.querySelectorAll(focusableSelector));
-      if (!focusableItems.length) return;
-
-      const firstItem = focusableItems[0];
-      const lastItem = focusableItems[focusableItems.length - 1];
-
-      if (event.shiftKey && document.activeElement === firstItem) {
-        event.preventDefault();
-        lastItem.focus();
-      } else if (!event.shiftKey && document.activeElement === lastItem) {
-        event.preventDefault();
-        firstItem.focus();
-      }
-    };
-
-    window.requestAnimationFrame(focusFirstItem);
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isMenuOpen]);
-
   const navLinks = [
-    { id: "sobre/samuel-carrera-paes", num: "01.", label: "Sobre" },
-    { id: "visao", num: "02.", label: "Minha Visão" },
-    { id: "biblioteca", num: "03.", label: "Biblioteca" },
-    { id: "contato", num: "04.", label: "Contato" },
-  ];
-
-  const companyLinks = [
-    {
-      id: "empresas/banal",
-      label: "BANAL",
-      image: banalAssets.balancedLogo,
-      buttonClassName: "w-[5.75rem]",
-      mobileButtonClassName: "w-12 sm:w-[4.25rem]",
-      imageClassName: "h-8 w-full md:h-9"
-    },
-    {
-      id: "empresas/verde-burgo",
-      label: "Verde Burgo",
-      image: verdeBurgoBrandAssets.balancedLogo,
-      buttonClassName: "w-[5.75rem]",
-      mobileButtonClassName: "w-12 sm:w-[4.25rem]",
-      imageClassName: "h-8 w-full md:h-9"
-    },
+    { id: "inicio", num: "01.", label: "INÍCIO" },
+    { id: "visao", num: "02.", label: "Visão" },
+    { id: "cases", num: "03.", label: "Cases" },
+    { id: "sistema", num: "04.", label: "Sistema" },
+    { id: "contato", num: "05.", label: "Contato" },
   ];
 
   const handleNavClick = (id) => {
@@ -2786,109 +1476,90 @@ export default function SamuelPaesPortfolio() {
     setIsMenuOpen(false);
   };
 
-  const isCaseDetail = route.startsWith("case/");
-  const isBibliotecaDetail = route.startsWith("biblioteca/") || route.startsWith("sistema/");
-  const isAtlasRoute = route === `atlas/${authorityAtlas.slug}` || route.startsWith("servicos/");
-  const isConsultoriaArea = route === "inicio" || route === "ecossistema" || route === "paes-consultoria" || route === "sobre/samuel-carrera-paes" || isAtlasRoute;
-  const isBanalArea = route === "banal" || route === "empresas/banal" || route === "cases" || isCaseDetail;
-  const isVerdeBurgoArea = route === "verdeburgo" || route === "empresas/verde-burgo" || route === "projetos/provence-raiz";
-  const routeMatches = isKnownPublicRoute(route, { atlasSlug: authorityAtlas.slug });
+  const isCaseDetail = effectiveRoute.startsWith("case/");
+  const isSistemaDetail = effectiveRoute.startsWith("sistema/");
 
   return (
-    <div className="sp-shell min-h-screen text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
+    <div className="min-h-screen bg-[#F4F0E9] text-stone-950 font-sans selection:bg-stone-900 selection:text-[#F4F0E9]">
 
       {/* NAVBAR GLOBAL FIXA - EDITORIAL */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-stone-900/[0.08] bg-[#F4F0E9]/95 backdrop-blur-md transition-colors duration-500 shadow-[0_1px_0_rgba(28,25,23,0.035)]">
-        <nav aria-label="Navegação Principal" className="mx-auto flex h-24 max-w-[90rem] items-center justify-start gap-2 px-4 sm:gap-4 sm:px-6 lg:justify-between lg:px-12">
+      <header className="fixed inset-x-0 top-0 z-50 bg-[#F4F0E9]/90 backdrop-blur-xl border-b border-stone-900/10 transition-all duration-500">
+        <nav aria-label="Navegação Principal" className="mx-auto flex h-24 max-w-[90rem] items-center justify-between px-6 lg:px-12 gap-4">
 
-          <div className="flex shrink-0 justify-start lg:w-1/4">
+          {/* LOGO CONTAINER: Ícone simples na navbar restrito com overflow hidden */}
+          <div className="flex w-1/2 lg:w-1/4 justify-start overflow-visible">
             <button
               type="button"
               onClick={() => handleNavClick("inicio")}
-              className={`group flex items-center gap-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${isConsultoriaArea ? "text-stone-950" : "text-stone-700 hover:text-stone-950"}`}
+              className="text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm group shrink-0"
               aria-label="Ir para a página inicial"
             >
-              <img
-                src="/images/00_LOGOS/symbol-black-navbar.png"
-                alt=""
-                aria-hidden="true"
-                className="site-mark h-10 w-10 shrink-0 object-contain sm:h-16 sm:w-16"
-                loading="eager"
-                decoding="async"
-              />
-              <span className="hidden text-[10px] font-bold uppercase tracking-[0.3em] text-stone-500 sm:block">Paes Consultoria</span>
+              <div className="h-8 md:h-10 w-full max-w-[180px] xl:max-w-[240px] relative flex items-center">
+                <img
+                  src="/images/00_LOGOS/symbol-black-navbar.png"
+                  alt="Samuel Carrera Paes Signature"
+                  className="navbar-logo-final"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    if(e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="hidden h-8 px-4 items-center justify-center border border-stone-900/10 bg-stone-200/30 rounded-sm">
+                  <span className="font-serif text-[10px] uppercase tracking-[0.2em] text-stone-500">Samuel Carrera Paes Signature</span>
+                </div>
+              </div>
             </button>
           </div>
 
-          <div className="hidden flex-1 justify-center gap-4 lg:flex xl:gap-6">
-            {navLinks.map((link) => {
-              const active = route === link.id || (link.id === "biblioteca" && isBibliotecaDetail);
-              return (
+          {/* MENU CENTRAL */}
+          <div className="hidden lg:flex flex-1 justify-center gap-4 xl:gap-10" role="menubar">
+            {navLinks.map((link) => (
               <button
                 key={link.id}
                 type="button"
-                aria-current={active ? "page" : undefined}
+                role="menuitem"
                 aria-label={`Página ${link.label}`}
                 onClick={() => handleNavClick(link.id)}
                 className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm px-2 pb-1 border-b-2 ${
-                  active
+                  (effectiveRoute === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail))
                     ? "text-stone-900 border-stone-900"
                     : "text-stone-400 border-transparent hover:text-stone-900 hover:border-stone-900/20"
                 }`}
               >
                 <span className="opacity-50" aria-hidden="true">{link.num}</span> {link.label}
               </button>
-              );
-            })}
+            ))}
           </div>
 
-          <div className="hidden w-1/4 items-center justify-end gap-4 lg:flex">
-            {companyLinks.map((company) => {
-              const active = company.id === "empresas/banal" ? isBanalArea : isVerdeBurgoArea;
-              return (
-                <button
-                  key={company.id}
-                  type="button"
-                  onClick={() => handleNavClick(company.id)}
-                  aria-current={active ? "page" : undefined}
-                  aria-label={`Abrir ${company.label}`}
-                  className={`flex h-12 ${company.buttonClassName} items-center justify-center border px-2 transition-colors duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm ${active ? "border-stone-900/70 bg-white/75" : "border-stone-900/10 bg-white/20 hover:border-stone-900/30 hover:bg-white/55"}`}
-                >
-                  <img src={company.image} alt={company.label} className={`${company.imageClassName} object-contain grayscale contrast-125`} loading="lazy" decoding="async" />
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="ml-auto hidden shrink-0 items-center gap-2 sm:flex lg:hidden">
-            {companyLinks.map((company) => {
-              const active = company.id === "empresas/banal" ? isBanalArea : isVerdeBurgoArea;
-              return (
-                <button
-                  key={company.id}
-                  type="button"
-                  onClick={() => handleNavClick(company.id)}
-                  aria-current={active ? "page" : undefined}
-                  aria-label={`Abrir ${company.label}`}
-                  className={`flex h-9 shrink-0 ${company.mobileButtonClassName} items-center justify-center border px-1 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm sm:h-10 sm:px-1.5 ${active ? "border-stone-900/70 bg-white/75" : "border-stone-900/10 bg-white/20"}`}
-                >
-                  <img src={company.image} alt={company.label} className={`${company.imageClassName} max-h-5 object-contain grayscale contrast-125 sm:max-h-6`} loading="lazy" decoding="async" />
-                </button>
-              );
-            })}
+          {/* BOTÕES DIREITA */}
+          <div className="hidden lg:flex w-1/4 justify-end items-center gap-6 xl:gap-8">
+            <button
+              type="button"
+              onClick={() => handleNavClick("cases")}
+              className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-900 border-b border-stone-900/30 pb-1 hover:text-stone-600 hover:border-stone-900 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              Entrar no Portfólio
+            </button>
+            <a
+              href="https://wa.me/5531981184250"
+              target="_blank" rel="noopener noreferrer"
+              aria-label="Contato via WhatsApp"
+              className="group flex items-center justify-center w-11 h-11 rounded-full border border-stone-900/20 hover:border-stone-900 hover:bg-stone-900 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 shrink-0 shadow-sm hover:shadow-md"
+            >
+              <ArrowUpRight className="w-5 h-5 text-stone-900 group-hover:text-white transition-colors" aria-hidden="true" />
+            </a>
           </div>
 
           {/* Menu Mobile Toggle */}
           <button
             type="button"
-            ref={menuButtonRef}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
-            className="relative z-50 ml-auto p-1.5 text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm lg:hidden sm:ml-0 sm:p-2"
+            className="lg:hidden p-2 text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm z-50 relative"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-             {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />}
+             {isMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
           </button>
         </nav>
 
@@ -2897,7 +1568,6 @@ export default function SamuelPaesPortfolio() {
           {isMenuOpen && (
             <motion.div
               id="mobile-menu"
-              ref={mobileMenuRef}
               role="dialog"
               aria-modal="true"
               aria-label="Menu de navegação móvel"
@@ -2905,7 +1575,7 @@ export default function SamuelPaesPortfolio() {
               animate={{ height: "100vh", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.6, ease: PREMIUM_EASE }}
-              className="lg:hidden absolute top-20 left-0 w-full border-t border-stone-900/[0.08] bg-[#F4F0E9] flex max-h-[calc(100vh-5rem)] flex-col overflow-y-auto px-8 py-16 shadow-[0_18px_48px_rgba(28,25,23,0.06)]"
+              className="lg:hidden absolute top-20 left-0 w-full bg-[#F4F0E9] flex flex-col justify-center px-8 pb-32 shadow-xl"
             >
               <div className="flex flex-col gap-6">
                 {navLinks.map((link, idx) => (
@@ -2915,14 +1585,13 @@ export default function SamuelPaesPortfolio() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: idx * 0.08, ease: PREMIUM_EASE }}
                     type="button"
-                    aria-current={(route === link.id || (link.id === "biblioteca" && isBibliotecaDetail)) ? "page" : undefined}
                     onClick={() => handleNavClick(link.id)}
                     className={`flex items-baseline gap-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 p-3 rounded-sm transition-colors duration-300 ${
-                      (route === link.id || (link.id === "biblioteca" && isBibliotecaDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
+                      (effectiveRoute === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
                     }`}
                   >
                     <span className="font-serif text-3xl italic opacity-50" aria-hidden="true">{link.num}</span>
-                    <span className="font-serif text-4xl tracking-tight sm:text-5xl">{link.label}</span>
+                    <span className="font-serif text-5xl tracking-tight">{link.label}</span>
                   </motion.button>
                 ))}
               </div>
@@ -2932,10 +1601,10 @@ export default function SamuelPaesPortfolio() {
                  transition={{ delay: 0.4, ease: PREMIUM_EASE }}
                  className="mt-16 pt-8 border-t border-stone-900/10 flex justify-between items-center px-2"
               >
-                <button type="button" onClick={() => handleNavClick("inicio")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Paes Consultoria</button>
-                <button type="button" onClick={() => handleNavClick("contato")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-900 flex items-center gap-2 focus-visible:outline-none focus-visible:underline hover:text-stone-600 transition-colors">
-                  Contato <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-                </button>
+                <button type="button" onClick={() => handleNavClick("cases")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Ver Cases</button>
+                <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer" className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-900 flex items-center gap-2 focus-visible:outline-none focus-visible:underline hover:text-stone-600 transition-colors">
+                  WhatsApp <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                </a>
               </motion.div>
             </motion.div>
           )}
@@ -2945,23 +1614,13 @@ export default function SamuelPaesPortfolio() {
       {/* RENDERIZADOR DE PÁGINAS */}
       <main id="main-content">
         <AnimatePresence mode="wait">
-          {route === "inicio" && <Inicio key="inicio" navigate={navigate} />}
-          {route === "sobre/samuel-carrera-paes" && <SamuelEntityPage key="samuel-carrera-paes" navigate={navigate} />}
-          {route === "visao" && <Visao key="visao" />}
-          {(route === "ecossistema" || route === "paes-consultoria") && <PaesConsultoria key="paes-consultoria" navigate={navigate} />}
-          {route === "cases" && <Banal key="cases-compat" navigate={navigate} />}
-          {(route === "banal" || route === "empresas/banal") && <Banal key="banal" navigate={navigate} />}
-          {route.startsWith("case/") && <CaseDetail key="case-detail" caseId={route.replace("case/", "")} navigate={navigate} />}
-          {(route === "verdeburgo" || route === "empresas/verde-burgo") && <Verdeburgo key="verdeburgo" navigate={navigate} />}
-          {route === "projetos/provence-raiz" && <ProvenceRaizPage key="provence-raiz" navigate={navigate} />}
-          {(route === "biblioteca" || route === "sistema") && <Biblioteca key="biblioteca" navigate={navigate} />}
-          {route === "biblioteca/geracao-dos-realizadores" && <GeracaoDosRealizadoresPage key="geracao-dos-realizadores" navigate={navigate} />}
-          {route.startsWith("biblioteca/") && route !== "biblioteca/geracao-dos-realizadores" && <SistemaArticle key={route} slug={route.replace("biblioteca/", "")} navigate={navigate} />}
-          {route.startsWith("sistema/") && <SistemaArticle key={route} slug={route.replace("sistema/", "")} navigate={navigate} />}
-          {route === `atlas/${authorityAtlas.slug}` && <EcosystemAtlas key="ecosystem-atlas" navigate={navigate} />}
-          {route.startsWith("servicos/") && <AuthorityServicePage key={route} slug={route.replace("servicos/", "")} navigate={navigate} />}
-          {route === "contato" && <Contato key="contato" />}
-          {!routeMatches && <NotFoundPage key="not-found" route={route} navigate={navigate} />}
+          {effectiveRoute === "inicio" && <Inicio key="inicio" navigate={navigate} />}
+          {effectiveRoute === "visao" && <Visao key="visao" />}
+          {effectiveRoute === "cases" && <Cases key="cases" navigate={navigate} />}
+          {effectiveRoute.startsWith("case/") && <CaseDetail key="case-detail" caseId={effectiveRoute.replace("case/", "")} navigate={navigate} />}
+          {effectiveRoute === "sistema" && <Sistema key="sistema" navigate={navigate} />}
+          {effectiveRoute.startsWith("sistema/") && <SistemaArticle key={effectiveRoute} slug={effectiveRoute.replace("sistema/", "")} navigate={navigate} />}
+          {effectiveRoute === "contato" && <Contato key="contato" />}
         </AnimatePresence>
       </main>
 
