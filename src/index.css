@@ -80,6 +80,24 @@ video {
   object-fit: contain;
 }
 
+header .navbar-logo-final {
+  display: block;
+  height: 34px;
+  max-height: 34px;
+  max-width: 34px;
+  object-fit: contain;
+  width: 34px;
+}
+
+@media (min-width: 768px) {
+  header .navbar-logo-final {
+    height: 40px;
+    max-height: 40px;
+    max-width: 40px;
+    width: 40px;
+  }
+}
+
 .sp-shell {
   background:
     linear-gradient(180deg, rgba(248, 245, 239, 0.96), rgba(244, 240, 233, 0.98) 36%, rgba(238, 233, 223, 0.96));
