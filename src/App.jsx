@@ -377,7 +377,7 @@ function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) 
   useEffect(() => {
     const siteUrl = "https://paesconsultoria.com";
     const defaultTitle = "Samuel Carrera Paes | Creative Consultant — Paes Consultoria";
-    const defaultDescription = "Portfólio de Samuel Carrera Paes, consultor criativo especializado em direção criativa, visual merchandising, branding, moda, varejo e experiência de marca.";
+    const defaultDescription = "Portfólio autoral de Samuel Carrera Paes em direção criativa, imagem, espaço, eventos, varejo, cenografia, campanhas e experiências.";
     const pageTitle = !title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`;
     const pageDescription = description || defaultDescription;
     const pageUrl = url ? `${siteUrl}/${url.replace(/^\/+/, "")}` : siteUrl;
@@ -496,11 +496,11 @@ const PageTransition = ({ children, className = "" }) => {
 
 function Inicio({ navigate }) {
   const stats = [
-    { number: "09+", label: "Anos", text: "Construindo presença no varejo premium." },
-    { number: "40+", label: "Projetos", text: "Campanhas e narrativas espaciais executadas." },
-    { number: "10+", label: "Implantações", text: "Lojas e inaugurações acompanhadas." },
-    { number: "11", label: "Cases", text: "Projetos estratégicos de referência." },
-    { number: "100%", label: "Foco", text: "Construção tátil de percepção de valor." },
+    { number: "09+", label: "Anos", text: "Construindo repertório visual, espacial e estratégico." },
+    { number: "40+", label: "Projetos", text: "Trabalhos entre imagem, espaço, evento, produto e presença." },
+    { number: "10+", label: "Implantações", text: "Execuções físicas, lançamentos e ativações acompanhadas." },
+    { number: "11", label: "Cases", text: "Estudos publicados em um arquivo em expansão." },
+    { number: "100%", label: "Foco", text: "Transformar intenção criativa em experiência real." },
   ];
 
   return (
@@ -540,10 +540,10 @@ function Inicio({ navigate }) {
           className="mt-16 md:mt-24 max-w-3xl"
         >
           <p className="text-xl md:text-3xl lg:text-4xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 text-balance">
-            "Construo presença de marca no exato ponto em que a estética, a estratégia e o desejo se tornam uma experiência tangível."
+            "Construo presença no ponto em que estética, estratégia, espaço e execução deixam de ser intenção e passam a existir no mundo."
           </p>
           <p className="mt-8 max-w-2xl text-sm md:text-base leading-relaxed text-stone-600 font-light">
-            Samuel Carrera Paes atua como consultor criativo em direção criativa, visual merchandising, branding e experiência de marca para moda e varejo.
+            Samuel Carrera Paes reúne trabalhos de direção criativa, consultoria, imagem, varejo, eventos, cenografia, conteúdo, produto e experiência física. Este site funciona como um portfólio autoral do que ele cria, conduz e transforma.
           </p>
         </motion.div>
 
@@ -613,10 +613,10 @@ function Inicio({ navigate }) {
 
                {/* Tipografia como Textura */}
                <div className="absolute inset-0 pointer-events-none flex flex-col justify-between py-10 px-8 opacity-[0.03]" aria-hidden="true">
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">MARCA</span>
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">PRODUTO</span>
+                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">IMAGEM</span>
+                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">OBJETO</span>
                  <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">ESPAÇO</span>
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">DESEJO</span>
+                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">PRESENÇA</span>
                </div>
             </div>
           </div>
@@ -625,7 +625,7 @@ function Inicio({ navigate }) {
         {/* --- MAGNETIC CALL TO ACTION --- */}
         <div className="mt-32 flex items-center justify-between border-t border-stone-900/10 pt-10 pb-16">
           <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-stone-400 hidden md:block">
-            Explore a narrativa visual dos projetos
+            Explore o arquivo visual dos trabalhos
           </span>
           <button
             type="button"
@@ -649,7 +649,7 @@ function Inicio({ navigate }) {
 function Visao() {
   return (
     <PageTransition>
-      <DynamicSEO title="Visão Criativa" description="Direção criativa para construir marcas reconhecíveis no online, no físico e na jornada omnichannel." url="visao" />
+      <DynamicSEO title="Visão Criativa" description="Direção criativa aplicada a imagem, espaço, evento, produto, varejo, narrativa e experiência." url="visao" />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12">
         <header>
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CREATIVE STATEMENT</span>
@@ -659,26 +659,26 @@ function Visao() {
             <span className="text-stone-500 italic font-light">Criativa.</span>
           </h1>
           <p className="mt-16 text-xl md:text-3xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 max-w-4xl text-balance">
-            "A marca não acontece em um único ponto. Ela se constrói na continuidade entre imagem, produto, atendimento, espaço, operação e memória."
+            "Um projeto ganha presença quando intenção, forma, contexto, operação e memória passam a sustentar a mesma linguagem."
           </p>
         </header>
 
         <section className="mt-24 grid gap-12 border-y border-stone-900/10 py-16 lg:grid-cols-[0.85fr_1.15fr]" aria-labelledby="experiencia-continua-title">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">MARCA COMO EXPERIÊNCIA CONTÍNUA</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">PROJETO COMO PRESENÇA CONTÍNUA</span>
             <h2 id="experiencia-continua-title" className="font-serif text-4xl md:text-6xl leading-tight text-stone-950 text-balance">
-              Online cria expectativa. O físico confirma presença. A operação sustenta reconhecimento.
+              A imagem cria expectativa. O espaço confirma presença. A execução sustenta memória.
             </h2>
           </div>
           <div className="space-y-7 text-base md:text-xl font-light leading-relaxed text-stone-700">
             <p>
-              O cliente não encontra uma marca apenas na loja. Ele chega por uma imagem, uma campanha, uma busca, uma conversa no WhatsApp, um catálogo, uma vitrine digital, uma recomendação, um provador, uma embalagem e um pós-venda.
+              Um trabalho pode nascer de uma marca, de uma loja, de uma festa, de uma campanha, de uma imagem, de um objeto ou de um espaço. O que conecta tudo é a construção de presença: a capacidade de fazer uma ideia ser percebida, lembrada e vivida.
             </p>
             <p>
-              A visão de Samuel Carrera Paes parte dessa sequência. Direção criativa não é apenas estética de loja: é arquitetura de percepção para que a marca pareça uma só em todos os canais, do primeiro contato online à experiência física e à memória que permanece.
+              A visão de Samuel Carrera Paes não se limita ao branding nem ao varejo. Ela organiza linguagem, atmosfera, narrativa, materialidade e operação para que cada projeto tenha coerência entre o que promete, o que mostra e o que entrega.
             </p>
             <p>
-              O varejo físico segue como campo sensível decisivo, porque é nele que corpo, matéria, escala e atendimento testam a promessa. Mas o trabalho começa antes da porta e continua depois da saída: no conteúdo, no calendário comercial, na curadoria digital, no atendimento e na consistência omnichannel.
+              Por isso o portfólio reúne naturezas diferentes: direção de imagem, exposição de produto, experiência física, cenografia, eventos, campanhas, collabs, espaços comerciais e pesquisas visuais. A pergunta central permanece a mesma: como transformar intenção em presença real?
             </p>
           </div>
         </section>
@@ -687,23 +687,23 @@ function Visao() {
           <ol className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mt-32 border-t border-stone-900/10 pt-16">
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">01</span>
-              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Leitura de Marca</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Compreender os códigos ocultos da marca e traduzi-los em linguagem reconhecível no conteúdo, no produto, no atendimento e no espaço.</p>
+              <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Leitura de Contexto</h3>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Compreender códigos culturais, comerciais, espaciais e visuais antes de transformar uma intenção em linguagem reconhecível.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">02</span>
               <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Produto como Narrativa</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">A exposição deixa de ser armazenamento e vira edição curatorial para vitrine, feed, campanha, catálogo e loja.</p>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Produto, objeto, coleção ou elemento visual deixam de ser item isolado e passam a participar de uma leitura maior.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">03</span>
               <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Espaço como Mídia</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Projetar a loja como mídia de imersão sem separar sua narrativa dos canais digitais que criam expectativa.</p>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Loja, evento, vitrine, altar, set ou ambiente funcionam como linguagem física: enquadram atenção, ritmo e memória.</p>
             </li>
             <li className="flex flex-col">
               <span className="font-serif text-3xl text-stone-300 mb-4 block" aria-hidden="true">04</span>
               <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-4">Percepção como Valor</h3>
-              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Orquestrar imagem, cor, luz, textura, copy, atendimento e ritmo para gerar desejo tangível em cada ponto de contato.</p>
+              <p className="text-sm md:text-base font-light text-stone-600 leading-relaxed">Orquestrar imagem, cor, luz, textura, escala, copy, gesto e ritmo para gerar valor percebido sem depender de excesso.</p>
             </li>
           </ol>
         </section>
@@ -723,7 +723,7 @@ function Visao() {
 
         <footer className="mt-32 md:mt-48 bg-stone-950 text-stone-50 px-8 py-24 md:py-32 rounded-sm text-center shadow-xl">
           <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight max-w-5xl mx-auto font-light text-balance">
-            "Marcas sem presença competem por atenção. Marcas com presença constroem memória."
+            "Projetos sem presença competem por atenção. Projetos com presença constroem memória."
           </h2>
         </footer>
       </article>
@@ -734,6 +734,15 @@ function Visao() {
 function Cases({ navigate }) {
   const [activeFilter, setActiveFilter] = useState("ALL");
   const filters = ["ALL", "BRAND", "PRODUCT", "RETAIL", "CULTURE", "SPACE", "COLLAB"];
+  const filterLabels = {
+    ALL: "TODOS",
+    BRAND: "IDENTIDADE",
+    PRODUCT: "PRODUTO",
+    RETAIL: "VAREJO",
+    CULTURE: "CULTURA",
+    SPACE: "ESPAÇO",
+    COLLAB: "COLLABS"
+  };
 
   const filteredCases = useMemo(() => {
     if (activeFilter === "ALL") return casesData;
@@ -742,18 +751,18 @@ function Cases({ navigate }) {
 
   return (
     <PageTransition>
-      <DynamicSEO title="Curated Works" description="11 formas de construir presença por imagem, produto, espaço e experiência." />
+      <DynamicSEO title="Portfólio de Trabalhos" description="Trabalhos selecionados em direção criativa, imagem, espaço, produto, varejo, eventos, cenografia e experiência." />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="cases-title">
 
         {/* --- CURATED WORKS INDEX --- */}
         <div id="cases-index" className="mb-40">
           <header>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">CURATED WORKS</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">TRABALHOS SELECIONADOS</span>
             <h1 id="cases-title" className="font-serif text-5xl md:text-[7rem] leading-[0.85] tracking-tighter text-stone-950 max-w-4xl mb-8 text-balance">
-              Cases.
+              Portfólio.
             </h1>
             <p className="text-lg md:text-2xl font-light text-stone-600 max-w-2xl mb-16 leading-relaxed">
-              11 formas de construir presença por imagem, produto, espaço e experiência.
+              Um arquivo de trabalhos em direção criativa: marca, produto, varejo, evento, cenografia, campanha, espaço e experiência.
             </p>
           </header>
 
@@ -769,7 +778,7 @@ function Cases({ navigate }) {
                   : 'bg-transparent text-stone-500 border-stone-900/20 hover:border-stone-900/40 hover:text-stone-800'
                 }`}
               >
-                {chip}
+                {filterLabels[chip] || chip}
               </button>
             ))}
           </nav>
@@ -864,7 +873,7 @@ function CaseDetail({ caseId, navigate }) {
           {/* Metadata Grid */}
           <dl className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-b border-stone-900/10 py-10 mb-16">
             <div>
-              <dt className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-2">Cliente / Marca</dt>
+              <dt className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-2">Cliente / Contexto</dt>
               <dd className="text-sm font-light text-stone-900">{c.client}</dd>
             </div>
             <div>
@@ -1012,7 +1021,7 @@ function Sistema({ navigate }) {
     <PageTransition>
       <DynamicSEO
         title="Sistema de Direção Criativa"
-        description="Índice editorial com seis artigos autorais do sistema Samuel Carrera Paes para transformar marca, produto, espaço, operação e jornada omnichannel em percepção de valor."
+        description="Índice editorial com seis artigos autorais de Samuel Carrera Paes sobre imagem, espaço, produto, operação, experiência e percepção de valor."
         url="sistema"
       />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12" aria-labelledby="sistema-title">
@@ -1022,7 +1031,7 @@ function Sistema({ navigate }) {
             Sistema de Direção Criativa.
           </h1>
           <p className="text-xl md:text-3xl font-light text-stone-600 max-w-3xl mb-24 leading-relaxed text-balance">
-            Seis artigos sobre a loja física como tecnologia de percepção e sobre os princípios que também organizam presença digital, calendário comercial, atendimento e jornada omnichannel.
+            Seis artigos sobre a construção de presença em imagem, espaço, produto, experiência física, operação e memória.
           </p>
         </header>
 
@@ -1322,7 +1331,7 @@ function Contato() {
         <header>
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">EDITORIAL CLOSING</span>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-stone-950 leading-[1.1] tracking-[-0.02em] max-w-6xl text-balance">
-            "Uma marca torna-se inesquecível quando a sua estética deixa de ser aparência e passa a construir <span className="italic font-light text-stone-500">presença</span>."
+            "Um trabalho ganha força quando sua estética deixa de ser aparência e passa a construir <span className="italic font-light text-stone-500">presença</span>."
           </h1>
         </header>
 
@@ -1379,7 +1388,7 @@ function Contato() {
 
           <div className="flex flex-col items-center justify-center pt-20 border-t border-stone-900/10">
             <p className="text-sm font-light text-stone-500 mb-10 max-w-md text-center leading-relaxed text-balance">
-              Disponível para projetos de direção criativa, consultoria de marca e experiência física de varejo.
+              Disponível para projetos de direção criativa, imagem, espaço, eventos, cenografia, varejo, conteúdo e experiências físicas.
             </p>
             <a
               href="https://wa.me/5531981184250"
@@ -1466,7 +1475,7 @@ export default function SamuelPaesPortfolio() {
   const navLinks = [
     { id: "inicio", num: "01.", label: "INÍCIO" },
     { id: "visao", num: "02.", label: "Visão" },
-    { id: "cases", num: "03.", label: "Cases" },
+    { id: "cases", num: "03.", label: "Portfólio" },
     { id: "sistema", num: "04.", label: "Sistema" },
     { id: "contato", num: "05.", label: "Contato" },
   ];

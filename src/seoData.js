@@ -13,6 +13,12 @@ export const SEO_KEYWORDS = [
   "Consultoria Paes",
   "diretor criativo",
   "consultor criativo",
+  "portfólio criativo",
+  "direção de arte",
+  "cenografia",
+  "eventos",
+  "experiência física",
+  "pesquisa visual",
   "branding",
   "marketing",
   "campanhas",
@@ -23,8 +29,7 @@ export const SEO_KEYWORDS = [
   "retail design",
   "styling",
   "inteligência artificial aplicada",
-  "direção criativa",
-  "experiência de marca"
+  "direção criativa"
 ];
 
 export function absoluteUrl(path = "") {
