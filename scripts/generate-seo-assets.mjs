@@ -46,7 +46,7 @@ const imageRoutes = [
     path: "/cases",
     images: [
       {
-        loc: "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_01.png",
+        loc: "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_02.png",
         title: "Val Fortunatto | Brand Transition",
         caption: "Case de Samuel Carrera Paes em direção criativa, curadoria, reposicionamento, branding e varejo.",
       },
