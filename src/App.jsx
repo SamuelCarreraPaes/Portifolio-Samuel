@@ -492,6 +492,60 @@ const PageTransition = ({ children, className = "" }) => {
   );
 };
 
+function handleShareIntent({ title = document.title, text = "Samuel Carrera Paes | Paes Consultoria", url = window.location.href } = {}) {
+  if (navigator.share) {
+    navigator.share({ title, text, url }).catch(() => {});
+    return;
+  }
+
+  navigator.clipboard?.writeText(url);
+}
+
+function EditorialNotice({ navigate }) {
+  const notices = [
+    "Portfólio em expansão",
+    "Direção criativa, imagem e espaço",
+    "Novo eixo: trabalhos, artigos e experiências",
+    "Biblioteca como repertório vivo"
+  ];
+
+  return (
+    <aside className="sp-editorial-notice mt-16" aria-label="Atualização editorial">
+      <button
+        type="button"
+        onClick={() => navigate("sistema")}
+        className="group grid w-full gap-6 px-5 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 md:grid-cols-[auto_1fr_auto] md:items-center md:px-6"
+      >
+        <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-stone-400">Agora no arquivo</span>
+        <span className="sp-marquee" aria-hidden="true">
+          <span className="sp-marquee-track">
+            {[...notices, ...notices].map((notice, index) => (
+              <span key={`${notice}-${index}`}>{notice}</span>
+            ))}
+          </span>
+        </span>
+        <span className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900">
+          Ler sistema <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+        </span>
+      </button>
+    </aside>
+  );
+}
+
+function GlobalDiscoveryDock({ navigate, hidden = false }) {
+  if (hidden) return null;
+
+  return (
+    <nav className="sp-discovery-dock hidden lg:flex" aria-label="Exploração rápida do site">
+      <button type="button" onClick={() => navigate("cases")}>Portfólio</button>
+      <button type="button" onClick={() => navigate("sistema")}>Sistema</button>
+      <button type="button" onClick={() => navigate("contato")}>Contato</button>
+      <a href="https://instagram.com/samuelcarrerapaes" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </nav>
+  );
+}
+
 // --- PÁGINAS ---
 
 function Inicio({ navigate }) {
@@ -546,6 +600,8 @@ function Inicio({ navigate }) {
             Samuel Carrera Paes reúne trabalhos de direção criativa, consultoria, imagem, varejo, eventos, cenografia, conteúdo, produto e experiência física. Este site funciona como um portfólio autoral do que ele cria, conduz e transforma.
           </p>
         </motion.div>
+
+        <EditorialNotice navigate={navigate} />
 
         {/* --- EDITORIAL STATS GRID --- */}
         <dl className="mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-16 gap-x-8 border-t border-stone-900/10 pt-16">
@@ -766,6 +822,19 @@ function Cases({ navigate }) {
             </p>
           </header>
 
+          <section className="mb-12 grid gap-4 border-y border-stone-900/10 py-6 md:grid-cols-3" aria-label="Linhas de leitura do portfólio">
+            {[
+              ["Imagem", "Campanhas, styling, narrativa visual e presença editorial."],
+              ["Espaço", "Vitrine, loja, evento, cenografia e experiência física."],
+              ["Sistema", "Método, operação, repertório e pensamento por trás dos trabalhos."]
+            ].map(([title, text]) => (
+              <article key={title} className="sp-reading-line">
+                <h2>{title}</h2>
+                <p>{text}</p>
+              </article>
+            ))}
+          </section>
+
           <nav className="flex flex-wrap gap-3 mb-16" aria-label="Filtrar cases por território">
             {filters.map(chip => (
               <button
@@ -794,16 +863,22 @@ function Cases({ navigate }) {
                   transition={{ duration: 0.5, ease: PREMIUM_EASE }}
                   key={c.id}
                   className="group flex flex-col"
+                  id={c.id}
                 >
                   <button
                     type="button"
                     aria-label={`Abrir case ${c.number}: ${c.title}`}
-                    className="aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-visible cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block"
+                    className="sp-case-card aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block"
                     onClick={() => navigate(`case/${c.id}`)}
                   >
                     <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm rounded-sm">
                       {c.number}/11
+                    </div>
+                    <div className="sp-case-card__overlay" aria-hidden="true">
+                      <span>{c.role}</span>
+                      <strong>{c.deliverables}</strong>
+                      <small>Explorar projeto <ArrowUpRight className="h-4 w-4" /></small>
                     </div>
                   </button>
 
@@ -853,6 +928,7 @@ function CaseDetail({ caseId, navigate }) {
 
   const isLast = caseIndex === casesData.length - 1;
   const nextCaseId = !isLast ? casesData[caseIndex + 1].id : null;
+  const previousCaseId = caseIndex > 0 ? casesData[caseIndex - 1].id : null;
 
   return (
     <PageTransition>
@@ -866,7 +942,16 @@ function CaseDetail({ caseId, navigate }) {
 
         {/* A. Case Hero */}
         <header className="flex flex-col mb-16">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-6 block">CASE {c.number}/11</span>
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 block">CASE {c.number}/11</span>
+            <button
+              type="button"
+              onClick={() => handleShareIntent({ title: c.title, text: c.shortTese })}
+              className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              Compartilhar <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+            </button>
+          </div>
           <h1 className="font-serif text-5xl md:text-[6rem] leading-[0.9] text-stone-950 tracking-[-0.02em] mb-8 max-w-5xl text-balance">{c.title}</h1>
           <p className="text-xl md:text-2xl font-light text-stone-600 max-w-3xl mb-12 leading-relaxed text-balance">{c.shortTese}</p>
 
@@ -894,6 +979,17 @@ function CaseDetail({ caseId, navigate }) {
             <ImageWithFallback src={c.thumb} mode="natural" alt={`Fotografia de destaque do projeto ${c.title}`} imageClassName="max-h-[85vh]" />
           </figure>
         </header>
+
+        <aside className="sp-case-progress hidden lg:flex" aria-label="Navegação contextual do case">
+          <button type="button" onClick={() => navigate("cases")}>Portfólio</button>
+          {previousCaseId && <button type="button" onClick={() => navigate(`case/${previousCaseId}`)}>Anterior</button>}
+          <button type="button" onClick={() => handleShareIntent({ title: c.title, text: c.shortTese })}>Compartilhar</button>
+          {!isLast ? (
+            <button type="button" onClick={() => navigate(`case/${nextCaseId}`)}>Próximo</button>
+          ) : (
+            <button type="button" onClick={() => navigate("sistema")}>Sistema</button>
+          )}
+        </aside>
 
         {/* B. Director's Note */}
         <section aria-label="Nota do Diretor" className="grid md:grid-cols-[1fr_2fr] gap-8 md:gap-16 mb-24 items-start">
@@ -1034,6 +1130,20 @@ function Sistema({ navigate }) {
             Seis artigos sobre a construção de presença em imagem, espaço, produto, experiência física, operação e memória.
           </p>
         </header>
+
+        <aside className="mb-12 grid gap-4 border-y border-stone-900/10 py-6 md:grid-cols-[0.8fr_1.2fr_auto] md:items-center" aria-label="Leitura orientada do sistema">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Biblioteca / Learn</span>
+          <p className="max-w-3xl text-sm font-light leading-relaxed text-stone-600">
+            Artigos para entender como o repertório vira método: curadoria, espaço, percepção, operação e experiência física.
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate(`sistema/${sistemaArticleCards[0].slug}`)}
+            className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 border-b border-stone-900/20 pb-1 hover:border-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+          >
+            Começar leitura <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </aside>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 border-t border-stone-900/10 pt-16">
           {sistemaArticleCards.map((card) => (
@@ -1610,7 +1720,7 @@ export default function SamuelPaesPortfolio() {
                  transition={{ delay: 0.4, ease: PREMIUM_EASE }}
                  className="mt-16 pt-8 border-t border-stone-900/10 flex justify-between items-center px-2"
               >
-                <button type="button" onClick={() => handleNavClick("cases")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Ver Cases</button>
+                <button type="button" onClick={() => handleNavClick("cases")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Ver Portfólio</button>
                 <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer" className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-900 flex items-center gap-2 focus-visible:outline-none focus-visible:underline hover:text-stone-600 transition-colors">
                   WhatsApp <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
                 </a>
@@ -1632,6 +1742,8 @@ export default function SamuelPaesPortfolio() {
           {effectiveRoute === "contato" && <Contato key="contato" />}
         </AnimatePresence>
       </main>
+
+      <GlobalDiscoveryDock navigate={navigate} hidden={isCaseDetail || isMenuOpen} />
 
     </div>
   );
