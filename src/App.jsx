@@ -532,19 +532,28 @@ function EditorialNotice({ navigate }) {
   );
 }
 
-function GlobalDiscoveryDock({ navigate, hidden = false }) {
+function GlobalDiscoveryDock({ navigate, onSectionNavigate, hidden = false }) {
   if (hidden) return null;
 
   return (
     <nav className="sp-discovery-dock hidden lg:flex" aria-label="Exploração rápida do site">
-      <button type="button" onClick={() => navigate("cases")}>Portfólio</button>
-      <button type="button" onClick={() => navigate("sistema")}>Sistema</button>
-      <button type="button" onClick={() => navigate("contato")}>Contato</button>
+      <button type="button" onClick={() => onSectionNavigate("home-portfolio")}>Portfólio</button>
+      <button type="button" onClick={() => onSectionNavigate("home-biblioteca")}>Biblioteca</button>
+      <button type="button" onClick={() => onSectionNavigate("home-contato")}>Contato</button>
+      <button type="button" onClick={() => navigate("cases")}>Arquivo completo</button>
       <a href="https://instagram.com/samuelcarrerapaes" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </nav>
   );
 }
+
+const HOME_NAV_SECTIONS = {
+  inicio: "home-topo",
+  visao: "home-visao",
+  cases: "home-portfolio",
+  sistema: "home-biblioteca",
+  contato: "home-contato"
+};
 
 // --- PÁGINAS ---
 
@@ -556,11 +565,13 @@ function Inicio({ navigate }) {
     { number: "11", label: "Cases", text: "Estudos publicados em um arquivo em expansão." },
     { number: "100%", label: "Foco", text: "Transformar intenção criativa em experiência real." },
   ];
+  const homeCases = casesData.slice(0, 4);
+  const homeArticles = sistemaArticleCards.slice(0, 3);
 
   return (
     <PageTransition>
       <DynamicSEO title="Início" />
-      <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col justify-center min-h-[85vh] pt-10" aria-labelledby="home-title">
+      <section id="home-topo" className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col justify-center min-h-[85vh] pt-10 scroll-mt-28" aria-labelledby="home-title">
 
         {/* SELO LOGO + PORTFOLIO 2026 */}
         <header className="mb-12 flex items-center gap-4">
@@ -603,6 +614,39 @@ function Inicio({ navigate }) {
 
         <EditorialNotice navigate={navigate} />
 
+        <section id="home-visao" className="mt-32 border-y border-stone-900/10 py-20 scroll-mt-28" aria-labelledby="home-visao-title">
+          <div className="grid gap-12 lg:grid-cols-[0.82fr_1.18fr]">
+            <header>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">Sobre / visão</span>
+              <h2 id="home-visao-title" className="font-serif text-4xl md:text-6xl leading-tight text-stone-950 text-balance">
+                Uma prática que atravessa imagem, espaço, produto e experiência.
+              </h2>
+            </header>
+            <div className="space-y-7 text-base md:text-xl font-light leading-relaxed text-stone-700">
+              <p>
+                O trabalho de Samuel parte de uma pergunta simples: como transformar uma intenção em presença real? A resposta pode aparecer em uma campanha, uma loja, uma festa, uma vitrine, uma coleção, um objeto, um artigo ou uma direção visual.
+              </p>
+              <p>
+                Em vez de separar pensamento e execução, o portfólio mostra como repertório, estética, operação e contexto podem construir uma linguagem reconhecível.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-16 grid gap-4 md:grid-cols-3">
+            {[
+              ["01", "Direção", "Leitura de contexto, intenção visual, escolha de linguagem e condução criativa."],
+              ["02", "Presença", "Imagem, espaço, ritmo, materialidade e atmosfera funcionando como uma só experiência."],
+              ["03", "Execução", "Acompanhamento do que precisa sair do conceito e ganhar corpo no mundo real."]
+            ].map(([num, title, text]) => (
+              <article key={title} className="sp-reading-line">
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{num}</span>
+                <h3 className="mt-5">{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         {/* --- EDITORIAL STATS GRID --- */}
         <dl className="mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-16 gap-x-8 border-t border-stone-900/10 pt-16">
           {stats.map((stat, i) => (
@@ -622,19 +666,31 @@ function Inicio({ navigate }) {
 
         {/* FEATURED CASE BLOCK */}
         <motion.article
+          id="home-portfolio"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, ease: PREMIUM_EASE }}
-          className="mt-32 border-t border-stone-900/10 pt-24"
+          className="mt-32 border-t border-stone-900/10 pt-24 scroll-mt-28"
         >
+          <header className="mb-16 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">Portfólio / trabalhos</span>
+              <h2 className="font-serif text-5xl md:text-7xl tracking-tight leading-[0.9] text-stone-900 text-balance">
+                Trabalhos que constroem presença.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base md:text-xl font-light leading-relaxed text-stone-600">
+              Uma seleção de projetos em imagem, varejo, produto, espaço, campanha e experiência. A página completa continua disponível, mas a home já permite atravessar o repertório principal.
+            </p>
+          </header>
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="flex-1 flex flex-col justify-center">
               <header>
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-6 block">FEATURED CASE</span>
-                <h2 className="font-serif text-5xl md:text-7xl tracking-tight leading-[0.9] text-stone-900 mb-6 text-balance">
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-6 block">Case em destaque</span>
+                <h3 className="font-serif text-4xl md:text-6xl tracking-tight leading-[0.9] text-stone-900 mb-6 text-balance">
                   {casesData[0].title.split('—')[0].trim()}
-                </h2>
+                </h3>
                 <p className="text-sm md:text-base font-light text-stone-600 mb-12 max-w-md leading-relaxed">
                   {casesData[0].category}
                 </p>
@@ -642,16 +698,7 @@ function Inicio({ navigate }) {
                 <button
                   type="button"
                   aria-label={`Explorar o case em destaque: ${casesData[0].title}`}
-                  onClick={() => {
-                    navigate("cases");
-                    setTimeout(() => {
-                      const el = document.getElementById(casesData[0].id);
-                      if (el) {
-                        const y = el.getBoundingClientRect().top + window.scrollY - 100;
-                        window.scrollTo({ top: y, behavior: "smooth" });
-                      }
-                    }, 300);
-                  }}
+                  onClick={() => navigate(`case/${casesData[0].id}`)}
                   className="group flex w-max items-center gap-5 text-xs font-bold uppercase tracking-[0.25em] text-stone-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-full"
                 >
                   <span className="border-b border-stone-900/20 pb-1 group-hover:text-stone-600 group-hover:border-stone-900 transition-colors duration-300">
@@ -676,7 +723,93 @@ function Inicio({ navigate }) {
                </div>
             </div>
           </div>
+
+          <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {homeCases.map((c) => (
+              <article key={c.id} className="group">
+                <button
+                  type="button"
+                  onClick={() => navigate(`case/${c.id}`)}
+                  className="sp-case-card aspect-[4/5] relative w-full overflow-hidden rounded-sm bg-stone-200/60 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+                  aria-label={`Abrir projeto ${c.title}`}
+                >
+                  <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm rounded-sm">
+                    {c.number}/11
+                  </div>
+                  <div className="sp-case-card__overlay" aria-hidden="true">
+                    <span>{c.territory}</span>
+                    <strong>{c.title}</strong>
+                    <small>Explorar <ArrowUpRight className="h-4 w-4" /></small>
+                  </div>
+                </button>
+                <h3 className="mt-5 font-serif text-2xl leading-tight text-stone-900 text-balance">{c.title}</h3>
+                <p className="mt-3 text-sm font-light leading-relaxed text-stone-600">{c.shortTese}</p>
+              </article>
+            ))}
+          </div>
         </motion.article>
+
+        <section id="home-biblioteca" className="mt-32 border-t border-stone-900/10 pt-24 scroll-mt-28" aria-labelledby="home-biblioteca-title">
+          <header className="mb-16 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">Biblioteca / pensamento</span>
+              <h2 id="home-biblioteca-title" className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight text-stone-950 text-balance">
+                O sistema por trás da presença.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base md:text-xl font-light leading-relaxed text-stone-600">
+              Artigos para entender como curadoria, espaço, percepção, operação e experiência sustentam a prática criativa.
+            </p>
+          </header>
+          <div className="grid gap-6 md:grid-cols-3">
+            {homeArticles.map((card) => (
+              <article key={card.num} className="group flex min-h-[21rem] flex-col border border-stone-900/10 bg-white/40 transition-all duration-700 hover:bg-white/80 hover:border-stone-900/25 rounded-sm">
+                <button
+                  type="button"
+                  onClick={() => navigate(`sistema/${card.slug}`)}
+                  aria-label={`Ler artigo ${card.editorialTitle}`}
+                  className="flex h-full flex-col p-8 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                >
+                  <span className="font-serif text-4xl text-stone-300 mb-8 transition-colors duration-500 group-hover:text-stone-900" aria-hidden="true">{card.num}.</span>
+                  <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-3">{card.title}</h3>
+                  <p className="font-serif text-2xl leading-tight text-stone-950 mb-6 text-balance">{card.editorialTitle}</p>
+                  <p className="text-sm font-light text-stone-600 leading-relaxed mb-8">{card.subtitle}</p>
+                  <span className="mt-auto inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
+                    Ler artigo <ArrowRightCircle className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                  </span>
+                </button>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="home-contato" className="mt-32 scroll-mt-28 bg-stone-950 text-stone-50 px-8 py-20 md:px-14 md:py-24 rounded-sm" aria-labelledby="home-contato-title">
+          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">Contato</span>
+              <h2 id="home-contato-title" className="font-serif text-4xl md:text-6xl leading-tight tracking-tight max-w-4xl text-balance">
+                Vamos construir presença para o próximo projeto?
+              </h2>
+            </div>
+            <div className="flex flex-col items-start gap-6">
+              <p className="text-sm md:text-base font-light leading-relaxed text-stone-300">
+                Disponível para projetos de direção criativa, imagem, espaço, eventos, cenografia, varejo, conteúdo e experiências físicas.
+              </p>
+              <a
+                href="https://wa.me/5531981184250"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-5 text-xs font-bold uppercase tracking-[0.25em] text-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-50 rounded-full"
+              >
+                Iniciar conversa
+                <span className="w-12 h-12 rounded-full border border-stone-50/20 flex items-center justify-center group-hover:bg-stone-50 group-hover:text-stone-950 transition-all duration-500">
+                  <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
+                </span>
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* --- MAGNETIC CALL TO ACTION --- */}
         <div className="mt-32 flex items-center justify-between border-t border-stone-900/10 pt-10 pb-16">
@@ -1543,6 +1676,7 @@ function Contato() {
 export default function SamuelPaesPortfolio() {
   const { route, navigate } = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeHomeSection, setActiveHomeSection] = useState(HOME_NAV_SECTIONS.inicio);
   const effectiveRoute = useMemo(() => {
     if (
       route === "sobre/samuel-carrera-paes" ||
@@ -1586,11 +1720,56 @@ export default function SamuelPaesPortfolio() {
     { id: "inicio", num: "01.", label: "INÍCIO" },
     { id: "visao", num: "02.", label: "Visão" },
     { id: "cases", num: "03.", label: "Portfólio" },
-    { id: "sistema", num: "04.", label: "Sistema" },
+    { id: "sistema", num: "04.", label: "Biblioteca" },
     { id: "contato", num: "05.", label: "Contato" },
   ];
 
+  useEffect(() => {
+    if (effectiveRoute !== "inicio") return undefined;
+
+    const sectionIds = Object.values(HOME_NAV_SECTIONS);
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.id) setActiveHomeSection(visible.target.id);
+    }, {
+      rootMargin: "-35% 0px -50% 0px",
+      threshold: [0.08, 0.18, 0.32, 0.5]
+    });
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [effectiveRoute]);
+
+  const scrollToHomeSection = useCallback((sectionId) => {
+    setActiveHomeSection(sectionId);
+    const scroll = () => {
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 96;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    };
+
+    if (effectiveRoute !== "inicio") {
+      navigate("inicio");
+      window.setTimeout(scroll, 120);
+    } else {
+      scroll();
+    }
+    setIsMenuOpen(false);
+  }, [effectiveRoute, navigate]);
+
   const handleNavClick = (id) => {
+    const sectionId = HOME_NAV_SECTIONS[id];
+    if (sectionId) {
+      scrollToHomeSection(sectionId);
+      return;
+    }
     navigate(id);
     setIsMenuOpen(false);
   };
@@ -1640,7 +1819,7 @@ export default function SamuelPaesPortfolio() {
                 aria-label={`Página ${link.label}`}
                 onClick={() => handleNavClick(link.id)}
                 className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm px-2 pb-1 border-b-2 ${
-                  (effectiveRoute === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail))
+                  ((effectiveRoute === "inicio" && activeHomeSection === HOME_NAV_SECTIONS[link.id]) || (effectiveRoute !== "inicio" && (effectiveRoute === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail))))
                     ? "text-stone-900 border-stone-900"
                     : "text-stone-400 border-transparent hover:text-stone-900 hover:border-stone-900/20"
                 }`}
@@ -1654,7 +1833,7 @@ export default function SamuelPaesPortfolio() {
           <div className="hidden lg:flex w-1/4 justify-end items-center gap-6 xl:gap-8">
             <button
               type="button"
-              onClick={() => handleNavClick("cases")}
+              onClick={() => scrollToHomeSection("home-portfolio")}
               className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-900 border-b border-stone-900/30 pb-1 hover:text-stone-600 hover:border-stone-900 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             >
               Entrar no Portfólio
@@ -1706,7 +1885,7 @@ export default function SamuelPaesPortfolio() {
                     type="button"
                     onClick={() => handleNavClick(link.id)}
                     className={`flex items-baseline gap-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 p-3 rounded-sm transition-colors duration-300 ${
-                      (effectiveRoute === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
+                      ((effectiveRoute === "inicio" && activeHomeSection === HOME_NAV_SECTIONS[link.id]) || (effectiveRoute !== "inicio" && (effectiveRoute === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail)))) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
                     }`}
                   >
                     <span className="font-serif text-3xl italic opacity-50" aria-hidden="true">{link.num}</span>
@@ -1720,7 +1899,7 @@ export default function SamuelPaesPortfolio() {
                  transition={{ delay: 0.4, ease: PREMIUM_EASE }}
                  className="mt-16 pt-8 border-t border-stone-900/10 flex justify-between items-center px-2"
               >
-                <button type="button" onClick={() => handleNavClick("cases")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Ver Portfólio</button>
+                <button type="button" onClick={() => scrollToHomeSection("home-portfolio")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Ver Portfólio</button>
                 <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer" className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-900 flex items-center gap-2 focus-visible:outline-none focus-visible:underline hover:text-stone-600 transition-colors">
                   WhatsApp <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
                 </a>
@@ -1743,7 +1922,7 @@ export default function SamuelPaesPortfolio() {
         </AnimatePresence>
       </main>
 
-      <GlobalDiscoveryDock navigate={navigate} hidden={isCaseDetail || isMenuOpen} />
+      <GlobalDiscoveryDock navigate={navigate} onSectionNavigate={scrollToHomeSection} hidden={isCaseDetail || isMenuOpen} />
 
     </div>
   );

@@ -243,7 +243,8 @@ header .navbar-logo-final {
   padding: 1.25rem;
 }
 
-.sp-reading-line h2 {
+.sp-reading-line h2,
+.sp-reading-line h3 {
   color: var(--sp-ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.6rem;
