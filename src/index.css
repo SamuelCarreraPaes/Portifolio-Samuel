@@ -321,6 +321,36 @@ header .navbar-logo-final {
   max-width: 16rem;
 }
 
+.sp-home-chapter {
+  border-top: 1px solid var(--sp-line);
+  margin-top: clamp(8rem, 16vw, 15rem);
+  padding-top: clamp(4.5rem, 9vw, 8rem);
+  position: relative;
+}
+
+.sp-chapter-kicker {
+  align-items: center;
+  border-bottom: 1px solid var(--sp-line);
+  color: var(--sp-muted-light);
+  display: flex;
+  font-size: 0.62rem;
+  font-weight: 700;
+  gap: 1rem;
+  justify-content: space-between;
+  letter-spacing: 0.28em;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  padding-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.sp-chapter-kicker span:first-child {
+  color: var(--sp-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 4vw, 3.4rem);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
 .sp-discovery-dock,
 .sp-case-progress {
   align-items: center;
@@ -344,10 +374,19 @@ header .navbar-logo-final {
 .sp-discovery-dock {
   border-radius: 999px;
   bottom: 1.1rem;
+  display: flex;
   left: 50%;
+  max-width: calc(100vw - 1.5rem);
+  overflow-x: auto;
   padding: 0.24rem;
   position: fixed;
   transform: translateX(-50%);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sp-discovery-dock::-webkit-scrollbar {
+  display: none;
 }
 
 .sp-discovery-dock button,
@@ -355,6 +394,7 @@ header .navbar-logo-final {
 .sp-case-progress button {
   border-radius: 999px;
   color: var(--sp-muted);
+  flex: 0 0 auto;
   font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -367,12 +407,22 @@ header .navbar-logo-final {
     transform 180ms ease;
 }
 
+.sp-discovery-dock button span {
+  color: color-mix(in srgb, currentColor 58%, transparent);
+  margin-right: 0.42rem;
+}
+
 .sp-discovery-dock button:hover,
 .sp-discovery-dock a:hover,
-.sp-case-progress button:hover {
+.sp-case-progress button:hover,
+.sp-discovery-dock button.is-active {
   background: var(--sp-ink);
   color: var(--sp-paper-soft);
   transform: translateY(-1px);
+}
+
+.sp-discovery-dock button.is-active {
+  box-shadow: 0 10px 30px rgba(23, 21, 18, 0.12);
 }
 
 .sp-case-progress {
@@ -391,6 +441,25 @@ header .navbar-logo-final {
 
   to {
     transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 767px) {
+  .sp-discovery-dock {
+    bottom: 0.75rem;
+    justify-content: flex-start;
+    width: calc(100vw - 1rem);
+  }
+
+  .sp-discovery-dock button,
+  .sp-discovery-dock a,
+  .sp-case-progress button {
+    font-size: 0.54rem;
+    padding: 0.58rem 0.68rem;
+  }
+
+  .sp-discovery-dock button span {
+    margin-right: 0.32rem;
   }
 }
 

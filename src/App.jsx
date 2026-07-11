@@ -532,17 +532,31 @@ function EditorialNotice({ navigate }) {
   );
 }
 
-function GlobalDiscoveryDock({ navigate, onSectionNavigate, hidden = false }) {
+function GlobalDiscoveryDock({ onSectionNavigate, activeSection, hidden = false }) {
   if (hidden) return null;
 
+  const items = [
+    ["home-topo", "Samuel"],
+    ["home-visao", "Visão"],
+    ["home-portfolio", "Portfólio"],
+    ["home-biblioteca", "Biblioteca"],
+    ["home-contato", "Contato"]
+  ];
+
   return (
-    <nav className="sp-discovery-dock hidden lg:flex" aria-label="Exploração rápida do site">
-      <button type="button" onClick={() => onSectionNavigate("home-portfolio")}>Portfólio</button>
-      <button type="button" onClick={() => onSectionNavigate("home-biblioteca")}>Biblioteca</button>
-      <button type="button" onClick={() => onSectionNavigate("home-contato")}>Contato</button>
-      <button type="button" onClick={() => navigate("cases")}>Arquivo completo</button>
-      <a href="https://instagram.com/samuelcarrerapaes" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    <nav className="sp-discovery-dock" aria-label="Navegação contextual da home">
+      {items.map(([sectionId, label], index) => (
+        <button
+          key={sectionId}
+          type="button"
+          onClick={() => onSectionNavigate(sectionId)}
+          aria-current={activeSection === sectionId ? "true" : undefined}
+          className={activeSection === sectionId ? "is-active" : ""}
+        >
+          <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+          {label}
+        </button>
+      ))}
     </nav>
   );
 }
@@ -562,77 +576,119 @@ function Inicio({ navigate }) {
     { number: "09+", label: "Anos", text: "Construindo repertório visual, espacial e estratégico." },
     { number: "40+", label: "Projetos", text: "Trabalhos entre imagem, espaço, evento, produto e presença." },
     { number: "10+", label: "Implantações", text: "Execuções físicas, lançamentos e ativações acompanhadas." },
-    { number: "11", label: "Cases", text: "Estudos publicados em um arquivo em expansão." },
-    { number: "100%", label: "Foco", text: "Transformar intenção criativa em experiência real." },
+    { number: "11", label: "Cases", text: "Estudos publicados em um arquivo vivo de trabalhos." },
+    { number: "06", label: "Artigos", text: "Textos que sustentam o pensamento por trás da prática." },
   ];
-  const homeCases = casesData.slice(0, 4);
-  const homeArticles = sistemaArticleCards.slice(0, 3);
 
   return (
     <PageTransition>
       <DynamicSEO title="Início" />
-      <section id="home-topo" className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col justify-center min-h-[85vh] pt-10 scroll-mt-28" aria-labelledby="home-title">
+      <section className="mx-auto max-w-[90rem] px-6 pb-28 pt-10 lg:px-12" aria-label="Home editorial Samuel Carrera Paes">
+        <section id="home-topo" className="flex min-h-[88vh] scroll-mt-28 flex-col justify-center" aria-labelledby="home-title">
+          <header className="mb-12 flex items-center gap-4">
+            <img
+              src="/images/00_LOGOS/symbol-black-transparent.png"
+              alt="Samuel Carrera Paes Logo"
+              className="h-20 w-auto max-w-none object-contain opacity-100 md:h-24 lg:h-28"
+              onError={(e) => e.target.style.display = 'none'}
+            />
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
+              PORTFÓLIO · 2026
+            </span>
+          </header>
 
-        {/* SELO LOGO + PORTFOLIO 2026 */}
-        <header className="mb-12 flex items-center gap-4">
-          <img
-            src="/images/00_LOGOS/symbol-black-transparent.png"
-            alt="Samuel Carrera Paes Logo"
-            className="h-20 md:h-24 lg:h-28 w-auto max-w-none object-contain opacity-100 bg-transparent"
-            onError={(e) => e.target.style.display = 'none'}
-          />
-          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-500">
-            PORTFÓLIO · 2026
-          </span>
-        </header>
+          <motion.h1
+            id="home-title"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1, ease: PREMIUM_EASE }}
+            className="mt-4 max-w-6xl font-serif text-[13vw] leading-[0.85] tracking-[-0.02em] text-stone-950 text-balance sm:text-[9vw] md:text-[8rem] lg:text-[10.5rem]"
+          >
+            Samuel Carrera Paes
+            <br />
+            <span className="pr-4 font-light italic text-stone-500">Diretor Criativo.</span>
+          </motion.h1>
 
-        <motion.h1
-          id="home-title"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.1, ease: PREMIUM_EASE }}
-          className="mt-4 max-w-6xl font-serif text-[13vw] sm:text-[9vw] md:text-[8rem] lg:text-[10.5rem] leading-[0.85] tracking-[-0.02em] text-stone-950 text-balance"
-        >
-          Samuel Carrera Paes
-          <br />
-          <span className="italic text-stone-500 font-light pr-4">Diretor Criativo.</span>
-        </motion.h1>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, delay: 0.4, ease: PREMIUM_EASE }}
+            className="mt-16 max-w-3xl md:mt-24"
+          >
+            <p className="border-l border-stone-900/20 pl-6 text-xl font-light leading-relaxed tracking-tight text-stone-800 text-balance md:pl-10 md:text-3xl lg:text-4xl">
+              "Construo presença no ponto em que estética, estratégia, espaço e execução deixam de ser intenção e passam a existir no mundo."
+            </p>
+            <p className="mt-8 max-w-2xl text-sm font-light leading-relaxed text-stone-600 md:text-base">
+              Um portfólio autoral sobre imagem, varejo, produto, eventos, cenografia, campanha, conteúdo e experiências físicas. A página funciona como uma travessia: visão, trabalhos, pensamento e contato em uma única leitura.
+            </p>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: PREMIUM_EASE }}
-          className="mt-16 md:mt-24 max-w-3xl"
-        >
-          <p className="text-xl md:text-3xl lg:text-4xl leading-relaxed tracking-tight text-stone-800 font-light border-l border-stone-900/20 pl-6 md:pl-10 text-balance">
-            "Construo presença no ponto em que estética, estratégia, espaço e execução deixam de ser intenção e passam a existir no mundo."
-          </p>
-          <p className="mt-8 max-w-2xl text-sm md:text-base leading-relaxed text-stone-600 font-light">
-            Samuel Carrera Paes reúne trabalhos de direção criativa, consultoria, imagem, varejo, eventos, cenografia, conteúdo, produto e experiência física. Este site funciona como um portfólio autoral do que ele cria, conduz e transforma.
-          </p>
-        </motion.div>
+          <EditorialNotice navigate={navigate} />
 
-        <EditorialNotice navigate={navigate} />
+          <dl className="mt-24 grid grid-cols-2 gap-x-8 gap-y-14 border-t border-stone-900/10 pt-16 md:grid-cols-3 lg:mt-32 lg:grid-cols-5">
+            {stats.map((stat, i) => (
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + (i * 0.1), ease: PREMIUM_EASE }}
+                key={stat.label}
+                className="flex flex-col"
+              >
+                <dt className="order-2 mb-3 block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{stat.label}</dt>
+                <dd className="order-1 mb-4 font-serif text-5xl tracking-[-0.02em] text-stone-900 md:text-6xl">{stat.number}</dd>
+                <p className="order-3 pr-4 text-xs font-light leading-relaxed text-stone-600 md:text-sm">{stat.text}</p>
+              </motion.div>
+            ))}
+          </dl>
+        </section>
 
-        <section id="home-visao" className="mt-32 border-y border-stone-900/10 py-20 scroll-mt-28" aria-labelledby="home-visao-title">
-          <div className="grid gap-12 lg:grid-cols-[0.82fr_1.18fr]">
-            <header>
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">Sobre / visão</span>
-              <h2 id="home-visao-title" className="font-serif text-4xl md:text-6xl leading-tight text-stone-950 text-balance">
+        <section id="home-visao" className="sp-home-chapter scroll-mt-28" aria-labelledby="home-visao-title">
+          <div className="sp-chapter-kicker">
+            <span>02</span>
+            <span>Visão / autoria</span>
+          </div>
+          <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 0.9, ease: PREMIUM_EASE }}
+            >
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Creative statement</span>
+              <h2 id="home-visao-title" className="font-serif text-5xl leading-[0.9] tracking-tight text-stone-950 text-balance md:text-7xl lg:text-8xl">
                 Uma prática que atravessa imagem, espaço, produto e experiência.
               </h2>
-            </header>
-            <div className="space-y-7 text-base md:text-xl font-light leading-relaxed text-stone-700">
-              <p>
-                O trabalho de Samuel parte de uma pergunta simples: como transformar uma intenção em presença real? A resposta pode aparecer em uma campanha, uma loja, uma festa, uma vitrine, uma coleção, um objeto, um artigo ou uma direção visual.
-              </p>
-              <p>
-                Em vez de separar pensamento e execução, o portfólio mostra como repertório, estética, operação e contexto podem construir uma linguagem reconhecível.
-              </p>
-            </div>
+              <div className="mt-12 space-y-7 text-base font-light leading-relaxed text-stone-700 md:text-xl">
+                <p>
+                  O trabalho de Samuel parte de uma pergunta simples: como transformar uma intenção em presença real? A resposta pode aparecer em uma campanha, uma loja, uma festa, uma vitrine, uma coleção, um objeto, um artigo ou uma direção visual.
+                </p>
+                <p>
+                  Em vez de separar pensamento e execução, o portfólio mostra como repertório, estética, operação e contexto podem construir uma linguagem reconhecível.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.figure
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 1, ease: PREMIUM_EASE }}
+              className="m-0 overflow-hidden rounded-sm border border-stone-900/10 bg-[#F4F0E9]"
+            >
+              <ImageWithFallback
+                src={homePortrait}
+                mode="natural"
+                alt="Retrato editorial de Samuel Carrera Paes com assinatura autoral"
+                imageClassName="w-full h-auto object-contain mix-blend-multiply"
+                fallbackLabel="Samuel Carrera Paes"
+              />
+              <figcaption className="border-t border-stone-900/10 px-5 py-4 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">
+                Samuel Carrera Paes · Direção criativa aplicada
+              </figcaption>
+            </motion.figure>
           </div>
 
-          <div className="mt-16 grid gap-4 md:grid-cols-3">
+          <div className="mt-20 grid gap-4 md:grid-cols-3">
             {[
               ["01", "Direção", "Leitura de contexto, intenção visual, escolha de linguagem e condução criativa."],
               ["02", "Presença", "Imagem, espaço, ritmo, materialidade e atmosfera funcionando como uma só experiência."],
@@ -647,134 +703,112 @@ function Inicio({ navigate }) {
           </div>
         </section>
 
-        {/* --- EDITORIAL STATS GRID --- */}
-        <dl className="mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-16 gap-x-8 border-t border-stone-900/10 pt-16">
-          {stats.map((stat, i) => (
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 + (i * 0.1), ease: PREMIUM_EASE }}
-              key={i}
-              className="flex flex-col group"
-            >
-              <dt className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-3 block order-2">{stat.label}</dt>
-              <dd className="font-serif text-5xl md:text-6xl text-stone-900 tracking-[-0.02em] mb-4 order-1">{stat.number}</dd>
-              <p className="text-xs md:text-sm font-light text-stone-600 leading-relaxed pr-4 order-3">{stat.text}</p>
-            </motion.div>
-          ))}
-        </dl>
-
-        {/* FEATURED CASE BLOCK */}
-        <motion.article
-          id="home-portfolio"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: PREMIUM_EASE }}
-          className="mt-32 border-t border-stone-900/10 pt-24 scroll-mt-28"
-        >
-          <header className="mb-16 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">Portfólio / trabalhos</span>
-              <h2 className="font-serif text-5xl md:text-7xl tracking-tight leading-[0.9] text-stone-900 text-balance">
-                Trabalhos que constroem presença.
-              </h2>
-            </div>
-            <p className="max-w-2xl text-base md:text-xl font-light leading-relaxed text-stone-600">
-              Uma seleção de projetos em imagem, varejo, produto, espaço, campanha e experiência. A página completa continua disponível, mas a home já permite atravessar o repertório principal.
+        <section id="home-portfolio" className="sp-home-chapter scroll-mt-28" aria-labelledby="home-portfolio-title">
+          <div className="sp-chapter-kicker">
+            <span>03</span>
+            <span>Portfólio / 11 trabalhos</span>
+          </div>
+          <header className="mb-16">
+            <span className="mb-12 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Trabalhos selecionados</span>
+            <h2 id="home-portfolio-title" className="max-w-5xl font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 text-balance md:text-[7rem]">
+              Cada projeto revela uma forma de transformar percepção em presença.
+            </h2>
+            <p className="mt-8 max-w-2xl text-lg font-light leading-relaxed text-stone-600 md:text-2xl">
+              Um arquivo de trabalhos em direção criativa: marca, produto, varejo, evento, cenografia, campanha, espaço e experiência.
             </p>
           </header>
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="flex-1 flex flex-col justify-center">
-              <header>
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-6 block">Case em destaque</span>
-                <h3 className="font-serif text-4xl md:text-6xl tracking-tight leading-[0.9] text-stone-900 mb-6 text-balance">
-                  {casesData[0].title.split('—')[0].trim()}
-                </h3>
-                <p className="text-sm md:text-base font-light text-stone-600 mb-12 max-w-md leading-relaxed">
-                  {casesData[0].category}
-                </p>
 
+          <section className="mb-12 grid gap-4 border-y border-stone-900/10 py-6 md:grid-cols-3" aria-label="Linhas de leitura do portfólio">
+            {[
+              ["Imagem", "Campanhas, styling, narrativa visual e presença editorial."],
+              ["Espaço", "Vitrine, loja, evento, cenografia e experiência física."],
+              ["Sistema", "Método, operação, repertório e pensamento por trás dos trabalhos."]
+            ].map(([title, text]) => (
+              <article key={title} className="sp-reading-line">
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </section>
+
+          <motion.div layout className="grid grid-cols-1 gap-x-8 gap-y-20 md:grid-cols-2 lg:grid-cols-3">
+            {casesData.map((c, index) => (
+              <motion.article
+                layout
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.65, delay: Math.min(index * 0.035, 0.18), ease: PREMIUM_EASE }}
+                key={c.id}
+                className="group flex flex-col"
+                id={`home-${c.id}`}
+              >
                 <button
                   type="button"
-                  aria-label={`Explorar o case em destaque: ${casesData[0].title}`}
-                  onClick={() => navigate(`case/${casesData[0].id}`)}
-                  className="group flex w-max items-center gap-5 text-xs font-bold uppercase tracking-[0.25em] text-stone-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-full"
-                >
-                  <span className="border-b border-stone-900/20 pb-1 group-hover:text-stone-600 group-hover:border-stone-900 transition-colors duration-300">
-                    Ver case em destaque
-                  </span>
-                  <div className="w-12 h-12 rounded-full border border-stone-900/10 flex items-center justify-center group-hover:bg-stone-900 group-hover:border-stone-900 group-hover:text-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                    <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-                  </div>
-                </button>
-              </header>
-            </div>
-
-            <div className="flex-1 w-full aspect-[4/5] lg:aspect-[3/4] relative bg-stone-200/50 overflow-visible group rounded-sm mt-12 lg:mt-0">
-               <ImageWithFallback src={casesData[0].thumb} mode="cover" alt={`Imagem de destaque do projeto ${casesData[0].title}`} fallbackLabel="Featured Work" imageClassName="group-hover:scale-[1.03] transition duration-[2s] ease-out" />
-
-               {/* Tipografia como Textura */}
-               <div className="absolute inset-0 pointer-events-none flex flex-col justify-between py-10 px-8 opacity-[0.03]" aria-hidden="true">
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">IMAGEM</span>
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">OBJETO</span>
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay">ESPAÇO</span>
-                 <span className="font-serif text-[10vw] leading-none tracking-tighter mix-blend-overlay text-right">PRESENÇA</span>
-               </div>
-            </div>
-          </div>
-
-          <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {homeCases.map((c) => (
-              <article key={c.id} className="group">
-                <button
-                  type="button"
+                  aria-label={`Abrir case ${c.number}: ${c.title}`}
+                  className="sp-case-card relative mb-6 block aspect-[4/5] w-full cursor-pointer overflow-hidden rounded-sm bg-stone-200/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
                   onClick={() => navigate(`case/${c.id}`)}
-                  className="sp-case-card aspect-[4/5] relative w-full overflow-hidden rounded-sm bg-stone-200/60 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
-                  aria-label={`Abrir projeto ${c.title}`}
                 >
                   <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm rounded-sm">
+                  <div className="absolute left-4 top-4 rounded-sm bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm backdrop-blur">
                     {c.number}/11
                   </div>
                   <div className="sp-case-card__overlay" aria-hidden="true">
-                    <span>{c.territory}</span>
-                    <strong>{c.title}</strong>
-                    <small>Explorar <ArrowUpRight className="h-4 w-4" /></small>
+                    <span>{c.role}</span>
+                    <strong>{c.deliverables}</strong>
+                    <small>Explorar projeto <ArrowUpRight className="h-4 w-4" /></small>
                   </div>
                 </button>
-                <h3 className="mt-5 font-serif text-2xl leading-tight text-stone-900 text-balance">{c.title}</h3>
-                <p className="mt-3 text-sm font-light leading-relaxed text-stone-600">{c.shortTese}</p>
-              </article>
-            ))}
-          </div>
-        </motion.article>
 
-        <section id="home-biblioteca" className="mt-32 border-t border-stone-900/10 pt-24 scroll-mt-28" aria-labelledby="home-biblioteca-title">
-          <header className="mb-16 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+                <div className="flex flex-1 flex-col">
+                  <header className="mb-3 flex items-start justify-between">
+                    <p className="w-2/3 text-[10px] font-bold uppercase leading-relaxed tracking-[0.25em] text-stone-400">{c.territory}</p>
+                    <span className="border-b border-stone-900/20 pb-0.5 text-[9px] font-bold uppercase tracking-[0.2em] text-stone-900 opacity-0 transition-all duration-300 group-hover:opacity-100">
+                      Explorar
+                    </span>
+                  </header>
+                  <h3 className="mb-3 font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors duration-300 text-balance group-hover:text-stone-600 md:text-3xl">{c.title}</h3>
+                  <p className="mb-6 flex-1 text-sm font-light leading-relaxed text-stone-600">{c.shortTese}</p>
+
+                  <footer className="flex items-center justify-between border-t border-stone-900/10 pt-4 text-[10px] uppercase tracking-[0.25em] text-stone-400">
+                    <span>Papel: {c.role}</span>
+                  </footer>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </section>
+
+        <section id="home-biblioteca" className="sp-home-chapter scroll-mt-28" aria-labelledby="home-biblioteca-title">
+          <div className="sp-chapter-kicker">
+            <span>04</span>
+            <span>Biblioteca / pensamento</span>
+          </div>
+          <header className="mb-16 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">Biblioteca / pensamento</span>
-              <h2 id="home-biblioteca-title" className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight text-stone-950 text-balance">
-                O sistema por trás da presença.
+              <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sistema de direção criativa</span>
+              <h2 id="home-biblioteca-title" className="font-serif text-5xl leading-[0.9] tracking-tight text-stone-950 text-balance md:text-7xl">
+                O pensamento que sustenta a prática.
               </h2>
             </div>
-            <p className="max-w-2xl text-base md:text-xl font-light leading-relaxed text-stone-600">
-              Artigos para entender como curadoria, espaço, percepção, operação e experiência sustentam a prática criativa.
+            <p className="max-w-2xl text-base font-light leading-relaxed text-stone-600 md:text-xl">
+              Seis artigos para entender como curadoria, narrativa espacial, percepção, operação e experiência física constroem valor real.
             </p>
           </header>
-          <div className="grid gap-6 md:grid-cols-3">
-            {homeArticles.map((card) => (
-              <article key={card.num} className="group flex min-h-[21rem] flex-col border border-stone-900/10 bg-white/40 transition-all duration-700 hover:bg-white/80 hover:border-stone-900/25 rounded-sm">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {sistemaArticleCards.map((card) => (
+              <article key={card.num} className="group flex min-h-[24rem] flex-col rounded-sm border border-stone-900/10 bg-white/40 transition-all duration-700 hover:border-stone-900/25 hover:bg-white/80">
                 <button
                   type="button"
                   onClick={() => navigate(`sistema/${card.slug}`)}
                   aria-label={`Ler artigo ${card.editorialTitle}`}
-                  className="flex h-full flex-col p-8 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                  className="flex h-full flex-col rounded-sm p-8 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 md:p-10"
                 >
-                  <span className="font-serif text-4xl text-stone-300 mb-8 transition-colors duration-500 group-hover:text-stone-900" aria-hidden="true">{card.num}.</span>
-                  <h3 className="text-sm font-bold uppercase tracking-[0.25em] text-stone-900 mb-3">{card.title}</h3>
-                  <p className="font-serif text-2xl leading-tight text-stone-950 mb-6 text-balance">{card.editorialTitle}</p>
-                  <p className="text-sm font-light text-stone-600 leading-relaxed mb-8">{card.subtitle}</p>
+                  <span className="mb-8 font-serif text-4xl text-stone-300 transition-colors duration-500 group-hover:text-stone-900" aria-hidden="true">{card.num}.</span>
+                  <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.25em] text-stone-900">{card.title}</h3>
+                  <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">{card.phrase}</span>
+                  <p className="mb-6 font-serif text-2xl leading-tight text-stone-950 text-balance">{card.editorialTitle}</p>
+                  <p className="mb-8 text-sm font-light leading-relaxed text-stone-600">{card.subtitle}</p>
                   <span className="mt-auto inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">
                     Ler artigo <ArrowRightCircle className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                   </span>
@@ -784,52 +818,48 @@ function Inicio({ navigate }) {
           </div>
         </section>
 
-        <section id="home-contato" className="mt-32 scroll-mt-28 bg-stone-950 text-stone-50 px-8 py-20 md:px-14 md:py-24 rounded-sm" aria-labelledby="home-contato-title">
-          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-8 block">Contato</span>
-              <h2 id="home-contato-title" className="font-serif text-4xl md:text-6xl leading-tight tracking-tight max-w-4xl text-balance">
-                Vamos construir presença para o próximo projeto?
-              </h2>
+        <section id="home-contato" className="sp-home-chapter scroll-mt-28" aria-labelledby="home-contato-title">
+          <div className="rounded-sm bg-stone-950 px-8 py-20 text-stone-50 md:px-14 md:py-24">
+            <div className="sp-chapter-kicker border-stone-50/20 text-stone-400">
+              <span>05</span>
+              <span>Contato</span>
             </div>
-            <div className="flex flex-col items-start gap-6">
-              <p className="text-sm md:text-base font-light leading-relaxed text-stone-300">
-                Disponível para projetos de direção criativa, imagem, espaço, eventos, cenografia, varejo, conteúdo e experiências físicas.
-              </p>
-              <a
-                href="https://wa.me/5531981184250"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-5 text-xs font-bold uppercase tracking-[0.25em] text-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-50 rounded-full"
-              >
-                Iniciar conversa
-                <span className="w-12 h-12 rounded-full border border-stone-50/20 flex items-center justify-center group-hover:bg-stone-50 group-hover:text-stone-950 transition-all duration-500">
-                  <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
-                </span>
-              </a>
+            <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+              <div>
+                <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Fechamento editorial</span>
+                <h2 id="home-contato-title" className="max-w-4xl font-serif text-4xl leading-tight tracking-tight text-balance md:text-6xl">
+                  Vamos construir presença para o próximo projeto?
+                </h2>
+              </div>
+              <div className="flex flex-col items-start gap-6">
+                <p className="text-sm font-light leading-relaxed text-stone-300 md:text-base">
+                  Disponível para projetos de direção criativa, imagem, espaço, eventos, cenografia, varejo, conteúdo e experiências físicas.
+                </p>
+                <div className="flex flex-wrap gap-5">
+                  <a
+                    href="https://wa.me/5531981184250"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-5 rounded-full text-xs font-bold uppercase tracking-[0.25em] text-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-50"
+                  >
+                    Iniciar conversa
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-stone-50/20 transition-all duration-500 group-hover:bg-stone-50 group-hover:text-stone-950">
+                      <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </a>
+                  <a
+                    href="https://instagram.com/samuelcarrerapaes"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center border-b border-stone-50/20 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-300 transition-colors hover:text-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-50"
+                  >
+                    Instagram
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
-
-        {/* --- MAGNETIC CALL TO ACTION --- */}
-        <div className="mt-32 flex items-center justify-between border-t border-stone-900/10 pt-10 pb-16">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-stone-400 hidden md:block">
-            Explore o arquivo visual dos trabalhos
-          </span>
-          <button
-            type="button"
-            aria-label="Acessar o portfólio completo de cases"
-            onClick={() => navigate("cases")}
-            className="group flex items-center gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-full"
-          >
-            <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-stone-900 group-hover:text-stone-500 transition-colors">
-              Explorar Portfólio
-            </span>
-            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full border border-stone-900/10 flex items-center justify-center group-hover:bg-stone-900 group-hover:text-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-sm">
-              <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
-            </div>
-          </button>
-        </div>
       </section>
     </PageTransition>
   );
@@ -1809,35 +1839,15 @@ export default function SamuelPaesPortfolio() {
             </button>
           </div>
 
-          {/* MENU CENTRAL */}
-          <div className="hidden lg:flex flex-1 justify-center gap-4 xl:gap-10" role="menubar">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                type="button"
-                role="menuitem"
-                aria-label={`Página ${link.label}`}
-                onClick={() => handleNavClick(link.id)}
-                className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm px-2 pb-1 border-b-2 ${
-                  ((effectiveRoute === "inicio" && activeHomeSection === HOME_NAV_SECTIONS[link.id]) || (effectiveRoute !== "inicio" && (effectiveRoute === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail))))
-                    ? "text-stone-900 border-stone-900"
-                    : "text-stone-400 border-transparent hover:text-stone-900 hover:border-stone-900/20"
-                }`}
-              >
-                <span className="opacity-50" aria-hidden="true">{link.num}</span> {link.label}
-              </button>
-            ))}
+          {/* MARCA EDITORIAL CENTRAL: a navegação por capítulos fica no dock contextual */}
+          <div className="hidden flex-1 justify-center lg:flex">
+            <p className="text-center text-[10px] font-bold uppercase tracking-[0.32em] text-stone-400">
+              Portfólio autoral · direção criativa · imagem · espaço · experiência
+            </p>
           </div>
 
-          {/* BOTÕES DIREITA */}
+          {/* AÇÃO DIREITA */}
           <div className="hidden lg:flex w-1/4 justify-end items-center gap-6 xl:gap-8">
-            <button
-              type="button"
-              onClick={() => scrollToHomeSection("home-portfolio")}
-              className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-900 border-b border-stone-900/30 pb-1 hover:text-stone-600 hover:border-stone-900 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-            >
-              Entrar no Portfólio
-            </button>
             <a
               href="https://wa.me/5531981184250"
               target="_blank" rel="noopener noreferrer"
@@ -1922,7 +1932,7 @@ export default function SamuelPaesPortfolio() {
         </AnimatePresence>
       </main>
 
-      <GlobalDiscoveryDock navigate={navigate} onSectionNavigate={scrollToHomeSection} hidden={isCaseDetail || isMenuOpen} />
+      <GlobalDiscoveryDock onSectionNavigate={scrollToHomeSection} activeSection={activeHomeSection} hidden={effectiveRoute !== "inicio" || isCaseDetail || isMenuOpen} />
 
     </div>
   );
