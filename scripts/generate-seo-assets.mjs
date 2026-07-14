@@ -107,6 +107,21 @@ const imageRoutes = [
         title: "Provence Raiz | Hospitalidade",
         caption: "Identidade aplicada a lembranças, embalagens e objetos de hospitalidade do projeto Provence Raiz.",
       },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/pilastras-capa.webp",
+        title: "Provence Raiz | Pilastras Cenográficas",
+        caption: "Pilastras cenográficas independentes concebidas sob direção criativa de Samuel Carrera Paes para o projeto Provence Raiz.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/carretel-capa.webp",
+        title: "Provence Raiz | Luminária Carretel",
+        caption: "Luminária carretel cenográfica desenvolvida como artefato de luz, matéria e atmosfera para Provence Raiz.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/gaiola-capa.webp",
+        title: "Provence Raiz | Gaiola Cenográfica",
+        caption: "Gaiola cenográfica hexagonal com vidro texturizado, acabamento artesanal e luz quente no sistema Provence Raiz.",
+      },
     ],
   },
   {

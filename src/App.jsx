@@ -1192,7 +1192,9 @@ function CaseChapterGallery({ chapter, index, openGallery }) {
           onClick={() => openGallery(chapter.id, 0)}
           className="inline-flex items-center gap-3 border-b border-stone-900/25 pb-1 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
         >
-          Abrir galeria <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          {chapter.previewCount === 1 && chapter.items.length > 1
+            ? `Abrir série · ${chapter.items.length} imagens`
+            : "Abrir galeria"} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
         </button>
       </header>
 
@@ -1321,6 +1323,7 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
   const galleries = useMemo(() => {
     const base = "/images/14_VERDEBURGO/PROVENCE_RAIZ";
     const system = `${base}/05_CASE_SYSTEM`;
+    const architecture = `${base}/06_ARCHITECTURE_SERIES`;
     return [
       {
         id: "moodboards",
@@ -1385,17 +1388,51 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         ]
       },
       {
-        id: "arquitetura",
-        eyebrow: "Arquitetura e experiência",
-        title: "Arquitetura cenográfica e engenharia visual",
-        text: "Pilastras, luminárias, planta e pranchas técnicas traduzem a intenção estética em estrutura executável, com rigor suficiente para sustentar a atmosfera.",
-        statement: "O espaço não recebe a identidade. Ele a revela.",
-        principles: ["Estrutura", "Escala", "Luz", "Execução"],
+        id: "pilastras-cenograficas",
+        eyebrow: "Arquitetura cenográfica · Artefato 01",
+        title: "Pilastras cenográficas",
+        text: "Duas peças independentes constroem um portal sem fechar o vão. A curva interna, a base estável e a estrutura reversível transformam arquitetura temporária em presença real.",
+        statement: "A forma enquadra o rito; a técnica sustenta a forma.",
+        principles: ["Par espelhado", "Vão livre", "Estrutura reversível", "Luz oculta"],
+        previewCount: 1,
         items: [
-          { src: `${base}/03_REFINAMENTO/pilastras-refinada.jpg`, alt: "Prancha refinada de pilastras cenográficas do Provence Raiz", caption: "Pilastras como moldura arquitetônica, não apenas decoração." },
-          { src: `${base}/03_REFINAMENTO/prancha-tecnica-luminaria-carretel-refinada.jpg`, alt: "Prancha técnica refinada de luminária carretel", caption: "Luminária carretel: técnica invisível e leitura cenográfica." },
-          { src: `${base}/03_REFINAMENTO/prancha-tecnica-luminaria-gaiola-cenografica.jpg`, alt: "Prancha técnica de luminária gaiola cenográfica", caption: "Gaiola cenográfica como objeto de atmosfera e escala." },
-          { src: `${base}/02_WEB/provence-raiz-planta-casa-giardini.jpg`, alt: "Planta de implantação Casa Giardini para Provence Raiz", caption: "Casa Giardini como suporte espacial, não como protagonista." }
+          { src: `${architecture}/pilastras-capa.webp`, alt: "Par de pilastras cenográficas Provence Raiz em render arquitetônico", caption: "Capa da série: duas pilastras independentes definem um portal sem se tocar." },
+          { src: `${architecture}/pilastras-explodida.webp`, alt: "Perspectiva explodida da pilastra cenográfica Provence Raiz", caption: "Pele mineral, nervuras curvas, montantes, contraventamentos e base revelados como sistema construtivo." },
+          { src: `${architecture}/pilastras-corte.webp`, alt: "Corte construtivo da pilastra cenográfica Provence Raiz", caption: "O corte mostra estrutura interna, canal técnico, lastro e pés reguláveis sem perder a leitura externa." },
+          { src: `${architecture}/pilastras-integracao-floral.webp`, alt: "Pilastra Provence Raiz com integração de tecido e arranjo floral", caption: "Tecido e floral entram como aplicação reversível; não corrigem nem sustentam a arquitetura." },
+          { src: `${architecture}/pilastras-luz-oculta.webp`, alt: "Detalhe de iluminação oculta na curva da pilastra Provence Raiz", caption: "Luz quente embutida acompanha a curva com difusão contínua e sem pontos aparentes." }
+        ]
+      },
+      {
+        id: "luminaria-carretel",
+        eyebrow: "Arquitetura cenográfica · Artefato 02",
+        title: "Luminária carretel",
+        text: "O núcleo preservado do carretel recebe discos de madeira, difusor leitoso, filetes metálicos e luz contínua. A suspensão real permanece independente da corrente decorativa.",
+        statement: "A técnica desaparece para que a luz permaneça.",
+        principles: ["Núcleo preservado", "12 filetes", "2700K", "Carga independente"],
+        previewCount: 1,
+        items: [
+          { src: `${architecture}/carretel-capa.webp`, alt: "Luminária carretel Provence Raiz acesa em render de alta qualidade", caption: "Capa da série: madeira clara, metal champagne e difusor leitoso organizados como um único objeto de luz." },
+          { src: `${architecture}/carretel-explodida.webp`, alt: "Perspectiva explodida da luminária carretel Provence Raiz", caption: "Suspensão, discos, núcleo, difusor, LED e filetes aparecem como componentes autônomos e alinhados." },
+          { src: `${architecture}/carretel-corte.webp`, alt: "Corte construtivo da luminária carretel Provence Raiz", caption: "O corte revela o cabo de carga, o núcleo central, o reforço superior e a iluminação escondida." },
+          { src: `${architecture}/carretel-suspensao.webp`, alt: "Detalhe superior da suspensão da luminária carretel Provence Raiz", caption: "Cabo de aço e corrente assumem funções diferentes: sustentação real e leitura decorativa." },
+          { src: `${architecture}/carretel-difusor.webp`, alt: "Detalhe do difusor e dos filetes da luminária carretel Provence Raiz", caption: "Difusor removível, encaixe oculto e filetes ritmados preservam uma luz contínua e sem brilho técnico." }
+        ]
+      },
+      {
+        id: "gaiola-cenografica",
+        eyebrow: "Arquitetura cenográfica · Artefato 03",
+        title: "Gaiola cenográfica",
+        text: "A luminária hexagonal combina estrutura metálica, vidro texturizado, núcleo de luz e acabamento artesanal. O desenho preserva escala cênica sem perder precisão construtiva.",
+        statement: "A atmosfera nasce quando estrutura, transparência e luz trabalham juntas.",
+        principles: ["Geometria hexagonal", "Vidro texturizado", "Alma estrutural", "Acabamento artesanal"],
+        previewCount: 1,
+        items: [
+          { src: `${architecture}/gaiola-capa.webp`, alt: "Luminária gaiola cenográfica Provence Raiz acesa em render de alta qualidade", caption: "Capa da série: geometria hexagonal, vidro texturizado e luz quente em uma peça de escala cênica." },
+          { src: `${architecture}/gaiola-explodida.webp`, alt: "Perspectiva explodida da gaiola cenográfica Provence Raiz", caption: "Cúpula, painéis, núcleo de luz, aros e pingente são apresentados como uma montagem coerente." },
+          { src: `${architecture}/gaiola-corte.webp`, alt: "Corte construtivo da gaiola cenográfica Provence Raiz", caption: "Com painéis removidos, a alma estrutural e o percurso de carga tornam-se legíveis." },
+          { src: `${architecture}/gaiola-suspensao.webp`, alt: "Detalhe superior da suspensão da gaiola cenográfica Provence Raiz", caption: "Canopla, corrente, argola e nervuras convergem em uma união artesanal precisa." },
+          { src: `${architecture}/gaiola-pingente.webp`, alt: "Detalhe inferior e pingente da gaiola cenográfica Provence Raiz", caption: "A estrutura inferior recebe o vidro e conduz a carga até o pingente torneado." }
         ]
       },
       {
@@ -1469,20 +1506,6 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
           { src: `${base}/03_REFINAMENTO/render-escada-cascata-floral-refinado.jpg`, alt: "Escada com cascata floral Provence Raiz", caption: "Escada transformada em gesto de percurso." },
           { src: `${base}/02_WEB/provence-raiz-bar-toile-pinheiros-luminarias.jpg`, alt: "Bar Provence Raiz com mural toile, pinheiros e luminárias", caption: "Hospitalidade com profundidade visual e luz quente." },
           { src: `${base}/02_WEB/provence-raiz-lounge-residencial-linho-azul.jpg`, alt: "Lounge residencial com linho azul Provence Raiz", caption: "Lounge como pausa, não como preenchimento." }
-        ]
-      },
-      {
-        id: "detalhes",
-        eyebrow: "Resultado",
-        title: "Detalhes, matéria e resultado final",
-        text: "A leitura final acontece no detalhe: textura, haste, luz, cerâmica, papelaria, sombra, transparência e imperfeição controlada.",
-        statement: "Quando estratégia, identidade e espaço convergem, o projeto existe no mundo.",
-        principles: ["Coesão", "Presença", "Memória", "Execução"],
-        items: [
-          { src: `${base}/02_WEB/provence-raiz-estudo-floral-volume-natural.jpg`, alt: "Estudo floral de volume natural Provence Raiz", caption: "Flor como volume vivo, assimétrico e respirável." },
-          { src: `${base}/02_WEB/provence-raiz-mesa-bolo-toile-lustres.jpg`, alt: "Mesa de bolo Provence Raiz com lustres e toile", caption: "Resultado final: memória gráfica convertida em ambiente." },
-          { src: `${base}/02_WEB/provence-raiz-bar-hospitalidade-toile-lavanda.jpg`, alt: "Bar e hospitalidade Provence Raiz com toile e lavanda", caption: "Hospitalidade como continuidade da identidade visual." },
-          { src: `${base}/02_WEB/provence-raiz-cerimonia-passarela-altar.jpg`, alt: "Cerimônia Provence Raiz passarela e altar", caption: "Passarela e altar como sequência de desejo e presença." }
         ]
       }
     ];
