@@ -1322,8 +1322,8 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
 
   const galleries = useMemo(() => {
     const base = "/images/14_VERDEBURGO/PROVENCE_RAIZ";
-    const system = `${base}/05_CASE_SYSTEM`;
     const architecture = `${base}/06_ARCHITECTURE_SERIES`;
+    const starter = `${base}/07_STARTER_X5`;
     return [
       {
         id: "moodboards",
@@ -1348,12 +1348,12 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         statement: "A identidade não é um conjunto de elementos. É um sistema de decisões.",
         principles: ["70% base quente", "30% azul", "Serifa editorial", "Toile autoral"],
         items: [
-          { src: `${system}/identity-flatlay.webp`, alt: "Sistema de identidade visual Provence Raiz dirigido por Samuel Carrera Paes", caption: "O sistema reunido: paleta, monograma, papel, ornamento e matéria." },
-          { src: `${system}/identity-system-guide.webp`, alt: "Guia de paleta e tipografia da identidade Provence Raiz", caption: "Paleta cromática e hierarquia tipográfica como regras de coerência." },
-          { src: `${system}/material-board.webp`, alt: "Material board do projeto Provence Raiz", caption: "Linho, papel, porcelana e azul organizados como linguagem tátil." },
-          { src: `${system}/identity-stationery-overview.webp`, alt: "Visão geral das aplicações gráficas Provence Raiz", caption: "Uma identidade capaz de atravessar escalas e pontos de contato." },
-          { src: `${system}/toile-pattern.webp`, alt: "Toile de Jouy autoral do sistema visual Provence Raiz", caption: "Toile de Jouy reinterpretado como matriz narrativa, não ornamento isolado." },
-          { src: `${base}/03_REFINAMENTO/board-materia-textura-cores.jpg`, alt: "Prancha de matéria, textura e cores do Provence Raiz", caption: "Paleta 70/30: base clara e quente; azul como ritmo e profundidade." }
+          { src: `${starter}/identity-brand-board.jpg`, alt: "Brand board completo da identidade visual Provence Raiz", caption: "O sistema reunido: paleta, monograma, papel, ornamento e matéria." },
+          { src: `${starter}/identity-palette-system.jpg`, alt: "Sistema de paleta visual da identidade Provence Raiz", caption: "Paleta cromática e hierarquia visual como regras de coerência." },
+          { src: `${starter}/identity-material-board.jpg`, alt: "Material board tátil do projeto Provence Raiz", caption: "Papel, tecido, porcelana e azul organizados como linguagem tátil." },
+          { src: `${starter}/identity-toile-wallpaper.jpg`, alt: "Toile de Jouy autoral aplicado ao sistema visual Provence Raiz", caption: "Toile de Jouy reinterpretado como matriz narrativa, não ornamento isolado." },
+          { src: `${starter}/identity-cotton-paper.jpg`, alt: "Convite Provence Raiz impresso em papel algodão", caption: "Matéria, impressão e acabamento aproximam identidade e experiência." },
+          { src: `${starter}/identity-toile-envelope.jpg`, alt: "Envelope Provence Raiz com aplicação interna de toile", caption: "A identidade atravessa escalas e aparece também no gesto de abrir." }
         ]
       },
       {
@@ -1365,10 +1365,10 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         principles: ["Síntese", "Autoria", "Gravura", "Aplicação"],
         layout: "objects",
         items: [
-          { src: `${system}/monogram-master.webp`, alt: "Monograma principal MMV criado para Provence Raiz", caption: "Monograma principal: iniciais, moldura botânica e desenho de gravura." },
-          { src: `${system}/monogram-embossed.webp`, alt: "Monograma Provence Raiz aplicado em baixo-relevo", caption: "Baixo-relevo: identidade percebida pela matéria antes da leitura." },
-          { src: `${system}/monogram-paper-detail.webp`, alt: "Detalhe do monograma Provence Raiz em papelaria", caption: "Escala reduzida preservando desenho, contraste e legibilidade." },
-          { src: `${system}/monogram-guestbook.webp`, alt: "Monograma aplicado ao caderno de votos Provence Raiz", caption: "Assinatura aplicada ao objeto de memória do evento." }
+          { src: `${starter}/monogram-primary.jpg`, alt: "Monograma principal MMV criado para Provence Raiz", caption: "Monograma principal: iniciais, moldura botânica e desenho de gravura." },
+          { src: `${starter}/monogram-secondary.jpg`, alt: "Monograma secundário Provence Raiz aplicado em papel", caption: "Variação secundária preservando reconhecimento em diferentes escalas." },
+          { src: `${starter}/monogram-seal.jpg`, alt: "Monograma em formato de selo da identidade Provence Raiz", caption: "O selo transforma a assinatura em elemento de fechamento e memória." },
+          { src: `${starter}/monogram-coat-of-arms.jpg`, alt: "Brasão completo do sistema visual Provence Raiz", caption: "Emblema completo integrando iniciais, botânica e paisagem." }
         ]
       },
       {
@@ -1380,11 +1380,11 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         principles: ["Filetes organizam", "Molduras enquadram", "Selos autenticam"],
         layout: "objects",
         items: [
-          { src: `${system}/ornament-study-filets.webp`, alt: "Estudo de filetes e ornamentos Provence Raiz", caption: "Filetes e elementos lineares organizando ritmo e hierarquia." },
-          { src: `${system}/ornament-study-frames.webp`, alt: "Biblioteca de molduras Provence Raiz", caption: "Molduras e cantoneiras para diferentes escalas de aplicação." },
-          { src: `${system}/ornament-study-corners.webp`, alt: "Estudo de cantoneiras e ícones Provence Raiz", caption: "Cantoneiras, ícones e pequenos gestos de orientação visual." },
-          { src: `${system}/ornament-study-seals.webp`, alt: "Estudo de selos gráficos Provence Raiz", caption: "Selos como marcas de autenticidade e fechamento." },
-          { src: `${system}/ornament-library.webp`, alt: "Biblioteca completa de ornamentos Provence Raiz", caption: "Biblioteca visual consolidada para preservar consistência na execução." }
+          { src: `${starter}/ornament-filets.jpg`, alt: "Estudo de filetes e ornamentos Provence Raiz", caption: "Filetes e elementos lineares organizando ritmo e hierarquia." },
+          { src: `${starter}/ornament-frames.jpg`, alt: "Biblioteca de molduras Provence Raiz", caption: "Molduras para diferentes escalas e contextos de aplicação." },
+          { src: `${starter}/ornament-corners.jpg`, alt: "Estudo de cantoneiras Provence Raiz", caption: "Cantoneiras e pequenos gestos construindo orientação visual." },
+          { src: `${starter}/ornament-seals.jpg`, alt: "Estudo de selos gráficos Provence Raiz", caption: "Selos como marcas de autenticidade e fechamento." },
+          { src: `${starter}/ornament-icon-library.jpg`, alt: "Biblioteca completa de ícones Provence Raiz", caption: "Biblioteca visual consolidada para preservar consistência na execução." }
         ]
       },
       {
@@ -1444,14 +1444,14 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         principles: ["Papel algodão", "Hierarquia editorial", "Uso real", "Memória"],
         layout: "objects",
         items: [
-          { src: `${system}/paper-invitation-cover.webp`, alt: "Convite principal da identidade Provence Raiz", caption: "Convite principal: abertura da narrativa antes da chegada." },
-          { src: `${system}/paper-envelope-suite.webp`, alt: "Envelope e convite Provence Raiz", caption: "Envelope e forro transformando o ato de abrir em experiência." },
-          { src: `${system}/paper-menu-vertical.webp`, alt: "Menu de mesa Provence Raiz", caption: "Menu vertical com hierarquia funcional e presença discreta." },
-          { src: `${system}/paper-place-card.webp`, alt: "Cartão de lugar Provence Raiz", caption: "Cartão de lugar integrando orientação e cuidado individual." },
-          { src: `${system}/paper-vows-book.webp`, alt: "Caderno de votos Provence Raiz", caption: "Caderno de votos como objeto íntimo de permanência." },
-          { src: `${system}/paper-program-suite.webp`, alt: "Programa da cerimônia Provence Raiz", caption: "Programa da cerimônia organizando informação sem romper a atmosfera." },
-          { src: `${system}/paper-thank-you-card.webp`, alt: "Cartão de agradecimento Provence Raiz", caption: "Agradecimento como último capítulo da hospitalidade." },
-          { src: `${system}/paper-event-card.webp`, alt: "Cartão informativo Provence Raiz", caption: "Informação prática tratada com a mesma precisão visual." }
+          { src: `${starter}/paper-invitation.jpg`, alt: "Convite principal da identidade Provence Raiz", caption: "Convite principal: abertura da narrativa antes da chegada." },
+          { src: `${starter}/paper-envelope.jpg`, alt: "Envelope externo Provence Raiz", caption: "Envelope externo transforma o ato de abrir em experiência." },
+          { src: `${starter}/paper-envelope-liner.jpg`, alt: "Forro de envelope em toile Provence Raiz", caption: "O forro em toile revela a identidade de maneira gradual." },
+          { src: `${starter}/paper-table-menu.jpg`, alt: "Menu de mesa Provence Raiz", caption: "Menu vertical com hierarquia funcional e presença discreta." },
+          { src: `${starter}/paper-place-card.jpg`, alt: "Cartão de lugar Provence Raiz", caption: "Cartão de lugar integrando orientação e cuidado individual." },
+          { src: `${starter}/paper-vows-book.jpg`, alt: "Caderno de votos Provence Raiz", caption: "Caderno de votos como objeto íntimo de permanência." },
+          { src: `${starter}/paper-ceremony-program.jpg`, alt: "Programa da cerimônia Provence Raiz", caption: "Programa da cerimônia organizando informação sem romper a atmosfera." },
+          { src: `${starter}/paper-thank-you-card.jpg`, alt: "Cartão de agradecimento Provence Raiz", caption: "Agradecimento como último capítulo da hospitalidade." }
         ]
       },
       {
@@ -1463,13 +1463,13 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         principles: ["Chegada", "Fluxo", "Legibilidade", "Coerência"],
         layout: "portrait",
         items: [
-          { src: `${system}/sign-welcome.webp`, alt: "Welcome sign do evento Provence Raiz", caption: "Welcome sign como primeiro encontro físico com a identidade." },
-          { src: `${system}/sign-ceremony.webp`, alt: "Sinalização de cerimônia Provence Raiz", caption: "Placa de cerimônia integrada à arquitetura e à paisagem." },
-          { src: `${system}/sign-arched.webp`, alt: "Placa arqueada Provence Raiz", caption: "Recorte arqueado retomando a linguagem espacial do projeto." },
-          { src: `${system}/sign-mirror.webp`, alt: "Sinalização em espelho Provence Raiz", caption: "Aplicação refletiva para ambientes de pausa e circulação." },
-          { src: `${system}/sign-directional.webp`, alt: "Placa direcional Provence Raiz", caption: "Orientação de fluxo com leitura imediata e acabamento editorial." },
-          { src: `${system}/sign-table.webp`, alt: "Sinalização de mesa Provence Raiz", caption: "Escala de mesa preservando hierarquia e identidade." },
-          { src: `${system}/sign-mini.webp`, alt: "Mini placa informativa Provence Raiz", caption: "Pequena sinalização para pontos de contato específicos." }
+          { src: `${starter}/sign-welcome.jpg`, alt: "Welcome sign do evento Provence Raiz", caption: "Welcome sign como primeiro encontro físico com a identidade." },
+          { src: `${starter}/sign-ceremony.jpg`, alt: "Sinalização de cerimônia Provence Raiz", caption: "Placa de cerimônia integrada à arquitetura e à paisagem." },
+          { src: `${starter}/sign-reception.jpg`, alt: "Sinalização de recepção Provence Raiz", caption: "Recepção identificada com clareza sem introduzir uma linguagem paralela." },
+          { src: `${starter}/sign-bar.jpg`, alt: "Sinalização do bar Provence Raiz", caption: "Placa do bar combinando orientação, proporção e acabamento editorial." },
+          { src: `${starter}/sign-buffet.jpg`, alt: "Sinalização do buffet Provence Raiz", caption: "Sinalização do buffet integrada ao ambiente e ao serviço." },
+          { src: `${starter}/sign-directional.jpg`, alt: "Placa direcional Provence Raiz", caption: "Orientação de fluxo com leitura imediata e acabamento editorial." },
+          { src: `${starter}/sign-table.jpg`, alt: "Mini placas de mesa Provence Raiz", caption: "Escala de mesa preservando hierarquia, informação e identidade." }
         ]
       },
       {
@@ -1481,15 +1481,16 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         principles: ["Cuidado", "Objeto", "Materialidade", "Permanência"],
         layout: "objects",
         items: [
-          { src: `${system}/hospitality-gift-suite.webp`, alt: "Conjunto de lembranças Provence Raiz", caption: "Lembranças coordenadas como uma família de objetos." },
-          { src: `${system}/hospitality-envelope-card.webp`, alt: "Envelope de hospitalidade Provence Raiz", caption: "Envelope, selo e toile compondo uma experiência tátil." },
-          { src: `${system}/hospitality-bag.webp`, alt: "Embalagem de lembrança Provence Raiz", caption: "Embalagem leve com informação e acabamento controlados." },
-          { src: `${system}/hospitality-box-suite.webp`, alt: "Caixas de hospitalidade Provence Raiz", caption: "Sistema de caixas e cintas para diferentes escalas de presente." },
-          { src: `${system}/hospitality-bottle-label.webp`, alt: "Rótulo de hospitalidade Provence Raiz", caption: "Rótulo aplicado sem transformar o objeto em peça publicitária." },
-          { src: `${system}/hospitality-place-card.webp`, alt: "Cartão de hospitalidade Provence Raiz", caption: "Cartão de cuidado para acolher e orientar." },
-          { src: `${system}/hospitality-wrapped-box.webp`, alt: "Embalagem com monograma Provence Raiz", caption: "Monograma e papel como fecho silencioso da experiência." },
-          { src: `${system}/hospitality-gift-box.webp`, alt: "Caixa de lembrança Provence Raiz", caption: "Objeto de memória concebido para permanecer após o evento." },
-          { src: `${system}/hospitality-favor-bag.webp`, alt: "Sacola de lembrança Provence Raiz", caption: "Aplicação da identidade no gesto final de entrega." },
+          { src: `${starter}/hospitality-cologne-label.jpg`, alt: "Rótulo de colônia Provence Raiz", caption: "Rótulo de colônia levando a identidade ao gesto de cuidado." },
+          { src: `${starter}/hospitality-soap-label.jpg`, alt: "Rótulo de sabonete Provence Raiz", caption: "Rótulo de sabonete tratado como parte da família visual." },
+          { src: `${starter}/hospitality-alcohol-label.jpg`, alt: "Rótulo de álcool Provence Raiz", caption: "Informação funcional organizada com a mesma precisão do evento." },
+          { src: `${starter}/hospitality-toiletry-label.jpg`, alt: "Etiqueta do kit toilette Provence Raiz", caption: "Etiqueta do kit toilette combinando orientação e acolhimento." },
+          { src: `${starter}/hospitality-favor-wrap.jpg`, alt: "Embalagem de bem-casado Provence Raiz", caption: "Embalagem do bem-casado como gesto final de hospitalidade." },
+          { src: `${starter}/hospitality-favor-band.jpg`, alt: "Cinta de bem-casado Provence Raiz", caption: "Cinta, papel e desenho botânico compondo um fechamento discreto." },
+          { src: `${starter}/hospitality-gift-tag.jpg`, alt: "Tag de lembrança Provence Raiz", caption: "Tag de lembrança preservando legibilidade em pequena escala." },
+          { src: `${starter}/hospitality-instruction-card.jpg`, alt: "Cartão de instrução Provence Raiz", caption: "Informação prática convertida em ponto de atenção e cuidado." },
+          { src: `${starter}/hospitality-toiletry-kit.jpg`, alt: "Kit toilette montado Provence Raiz", caption: "O sistema aplicado ao conjunto real de objetos de hospitalidade." },
+          { src: `${starter}/hospitality-wrapped-favor.jpg`, alt: "Bem-casado embalado Provence Raiz", caption: "A aplicação final reúne toile, selo, fita e materialidade." },
           { src: `${base}/02_WEB/provence-raiz-bar-hospitalidade-toile-lavanda.jpg`, alt: "Bar de hospitalidade Provence Raiz com toile e lavanda", caption: "Hospitalidade ampliada para o ambiente: luz, serviço e permanência." }
         ]
       },

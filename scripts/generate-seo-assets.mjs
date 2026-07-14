@@ -83,27 +83,27 @@ const imageRoutes = [
         caption: "Prancha editorial de sistema visual, paleta, materialidade e curadoria estética do case Provence Raiz.",
       },
       {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/identity-flatlay.webp",
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/identity-brand-board.jpg",
         title: "Provence Raiz | Identidade Visual",
         caption: "Sistema de identidade visual dirigido por Samuel Carrera Paes com paleta, monograma, papelaria, ornamentos e materialidade.",
       },
       {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/monogram-master.webp",
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/monogram-primary.jpg",
         title: "Provence Raiz | Monograma Autoral",
         caption: "Monograma e emblema desenvolvidos por Samuel Carrera Paes para o sistema visual Provence Raiz.",
       },
       {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/paper-invitation-cover.webp",
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/paper-invitation.jpg",
         title: "Provence Raiz | Papelaria e Convite",
         caption: "Aplicação da identidade Provence Raiz em convite, papelaria e pontos de contato do evento.",
       },
       {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/sign-welcome.webp",
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/sign-welcome.jpg",
         title: "Provence Raiz | Sinalização",
         caption: "Sistema de sinalização do evento Provence Raiz integrado à arquitetura, à paisagem e à experiência.",
       },
       {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/hospitality-gift-suite.webp",
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/hospitality-toiletry-kit.jpg",
         title: "Provence Raiz | Hospitalidade",
         caption: "Identidade aplicada a lembranças, embalagens e objetos de hospitalidade do projeto Provence Raiz.",
       },
