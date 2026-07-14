@@ -9,12 +9,14 @@ const root = path.resolve(__dirname, "..");
 const publicDir = path.join(root, "public");
 
 const siteUrl = "https://paesconsultoria.com";
-const lastmod = "2026-07-04";
+const lastmod = "2026-07-13";
 
 const baseRoutes = [
   { path: "/", priority: "1.0", changefreq: "weekly" },
   { path: "/visao", priority: "0.9" },
   { path: "/cases", priority: "0.9" },
+  { path: "/case/case-12", priority: "0.9" },
+  { path: "/projetos/provence-raiz", priority: "0.8" },
   { path: "/sistema", priority: "0.9" },
   { path: "/contato", priority: "0.7" },
 ];
@@ -59,6 +61,66 @@ const imageRoutes = [
         loc: "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_01.png",
         title: "Paraíso Tropical | Varejo e Visual Merchandising",
         caption: "Trabalho de Samuel Carrera Paes em campanha, produto, cor, vitrine, varejo e experiência física.",
+      },
+    ],
+  },
+  {
+    path: "/case/case-12",
+    images: [
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg",
+        title: "Provence Raiz | Sistema Visual e Direção Criativa",
+        caption: "Case de Samuel Carrera Paes e Paes Consultoria em direção criativa, identidade visual, sistema visual, evento, cenografia, decoração e experiência.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg",
+        title: "Provence Raiz | Cerimônia e Arquitetura Cenográfica",
+        caption: "Direção criativa aplicada à cerimônia, altar, passarela, flor, luz e experiência física do projeto Provence Raiz.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-materia-textura-cores.jpg",
+        title: "Provence Raiz | Matéria, Textura e Cores",
+        caption: "Prancha editorial de sistema visual, paleta, materialidade e curadoria estética do case Provence Raiz.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/identity-flatlay.webp",
+        title: "Provence Raiz | Identidade Visual",
+        caption: "Sistema de identidade visual dirigido por Samuel Carrera Paes com paleta, monograma, papelaria, ornamentos e materialidade.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/monogram-master.webp",
+        title: "Provence Raiz | Monograma Autoral",
+        caption: "Monograma e emblema desenvolvidos por Samuel Carrera Paes para o sistema visual Provence Raiz.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/paper-invitation-cover.webp",
+        title: "Provence Raiz | Papelaria e Convite",
+        caption: "Aplicação da identidade Provence Raiz em convite, papelaria e pontos de contato do evento.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/sign-welcome.webp",
+        title: "Provence Raiz | Sinalização",
+        caption: "Sistema de sinalização do evento Provence Raiz integrado à arquitetura, à paisagem e à experiência.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/05_CASE_SYSTEM/hospitality-gift-suite.webp",
+        title: "Provence Raiz | Hospitalidade",
+        caption: "Identidade aplicada a lembranças, embalagens e objetos de hospitalidade do projeto Provence Raiz.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/pilastras-capa.webp",
+        title: "Provence Raiz | Pilastras Cenográficas",
+        caption: "Pilastras cenográficas independentes concebidas sob direção criativa de Samuel Carrera Paes para o projeto Provence Raiz.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/carretel-capa.webp",
+        title: "Provence Raiz | Luminária Carretel",
+        caption: "Luminária carretel cenográfica desenvolvida como artefato de luz, matéria e atmosfera para Provence Raiz.",
+      },
+      {
+        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/gaiola-capa.webp",
+        title: "Provence Raiz | Gaiola Cenográfica",
+        caption: "Gaiola cenográfica hexagonal com vidro texturizado, acabamento artesanal e luz quente no sistema Provence Raiz.",
       },
     ],
   },
@@ -149,6 +211,7 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 - Inicio: ${siteUrl}
 - Minha Visao: ${siteUrl}/visao
 - Cases: ${siteUrl}/cases
+- Provence Raiz: ${siteUrl}/case/case-12
 - Sistema de Direcao Criativa: ${siteUrl}/sistema
 - Contato: ${siteUrl}/contato
 

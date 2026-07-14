@@ -202,12 +202,214 @@ header .navbar-logo-final {
   min-height: 2.75rem;
 }
 
+.sp-editorial-notice {
+  background: rgba(255, 253, 248, 0.5);
+  border: 1px solid var(--sp-line);
+  box-shadow: var(--sp-shadow-subtle);
+  overflow: hidden;
+}
+
+.sp-marquee {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sp-marquee-track {
+  animation: sp-marquee 28s linear infinite;
+  display: inline-flex;
+  gap: 2rem;
+  padding-right: 2rem;
+}
+
+.sp-editorial-notice:hover .sp-marquee-track,
+.sp-editorial-notice:focus-within .sp-marquee-track {
+  animation-play-state: paused;
+}
+
+.sp-marquee-track span {
+  color: var(--sp-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.sp-reading-line {
+  background: rgba(255, 253, 248, 0.34);
+  border: 1px solid var(--sp-line);
+  min-height: 8.5rem;
+  padding: 1.25rem;
+}
+
+.sp-reading-line h2 {
+  color: var(--sp-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  margin: 0 0 1rem;
+}
+
+.sp-reading-line p {
+  color: var(--sp-muted);
+  font-size: 0.86rem;
+  font-weight: 300;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.sp-case-card {
+  box-shadow: 0 1px 0 rgba(23, 21, 18, 0.04);
+  transition:
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sp-case-card:hover {
+  box-shadow: 0 22px 60px rgba(23, 21, 18, 0.12);
+  transform: translateY(-3px);
+}
+
+.sp-case-card__overlay {
+  align-items: flex-start;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 14, 0) 0%, rgba(17, 16, 14, 0.72) 100%);
+  bottom: 0;
+  color: var(--sp-paper-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  justify-content: flex-end;
+  left: 0;
+  opacity: 0;
+  padding: 1.25rem;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sp-case-card:hover .sp-case-card__overlay,
+.sp-case-card:focus-visible .sp-case-card__overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sp-case-card__overlay span,
+.sp-case-card__overlay small {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.sp-case-card__overlay strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 2vw, 2.1rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.05;
+  max-width: 16rem;
+}
+
+.sp-discovery-dock,
+.sp-case-progress {
+  align-items: center;
+  backdrop-filter: blur(18px);
+  background: rgba(244, 240, 233, 0.86);
+  border: 1px solid var(--sp-line);
+  box-shadow: 0 18px 60px rgba(23, 21, 18, 0.08);
+  gap: 0.3rem;
+  opacity: 0.9;
+  transition: opacity 180ms ease;
+  z-index: 45;
+}
+
+.sp-discovery-dock:hover,
+.sp-discovery-dock:focus-within,
+.sp-case-progress:hover,
+.sp-case-progress:focus-within {
+  opacity: 1;
+}
+
+.sp-discovery-dock {
+  border-radius: 999px;
+  bottom: 1.1rem;
+  left: 50%;
+  padding: 0.24rem;
+  position: fixed;
+  transform: translateX(-50%);
+}
+
+.sp-discovery-dock button,
+.sp-discovery-dock a,
+.sp-case-progress button {
+  border-radius: 999px;
+  color: var(--sp-muted);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 0.62rem 0.82rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.sp-discovery-dock button:hover,
+.sp-discovery-dock a:hover,
+.sp-case-progress button:hover {
+  background: var(--sp-ink);
+  color: var(--sp-paper-soft);
+  transform: translateY(-1px);
+}
+
+.sp-case-progress {
+  border-radius: 999px;
+  bottom: 1.1rem;
+  left: 50%;
+  padding: 0.24rem;
+  position: fixed;
+  transform: translateX(-50%);
+}
+
+@keyframes sp-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sp-interactive-card:hover {
     transform: none;
   }
 
   .sp-primary-cta:hover {
+    transform: none;
+  }
+
+  .sp-marquee-track {
+    animation: none;
+  }
+
+  .sp-case-card:hover,
+  .sp-discovery-dock button:hover,
+  .sp-discovery-dock a:hover,
+  .sp-case-progress button:hover {
     transform: none;
   }
 }

@@ -4,7 +4,7 @@ import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, Chec
 
 import { sistemaArticleCards } from "./sistemaArticleCards";
 
-// --- DADOS DOS 11 CASES OFICIAIS COM NARRATIVA PROFUNDA E TAGS DE FILTRO ---
+// --- DADOS DOS CASES OFICIAIS COM NARRATIVA PROFUNDA E TAGS DE FILTRO ---
 const casesData = [
   {
     id: "case-01",
@@ -320,6 +320,34 @@ const casesData = [
       "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_04.png",
       "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_05.png"
     ]
+  },
+  {
+    id: "case-12",
+    number: "12",
+    title: "Provence Raiz — Sistema Visual e Direção Criativa",
+    category: "Direção Criativa · Identidade Visual · Experiência",
+    filterTags: ["BRAND", "SPACE", "EVENT"],
+    shortTese: "Um evento tratado como sistema de linguagem: identidade, atmosfera, arquitetura, matéria, flor e experiência trabalhando como uma comunicação 360 graus.",
+    client: "Provence Raiz / Verde Burgo Eventos",
+    role: "Direção Criativa",
+    territory: "Evento como Sistema Visual",
+    deliverables: "Conceito, identidade visual, sistema visual, direção de decoração, moodboards e arquitetura cenográfica",
+    directorsNote: "O projeto não partiu de uma decoração, mas de uma gramática. A estética provençal foi tratada como linguagem: toile, luz, matéria, flor e arquitetura foram organizados para que o evento funcionasse como uma comunicação 360 graus.",
+    thumb: "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg",
+    blocks: [
+      ["Espaço & Contexto", "Provence Raiz parte de uma celebração real, mas é apresentado como exercício de consultoria criativa: transformar intenção, repertório e operação em presença física memorável."],
+      ["Conceito", "A leitura provençal foi deslocada do decorativo para o editorial. Toile de Jouy, volumes florais, luz quente, madeira clara e arquitetura cênica criaram um vocabulário visual próprio."],
+      ["Processo Criativo", "Moodboards, estudos de materialidade, pranchas técnicas e simulações foram usados como ferramentas de decisão, não como ornamento. O processo organizou o gosto antes da execução."],
+      ["Resultado", "A experiência final conecta identidade visual, ambientação, cerimônia, hospitalidade, papelaria e cenografia em uma narrativa contínua, mantendo a Verde Burgo como execução e a Paes Consultoria como direção criativa."]
+    ],
+    gallery: [
+      "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg",
+      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg",
+      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-mesa-bolo-mural-toile-refinado.jpg",
+      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-escada-cascata-floral-refinado.jpg",
+      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-materia-textura-cores.jpg",
+      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-volume-natural-nunca-artificial.jpg"
+    ]
   }
 ];
 
@@ -492,6 +520,60 @@ const PageTransition = ({ children, className = "" }) => {
   );
 };
 
+function handleShareIntent({ title = document.title, text = "Samuel Carrera Paes | Paes Consultoria", url = window.location.href } = {}) {
+  if (navigator.share) {
+    navigator.share({ title, text, url }).catch(() => {});
+    return;
+  }
+
+  navigator.clipboard?.writeText(url);
+}
+
+function EditorialNotice({ navigate }) {
+  const notices = [
+    "Portfólio em expansão",
+    "Direção criativa, imagem e espaço",
+    "Novo eixo: trabalhos, artigos e experiências",
+    "Biblioteca como repertório vivo"
+  ];
+
+  return (
+    <aside className="sp-editorial-notice mt-16" aria-label="Atualização editorial">
+      <button
+        type="button"
+        onClick={() => navigate("sistema")}
+        className="group grid w-full gap-6 px-5 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 md:grid-cols-[auto_1fr_auto] md:items-center md:px-6"
+      >
+        <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-stone-400">Agora no arquivo</span>
+        <span className="sp-marquee" aria-hidden="true">
+          <span className="sp-marquee-track">
+            {[...notices, ...notices].map((notice, index) => (
+              <span key={`${notice}-${index}`}>{notice}</span>
+            ))}
+          </span>
+        </span>
+        <span className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900">
+          Ler sistema <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true" />
+        </span>
+      </button>
+    </aside>
+  );
+}
+
+function GlobalDiscoveryDock({ navigate, hidden = false }) {
+  if (hidden) return null;
+
+  return (
+    <nav className="sp-discovery-dock hidden lg:flex" aria-label="Exploração rápida do site">
+      <button type="button" onClick={() => navigate("cases")}>Portfólio</button>
+      <button type="button" onClick={() => navigate("sistema")}>Sistema</button>
+      <button type="button" onClick={() => navigate("contato")}>Contato</button>
+      <a href="https://instagram.com/samuelcarrerapaes" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </nav>
+  );
+}
+
 // --- PÁGINAS ---
 
 function Inicio({ navigate }) {
@@ -546,6 +628,8 @@ function Inicio({ navigate }) {
             Samuel Carrera Paes reúne trabalhos de direção criativa, consultoria, imagem, varejo, eventos, cenografia, conteúdo, produto e experiência física. Este site funciona como um portfólio autoral do que ele cria, conduz e transforma.
           </p>
         </motion.div>
+
+        <EditorialNotice navigate={navigate} />
 
         {/* --- EDITORIAL STATS GRID --- */}
         <dl className="mt-24 lg:mt-32 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-16 gap-x-8 border-t border-stone-900/10 pt-16">
@@ -733,7 +817,7 @@ function Visao() {
 
 function Cases({ navigate }) {
   const [activeFilter, setActiveFilter] = useState("ALL");
-  const filters = ["ALL", "BRAND", "PRODUCT", "RETAIL", "CULTURE", "SPACE", "COLLAB"];
+  const filters = ["ALL", "BRAND", "PRODUCT", "RETAIL", "CULTURE", "SPACE", "EVENT", "COLLAB"];
   const filterLabels = {
     ALL: "TODOS",
     BRAND: "IDENTIDADE",
@@ -741,6 +825,7 @@ function Cases({ navigate }) {
     RETAIL: "VAREJO",
     CULTURE: "CULTURA",
     SPACE: "ESPAÇO",
+    EVENT: "EVENTOS",
     COLLAB: "COLLABS"
   };
 
@@ -765,6 +850,19 @@ function Cases({ navigate }) {
               Um arquivo de trabalhos em direção criativa: marca, produto, varejo, evento, cenografia, campanha, espaço e experiência.
             </p>
           </header>
+
+          <section className="mb-12 grid gap-4 border-y border-stone-900/10 py-6 md:grid-cols-3" aria-label="Linhas de leitura do portfólio">
+            {[
+              ["Imagem", "Campanhas, styling, narrativa visual e presença editorial."],
+              ["Espaço", "Vitrine, loja, evento, cenografia e experiência física."],
+              ["Sistema", "Método, operação, repertório e pensamento por trás dos trabalhos."]
+            ].map(([title, text]) => (
+              <article key={title} className="sp-reading-line">
+                <h2>{title}</h2>
+                <p>{text}</p>
+              </article>
+            ))}
+          </section>
 
           <nav className="flex flex-wrap gap-3 mb-16" aria-label="Filtrar cases por território">
             {filters.map(chip => (
@@ -794,16 +892,22 @@ function Cases({ navigate }) {
                   transition={{ duration: 0.5, ease: PREMIUM_EASE }}
                   key={c.id}
                   className="group flex flex-col"
+                  id={c.id}
                 >
                   <button
                     type="button"
                     aria-label={`Abrir case ${c.number}: ${c.title}`}
-                    className="aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-visible cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block"
+                    className="sp-case-card aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block"
                     onClick={() => navigate(`case/${c.id}`)}
                   >
                     <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm rounded-sm">
-                      {c.number}/11
+                      {c.number}/{casesData.length}
+                    </div>
+                    <div className="sp-case-card__overlay" aria-hidden="true">
+                      <span>{c.role}</span>
+                      <strong>{c.deliverables}</strong>
+                      <small>Explorar projeto <ArrowUpRight className="h-4 w-4" /></small>
                     </div>
                   </button>
 
@@ -853,6 +957,21 @@ function CaseDetail({ caseId, navigate }) {
 
   const isLast = caseIndex === casesData.length - 1;
   const nextCaseId = !isLast ? casesData[caseIndex + 1].id : null;
+  const previousCaseId = caseIndex > 0 ? casesData[caseIndex - 1].id : null;
+
+  if (c.id === "case-12") {
+    return (
+      <ProvenceRaizCaseDetail
+        c={c}
+        navigate={navigate}
+        caseIndex={caseIndex}
+        totalCases={casesData.length}
+        previousCaseId={previousCaseId}
+        nextCaseId={nextCaseId}
+        isLast={isLast}
+      />
+    );
+  }
 
   return (
     <PageTransition>
@@ -866,7 +985,16 @@ function CaseDetail({ caseId, navigate }) {
 
         {/* A. Case Hero */}
         <header className="flex flex-col mb-16">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-6 block">CASE {c.number}/11</span>
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 block">CASE {c.number}/{casesData.length}</span>
+            <button
+              type="button"
+              onClick={() => handleShareIntent({ title: c.title, text: c.shortTese })}
+              className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+            >
+              Compartilhar <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+            </button>
+          </div>
           <h1 className="font-serif text-5xl md:text-[6rem] leading-[0.9] text-stone-950 tracking-[-0.02em] mb-8 max-w-5xl text-balance">{c.title}</h1>
           <p className="text-xl md:text-2xl font-light text-stone-600 max-w-3xl mb-12 leading-relaxed text-balance">{c.shortTese}</p>
 
@@ -894,6 +1022,17 @@ function CaseDetail({ caseId, navigate }) {
             <ImageWithFallback src={c.thumb} mode="natural" alt={`Fotografia de destaque do projeto ${c.title}`} imageClassName="max-h-[85vh]" />
           </figure>
         </header>
+
+        <aside className="sp-case-progress hidden lg:flex" aria-label="Navegação contextual do case">
+          <button type="button" onClick={() => navigate("cases")}>Portfólio</button>
+          {previousCaseId && <button type="button" onClick={() => navigate(`case/${previousCaseId}`)}>Anterior</button>}
+          <button type="button" onClick={() => handleShareIntent({ title: c.title, text: c.shortTese })}>Compartilhar</button>
+          {!isLast ? (
+            <button type="button" onClick={() => navigate(`case/${nextCaseId}`)}>Próximo</button>
+          ) : (
+            <button type="button" onClick={() => navigate("sistema")}>Sistema</button>
+          )}
+        </aside>
 
         {/* B. Director's Note */}
         <section aria-label="Nota do Diretor" className="grid md:grid-cols-[1fr_2fr] gap-8 md:gap-16 mb-24 items-start">
@@ -1016,6 +1155,478 @@ function CaseDetail({ caseId, navigate }) {
   );
 }
 
+function CaseChapterGallery({ chapter, index, openGallery }) {
+  const featured = chapter.items.slice(0, chapter.previewCount || 3);
+  const isObjectGrid = chapter.layout === "objects";
+  const isPortraitGrid = chapter.layout === "portrait";
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.8, ease: PREMIUM_EASE }}
+      className="grid gap-10 border-t border-stone-900/10 pt-12 md:grid-cols-[0.8fr_1.2fr] md:pt-16"
+      aria-labelledby={`provence-chapter-${chapter.id}`}
+    >
+      <header className="md:sticky md:top-28 md:self-start">
+        <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+          Capítulo {String(index + 1).padStart(2, "0")} · {chapter.eyebrow}
+        </span>
+        <h2 id={`provence-chapter-${chapter.id}`} className="mb-5 max-w-lg font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl text-balance">{chapter.title}</h2>
+        <p className="mb-8 max-w-md text-sm font-light leading-relaxed text-stone-600 md:text-base">{chapter.text}</p>
+        {chapter.statement && (
+          <blockquote className="mb-8 max-w-md border-l border-stone-900/20 pl-5 font-serif text-xl italic leading-snug text-stone-800">
+            {chapter.statement}
+          </blockquote>
+        )}
+        {chapter.principles && (
+          <ul className="mb-9 flex max-w-md flex-wrap gap-x-4 gap-y-2" aria-label={`Princípios de ${chapter.title}`}>
+            {chapter.principles.map((principle) => (
+              <li key={principle} className="text-[9px] font-bold uppercase tracking-[0.22em] text-stone-400">{principle}</li>
+            ))}
+          </ul>
+        )}
+        <button
+          type="button"
+          onClick={() => openGallery(chapter.id, 0)}
+          className="inline-flex items-center gap-3 border-b border-stone-900/25 pb-1 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+        >
+          {chapter.previewCount === 1 && chapter.items.length > 1
+            ? `Abrir série · ${chapter.items.length} imagens`
+            : "Abrir galeria"} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </button>
+      </header>
+
+      <div className={`grid gap-4 ${isObjectGrid ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2"}`}>
+        {featured.map((item, itemIndex) => (
+          <button
+            key={item.src}
+            type="button"
+            onClick={() => openGallery(chapter.id, itemIndex)}
+            className={`group overflow-hidden rounded-sm bg-stone-200/50 text-left shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 ${!isObjectGrid && itemIndex === 0 ? "md:col-span-2" : ""}`}
+            aria-label={`Abrir imagem: ${item.caption}`}
+          >
+            <div className={
+              isObjectGrid
+                ? "aspect-square"
+                : isPortraitGrid
+                  ? (itemIndex === 0 ? "aspect-[4/5] md:aspect-[16/10]" : "aspect-[4/5]")
+                  : (itemIndex === 0 ? "aspect-[16/10]" : "aspect-[4/5]")
+            }>
+              <ImageWithFallback
+                src={item.src}
+                mode="cover"
+                alt={item.alt}
+                imageClassName="transition-transform duration-[1.5s] ease-out group-hover:scale-[1.03]"
+                fallbackLabel={chapter.title}
+              />
+            </div>
+            <figcaption className="border-t border-stone-900/10 bg-[#F4F0E9]/90 px-4 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">
+              {item.caption}
+            </figcaption>
+          </button>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
+function ProvenceRaizLightbox({ lightbox, galleries, setLightbox }) {
+  const [touchStart, setTouchStart] = useState(null);
+  const gallery = galleries.find((item) => item.id === lightbox?.galleryId);
+  const image = gallery?.items[lightbox?.index || 0];
+
+  const closeLightbox = useCallback(() => setLightbox(null), [setLightbox]);
+  const moveLightbox = useCallback((direction) => {
+    setLightbox((current) => {
+      if (!current) return current;
+      const currentGallery = galleries.find((item) => item.id === current.galleryId);
+      if (!currentGallery) return current;
+      const nextIndex = (current.index + direction + currentGallery.items.length) % currentGallery.items.length;
+      return { ...current, index: nextIndex, zoom: false };
+    });
+  }, [galleries, setLightbox]);
+
+  useEffect(() => {
+    if (!lightbox) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") moveLightbox(-1);
+      if (event.key === "ArrowRight") moveLightbox(1);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeLightbox, lightbox, moveLightbox]);
+
+  if (!lightbox || !gallery || !image) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Galeria ${gallery.title}`}
+        className="fixed inset-0 z-[100] flex flex-col bg-stone-950 text-stone-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onTouchStart={(event) => setTouchStart(event.changedTouches[0].clientX)}
+        onTouchEnd={(event) => {
+          if (touchStart === null) return;
+          const distance = event.changedTouches[0].clientX - touchStart;
+          if (Math.abs(distance) > 48) moveLightbox(distance > 0 ? -1 : 1);
+          setTouchStart(null);
+        }}
+      >
+        <header className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-4 md:px-8">
+          <div>
+            <span className="block text-[10px] font-bold uppercase tracking-[0.28em] text-stone-400">{gallery.title}</span>
+            <p className="mt-1 text-xs font-light text-stone-300">{lightbox.index + 1} / {gallery.items.length}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={() => moveLightbox(-1)} className="rounded-full border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-colors hover:bg-white hover:text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Anterior</button>
+            <button type="button" onClick={() => setLightbox((current) => ({ ...current, zoom: !current.zoom }))} className="rounded-full border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-colors hover:bg-white hover:text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">Zoom</button>
+            <button type="button" onClick={closeLightbox} aria-label="Fechar galeria" className="rounded-full border border-white/20 p-2 transition-colors hover:bg-white hover:text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        </header>
+
+        <div className="flex min-h-0 flex-1 items-center justify-center overflow-auto p-4 md:p-8">
+          <img
+            src={image.src}
+            alt={image.alt}
+            className={`${lightbox.zoom ? "max-h-none max-w-none cursor-zoom-out" : "max-h-full max-w-full cursor-zoom-in"} object-contain`}
+            onClick={() => setLightbox((current) => ({ ...current, zoom: !current.zoom }))}
+          />
+        </div>
+
+        <footer className="grid gap-3 border-t border-white/10 px-4 py-4 md:grid-cols-[1fr_auto] md:items-center md:px-8">
+          <p className="max-w-3xl text-sm font-light leading-relaxed text-stone-300">{image.caption}</p>
+          <button type="button" onClick={() => moveLightbox(1)} className="justify-self-start rounded-full border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-colors hover:bg-white hover:text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white md:justify-self-end">Próxima</button>
+        </footer>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextCaseId, isLast }) {
+  const [lightbox, setLightbox] = useState(null);
+  const openGallery = (galleryId, index = 0) => setLightbox({ galleryId, index, zoom: false });
+
+  const galleries = useMemo(() => {
+    const base = "/images/14_VERDEBURGO/PROVENCE_RAIZ";
+    const system = `${base}/05_CASE_SYSTEM`;
+    const architecture = `${base}/06_ARCHITECTURE_SERIES`;
+    return [
+      {
+        id: "moodboards",
+        eyebrow: "Processo criativo",
+        title: "Moodboards e direção de atmosfera",
+        text: "O repertório visual aparece como ferramenta de direção: não como fundo decorativo, mas como processo de decisão para calibrar memória, luz, matéria e ritmo.",
+        statement: "Referência vira decisão; decisão vira aplicação; aplicação vira experiência.",
+        principles: ["Pesquisa", "Curadoria", "Atmosfera", "Materialidade"],
+        items: [
+          { src: `${base}/03_REFINAMENTO/moodboard-integracao-atmosfera-provence.jpg`, alt: "Moodboard editorial de atmosfera Provence Raiz", caption: "Integração de atmosfera, cor e memória gráfica." },
+          { src: `${base}/02_WEB/provence-raiz-moodboard-materialidade-antiga.jpg`, alt: "Moodboard de materialidade antiga do projeto Provence Raiz", caption: "Materialidade antiga como base para o luxo silencioso." },
+          { src: `${base}/02_WEB/provence-raiz-moodboard-cerimonia.jpg`, alt: "Moodboard de cerimônia Provence Raiz", caption: "Cerimônia tratada como sequência espacial." },
+          { src: `${base}/02_WEB/provence-raiz-moodboard-lounge.jpg`, alt: "Moodboard de lounge Provence Raiz", caption: "Hospitalidade e permanência em chave residencial." },
+          { src: `${base}/02_WEB/provence-raiz-moodboard-mesa-bolo.jpg`, alt: "Moodboard de mesa de bolo Provence Raiz", caption: "Mesa de bolo como núcleo de memória visual." }
+        ]
+      },
+      {
+        id: "identidade-visual",
+        eyebrow: "Universo visual",
+        title: "Identidade visual",
+        text: "Paleta, tipografia, toile, matéria e proporção formam uma linguagem comum. O sistema orienta fornecedores e aplicações sem reduzir o projeto a uma estampa decorativa.",
+        statement: "A identidade não é um conjunto de elementos. É um sistema de decisões.",
+        principles: ["70% base quente", "30% azul", "Serifa editorial", "Toile autoral"],
+        items: [
+          { src: `${system}/identity-flatlay.webp`, alt: "Sistema de identidade visual Provence Raiz dirigido por Samuel Carrera Paes", caption: "O sistema reunido: paleta, monograma, papel, ornamento e matéria." },
+          { src: `${system}/identity-system-guide.webp`, alt: "Guia de paleta e tipografia da identidade Provence Raiz", caption: "Paleta cromática e hierarquia tipográfica como regras de coerência." },
+          { src: `${system}/material-board.webp`, alt: "Material board do projeto Provence Raiz", caption: "Linho, papel, porcelana e azul organizados como linguagem tátil." },
+          { src: `${system}/identity-stationery-overview.webp`, alt: "Visão geral das aplicações gráficas Provence Raiz", caption: "Uma identidade capaz de atravessar escalas e pontos de contato." },
+          { src: `${system}/toile-pattern.webp`, alt: "Toile de Jouy autoral do sistema visual Provence Raiz", caption: "Toile de Jouy reinterpretado como matriz narrativa, não ornamento isolado." },
+          { src: `${base}/03_REFINAMENTO/board-materia-textura-cores.jpg`, alt: "Prancha de matéria, textura e cores do Provence Raiz", caption: "Paleta 70/30: base clara e quente; azul como ritmo e profundidade." }
+        ]
+      },
+      {
+        id: "monograma",
+        eyebrow: "Sistema de marca",
+        title: "Monograma",
+        text: "O emblema condensa iniciais, memória botânica e caráter editorial. Sua função é assinar com discrição, criando reconhecimento sem competir com a experiência.",
+        statement: "Uma assinatura silenciosa, desenhada para permanecer.",
+        principles: ["Síntese", "Autoria", "Gravura", "Aplicação"],
+        layout: "objects",
+        items: [
+          { src: `${system}/monogram-master.webp`, alt: "Monograma principal MMV criado para Provence Raiz", caption: "Monograma principal: iniciais, moldura botânica e desenho de gravura." },
+          { src: `${system}/monogram-embossed.webp`, alt: "Monograma Provence Raiz aplicado em baixo-relevo", caption: "Baixo-relevo: identidade percebida pela matéria antes da leitura." },
+          { src: `${system}/monogram-paper-detail.webp`, alt: "Detalhe do monograma Provence Raiz em papelaria", caption: "Escala reduzida preservando desenho, contraste e legibilidade." },
+          { src: `${system}/monogram-guestbook.webp`, alt: "Monograma aplicado ao caderno de votos Provence Raiz", caption: "Assinatura aplicada ao objeto de memória do evento." }
+        ]
+      },
+      {
+        id: "ornamentos",
+        eyebrow: "Gramática gráfica",
+        title: "Ornamentos",
+        text: "Filetes, molduras, cantoneiras, selos e ícones constroem hierarquia e orientação. Cada elemento nasce de uma função dentro do sistema.",
+        statement: "O ornamento que não tem função não tem lugar.",
+        principles: ["Filetes organizam", "Molduras enquadram", "Selos autenticam"],
+        layout: "objects",
+        items: [
+          { src: `${system}/ornament-study-filets.webp`, alt: "Estudo de filetes e ornamentos Provence Raiz", caption: "Filetes e elementos lineares organizando ritmo e hierarquia." },
+          { src: `${system}/ornament-study-frames.webp`, alt: "Biblioteca de molduras Provence Raiz", caption: "Molduras e cantoneiras para diferentes escalas de aplicação." },
+          { src: `${system}/ornament-study-corners.webp`, alt: "Estudo de cantoneiras e ícones Provence Raiz", caption: "Cantoneiras, ícones e pequenos gestos de orientação visual." },
+          { src: `${system}/ornament-study-seals.webp`, alt: "Estudo de selos gráficos Provence Raiz", caption: "Selos como marcas de autenticidade e fechamento." },
+          { src: `${system}/ornament-library.webp`, alt: "Biblioteca completa de ornamentos Provence Raiz", caption: "Biblioteca visual consolidada para preservar consistência na execução." }
+        ]
+      },
+      {
+        id: "pilastras-cenograficas",
+        eyebrow: "Arquitetura cenográfica · Artefato 01",
+        title: "Pilastras cenográficas",
+        text: "Duas peças independentes constroem um portal sem fechar o vão. A curva interna, a base estável e a estrutura reversível transformam arquitetura temporária em presença real.",
+        statement: "A forma enquadra o rito; a técnica sustenta a forma.",
+        principles: ["Par espelhado", "Vão livre", "Estrutura reversível", "Luz oculta"],
+        previewCount: 1,
+        items: [
+          { src: `${architecture}/pilastras-capa.webp`, alt: "Par de pilastras cenográficas Provence Raiz em render arquitetônico", caption: "Capa da série: duas pilastras independentes definem um portal sem se tocar." },
+          { src: `${architecture}/pilastras-explodida.webp`, alt: "Perspectiva explodida da pilastra cenográfica Provence Raiz", caption: "Pele mineral, nervuras curvas, montantes, contraventamentos e base revelados como sistema construtivo." },
+          { src: `${architecture}/pilastras-corte.webp`, alt: "Corte construtivo da pilastra cenográfica Provence Raiz", caption: "O corte mostra estrutura interna, canal técnico, lastro e pés reguláveis sem perder a leitura externa." },
+          { src: `${architecture}/pilastras-integracao-floral.webp`, alt: "Pilastra Provence Raiz com integração de tecido e arranjo floral", caption: "Tecido e floral entram como aplicação reversível; não corrigem nem sustentam a arquitetura." },
+          { src: `${architecture}/pilastras-luz-oculta.webp`, alt: "Detalhe de iluminação oculta na curva da pilastra Provence Raiz", caption: "Luz quente embutida acompanha a curva com difusão contínua e sem pontos aparentes." }
+        ]
+      },
+      {
+        id: "luminaria-carretel",
+        eyebrow: "Arquitetura cenográfica · Artefato 02",
+        title: "Luminária carretel",
+        text: "O núcleo preservado do carretel recebe discos de madeira, difusor leitoso, filetes metálicos e luz contínua. A suspensão real permanece independente da corrente decorativa.",
+        statement: "A técnica desaparece para que a luz permaneça.",
+        principles: ["Núcleo preservado", "12 filetes", "2700K", "Carga independente"],
+        previewCount: 1,
+        items: [
+          { src: `${architecture}/carretel-capa.webp`, alt: "Luminária carretel Provence Raiz acesa em render de alta qualidade", caption: "Capa da série: madeira clara, metal champagne e difusor leitoso organizados como um único objeto de luz." },
+          { src: `${architecture}/carretel-explodida.webp`, alt: "Perspectiva explodida da luminária carretel Provence Raiz", caption: "Suspensão, discos, núcleo, difusor, LED e filetes aparecem como componentes autônomos e alinhados." },
+          { src: `${architecture}/carretel-corte.webp`, alt: "Corte construtivo da luminária carretel Provence Raiz", caption: "O corte revela o cabo de carga, o núcleo central, o reforço superior e a iluminação escondida." },
+          { src: `${architecture}/carretel-suspensao.webp`, alt: "Detalhe superior da suspensão da luminária carretel Provence Raiz", caption: "Cabo de aço e corrente assumem funções diferentes: sustentação real e leitura decorativa." },
+          { src: `${architecture}/carretel-difusor.webp`, alt: "Detalhe do difusor e dos filetes da luminária carretel Provence Raiz", caption: "Difusor removível, encaixe oculto e filetes ritmados preservam uma luz contínua e sem brilho técnico." }
+        ]
+      },
+      {
+        id: "gaiola-cenografica",
+        eyebrow: "Arquitetura cenográfica · Artefato 03",
+        title: "Gaiola cenográfica",
+        text: "A luminária hexagonal combina estrutura metálica, vidro texturizado, núcleo de luz e acabamento artesanal. O desenho preserva escala cênica sem perder precisão construtiva.",
+        statement: "A atmosfera nasce quando estrutura, transparência e luz trabalham juntas.",
+        principles: ["Geometria hexagonal", "Vidro texturizado", "Alma estrutural", "Acabamento artesanal"],
+        previewCount: 1,
+        items: [
+          { src: `${architecture}/gaiola-capa.webp`, alt: "Luminária gaiola cenográfica Provence Raiz acesa em render de alta qualidade", caption: "Capa da série: geometria hexagonal, vidro texturizado e luz quente em uma peça de escala cênica." },
+          { src: `${architecture}/gaiola-explodida.webp`, alt: "Perspectiva explodida da gaiola cenográfica Provence Raiz", caption: "Cúpula, painéis, núcleo de luz, aros e pingente são apresentados como uma montagem coerente." },
+          { src: `${architecture}/gaiola-corte.webp`, alt: "Corte construtivo da gaiola cenográfica Provence Raiz", caption: "Com painéis removidos, a alma estrutural e o percurso de carga tornam-se legíveis." },
+          { src: `${architecture}/gaiola-suspensao.webp`, alt: "Detalhe superior da suspensão da gaiola cenográfica Provence Raiz", caption: "Canopla, corrente, argola e nervuras convergem em uma união artesanal precisa." },
+          { src: `${architecture}/gaiola-pingente.webp`, alt: "Detalhe inferior e pingente da gaiola cenográfica Provence Raiz", caption: "A estrutura inferior recebe o vidro e conduz a carga até o pingente torneado." }
+        ]
+      },
+      {
+        id: "papelaria",
+        eyebrow: "Aplicações",
+        title: "Papelaria",
+        text: "Convites, menus, votos, programas e cartões transformam o sistema visual em gestos de leitura. A função muda; a voz permanece a mesma.",
+        statement: "Do convite ao menu, cada peça prepara e prolonga a experiência.",
+        principles: ["Papel algodão", "Hierarquia editorial", "Uso real", "Memória"],
+        layout: "objects",
+        items: [
+          { src: `${system}/paper-invitation-cover.webp`, alt: "Convite principal da identidade Provence Raiz", caption: "Convite principal: abertura da narrativa antes da chegada." },
+          { src: `${system}/paper-envelope-suite.webp`, alt: "Envelope e convite Provence Raiz", caption: "Envelope e forro transformando o ato de abrir em experiência." },
+          { src: `${system}/paper-menu-vertical.webp`, alt: "Menu de mesa Provence Raiz", caption: "Menu vertical com hierarquia funcional e presença discreta." },
+          { src: `${system}/paper-place-card.webp`, alt: "Cartão de lugar Provence Raiz", caption: "Cartão de lugar integrando orientação e cuidado individual." },
+          { src: `${system}/paper-vows-book.webp`, alt: "Caderno de votos Provence Raiz", caption: "Caderno de votos como objeto íntimo de permanência." },
+          { src: `${system}/paper-program-suite.webp`, alt: "Programa da cerimônia Provence Raiz", caption: "Programa da cerimônia organizando informação sem romper a atmosfera." },
+          { src: `${system}/paper-thank-you-card.webp`, alt: "Cartão de agradecimento Provence Raiz", caption: "Agradecimento como último capítulo da hospitalidade." },
+          { src: `${system}/paper-event-card.webp`, alt: "Cartão informativo Provence Raiz", caption: "Informação prática tratada com a mesma precisão visual." }
+        ]
+      },
+      {
+        id: "sinalizacao",
+        eyebrow: "Orientação espacial",
+        title: "Sinalização",
+        text: "Welcome signs, placas direcionais e identificadores orientam o percurso sem introduzir uma linguagem paralela. Informação e atmosfera operam juntas.",
+        statement: "Informar sem interromper a cena.",
+        principles: ["Chegada", "Fluxo", "Legibilidade", "Coerência"],
+        layout: "portrait",
+        items: [
+          { src: `${system}/sign-welcome.webp`, alt: "Welcome sign do evento Provence Raiz", caption: "Welcome sign como primeiro encontro físico com a identidade." },
+          { src: `${system}/sign-ceremony.webp`, alt: "Sinalização de cerimônia Provence Raiz", caption: "Placa de cerimônia integrada à arquitetura e à paisagem." },
+          { src: `${system}/sign-arched.webp`, alt: "Placa arqueada Provence Raiz", caption: "Recorte arqueado retomando a linguagem espacial do projeto." },
+          { src: `${system}/sign-mirror.webp`, alt: "Sinalização em espelho Provence Raiz", caption: "Aplicação refletiva para ambientes de pausa e circulação." },
+          { src: `${system}/sign-directional.webp`, alt: "Placa direcional Provence Raiz", caption: "Orientação de fluxo com leitura imediata e acabamento editorial." },
+          { src: `${system}/sign-table.webp`, alt: "Sinalização de mesa Provence Raiz", caption: "Escala de mesa preservando hierarquia e identidade." },
+          { src: `${system}/sign-mini.webp`, alt: "Mini placa informativa Provence Raiz", caption: "Pequena sinalização para pontos de contato específicos." }
+        ]
+      },
+      {
+        id: "hospitalidade",
+        eyebrow: "Pontos de contato",
+        title: "Hospitalidade",
+        text: "Rótulos, embalagens, lembranças e pequenos objetos levam a identidade até o cuidado. A linguagem visual deixa a superfície e passa a participar do uso.",
+        statement: "Hospitalidade é identidade convertida em atenção.",
+        principles: ["Cuidado", "Objeto", "Materialidade", "Permanência"],
+        layout: "objects",
+        items: [
+          { src: `${system}/hospitality-gift-suite.webp`, alt: "Conjunto de lembranças Provence Raiz", caption: "Lembranças coordenadas como uma família de objetos." },
+          { src: `${system}/hospitality-envelope-card.webp`, alt: "Envelope de hospitalidade Provence Raiz", caption: "Envelope, selo e toile compondo uma experiência tátil." },
+          { src: `${system}/hospitality-bag.webp`, alt: "Embalagem de lembrança Provence Raiz", caption: "Embalagem leve com informação e acabamento controlados." },
+          { src: `${system}/hospitality-box-suite.webp`, alt: "Caixas de hospitalidade Provence Raiz", caption: "Sistema de caixas e cintas para diferentes escalas de presente." },
+          { src: `${system}/hospitality-bottle-label.webp`, alt: "Rótulo de hospitalidade Provence Raiz", caption: "Rótulo aplicado sem transformar o objeto em peça publicitária." },
+          { src: `${system}/hospitality-place-card.webp`, alt: "Cartão de hospitalidade Provence Raiz", caption: "Cartão de cuidado para acolher e orientar." },
+          { src: `${system}/hospitality-wrapped-box.webp`, alt: "Embalagem com monograma Provence Raiz", caption: "Monograma e papel como fecho silencioso da experiência." },
+          { src: `${system}/hospitality-gift-box.webp`, alt: "Caixa de lembrança Provence Raiz", caption: "Objeto de memória concebido para permanecer após o evento." },
+          { src: `${system}/hospitality-favor-bag.webp`, alt: "Sacola de lembrança Provence Raiz", caption: "Aplicação da identidade no gesto final de entrega." },
+          { src: `${base}/02_WEB/provence-raiz-bar-hospitalidade-toile-lavanda.jpg`, alt: "Bar de hospitalidade Provence Raiz com toile e lavanda", caption: "Hospitalidade ampliada para o ambiente: luz, serviço e permanência." }
+        ]
+      },
+      {
+        id: "decoracao",
+        eyebrow: "Direção de decoração",
+        title: "Decoração como linguagem física",
+        text: "A decoração é apresentada como consequência do sistema: flor, luz, mobiliário, mural e escala constroem uma presença coerente em vez de uma estética solta.",
+        statement: "A arquitetura não é pano de fundo. É matéria viva da narrativa.",
+        principles: ["Volume natural", "Sombras reais", "Fluxo", "Convivência"],
+        items: [
+          { src: `${base}/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg`, alt: "Cerimônia Provence Raiz com altar, passarela e flores", caption: "A cerimônia organiza eixo, entrada e ponto focal." },
+          { src: `${base}/03_REFINAMENTO/render-mesa-bolo-mural-toile-refinado.jpg`, alt: "Mesa de bolo com mural Toile de Jouy e arranjos Provence Raiz", caption: "Mural, mesa e flores como composição editorial." },
+          { src: `${base}/03_REFINAMENTO/render-escada-cascata-floral-refinado.jpg`, alt: "Escada com cascata floral Provence Raiz", caption: "Escada transformada em gesto de percurso." },
+          { src: `${base}/02_WEB/provence-raiz-bar-toile-pinheiros-luminarias.jpg`, alt: "Bar Provence Raiz com mural toile, pinheiros e luminárias", caption: "Hospitalidade com profundidade visual e luz quente." },
+          { src: `${base}/02_WEB/provence-raiz-lounge-residencial-linho-azul.jpg`, alt: "Lounge residencial com linho azul Provence Raiz", caption: "Lounge como pausa, não como preenchimento." }
+        ]
+      }
+    ];
+  }, []);
+
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title="Provence Raiz — Sistema Visual e Direção Criativa"
+        description={c.shortTese}
+        image={c.thumb}
+        url="case/case-12"
+        schemaType="CreativeWork"
+      />
+
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12 relative pb-20 md:pb-0">
+        <nav aria-label="Breadcrumb" className="mb-10 flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-400">
+          <button type="button" onClick={() => navigate("cases")} className="hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm">Portfólio</button>
+          <span aria-hidden="true">/</span>
+          <span>Verde Burgo Eventos</span>
+          <span aria-hidden="true">/</span>
+          <span className="text-stone-900">Provence Raiz</span>
+        </nav>
+
+        <header className="grid gap-12 border-b border-stone-900/10 pb-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+          <div>
+            <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">CASE {c.number}/{totalCases} · Direção criativa aplicada a eventos</span>
+            <h1 className="mb-8 max-w-5xl font-serif text-5xl leading-[0.9] tracking-[-0.02em] text-stone-950 md:text-[6.5rem] text-balance">{c.title}</h1>
+            <p className="max-w-3xl text-xl font-light leading-relaxed text-stone-600 md:text-2xl text-balance">{c.shortTese}</p>
+          </div>
+
+          <figure className="overflow-hidden rounded-sm bg-stone-200/50 shadow-sm">
+            <div className="aspect-[4/5] lg:aspect-[5/6]">
+              <ImageWithFallback
+                src={c.thumb}
+                mode="cover"
+                loading="eager"
+                alt="Mural Toile de Jouy contemporâneo criado como matriz visual do case Provence Raiz"
+                imageClassName="scale-[1.01]"
+                fallbackLabel="Provence Raiz"
+              />
+            </div>
+          </figure>
+        </header>
+
+        <dl className="grid grid-cols-2 gap-6 border-b border-stone-900/10 py-10 md:grid-cols-4">
+          {[
+            ["Cliente / Contexto", "Provence Raiz"],
+            ["Papel", "Direção Criativa"],
+            ["Execução", "Verde Burgo Eventos"],
+            ["Local", "Casa Giardini"]
+          ].map(([label, value]) => (
+            <div key={label}>
+              <dt className="mb-2 block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{label}</dt>
+              <dd className="text-sm font-light leading-relaxed text-stone-900">{value}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <aside className="sp-case-progress hidden lg:flex" aria-label="Navegação contextual do case Provence Raiz">
+          <button type="button" onClick={() => navigate("cases")}>Portfólio</button>
+          {previousCaseId && <button type="button" onClick={() => navigate(`case/${previousCaseId}`)}>Anterior</button>}
+          <button type="button" onClick={() => handleShareIntent({ title: c.title, text: c.shortTese })}>Compartilhar</button>
+          {!isLast && nextCaseId ? (
+            <button type="button" onClick={() => navigate(`case/${nextCaseId}`)}>Próximo</button>
+          ) : (
+            <button type="button" onClick={() => navigate("sistema")}>Sistema</button>
+          )}
+        </aside>
+
+        <section className="grid gap-8 py-20 md:grid-cols-[0.8fr_1.2fr] md:py-28" aria-label="Nota do Diretor">
+          <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Director's Note</h2>
+          <blockquote className="border-l-2 border-stone-900/10 pl-6 font-serif text-2xl italic leading-tight tracking-tight text-stone-900 md:pl-10 md:text-4xl text-balance">
+            "{c.directorsNote}"
+          </blockquote>
+        </section>
+
+        <section className="grid gap-8 border-y border-stone-900/10 py-16 md:grid-cols-4" aria-label="Estratégia do case Provence Raiz">
+          {c.blocks.map(([blockTitle, blockText], idx) => (
+            <article key={blockTitle}>
+              <span className="mb-6 block font-serif text-2xl italic text-stone-300" aria-hidden="true">0{idx + 1}</span>
+              <h2 className="mb-5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900">{blockTitle}</h2>
+              <p className="text-sm font-light leading-relaxed text-stone-600">{blockText}</p>
+            </article>
+          ))}
+        </section>
+
+        <div className="flex flex-col gap-24 py-24 md:gap-32 md:py-32">
+          {galleries.map((chapter, index) => (
+            <CaseChapterGallery key={chapter.id} chapter={chapter} index={index} openGallery={openGallery} />
+          ))}
+        </div>
+
+        <section className="grid gap-10 border-y border-stone-900/10 py-16 md:grid-cols-[0.8fr_1.2fr]" aria-labelledby="provence-credits">
+          <h2 id="provence-credits" className="font-serif text-4xl leading-none text-stone-950 md:text-5xl">Créditos.</h2>
+          <div className="grid gap-5 text-sm font-light leading-relaxed text-stone-600 md:grid-cols-2">
+            <p><strong className="font-semibold text-stone-900">Direção Criativa, Conceito, Identidade Visual e Sistema Visual:</strong><br />Samuel Carrera Paes / Paes Consultoria.</p>
+            <p><strong className="font-semibold text-stone-900">Execução do evento:</strong><br />Verde Burgo Eventos.</p>
+            <p><strong className="font-semibold text-stone-900">Local:</strong><br />Casa Giardini, tratada como suporte espacial do projeto.</p>
+            <p><strong className="font-semibold text-stone-900">Leitura autoral:</strong><br />Evento como linguagem 360 graus: buffet, decoração, bar, cerimonial, ambientação, papelaria, atmosfera e narrativa.</p>
+          </div>
+        </section>
+
+        <nav
+          aria-label="Paginação de Cases"
+          className="fixed bottom-0 left-0 z-40 flex w-full flex-row items-center justify-between gap-4 border-t border-stone-900/10 bg-[#F4F0E9]/95 p-4 shadow-[0_-10px_40px_rgba(0,0,0,0.03)] backdrop-blur-xl md:static md:mt-24 md:border-t md:border-stone-900/10 md:bg-transparent md:p-0 md:pt-12 md:shadow-none"
+        >
+          <button type="button" onClick={() => navigate("cases")} className="flex flex-1 items-center justify-center gap-3 rounded-sm border border-stone-900/20 py-4 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 md:flex-none md:justify-start md:border-transparent md:py-0">
+            <ArrowLeftCircle className="hidden h-5 w-5 sm:block" aria-hidden="true" /> INÍCIO <span className="hidden sm:inline">de Cases</span>
+          </button>
+          <button type="button" onClick={() => navigate("sistema")} className="flex flex-1 items-center justify-center gap-3 rounded-sm bg-stone-900 py-4 text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-sm transition-colors hover:text-stone-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 md:flex-none md:justify-end md:bg-transparent md:py-0 md:text-stone-900 md:shadow-none">
+            Ver Sistema <ArrowRightCircle className="hidden h-5 w-5 md:block" aria-hidden="true" />
+          </button>
+        </nav>
+
+        <ProvenceRaizLightbox lightbox={lightbox} galleries={galleries} setLightbox={setLightbox} />
+      </article>
+    </PageTransition>
+  );
+}
+
 function Sistema({ navigate }) {
   return (
     <PageTransition>
@@ -1034,6 +1645,20 @@ function Sistema({ navigate }) {
             Seis artigos sobre a construção de presença em imagem, espaço, produto, experiência física, operação e memória.
           </p>
         </header>
+
+        <aside className="mb-12 grid gap-4 border-y border-stone-900/10 py-6 md:grid-cols-[0.8fr_1.2fr_auto] md:items-center" aria-label="Leitura orientada do sistema">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Biblioteca / Learn</span>
+          <p className="max-w-3xl text-sm font-light leading-relaxed text-stone-600">
+            Artigos para entender como o repertório vira método: curadoria, espaço, percepção, operação e experiência física.
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate(`sistema/${sistemaArticleCards[0].slug}`)}
+            className="inline-flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 border-b border-stone-900/20 pb-1 hover:border-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+          >
+            Começar leitura <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </aside>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 border-t border-stone-900/10 pt-16">
           {sistemaArticleCards.map((card) => (
@@ -1448,11 +2073,12 @@ export default function SamuelPaesPortfolio() {
       route === "banal" ||
       route === "empresas/banal" ||
       route === "verdeburgo" ||
-      route === "empresas/verde-burgo" ||
-      route === "projetos/provence-raiz"
+      route === "empresas/verde-burgo"
     ) {
       return "cases";
     }
+
+    if (route === "projetos/provence-raiz") return "case/case-12";
 
     if (route === "biblioteca") return "sistema";
     if (route.startsWith("biblioteca/")) {
@@ -1610,7 +2236,7 @@ export default function SamuelPaesPortfolio() {
                  transition={{ delay: 0.4, ease: PREMIUM_EASE }}
                  className="mt-16 pt-8 border-t border-stone-900/10 flex justify-between items-center px-2"
               >
-                <button type="button" onClick={() => handleNavClick("cases")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Ver Cases</button>
+                <button type="button" onClick={() => handleNavClick("cases")} className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-500 focus-visible:outline-none focus-visible:underline hover:text-stone-900 transition-colors">Ver Portfólio</button>
                 <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer" className="text-[11px] font-bold uppercase tracking-[0.3em] text-stone-900 flex items-center gap-2 focus-visible:outline-none focus-visible:underline hover:text-stone-600 transition-colors">
                   WhatsApp <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
                 </a>
@@ -1632,6 +2258,8 @@ export default function SamuelPaesPortfolio() {
           {effectiveRoute === "contato" && <Contato key="contato" />}
         </AnimatePresence>
       </main>
+
+      <GlobalDiscoveryDock navigate={navigate} hidden={isCaseDetail || isMenuOpen} />
 
     </div>
   );
