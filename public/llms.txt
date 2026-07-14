@@ -1,7 +1,7 @@
 # Paes Consultoria / Samuel Carrera Paes
 
 Fonte canonica: https://paesconsultoria.com
-Atualizado em: 2026-07-04
+Atualizado em: 2026-07-13
 
 Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e consultor criativo. A Paes Consultoria organiza direcao criativa, repertorio visual, imagem, espaco, eventos, varejo, comunicacao, cenografia, experiencia fisica e pensamento editorial.
 
@@ -9,6 +9,7 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 - Inicio: https://paesconsultoria.com
 - Minha Visao: https://paesconsultoria.com/visao
 - Cases: https://paesconsultoria.com/cases
+- Provence Raiz: https://paesconsultoria.com/case/case-12
 - Sistema de Direcao Criativa: https://paesconsultoria.com/sistema
 - Contato: https://paesconsultoria.com/contato
 
