@@ -1156,14 +1156,37 @@ function CaseDetail({ caseId, navigate }) {
 }
 
 function CaseChapterGallery({ chapter, index, openGallery }) {
-  const featured = chapter.items.slice(0, 3);
+  const featured = chapter.items.slice(0, chapter.previewCount || 3);
+  const isObjectGrid = chapter.layout === "objects";
+  const isPortraitGrid = chapter.layout === "portrait";
 
   return (
-    <section className="grid gap-8 border-t border-stone-900/10 pt-12 md:grid-cols-[0.8fr_1.2fr]" aria-labelledby={`provence-chapter-${chapter.id}`}>
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.8, ease: PREMIUM_EASE }}
+      className="grid gap-10 border-t border-stone-900/10 pt-12 md:grid-cols-[0.8fr_1.2fr] md:pt-16"
+      aria-labelledby={`provence-chapter-${chapter.id}`}
+    >
       <header className="md:sticky md:top-28 md:self-start">
-        <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Capítulo {String(index + 1).padStart(2, "0")}</span>
+        <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+          Capítulo {String(index + 1).padStart(2, "0")} · {chapter.eyebrow}
+        </span>
         <h2 id={`provence-chapter-${chapter.id}`} className="mb-5 max-w-lg font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl text-balance">{chapter.title}</h2>
         <p className="mb-8 max-w-md text-sm font-light leading-relaxed text-stone-600 md:text-base">{chapter.text}</p>
+        {chapter.statement && (
+          <blockquote className="mb-8 max-w-md border-l border-stone-900/20 pl-5 font-serif text-xl italic leading-snug text-stone-800">
+            {chapter.statement}
+          </blockquote>
+        )}
+        {chapter.principles && (
+          <ul className="mb-9 flex max-w-md flex-wrap gap-x-4 gap-y-2" aria-label={`Princípios de ${chapter.title}`}>
+            {chapter.principles.map((principle) => (
+              <li key={principle} className="text-[9px] font-bold uppercase tracking-[0.22em] text-stone-400">{principle}</li>
+            ))}
+          </ul>
+        )}
         <button
           type="button"
           onClick={() => openGallery(chapter.id, 0)}
@@ -1173,16 +1196,22 @@ function CaseChapterGallery({ chapter, index, openGallery }) {
         </button>
       </header>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className={`grid gap-4 ${isObjectGrid ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2"}`}>
         {featured.map((item, itemIndex) => (
           <button
             key={item.src}
             type="button"
             onClick={() => openGallery(chapter.id, itemIndex)}
-            className={`group overflow-hidden rounded-sm bg-stone-200/50 text-left shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 ${itemIndex === 0 ? "md:col-span-2" : ""}`}
+            className={`group overflow-hidden rounded-sm bg-stone-200/50 text-left shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 ${!isObjectGrid && itemIndex === 0 ? "md:col-span-2" : ""}`}
             aria-label={`Abrir imagem: ${item.caption}`}
           >
-            <div className={itemIndex === 0 ? "aspect-[16/10]" : "aspect-[4/5]"}>
+            <div className={
+              isObjectGrid
+                ? "aspect-square"
+                : isPortraitGrid
+                  ? (itemIndex === 0 ? "aspect-[4/5] md:aspect-[16/10]" : "aspect-[4/5]")
+                  : (itemIndex === 0 ? "aspect-[16/10]" : "aspect-[4/5]")
+            }>
               <ImageWithFallback
                 src={item.src}
                 mode="cover"
@@ -1197,7 +1226,7 @@ function CaseChapterGallery({ chapter, index, openGallery }) {
           </button>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -1291,11 +1320,15 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
 
   const galleries = useMemo(() => {
     const base = "/images/14_VERDEBURGO/PROVENCE_RAIZ";
+    const system = `${base}/05_CASE_SYSTEM`;
     return [
       {
         id: "moodboards",
+        eyebrow: "Processo criativo",
         title: "Moodboards e direção de atmosfera",
         text: "O repertório visual aparece como ferramenta de direção: não como fundo decorativo, mas como processo de decisão para calibrar memória, luz, matéria e ritmo.",
+        statement: "Referência vira decisão; decisão vira aplicação; aplicação vira experiência.",
+        principles: ["Pesquisa", "Curadoria", "Atmosfera", "Materialidade"],
         items: [
           { src: `${base}/03_REFINAMENTO/moodboard-integracao-atmosfera-provence.jpg`, alt: "Moodboard editorial de atmosfera Provence Raiz", caption: "Integração de atmosfera, cor e memória gráfica." },
           { src: `${base}/02_WEB/provence-raiz-moodboard-materialidade-antiga.jpg`, alt: "Moodboard de materialidade antiga do projeto Provence Raiz", caption: "Materialidade antiga como base para o luxo silencioso." },
@@ -1305,20 +1338,59 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         ]
       },
       {
-        id: "sistema-visual",
-        title: "Sistema visual e identidade aplicada",
-        text: "A identidade se espalha por paleta, grafismo, toile, matéria, proporção e sinalização. O evento deixa de ser soma de itens e passa a operar como sistema.",
+        id: "identidade-visual",
+        eyebrow: "Universo visual",
+        title: "Identidade visual",
+        text: "Paleta, tipografia, toile, matéria e proporção formam uma linguagem comum. O sistema orienta fornecedores e aplicações sem reduzir o projeto a uma estampa decorativa.",
+        statement: "A identidade não é um conjunto de elementos. É um sistema de decisões.",
+        principles: ["70% base quente", "30% azul", "Serifa editorial", "Toile autoral"],
         items: [
-          { src: `${base}/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg`, alt: "Mural Toile de Jouy contemporâneo do Provence Raiz", caption: "Reinterpretação contemporânea do Toile de Jouy como matriz gráfica." },
-          { src: `${base}/03_REFINAMENTO/board-materia-textura-cores.jpg`, alt: "Prancha de matéria, textura e cores do Provence Raiz", caption: "Paleta 70/30: base quente e azul como respiração." },
-          { src: `${base}/03_REFINAMENTO/board-volume-natural-nunca-artificial.jpg`, alt: "Estudo floral volume natural nunca artificial", caption: "Volume natural, nunca artificial: uma regra estética e operacional." },
-          { src: `${base}/02_WEB/logo-verdeburgo-eventos.png`, alt: "Logo Verde Burgo Eventos", caption: "Verde Burgo como execução do evento, sem substituir a autoria da direção criativa." }
+          { src: `${system}/identity-flatlay.webp`, alt: "Sistema de identidade visual Provence Raiz dirigido por Samuel Carrera Paes", caption: "O sistema reunido: paleta, monograma, papel, ornamento e matéria." },
+          { src: `${system}/identity-system-guide.webp`, alt: "Guia de paleta e tipografia da identidade Provence Raiz", caption: "Paleta cromática e hierarquia tipográfica como regras de coerência." },
+          { src: `${system}/material-board.webp`, alt: "Material board do projeto Provence Raiz", caption: "Linho, papel, porcelana e azul organizados como linguagem tátil." },
+          { src: `${system}/identity-stationery-overview.webp`, alt: "Visão geral das aplicações gráficas Provence Raiz", caption: "Uma identidade capaz de atravessar escalas e pontos de contato." },
+          { src: `${system}/toile-pattern.webp`, alt: "Toile de Jouy autoral do sistema visual Provence Raiz", caption: "Toile de Jouy reinterpretado como matriz narrativa, não ornamento isolado." },
+          { src: `${base}/03_REFINAMENTO/board-materia-textura-cores.jpg`, alt: "Prancha de matéria, textura e cores do Provence Raiz", caption: "Paleta 70/30: base clara e quente; azul como ritmo e profundidade." }
+        ]
+      },
+      {
+        id: "monograma",
+        eyebrow: "Sistema de marca",
+        title: "Monograma",
+        text: "O emblema condensa iniciais, memória botânica e caráter editorial. Sua função é assinar com discrição, criando reconhecimento sem competir com a experiência.",
+        statement: "Uma assinatura silenciosa, desenhada para permanecer.",
+        principles: ["Síntese", "Autoria", "Gravura", "Aplicação"],
+        layout: "objects",
+        items: [
+          { src: `${system}/monogram-master.webp`, alt: "Monograma principal MMV criado para Provence Raiz", caption: "Monograma principal: iniciais, moldura botânica e desenho de gravura." },
+          { src: `${system}/monogram-embossed.webp`, alt: "Monograma Provence Raiz aplicado em baixo-relevo", caption: "Baixo-relevo: identidade percebida pela matéria antes da leitura." },
+          { src: `${system}/monogram-paper-detail.webp`, alt: "Detalhe do monograma Provence Raiz em papelaria", caption: "Escala reduzida preservando desenho, contraste e legibilidade." },
+          { src: `${system}/monogram-guestbook.webp`, alt: "Monograma aplicado ao caderno de votos Provence Raiz", caption: "Assinatura aplicada ao objeto de memória do evento." }
+        ]
+      },
+      {
+        id: "ornamentos",
+        eyebrow: "Gramática gráfica",
+        title: "Ornamentos",
+        text: "Filetes, molduras, cantoneiras, selos e ícones constroem hierarquia e orientação. Cada elemento nasce de uma função dentro do sistema.",
+        statement: "O ornamento que não tem função não tem lugar.",
+        principles: ["Filetes organizam", "Molduras enquadram", "Selos autenticam"],
+        layout: "objects",
+        items: [
+          { src: `${system}/ornament-study-filets.webp`, alt: "Estudo de filetes e ornamentos Provence Raiz", caption: "Filetes e elementos lineares organizando ritmo e hierarquia." },
+          { src: `${system}/ornament-study-frames.webp`, alt: "Biblioteca de molduras Provence Raiz", caption: "Molduras e cantoneiras para diferentes escalas de aplicação." },
+          { src: `${system}/ornament-study-corners.webp`, alt: "Estudo de cantoneiras e ícones Provence Raiz", caption: "Cantoneiras, ícones e pequenos gestos de orientação visual." },
+          { src: `${system}/ornament-study-seals.webp`, alt: "Estudo de selos gráficos Provence Raiz", caption: "Selos como marcas de autenticidade e fechamento." },
+          { src: `${system}/ornament-library.webp`, alt: "Biblioteca completa de ornamentos Provence Raiz", caption: "Biblioteca visual consolidada para preservar consistência na execução." }
         ]
       },
       {
         id: "arquitetura",
+        eyebrow: "Arquitetura e experiência",
         title: "Arquitetura cenográfica e engenharia visual",
         text: "Pilastras, luminárias, planta e pranchas técnicas traduzem a intenção estética em estrutura executável, com rigor suficiente para sustentar a atmosfera.",
+        statement: "O espaço não recebe a identidade. Ele a revela.",
+        principles: ["Estrutura", "Escala", "Luz", "Execução"],
         items: [
           { src: `${base}/03_REFINAMENTO/pilastras-refinada.jpg`, alt: "Prancha refinada de pilastras cenográficas do Provence Raiz", caption: "Pilastras como moldura arquitetônica, não apenas decoração." },
           { src: `${base}/03_REFINAMENTO/prancha-tecnica-luminaria-carretel-refinada.jpg`, alt: "Prancha técnica refinada de luminária carretel", caption: "Luminária carretel: técnica invisível e leitura cenográfica." },
@@ -1327,9 +1399,70 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
         ]
       },
       {
+        id: "papelaria",
+        eyebrow: "Aplicações",
+        title: "Papelaria",
+        text: "Convites, menus, votos, programas e cartões transformam o sistema visual em gestos de leitura. A função muda; a voz permanece a mesma.",
+        statement: "Do convite ao menu, cada peça prepara e prolonga a experiência.",
+        principles: ["Papel algodão", "Hierarquia editorial", "Uso real", "Memória"],
+        layout: "objects",
+        items: [
+          { src: `${system}/paper-invitation-cover.webp`, alt: "Convite principal da identidade Provence Raiz", caption: "Convite principal: abertura da narrativa antes da chegada." },
+          { src: `${system}/paper-envelope-suite.webp`, alt: "Envelope e convite Provence Raiz", caption: "Envelope e forro transformando o ato de abrir em experiência." },
+          { src: `${system}/paper-menu-vertical.webp`, alt: "Menu de mesa Provence Raiz", caption: "Menu vertical com hierarquia funcional e presença discreta." },
+          { src: `${system}/paper-place-card.webp`, alt: "Cartão de lugar Provence Raiz", caption: "Cartão de lugar integrando orientação e cuidado individual." },
+          { src: `${system}/paper-vows-book.webp`, alt: "Caderno de votos Provence Raiz", caption: "Caderno de votos como objeto íntimo de permanência." },
+          { src: `${system}/paper-program-suite.webp`, alt: "Programa da cerimônia Provence Raiz", caption: "Programa da cerimônia organizando informação sem romper a atmosfera." },
+          { src: `${system}/paper-thank-you-card.webp`, alt: "Cartão de agradecimento Provence Raiz", caption: "Agradecimento como último capítulo da hospitalidade." },
+          { src: `${system}/paper-event-card.webp`, alt: "Cartão informativo Provence Raiz", caption: "Informação prática tratada com a mesma precisão visual." }
+        ]
+      },
+      {
+        id: "sinalizacao",
+        eyebrow: "Orientação espacial",
+        title: "Sinalização",
+        text: "Welcome signs, placas direcionais e identificadores orientam o percurso sem introduzir uma linguagem paralela. Informação e atmosfera operam juntas.",
+        statement: "Informar sem interromper a cena.",
+        principles: ["Chegada", "Fluxo", "Legibilidade", "Coerência"],
+        layout: "portrait",
+        items: [
+          { src: `${system}/sign-welcome.webp`, alt: "Welcome sign do evento Provence Raiz", caption: "Welcome sign como primeiro encontro físico com a identidade." },
+          { src: `${system}/sign-ceremony.webp`, alt: "Sinalização de cerimônia Provence Raiz", caption: "Placa de cerimônia integrada à arquitetura e à paisagem." },
+          { src: `${system}/sign-arched.webp`, alt: "Placa arqueada Provence Raiz", caption: "Recorte arqueado retomando a linguagem espacial do projeto." },
+          { src: `${system}/sign-mirror.webp`, alt: "Sinalização em espelho Provence Raiz", caption: "Aplicação refletiva para ambientes de pausa e circulação." },
+          { src: `${system}/sign-directional.webp`, alt: "Placa direcional Provence Raiz", caption: "Orientação de fluxo com leitura imediata e acabamento editorial." },
+          { src: `${system}/sign-table.webp`, alt: "Sinalização de mesa Provence Raiz", caption: "Escala de mesa preservando hierarquia e identidade." },
+          { src: `${system}/sign-mini.webp`, alt: "Mini placa informativa Provence Raiz", caption: "Pequena sinalização para pontos de contato específicos." }
+        ]
+      },
+      {
+        id: "hospitalidade",
+        eyebrow: "Pontos de contato",
+        title: "Hospitalidade",
+        text: "Rótulos, embalagens, lembranças e pequenos objetos levam a identidade até o cuidado. A linguagem visual deixa a superfície e passa a participar do uso.",
+        statement: "Hospitalidade é identidade convertida em atenção.",
+        principles: ["Cuidado", "Objeto", "Materialidade", "Permanência"],
+        layout: "objects",
+        items: [
+          { src: `${system}/hospitality-gift-suite.webp`, alt: "Conjunto de lembranças Provence Raiz", caption: "Lembranças coordenadas como uma família de objetos." },
+          { src: `${system}/hospitality-envelope-card.webp`, alt: "Envelope de hospitalidade Provence Raiz", caption: "Envelope, selo e toile compondo uma experiência tátil." },
+          { src: `${system}/hospitality-bag.webp`, alt: "Embalagem de lembrança Provence Raiz", caption: "Embalagem leve com informação e acabamento controlados." },
+          { src: `${system}/hospitality-box-suite.webp`, alt: "Caixas de hospitalidade Provence Raiz", caption: "Sistema de caixas e cintas para diferentes escalas de presente." },
+          { src: `${system}/hospitality-bottle-label.webp`, alt: "Rótulo de hospitalidade Provence Raiz", caption: "Rótulo aplicado sem transformar o objeto em peça publicitária." },
+          { src: `${system}/hospitality-place-card.webp`, alt: "Cartão de hospitalidade Provence Raiz", caption: "Cartão de cuidado para acolher e orientar." },
+          { src: `${system}/hospitality-wrapped-box.webp`, alt: "Embalagem com monograma Provence Raiz", caption: "Monograma e papel como fecho silencioso da experiência." },
+          { src: `${system}/hospitality-gift-box.webp`, alt: "Caixa de lembrança Provence Raiz", caption: "Objeto de memória concebido para permanecer após o evento." },
+          { src: `${system}/hospitality-favor-bag.webp`, alt: "Sacola de lembrança Provence Raiz", caption: "Aplicação da identidade no gesto final de entrega." },
+          { src: `${base}/02_WEB/provence-raiz-bar-hospitalidade-toile-lavanda.jpg`, alt: "Bar de hospitalidade Provence Raiz com toile e lavanda", caption: "Hospitalidade ampliada para o ambiente: luz, serviço e permanência." }
+        ]
+      },
+      {
         id: "decoracao",
+        eyebrow: "Direção de decoração",
         title: "Decoração como linguagem física",
         text: "A decoração é apresentada como consequência do sistema: flor, luz, mobiliário, mural e escala constroem uma presença coerente em vez de uma estética solta.",
+        statement: "A arquitetura não é pano de fundo. É matéria viva da narrativa.",
+        principles: ["Volume natural", "Sombras reais", "Fluxo", "Convivência"],
         items: [
           { src: `${base}/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg`, alt: "Cerimônia Provence Raiz com altar, passarela e flores", caption: "A cerimônia organiza eixo, entrada e ponto focal." },
           { src: `${base}/03_REFINAMENTO/render-mesa-bolo-mural-toile-refinado.jpg`, alt: "Mesa de bolo com mural Toile de Jouy e arranjos Provence Raiz", caption: "Mural, mesa e flores como composição editorial." },
@@ -1340,8 +1473,11 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
       },
       {
         id: "detalhes",
+        eyebrow: "Resultado",
         title: "Detalhes, matéria e resultado final",
         text: "A leitura final acontece no detalhe: textura, haste, luz, cerâmica, papelaria, sombra, transparência e imperfeição controlada.",
+        statement: "Quando estratégia, identidade e espaço convergem, o projeto existe no mundo.",
+        principles: ["Coesão", "Presença", "Memória", "Execução"],
         items: [
           { src: `${base}/02_WEB/provence-raiz-estudo-floral-volume-natural.jpg`, alt: "Estudo floral de volume natural Provence Raiz", caption: "Flor como volume vivo, assimétrico e respirável." },
           { src: `${base}/02_WEB/provence-raiz-mesa-bolo-toile-lustres.jpg`, alt: "Mesa de bolo Provence Raiz com lustres e toile", caption: "Resultado final: memória gráfica convertida em ambiente." },
