@@ -3,30 +3,34 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { sistemaArticleCards } from "../src/sistemaArticleCards.js";
+import { casesData, featuredCases } from "../src/data/cases.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const publicDir = path.join(root, "public");
 
 const siteUrl = "https://paesconsultoria.com";
-const lastmod = "2026-07-13";
+const lastmod = "2026-07-14";
 
 const baseRoutes = [
   { path: "/", priority: "1.0", changefreq: "weekly" },
   { path: "/visao", priority: "0.9" },
   { path: "/cases", priority: "0.9" },
-  { path: "/case/case-12", priority: "0.9" },
-  { path: "/projetos/provence-raiz", priority: "0.8" },
   { path: "/sistema", priority: "0.9" },
   { path: "/contato", priority: "0.7" },
 ];
+
+const caseRoutes = casesData.map((caseItem) => ({
+  path: `/case/${caseItem.slug}`,
+  priority: caseItem.featured ? "0.9" : "0.8",
+}));
 
 const articleRoutes = sistemaArticleCards.map((article) => ({
   path: `/sistema/${article.slug}`,
   priority: "0.8",
 }));
 
-const allRoutes = [...baseRoutes, ...articleRoutes];
+const allRoutes = [...baseRoutes, ...caseRoutes, ...articleRoutes];
 
 const imageRoutes = [
   {
@@ -35,95 +39,36 @@ const imageRoutes = [
       {
         loc: "/images/13_VISAO/about-transition.png",
         title: "Samuel Carrera Paes | Paes Consultoria",
-        caption: "Imagem institucional associada a Samuel Carrera Paes, Paes Consultoria, direção criativa, imagem, espaço, eventos, varejo, cenografia e experiência física.",
+        caption: "Retrato institucional de Samuel Carrera Paes, diretor criativo e consultor criativo.",
       },
       {
         loc: "/images/00_LOGOS/logo-full-transparent.png",
         title: "Paes Consultoria",
-        caption: "Logo da Paes Consultoria associada ao portfólio oficial de Samuel Carrera Paes.",
+        caption: "Identidade oficial da Paes Consultoria, portfólio autoral de Samuel Carrera Paes.",
       },
+      ...featuredCases.map((caseItem) => ({
+        loc: caseItem.thumb,
+        title: caseItem.title,
+        caption: caseItem.originalDescription,
+      })),
     ],
   },
   {
     path: "/cases",
-    images: [
-      {
-        loc: "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_02.png",
-        title: "Val Fortunatto | Brand Transition",
-        caption: "Trabalho de Samuel Carrera Paes em direção criativa, curadoria, reposicionamento, imagem e varejo.",
-      },
-      {
-        loc: "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_01.png",
-        title: "Porti | Expansão Física e Cenografia",
-        caption: "Trabalho de Samuel Carrera Paes em visual merchandising, cenografia comercial, loja física, implantação e experiência de varejo.",
-      },
-      {
-        loc: "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_01.png",
-        title: "Paraíso Tropical | Varejo e Visual Merchandising",
-        caption: "Trabalho de Samuel Carrera Paes em campanha, produto, cor, vitrine, varejo e experiência física.",
-      },
-    ],
+    images: casesData.map((caseItem) => ({
+      loc: caseItem.thumb,
+      title: caseItem.title,
+      caption: caseItem.originalDescription,
+    })),
   },
-  {
-    path: "/case/case-12",
-    images: [
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg",
-        title: "Provence Raiz | Sistema Visual e Direção Criativa",
-        caption: "Case de Samuel Carrera Paes e Paes Consultoria em direção criativa, identidade visual, sistema visual, evento, cenografia, decoração e experiência.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg",
-        title: "Provence Raiz | Cerimônia e Arquitetura Cenográfica",
-        caption: "Direção criativa aplicada à cerimônia, altar, passarela, flor, luz e experiência física do projeto Provence Raiz.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-materia-textura-cores.jpg",
-        title: "Provence Raiz | Matéria, Textura e Cores",
-        caption: "Prancha editorial de sistema visual, paleta, materialidade e curadoria estética do case Provence Raiz.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/identity-brand-board.jpg",
-        title: "Provence Raiz | Identidade Visual",
-        caption: "Sistema de identidade visual dirigido por Samuel Carrera Paes com paleta, monograma, papelaria, ornamentos e materialidade.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/monogram-primary.jpg",
-        title: "Provence Raiz | Monograma Autoral",
-        caption: "Monograma e emblema desenvolvidos por Samuel Carrera Paes para o sistema visual Provence Raiz.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/paper-invitation.jpg",
-        title: "Provence Raiz | Papelaria e Convite",
-        caption: "Aplicação da identidade Provence Raiz em convite, papelaria e pontos de contato do evento.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/sign-welcome.jpg",
-        title: "Provence Raiz | Sinalização",
-        caption: "Sistema de sinalização do evento Provence Raiz integrado à arquitetura, à paisagem e à experiência.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/hospitality-toiletry-kit.jpg",
-        title: "Provence Raiz | Hospitalidade",
-        caption: "Identidade aplicada a lembranças, embalagens e objetos de hospitalidade do projeto Provence Raiz.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/pilastras-capa.webp",
-        title: "Provence Raiz | Pilastras Cenográficas",
-        caption: "Pilastras cenográficas independentes concebidas sob direção criativa de Samuel Carrera Paes para o projeto Provence Raiz.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/carretel-capa.webp",
-        title: "Provence Raiz | Luminária Carretel",
-        caption: "Luminária carretel cenográfica desenvolvida como artefato de luz, matéria e atmosfera para Provence Raiz.",
-      },
-      {
-        loc: "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/gaiola-capa.webp",
-        title: "Provence Raiz | Gaiola Cenográfica",
-        caption: "Gaiola cenográfica hexagonal com vidro texturizado, acabamento artesanal e luz quente no sistema Provence Raiz.",
-      },
-    ],
-  },
+  ...casesData.map((caseItem) => ({
+    path: `/case/${caseItem.slug}`,
+    images: caseItem.media.map((mediaItem) => ({
+      loc: mediaItem.src,
+      title: caseItem.title,
+      caption: mediaItem.caption,
+    })),
+  })),
   {
     path: "/sistema",
     images: [
@@ -135,7 +80,6 @@ const imageRoutes = [
     ],
   },
 ];
-
 function escapeXml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -199,6 +143,9 @@ function buildLlmsTxt() {
   const articleList = sistemaArticleCards
     .map((article) => `- ${article.editorialTitle}: ${siteUrl}/sistema/${article.slug}`)
     .join("\n");
+  const caseList = casesData
+    .map((caseItem) => `- ${caseItem.title}: ${siteUrl}/case/${caseItem.slug}`)
+    .join("\n");
 
   return `# Paes Consultoria / Samuel Carrera Paes
 
@@ -211,9 +158,11 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 - Inicio: ${siteUrl}
 - Minha Visao: ${siteUrl}/visao
 - Cases: ${siteUrl}/cases
-- Provence Raiz: ${siteUrl}/case/case-12
 - Sistema de Direcao Criativa: ${siteUrl}/sistema
 - Contato: ${siteUrl}/contato
+
+## Cases
+${caseList}
 
 ## Artigos
 ${articleList}

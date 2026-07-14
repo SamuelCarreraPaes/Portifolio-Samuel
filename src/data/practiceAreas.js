@@ -1,0 +1,91 @@
+export const practiceAreaCatalog = [
+  {
+    id: "direcao-criativa",
+    title: "Direção criativa",
+    description: "Conceito, repertório e decisões capazes de alinhar linguagem, contexto e execução.",
+    caseSlugs: [
+      "val-fortunatto-brand-transition",
+      "val-fortunatto-linho-produto-proprio",
+      "atelie-bambini-arquitetura-de-marca-infantil",
+      "r-lovers-calendario-comercial",
+      "porti-expansao-fisica-cenografia",
+      "hexa-copa-do-mundo-reserva",
+      "campanhas-collabs",
+      "rouge-gold-exposicao-premium",
+      "outerwear-hotspots-color-blocking",
+      "vintage-denim-capsula-heritage",
+      "paraiso-tropical-mata-atlantica",
+      "provence-raiz-sistema-visual",
+    ],
+  },
+  {
+    id: "identidade-sistemas-visuais",
+    title: "Identidade e sistemas visuais",
+    description: "Estruturas visuais consistentes para marcas e experiências reconhecíveis em diferentes escalas.",
+    caseSlugs: [
+      "val-fortunatto-brand-transition",
+      "val-fortunatto-linho-produto-proprio",
+      "atelie-bambini-arquitetura-de-marca-infantil",
+      "provence-raiz-sistema-visual",
+    ],
+  },
+  {
+    id: "campanhas-colaboracoes",
+    title: "Campanhas e colaborações",
+    description: "Narrativas que conectam cultura, produto e imagem sem apagar a identidade de cada universo.",
+    caseSlugs: [
+      "val-fortunatto-brand-transition",
+      "val-fortunatto-linho-produto-proprio",
+      "r-lovers-calendario-comercial",
+      "porti-expansao-fisica-cenografia",
+      "hexa-copa-do-mundo-reserva",
+      "campanhas-collabs",
+      "paraiso-tropical-mata-atlantica",
+    ],
+  },
+  {
+    id: "varejo-visual-merchandising",
+    title: "Varejo e visual merchandising",
+    description: "Curadoria, exposição e percurso orientados à atenção, ao desejo e à percepção de valor.",
+    caseSlugs: [
+      "val-fortunatto-brand-transition",
+      "val-fortunatto-linho-produto-proprio",
+      "atelie-bambini-arquitetura-de-marca-infantil",
+      "r-lovers-calendario-comercial",
+      "porti-expansao-fisica-cenografia",
+      "hexa-copa-do-mundo-reserva",
+      "campanhas-collabs",
+      "rouge-gold-exposicao-premium",
+      "outerwear-hotspots-color-blocking",
+      "vintage-denim-capsula-heritage",
+      "paraiso-tropical-mata-atlantica",
+    ],
+  },
+  {
+    id: "cenografia-experiencia-fisica",
+    title: "Cenografia e experiência física",
+    description: "Espaço, matéria e luz organizados como linguagem, percurso e memória.",
+    caseSlugs: [
+      "atelie-bambini-arquitetura-de-marca-infantil",
+      "r-lovers-calendario-comercial",
+      "porti-expansao-fisica-cenografia",
+      "hexa-copa-do-mundo-reserva",
+      "campanhas-collabs",
+      "rouge-gold-exposicao-premium",
+      "outerwear-hotspots-color-blocking",
+      "vintage-denim-capsula-heritage",
+      "paraiso-tropical-mata-atlantica",
+      "provence-raiz-sistema-visual",
+    ],
+  },
+  {
+    id: "eventos-hospitalidade",
+    title: "Eventos e hospitalidade",
+    description: "Atmosferas em que acolhimento, operação e identidade sustentam uma experiência completa.",
+    caseSlugs: ["provence-raiz-sistema-visual"],
+  },
+];
+
+export function getPracticeAreaById(areaId) {
+  return practiceAreaCatalog.find((area) => area.id === areaId) || null;
+}

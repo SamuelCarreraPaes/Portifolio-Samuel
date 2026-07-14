@@ -27,7 +27,7 @@ BANAL e Verde Burgo deixam de ser arquitetura pública principal nesta fase. O r
 | `/` | Início |
 | `/visao` | Visão criativa e posicionamento autoral |
 | `/cases` | Portfólio de trabalhos selecionados |
-| `/case/:id` | Detalhe de cada case |
+| `/case/:slug` | Detalhe canônico de cada case |
 | `/sistema` | Hub editorial dos artigos |
 | `/sistema/:slug` | Artigo individual |
 | `/contato` | Contato |
@@ -40,7 +40,7 @@ BANAL e Verde Burgo deixam de ser arquitetura pública principal nesta fase. O r
 | `/empresas/banal` | Cases |
 | `/verdeburgo` | Cases |
 | `/empresas/verde-burgo` | Cases |
-| `/projetos/provence-raiz` | Cases |
+| `/projetos/provence-raiz` | `/case/provence-raiz-sistema-visual` |
 | `/biblioteca` | Sistema |
 | `/biblioteca/:slug` | Sistema artigo equivalente |
 | `/ecossistema` | Visão |
@@ -75,3 +75,69 @@ BANAL e Verde Burgo deixam de ser arquitetura pública principal nesta fase. O r
 - URLs antigas não ficam em branco.
 - Sitemap não submete páginas de empresa como destino principal.
 - Indexação pública volta a privilegiar Samuel Carrera Paes e Paes Consultoria.
+
+## Reestruturação Integral Do Portfólio — 2026-07-14
+
+### Fonte Única De Verdade
+
+`src/data/cases.js` é o catálogo canônico dos 12 cases. A Home, a listagem, os filtros, as páginas individuais, o registro de SEO, o sitemap e o teste de fumaça passam a depender do mesmo contrato de dados.
+
+Cada case contém:
+
+- ID legado e slug canônico;
+- título, categoria e descrição editorial;
+- tags de filtro;
+- cliente apenas quando sustentado pelo arquivo existente;
+- papel, território e entregáveis;
+- contexto, desafio, abordagem e execução;
+- impacto qualitativo sem métrica inventada;
+- mídia com alt text e legenda;
+- canonical, descrição e imagem social;
+- estado interno de verificação.
+
+### Ordem Editorial
+
+1. Val Fortunatto — Brand Transition
+2. Val Fortunatto Linho — Produto Próprio
+3. Ateliê Bambini — Arquitetura de Marca Infantil
+4. R Lovers — Calendário Comercial
+5. PORTI — Expansão Física & Cenografia
+6. HEXA — Copa do Mundo · Reserva
+7. Campanhas & Collabs
+8. Rouge & Gold — Exposição Premium
+9. Outerwear — Hotspots & Color Blocking
+10. Vintage Denim — Cápsula Heritage
+11. Paraíso Tropical — Mata Atlântica
+12. Provence Raiz — Sistema Visual e Direção Criativa
+
+### Destaques Da Home
+
+1. PORTI
+2. Campanhas & Collabs
+3. Provence Raiz
+
+### Regras De Evidência
+
+- Não publicar ano, métrica, resultado quantitativo ou depoimento sem fonte documental.
+- Sínteses autorais são identificadas como leitura editorial, não como fala de cliente.
+- Campos desconhecidos ficam ausentes da interface.
+- Assets existentes são preservados; nenhum backup deve ser removido por esta entrega.
+
+### Arquitetura Da Experiência
+
+- Home: proposta, CTAs, três destaques, processo em seis etapas, áreas de atuação, entrada do Sistema e CTA final.
+- Portfólio: 12 cards, nove filtros acessíveis e estado de resultado anunciado.
+- Case genérico: hero, metadados confirmados, tese, narrativa, galeria, impacto qualitativo, contato e paginação.
+- Provence Raiz: mantém sua narrativa visual aprofundada e usa o mesmo contrato canônico.
+- Sistema: preserva seis artigos como hub intelectual.
+
+### SEO E Compatibilidade
+
+- Os 12 slugs canônicos entram em `src/seoRegistry.js`, `sitemap.xml`, `sitemap-images.xml` e `llms.txt`.
+- IDs antigos `/case/case-01` a `/case/case-12` continuam renderizando o conteúdo correto.
+- `/projetos/provence-raiz` continua aceito e aponta semanticamente para o novo canonical.
+- Case inexistente recebe `noindex, follow` e retorno útil.
+
+### Rollback
+
+Esta entrega está isolada na branch `codex/portfolio-integral-restructure`. O retorno seguro consiste em abandonar a branch ou reverter seu commit, sem excluir assets e backups não rastreados.

@@ -1,5 +1,5 @@
 // Núcleos estruturados da BANAL. Alguns registros são cases-mãe com desdobramentos internos.
-export const casesData = [
+const legacyCasesData = [
   {
     id: "case-01",
     number: "01",
@@ -439,6 +439,291 @@ export const casesData = [
     ]
   }
 ];
+
+export const featuredCaseSlugs = [
+  "porti-expansao-fisica-cenografia",
+  "campanhas-collabs",
+  "provence-raiz-sistema-visual",
+];
+
+export const caseFilterOptions = [
+  ["ALL", "Todos"],
+  ["BRANDING", "Branding"],
+  ["PRODUCT", "Produto"],
+  ["RETAIL", "Varejo"],
+  ["CAMPAIGN", "Campanha"],
+  ["COLLABORATION", "Colaboração"],
+  ["SCENOGRAPHY", "Cenografia"],
+  ["EVENT", "Evento"],
+  ["EXPERIENCE", "Experiência física"],
+];
+
+const caseDefinitions = [
+  {
+    id: "case-01",
+    slug: "val-fortunatto-brand-transition",
+    title: "Val Fortunatto — Brand Transition",
+    category: "Brand Transition",
+    originalDescription: "Uma transição de marca construída pela curadoria, pela imagem e pela sofisticação do desejo.",
+    tags: ["BRANDING", "RETAIL"],
+    execution: "A execução articula curadoria, styling e direção de imagem para apresentar produto, silhueta e textura dentro de uma leitura editorial coerente.",
+    publicImpact: "O projeto evidencia como uma transição de marca pode renovar desejo e percepção sem apagar os códigos que já sustentam reconhecimento.",
+  },
+  {
+    id: "case-02",
+    slug: "val-fortunatto-linho-produto-proprio",
+    title: "Val Fortunatto Linho — Produto Próprio",
+    category: "Desenvolvimento de Coleção",
+    originalDescription: "Quando uma multimarca transforma confiança em produto próprio.",
+    tags: ["PRODUCT", "BRANDING"],
+    execution: "Produto, tecido, styling e campanha são organizados como uma mesma assinatura, permitindo que a cápsula seja lida como extensão do olhar da marca.",
+    publicImpact: "O case demonstra a passagem da curadoria para a autoria: a confiança construída pela multimarca se converte em linguagem própria de produto.",
+  },
+  {
+    id: "case-03",
+    slug: "atelie-bambini-arquitetura-de-marca-infantil",
+    title: "Ateliê Bambini — Arquitetura de Marca Infantil",
+    category: "Brand Creation",
+    originalDescription: "A construção de um novo universo para a infância contemporânea.",
+    tags: ["BRANDING", "EXPERIENCE"],
+    execution: "Identidade, materialidade e narrativa espacial trabalham juntas para construir uma experiência infantil sensível, tátil e distante dos códigos visuais mais previsíveis.",
+    publicImpact: "A proposta torna legível um território infantil premium baseado em cuidado, materialidade e memória, em vez de excesso temático.",
+  },
+  {
+    id: "case-04",
+    slug: "r-lovers-calendario-comercial",
+    title: "R Lovers — Calendário Comercial",
+    category: "Retail Campaign",
+    originalDescription: "A arquitetura afetiva da conversão orientada por produtos-chave.",
+    tags: ["CAMPAIGN", "RETAIL"],
+    execution: "Vitrine, styling e exposição concentram atenção em produtos-chave, traduzindo uma data afetiva em percurso comercial sem recorrer a decoração literal.",
+    publicImpact: "O projeto apresenta o calendário comercial como estrutura de narrativa e escolha, não apenas como tema sazonal aplicado ao espaço.",
+  },
+  {
+    id: "case-05",
+    slug: "porti-expansao-fisica-cenografia",
+    title: "PORTI — Expansão Física & Cenografia",
+    category: "Store Experience",
+    originalDescription: "A construção física, técnica e cenográfica de uma marca em expansão.",
+    tags: ["SCENOGRAPHY", "RETAIL", "EXPERIENCE"],
+    featuredOrder: 1,
+    execution: "Layout, implantação visual e cenografia sazonal são tratados como partes de um mesmo sistema, conectando presença de marca, leitura de produto e operação de loja.",
+    publicImpact: "O case demonstra como expansão física exige coerência entre comunicação, espaço, montagem e manutenção da experiência no uso cotidiano.",
+  },
+  {
+    id: "case-06",
+    slug: "hexa-copa-do-mundo-reserva",
+    title: "HEXA — Copa do Mundo · Reserva",
+    category: "Campanha Sazonal",
+    originalDescription: "A tradução do imaginário do futebol brasileiro para o varejo contemporâneo.",
+    tags: ["CAMPAIGN", "RETAIL"],
+    execution: "Produto, styling e exposição transformam referências culturais do futebol em uma composição compatível com a linguagem contemporânea da marca.",
+    publicImpact: "A campanha mostra como um imaginário popular pode ser traduzido com clareza e controle, preservando energia cultural e percepção de valor.",
+  },
+  {
+    id: "case-07",
+    slug: "campanhas-collabs",
+    title: "Campanhas & Collabs",
+    category: "Brand Collaboration",
+    originalDescription: "A complexa fusão de universos de marca, cultura e entretenimento no varejo físico.",
+    tags: ["COLLABORATION", "CAMPAIGN", "RETAIL"],
+    featuredOrder: 2,
+    execution: "Cada colaboração recebe uma chave visual própria, enquanto curadoria, produto, espaço e comunicação preservam legibilidade dentro do repertório da marca anfitriã.",
+    publicImpact: "O conjunto evidencia a direção criativa como mediação entre universos distintos: cultura, entretenimento, produto e varejo passam a operar sem perder identidade.",
+  },
+  {
+    id: "case-08",
+    slug: "rouge-gold-exposicao-premium",
+    title: "Rouge & Gold — Exposição Premium",
+    category: "Retail Strategy",
+    originalDescription: "Reestruturação estratégica da leitura visual por meio de cor e cenografia de luz.",
+    tags: ["RETAIL", "EXPERIENCE"],
+    execution: "Color blocking, iluminação e composição expositiva organizam zonas de atenção, contraste e pausa para que a leitura da loja ganhe hierarquia.",
+    publicImpact: "O case apresenta cor e luz como instrumentos de estratégia comercial capazes de alterar a percepção do produto e do ambiente.",
+  },
+  {
+    id: "case-09",
+    slug: "outerwear-hotspots-color-blocking",
+    title: "Outerwear — Hotspots & Color Blocking",
+    category: "Comportamento de Consumo",
+    originalDescription: "Construir pontos de calor visual para fazer o cliente parar, olhar e desejar.",
+    tags: ["RETAIL", "PRODUCT", "EXPERIENCE"],
+    execution: "A exposição concentra cor, volume e repetição em pontos de calor visual, criando interrupções conscientes no percurso e aproximando produto e comportamento.",
+    publicImpact: "O estudo demonstra como a arquitetura da atenção pode transformar categorias de produto em pontos de desejo dentro do fluxo de loja.",
+  },
+  {
+    id: "case-10",
+    slug: "vintage-denim-capsula-heritage",
+    title: "Vintage Denim — Cápsula Heritage",
+    category: "Cenografia de Produto",
+    originalDescription: "Uma cápsula de produto transformada em ambiente autêntico de memória e coleção.",
+    tags: ["SCENOGRAPHY", "PRODUCT", "RETAIL"],
+    execution: "Atmosfera, props, textura e exposição constroem uma cena de memória capaz de sustentar a narrativa heritage sem competir com o produto.",
+    publicImpact: "O projeto revela como cenografia e materialidade podem ampliar o valor percebido de uma cápsula ao criar contexto, continuidade e permanência.",
+  },
+  {
+    id: "case-11",
+    slug: "paraiso-tropical-mata-atlantica",
+    title: "Paraíso Tropical — Mata Atlântica",
+    category: "Lançamento de Coleção",
+    originalDescription: "A força gráfica da Mata Atlântica como contraponto inteligente ao verão óbvio.",
+    tags: ["CAMPAIGN", "PRODUCT", "RETAIL"],
+    execution: "Styling, vitrine e cenografia fazem da Mata Atlântica uma estrutura gráfica para apresentar a coleção sem repetir os códigos tropicais mais óbvios.",
+    publicImpact: "O lançamento mostra como repertório ambiental e direção visual podem construir uma leitura de verão mais densa, urbana e reconhecível.",
+  },
+  {
+    id: "case-12",
+    slug: "provence-raiz-sistema-visual",
+    title: "Provence Raiz — Sistema Visual e Direção Criativa",
+    category: "Evento como Sistema Visual",
+    originalDescription: "Um evento tratado como sistema de linguagem: identidade, atmosfera, arquitetura, matéria, flor e experiência trabalhando como uma comunicação 360 graus.",
+    tags: ["EVENT", "SCENOGRAPHY", "EXPERIENCE", "BRANDING"],
+    featuredOrder: 3,
+    execution: "Identidade, papelaria, sinalização, hospitalidade, arquitetura cenográfica, flor e luz são coordenadas como pontos de contato de uma mesma experiência.",
+    publicImpact: "O case demonstra como um evento pode ultrapassar a decoração isolada e operar como sistema visual, espacial e sensorial com continuidade entre intenção e execução.",
+  },
+];
+
+const executionById = Object.fromEntries(caseDefinitions.map((item) => [item.id, item.execution]));
+const publicImpactById = Object.fromEntries(caseDefinitions.map((item) => [item.id, item.publicImpact]));
+
+const provenceRawCase = {
+  id: "case-12",
+  number: "12",
+  title: "Provence Raiz — Sistema Visual e Direção Criativa",
+  client: "Provence Raiz / Verde Burgo Eventos",
+  role: "Direção Criativa",
+  territory: "Evento como Sistema Visual",
+  deliverables: "Identidade, Cenografia, Papelaria, Sinalização, Hospitalidade",
+  directorsNote: "Uma festa ganha identidade quando cada ponto de contato sustenta a mesma atmosfera, do convite à memória final.",
+  thumb: "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg",
+  caseDepth: {
+    title: "Evento como linguagem 360 graus.",
+    intro: "Provence Raiz trata uma celebração como sistema de linguagem. A direção criativa conecta identidade, atmosfera, arquitetura, matéria, flor, papelaria, sinalização e hospitalidade para que cada ponto de contato participe da mesma experiência.",
+  },
+  blocks: [
+    ["Contexto", "O projeto parte de uma celebração real e da necessidade de transformar referências afetivas, repertório provençal e operação de evento em uma presença física coerente."],
+    ["Desafio", "O desafio era construir uma identidade reconhecível sem reduzir a experiência a uma estampa ou a uma decoração temática, articulando escalas gráficas, espaciais e operacionais."],
+    ["Abordagem", "A direção organiza um sistema 70/30, com base clara e quente, azul como ritmo, toile autoral, matéria natural, volume floral, luz e artefatos cenográficos trabalhando em continuidade."],
+  ],
+  gallery: [
+    "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg",
+    "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg",
+    "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-mesa-bolo-mural-toile-refinado.jpg",
+    "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-escada-cascata-floral-refinado.jpg",
+    "/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/identity-brand-board.jpg",
+    "/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/pilastras-capa.webp",
+  ],
+};
+
+const allRawCases = [...legacyCasesData, provenceRawCase];
+
+function splitDeliverables(value = "") {
+  return value.split(",").map((item) => item.trim()).filter(Boolean);
+}
+
+function buildMedia(rawCase) {
+  const sources = [...new Set([rawCase.thumb, ...(rawCase.gallery || [])].filter(Boolean))];
+  return sources.map((src, index) => ({
+    src,
+    alt: `${rawCase.title}: registro visual ${String(index + 1).padStart(2, "0")}`,
+    caption: index === 0 ? `Imagem principal do projeto ${rawCase.title}.` : `Desdobramento visual do projeto ${rawCase.title}.`,
+    kind: "image",
+  }));
+}
+
+export const casesData = caseDefinitions.map((definition, index) => {
+  const rawCase = allRawCases.find((item) => item.id === definition.id);
+  if (!rawCase) throw new Error(`Case sem fonte de conteúdo: ${definition.id}`);
+
+  const deliverables = splitDeliverables(rawCase.deliverables);
+  const summary = rawCase.caseDepth?.intro || definition.originalDescription;
+  const context = rawCase.blocks?.[0]?.[1] || summary;
+  const challenge = rawCase.blocks?.[1]?.[1] || definition.originalDescription;
+  const approach = rawCase.blocks?.[2]?.[1] || summary;
+  const featuredOrder = definition.featuredOrder || null;
+  const media = buildMedia(rawCase);
+
+  return {
+    id: definition.id,
+    legacyId: definition.id,
+    number: String(index + 1).padStart(2, "0"),
+    slug: definition.slug,
+    title: definition.title,
+    shortTitle: definition.title.split("—")[0].trim(),
+    category: definition.category,
+    originalDescription: definition.originalDescription,
+    shortTese: definition.originalDescription,
+    featured: featuredOrder !== null,
+    featuredOrder,
+    client: definition.id === "case-07" ? null : rawCase.client || null,
+    year: null,
+    role: rawCase.role || "Direção Criativa",
+    territory: definition.category,
+    summary,
+    strategicThesis: rawCase.caseDepth?.title || definition.originalDescription,
+    narrative: {
+      context,
+      challenge,
+      approach,
+      execution: executionById[definition.id],
+    },
+    deliverables,
+    services: [rawCase.role, ...deliverables].filter(Boolean),
+    tags: definition.tags,
+    filterTags: definition.tags,
+    impact: {
+      publicText: publicImpactById[definition.id],
+      verifiedMetrics: [],
+      metricsToValidate: [],
+    },
+    quote: {
+      type: "editorial_synthesis",
+      text: rawCase.directorsNote,
+    },
+    directorsNote: rawCase.directorsNote,
+    media,
+    thumb: media[0]?.src || null,
+    gallery: media.slice(1).map((item) => item.src),
+    blocks: [
+      ["Contexto", context],
+      ["Desafio", challenge],
+      ["Abordagem", approach],
+      ["Execução", executionById[definition.id]],
+    ],
+    seo: {
+      title: definition.title,
+      description: definition.originalDescription,
+      canonicalPath: `/case/${definition.slug}`,
+      ogImage: media[0]?.src,
+      noindex: false,
+    },
+    verification: {
+      client: rawCase.client && definition.id !== "case-07" ? "verified" : "unknown",
+      year: "unknown",
+      narrative: "needs_validation",
+      impact: "needs_validation",
+      testimonial: "unknown",
+      internalNotes: ["Ano, métricas, resultados e depoimentos permanecem omitidos até comprovação documental."],
+    },
+  };
+});
+
+export const featuredCases = featuredCaseSlugs.map((slug) => casesData.find((item) => item.slug === slug));
+
+export function getCaseByRouteKey(routeKey) {
+  return casesData.find((item) => item.slug === routeKey || item.legacyId === routeKey) || null;
+}
+
+export function validateCaseCatalog() {
+  const slugs = casesData.map((item) => item.slug);
+  return {
+    count: casesData.length,
+    uniqueSlugs: new Set(slugs).size === slugs.length,
+    featuredOrder: featuredCases.map((item) => item?.slug),
+    hasUnverifiedPublicMetrics: casesData.some((item) => item.impact.verifiedMetrics.length > 0),
+  };
+}
 
 export const banalCaseGroups = [
   {

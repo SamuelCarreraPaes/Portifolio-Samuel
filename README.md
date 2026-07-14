@@ -20,7 +20,7 @@ A arquitetura pública de empresas, com BANAL e Verde Burgo como páginas protag
 | `/empresas/banal` | `/cases` |
 | `/verdeburgo` | `/cases` |
 | `/empresas/verde-burgo` | `/cases` |
-| `/projetos/provence-raiz` | `/cases` |
+| `/projetos/provence-raiz` | `/case/provence-raiz-sistema-visual` |
 | `/biblioteca` | `/sistema` |
 | `/biblioteca/:slug` | `/sistema/:slug` |
 | `/ecossistema` | `/visao` |
@@ -43,6 +43,16 @@ npm run lint
 npm run build
 npm run dev
 ```
+
+## Catálogo De Cases
+
+Os 12 cases públicos são definidos uma única vez em `src/data/cases.js`. O módulo concentra título, slug, categoria, descrição, tags, narrativa, entregáveis, impacto qualitativo, mídia e metadados de SEO.
+
+- URLs canônicas: `/case/:slug`
+- Compatibilidade mantida: `/case/case-01` até `/case/case-12`
+- Destaques da Home: PORTI, Campanhas & Collabs e Provence Raiz
+- Métricas, anos e depoimentos permanecem omitidos enquanto não houver comprovação documental
+- `npm run smoke` valida quantidade, slugs, ordem dos destaques, rotas e sitemap
 
 ## SEO
 
@@ -74,6 +84,8 @@ Arquivos principais:
 - `public/sitemap-images.xml`
 - `src/seoData.js`
 - `src/seoRegistry.js`
+- `src/data/cases.js`
+- `scripts/generate-seo-assets.mjs`
 
 ## Regras De Segurança
 

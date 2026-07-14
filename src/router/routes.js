@@ -9,7 +9,7 @@ export const publicRouteDefinitions = [
   { id: "empresas/banal", path: "/empresas/banal", canonical: "/cases", area: "portfolio", component: "Cases", legacyCompatible: true },
   { id: "verdeburgo", path: "/verdeburgo", canonical: "/cases", area: "portfolio", component: "Cases", legacyCompatible: true },
   { id: "empresas/verde-burgo", path: "/empresas/verde-burgo", canonical: "/cases", area: "portfolio", component: "Cases", legacyCompatible: true },
-  { id: "projetos/provence-raiz", path: "/projetos/provence-raiz", canonical: "/case/case-12", area: "portfolio", component: "CaseDetail", legacyCompatible: true },
+  { id: "projetos/provence-raiz", path: "/projetos/provence-raiz", canonical: "/case/provence-raiz-sistema-visual", area: "portfolio", component: "CaseDetail", legacyCompatible: true },
   { id: "biblioteca", path: "/biblioteca", canonical: "/sistema", area: "sistema", component: "Sistema", legacyCompatible: true },
   { id: "sistema", path: "/sistema", canonical: "/sistema", area: "sistema", component: "Sistema", legacyCompatible: false },
   { id: "biblioteca/geracao-dos-realizadores", path: "/biblioteca/geracao-dos-realizadores", canonical: "/sistema", area: "sistema", component: "Sistema", legacyCompatible: true },

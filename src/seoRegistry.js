@@ -1,9 +1,15 @@
+import { casesData } from "./data/cases.js";
+
 export const strategicSeoRoutes = [
   { route: "inicio", title: "Paes Consultoria | Samuel Carrera Paes — Direção Criativa", schemaType: "WebPage" },
   { route: "sobre/samuel-carrera-paes", title: "Samuel Carrera Paes | Direção Criativa e Consultoria Criativa", schemaType: "ProfilePage" },
   { route: "visao", title: "Minha Visão", schemaType: "WebPage" },
   { route: "cases", title: "Portfólio de Trabalhos", schemaType: "CollectionPage" },
-  { route: "case/case-12", title: "Provence Raiz — Sistema Visual e Direção Criativa", schemaType: "CreativeWork" },
+  ...casesData.map((caseItem) => ({
+    route: `case/${caseItem.slug}`,
+    title: caseItem.title,
+    schemaType: "CreativeWork",
+  })),
   { route: "sistema", title: "Sistema de Direção Criativa", schemaType: "CollectionPage" },
   { route: "contato", title: "Contato", schemaType: "WebPage" },
 ];
@@ -16,7 +22,7 @@ export const seoAliasCanonicals = {
   "empresas/banal": "cases",
   verdeburgo: "cases",
   "empresas/verde-burgo": "cases",
-  "projetos/provence-raiz": "case/case-12",
+  "projetos/provence-raiz": "case/provence-raiz-sistema-visual",
   biblioteca: "sistema",
   "biblioteca/geracao-dos-realizadores": "sistema",
 };
