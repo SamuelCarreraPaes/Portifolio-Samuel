@@ -750,7 +750,7 @@ header .navbar-logo-final {
 
 .sp-system-entry__intro h2 {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  font-size: clamp(2.35rem, 5vw, 4.25rem);
   font-weight: 400;
   line-height: 0.94;
   max-width: 10ch;
