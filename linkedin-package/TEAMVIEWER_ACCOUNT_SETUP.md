@@ -16,6 +16,12 @@ Foi criado um atalho local na área de trabalho:
 C:\Users\samue\Desktop\TeamViewer - LinkedIn Seguro.lnk
 ```
 
+Também foi criada uma cópia no Menu Iniciar:
+
+```text
+C:\Users\samue\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\TeamViewer - LinkedIn Seguro.lnk
+```
+
 Destino:
 
 ```text
