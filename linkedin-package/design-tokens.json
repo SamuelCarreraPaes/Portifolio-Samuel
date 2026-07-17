@@ -1,0 +1,55 @@
+{
+  "primitive": {
+    "color": {
+      "paper": "#f3eee7",
+      "paperSoft": "#fffaf2",
+      "ink": "#111111",
+      "muted": "#6f6a62",
+      "green": "#263d32",
+      "copper": "#8a5a38",
+      "blue": "#245071",
+      "dark": "#11100e"
+    },
+    "space": {
+      "100": 8,
+      "200": 16,
+      "300": 24,
+      "400": 32,
+      "500": 48
+    },
+    "type": {
+      "serif": "Georgia, Times New Roman, serif",
+      "sans": "Arial, sans-serif"
+    },
+    "radius": {
+      "small": 2,
+      "medium": 6
+    }
+  },
+  "semantic": {
+    "color": {
+      "background": "{primitive.color.paper}",
+      "text": "{primitive.color.ink}",
+      "muted": "{primitive.color.muted}",
+      "action": "{primitive.color.green}"
+    }
+  },
+  "component": {
+    "linkedinProfileBanner": {
+      "width": 1584,
+      "height": 396
+    },
+    "linkedinCompanyCover": {
+      "width": 1128,
+      "height": 191
+    },
+    "postSquare": {
+      "width": 1200,
+      "height": 1200
+    },
+    "carouselPage": {
+      "width": 1080,
+      "height": 1350
+    }
+  }
+}
