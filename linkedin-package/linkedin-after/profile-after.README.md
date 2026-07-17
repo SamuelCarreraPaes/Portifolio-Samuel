@@ -1,30 +1,21 @@
-# LinkedIn — Estado Real Após Aplicação
+# LinkedIn - Estado Pos-Aplicacao
 
-Este arquivo substitui o uso prematuro de `profile-after.md`.
+O arquivo `profile-after.md` agora representa o estado real validado apos a aplicacao no LinkedIn.
 
-## Status atual
+## Fonte de verdade
 
-O perfil público do LinkedIn ainda não teve a aplicação confirmada por verificação pós-salvamento.
+- Antes: `linkedin-package/linkedin-before/profile-before.md`
+- Depois: `linkedin-package/linkedin-after/profile-after.md`
+- Registro operacional: `linkedin-package/linkedin-after/change-log.md`
 
-Por esse motivo, o estado final real **não deve ser documentado como `profile-after.md` ainda**.
+## Status
 
-## Fonte de verdade para aplicação
+Aplicacao concluida e validada em 2026-07-17.
 
-Use:
+## Validacao realizada
 
-- `linkedin-package/linkedin-target-state.md`
-- `linkedin-package/linkedin-apply-approved.txt`
-- `linkedin-package/linkedin-after/manual-application-guide.md`
-
-## Quando criar `profile-after.md`
-
-Crie `profile-after.md` somente depois que:
-
-1. a alteração for salva no LinkedIn;
-2. o perfil público for recarregado;
-3. o valor persistido for conferido;
-4. o editor for reaberto;
-5. o valor for conferido novamente;
-6. o changelog registrar data, hora, antes, depois e evidência de validação.
-
-Até lá, qualquer texto final é apenas estado-alvo, não estado aplicado.
+- perfil publico recarregado;
+- editor de introducao reaberto;
+- editor de Sobre reaberto;
+- titulo e Sobre conferidos contra os textos aprovados;
+- nenhuma area sensivel alterada.

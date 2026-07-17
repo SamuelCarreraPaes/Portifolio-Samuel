@@ -1,15 +1,15 @@
-# LinkedIn — Change Log de Aplicação
+# LinkedIn - Change Log de Aplicacao
 
-Data do registro: 2026-07-17 11:34:07 -03:00
+Data do registro: 2026-07-17 18:13:05 -03:00
 
 ## Objetivo
 
 Aplicar no perfil pessoal do LinkedIn de Samuel Paes a narrativa aprovada no pacote `linkedin-package`, alinhando o perfil ao ecossistema Paes Consultoria:
 
 - Samuel Carrera Paes como diretor criativo e consultor criativo;
-- portfólio como sistema autoral amplo;
-- atuação entre marca, varejo, eventos, imagem, espaço, produto e experiência física;
-- conexão pública com `https://paesconsultoria.com`.
+- portfolio como sistema autoral amplo;
+- atuacao entre marca, varejo, eventos, imagem, espaco, produto e experiencia fisica;
+- conexao publica com `https://paesconsultoria.com`.
 
 ## Perfil alvo
 
@@ -21,62 +21,78 @@ Arquivo de backup:
 
 `linkedin-package/linkedin-before/profile-before.md`
 
-## Tentativa assistida
+## Aplicacao realizada
 
-Foi iniciada aplicação assistida via navegador autenticado, com autorização explícita do usuário.
+Aplicacao realizada no navegador interno autenticado do LinkedIn, com confirmacao explicita do usuario:
 
-A automação local conseguiu:
+`confirmo salvar no linkedin, ja li tudo, absolutamente todos os textos aprovados`
 
-- abrir o perfil pessoal;
-- identificar o campo de edição da introdução;
-- identificar o título atual;
-- preparar o novo título aprovado.
+Campos alterados:
 
-A aplicação não foi concluída porque o editor rico do LinkedIn anexou texto em vez de substituir o conteúdo e, em seguida, as pontes de navegador ficaram instáveis durante a navegação. Para evitar salvar um campo duplicado ou corrompido em um perfil público, a operação foi interrompida antes da confirmação final.
+- `Titulo`
+- `Sobre`
 
-## Resultado
+Campos nao alterados:
 
-Aplicação pública não confirmada.
+- nome;
+- sobrenome;
+- pronomes;
+- cargo atual;
+- setor;
+- formacao;
+- informacoes de contato;
+- URL publica;
+- senha, privacidade, 2FA ou verificacao;
+- posts, mensagens, conexoes, convites ou reacoes.
 
-Nenhuma confirmação confiável de salvamento foi obtida.
-
-O arquivo anteriormente nomeado como `profile-after.md` foi substituído por `profile-after.README.md`, porque `profile-after.md` deve representar somente o estado real depois de salvar e verificar o perfil público.
-
-O texto aprovado para aplicação passa a ficar em:
-
-- `linkedin-package/linkedin-target-state.md`
-- `linkedin-package/linkedin-apply-approved.txt`
-
-## Pré-voo Computer Use / TeamViewer
-
-Computer Use foi inicializado e o TeamViewer foi aberto localmente.
-
-Status: TeamViewer pronto para conexão, mas sem sessão remota ativa.
-
-Registro sem dados sensíveis:
-
-`linkedin-package/linkedin-after/computer-use-preflight.md`
-
-## Próxima ação recomendada
-
-Aplicar manualmente ou repetir a aplicação assistida por Computer Use em uma sessão visual estável, usando exatamente os textos de:
-
-`linkedin-package/linkedin-apply-approved.txt`
-
-## Critérios de aceite
-
-- Título profissional atualizado para:
+## Titulo aplicado
 
 ```text
-Samuel Carrera Paes | Direção criativa para marcas, varejo, eventos e sistemas visuais
+Samuel Carrera Paes | Direcao criativa para marcas, varejo, eventos e sistemas visuais
 ```
 
-- Sobre atualizado com o texto aprovado completo.
-- Sem duplicação de título.
-- Sem alteração em senha, privacidade, contato, URL pública, posts ou conexões.
+## Sobre aplicado
 
-## Reversão
+```text
+Sou Samuel Carrera Paes, diretor criativo e consultor criativo.
 
-Se for necessário reverter, usar os campos salvos no backup:
+Meu trabalho investiga uma pergunta simples e exigente: como uma intencao se transforma em presenca real?
+
+Atuo na intersecao entre imagem, marca, espaco, varejo, eventos, produto, narrativa e experiencia fisica. A partir da Paes Consultoria, organizo projetos, sistemas visuais e pensamento autoral para que marcas e experiencias deixem de depender apenas de estetica e passem a sustentar linguagem, percepcao e operacao.
+
+O portfolio reune trabalhos de direcao criativa, visual merchandising, campanhas, colaboracoes, cenografia, identidade aplicada a eventos e sistemas de presenca. A Biblioteca aprofunda essa visao em artigos sobre leitura de marca, curadoria de produto, narrativa espacial, construcao de percepcao, operacao criativa e experiencia fisica.
+
+Meu foco nao e apenas fazer um projeto parecer melhor. E construir a logica que faz ele ser percebido com mais clareza, desejo e continuidade.
+
+Portfolio: https://paesconsultoria.com
+```
+
+## Validacao
+
+Verificacoes realizadas apos salvamento:
+
+- perfil publico recarregado em `https://www.linkedin.com/in/samuel-paes-54143a173/`;
+- novo titulo encontrado no perfil publico;
+- inicio do novo Sobre encontrado no perfil publico;
+- link `paesconsultoria.com` encontrado no perfil publico;
+- editor de introducao reaberto e conferido;
+- editor de Sobre reaberto e conferido;
+- valor do campo `Titulo` no editor igual ao texto aprovado;
+- valor do campo `Sobre` no editor igual ao texto aprovado;
+- titulo antigo nao encontrado na validacao final do perfil publico.
+
+Resultado: aplicacao confirmada.
+
+## Evidencia operacional
+
+O LinkedIn exibiu confirmacoes de salvamento durante o processo:
+
+- `Introducao salva`
+- `Sua secao Sobre foi atualizada`
+- `O item foi salvo`
+
+## Reversao
+
+Se for necessario reverter, usar os campos salvos no backup:
 
 `linkedin-package/linkedin-before/profile-before.md`
