@@ -50,6 +50,8 @@ Não pode:
 
 Antes de editar:
 
+- Abrir o launcher dedicado:
+  `C:\Users\samue\Desktop\TeamViewer - LinkedIn Seguro.lnk`.
 - TeamViewer ou Chrome está aberto e respondendo.
 - LinkedIn está autenticado.
 - Perfil correto está aberto: `https://www.linkedin.com/in/samuel-paes-54143a173/`.
