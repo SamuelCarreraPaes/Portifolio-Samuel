@@ -22,6 +22,28 @@ Também foi criada uma cópia no Menu Iniciar:
 C:\Users\samue\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\TeamViewer - LinkedIn Seguro.lnk
 ```
 
+Além do launcher simples do TeamViewer, existe um launcher operacional completo:
+
+```text
+linkedin-package\tools\Start-LinkedIn-TeamViewer-Flow.ps1
+```
+
+Ele abre:
+
+- TeamViewer;
+- texto aprovado do LinkedIn;
+- protocolo de aplicação;
+- perfil público correto no Chrome.
+
+Esse launcher não armazena credenciais, ID, senha, 2FA ou código de sessão.
+
+Atalhos criados:
+
+```text
+C:\Users\samue\Desktop\Paes LinkedIn - Abrir Ambiente Seguro.lnk
+C:\Users\samue\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Paes LinkedIn - Abrir Ambiente Seguro.lnk
+```
+
 Destino:
 
 ```text
