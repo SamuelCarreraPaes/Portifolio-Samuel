@@ -1,25 +1,7 @@
-# LinkedIn — Perfil Depois / Aplicação Aprovada
-
-Data do registro: 2026-07-17 11:34:07 -03:00
-
-## Status
-
-Aplicação pública no LinkedIn ainda não confirmada.
-
-O texto abaixo é a versão aprovada para aplicação no perfil pessoal:
-
-Perfil alvo:
-https://www.linkedin.com/in/samuel-paes-54143a173/
-
-## Campo: Título
-
-```text
+[HEADLINE]
 Samuel Carrera Paes | Direção criativa para marcas, varejo, eventos e sistemas visuais
-```
 
-## Campo: Sobre
-
-```text
+[SOBRE]
 Sou Samuel Carrera Paes, diretor criativo e consultor criativo.
 
 Meu trabalho investiga uma pergunta simples e exigente: como uma intenção se transforma em presença real?
@@ -31,28 +13,14 @@ O portfólio reúne trabalhos de direção criativa, visual merchandising, campa
 Meu foco não é apenas fazer um projeto parecer melhor. É construir a lógica que faz ele ser percebido com mais clareza, desejo e continuidade.
 
 Portfólio: https://paesconsultoria.com
-```
 
-## Campos não alterados
-
-- E-mail
-- Telefone
-- Senha
-- Privacidade
-- URL pública
-- Conexões
-- Mensagens
-- Posts
-- Experiências profissionais
-- Formação
-- Competências
-- Banner e foto de perfil
-
-## Validação necessária
-
-Após aplicar no LinkedIn, validar visualmente:
-
-- O título aparece sem duplicação.
-- O campo Sobre aparece completo, com quebras de parágrafo.
-- O link `https://paesconsultoria.com` aparece no final do Sobre.
-- Nenhum outro campo do perfil foi alterado.
+[ESCOPO_NEGADO]
+- Não alterar senha.
+- Não alterar privacidade.
+- Não alterar e-mail.
+- Não alterar telefone.
+- Não alterar URL pública.
+- Não publicar posts.
+- Não enviar mensagens.
+- Não mexer em conexões.
+- Não alterar experiências, formação, competências ou datas sem aprovação específica.

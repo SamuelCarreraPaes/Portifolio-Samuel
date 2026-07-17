@@ -40,11 +40,28 @@ Aplicação pública não confirmada.
 
 Nenhuma confirmação confiável de salvamento foi obtida.
 
+O arquivo anteriormente nomeado como `profile-after.md` foi substituído por `profile-after.README.md`, porque `profile-after.md` deve representar somente o estado real depois de salvar e verificar o perfil público.
+
+O texto aprovado para aplicação passa a ficar em:
+
+- `linkedin-package/linkedin-target-state.md`
+- `linkedin-package/linkedin-apply-approved.txt`
+
+## Pré-voo Computer Use / TeamViewer
+
+Computer Use foi inicializado e o TeamViewer foi aberto localmente.
+
+Status: TeamViewer pronto para conexão, mas sem sessão remota ativa.
+
+Registro sem dados sensíveis:
+
+`linkedin-package/linkedin-after/computer-use-preflight.md`
+
 ## Próxima ação recomendada
 
-Aplicar manualmente ou repetir a aplicação assistida em uma sessão de navegador estável, usando exatamente os textos de:
+Aplicar manualmente ou repetir a aplicação assistida por Computer Use em uma sessão visual estável, usando exatamente os textos de:
 
-`linkedin-package/linkedin-after/profile-after.md`
+`linkedin-package/linkedin-apply-approved.txt`
 
 ## Critérios de aceite
 
