@@ -11,4 +11,5 @@ src/*.backup*
 src/*.bak*
 public/social/
 artifacts/
+output/
 public/images/14_VERDEBURGO/PROVENCE_RAIZ/04_PPTX_EXTRACTED/

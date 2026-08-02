@@ -46,6 +46,7 @@ const expectedCaseSlugs = [
   "vintage-denim-capsula-heritage",
   "paraiso-tropical-mata-atlantica",
   "provence-raiz-sistema-visual",
+  "showroom-alto-verao-2027",
 ];
 
 function check(name, condition, details = "") {
@@ -84,7 +85,7 @@ check("strategic SEO registry covers recovered routes", strategicSeoRoutes.some(
 check("sistema article cards available", sistemaArticleCards.length >= 6);
 
 const caseCatalog = validateCaseCatalog();
-check("case catalog has exactly 12 cases", caseCatalog.count === 12);
+check("case catalog count matches delivery contract", caseCatalog.count === expectedCaseSlugs.length);
 check("case catalog has unique slugs", caseCatalog.uniqueSlugs);
 check("case catalog has no unverified public metrics", !caseCatalog.hasUnverifiedPublicMetrics);
 check("case slugs match delivery contract", JSON.stringify(casesData.map((item) => item.slug)) === JSON.stringify(expectedCaseSlugs));

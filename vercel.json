@@ -17,6 +17,7 @@
     { "source": "/sistema/:slug", "destination": "/index.html" },
     { "source": "/atlas/samuel-carrera-paes", "destination": "/index.html" },
     { "source": "/servicos/:slug", "destination": "/index.html" },
+    { "source": "/entregas/showroom-av2027", "destination": "/index.html" },
     { "source": "/contato", "destination": "/index.html" }
   ]
 }

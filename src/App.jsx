@@ -3,13 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
 
 import { sistemaArticleCards } from "./sistemaArticleCards";
+import { deliveryPortal } from "./data/deliveries";
 import {
-  caseFilterOptions,
   casesData,
   featuredCases,
   getCaseByRouteKey,
 } from "./data/cases";
-import { getPracticeAreaById, practiceAreaCatalog } from "./data/practiceAreas";
+import { practiceAreaCatalog } from "./data/practiceAreas";
+import { ShowroomAv27CaseDetail } from "./components/ShowroomAv27CaseDetail";
 
 const homePortrait = "/images/13_VISAO/about-transition.png";
 
@@ -211,11 +212,17 @@ function handleShareIntent({ title = document.title, text = "Samuel Carrera Paes
 
 function Inicio({ navigate }) {
   const heroCase = featuredCases[0];
+  const heroCaseIndex = casesData.findIndex((c) => c.slug === heroCase.slug);
+  const heroCaseCounter = `${String(heroCaseIndex >= 0 ? heroCaseIndex + 1 : 1).padStart(2, "0")} / ${String(casesData.length).padStart(2, "0")}`;
   const homeFeaturedCases = [
     getCaseByRouteKey("provence-raiz-sistema-visual"),
     getCaseByRouteKey("val-fortunatto-brand-transition"),
     getCaseByRouteKey("campanhas-collabs"),
   ].filter(Boolean);
+  const homePracticeAreas = practiceAreaCatalog.map((area) => ({
+    ...area,
+    cases: area.caseSlugs.map((slug) => getCaseByRouteKey(slug)).filter(Boolean),
+  }));
 
   return (
     <PageTransition>
@@ -271,7 +278,7 @@ function Inicio({ navigate }) {
               fallbackLabel={heroCase.shortTitle}
               imageClassName="transition-transform duration-[1.2s] ease-out group-hover:scale-[1.02]"
             />
-            <span className="sp-home-hero__index">05 / 12</span>
+            <span className="sp-home-hero__index">{heroCaseCounter}</span>
             <span className="sp-home-hero__case">
               <small>Em foco · {heroCase.category}</small>
               <strong>{heroCase.shortTitle}</strong>
@@ -293,7 +300,7 @@ function Inicio({ navigate }) {
               <p className="sp-section-deck">Marca, espaço e experiência apresentados como matéria viva, não como uma galeria estática.</p>
             </div>
             <button type="button" onClick={() => navigate("cases")} className="sp-text-link">
-              Ver os 12 cases <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              Ver os {casesData.length} cases <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </button>
           </header>
 
@@ -301,7 +308,7 @@ function Inicio({ navigate }) {
             {homeFeaturedCases.map((c, index) => (
               <motion.article
                 key={c.slug}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 1, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.8, delay: index * 0.08, ease: PREMIUM_EASE }}
@@ -371,19 +378,34 @@ function Inicio({ navigate }) {
             </div>
             <p className="sp-section-deck">A direção muda de escala, mas preserva o mesmo compromisso: fazer cada escolha sustentar uma presença reconhecível.</p>
           </header>
-          <ul className="sp-practice__list">
-            {practiceAreaCatalog.map((area, index) => (
-              <li key={area.id}>
-                <button type="button" onClick={() => navigate(`cases?area=${area.id}`)} aria-label={`${area.title}: ver todos os cases relacionados`}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+          <div className="sp-practice__index">
+            {homePracticeAreas.map((area, index) => (
+              <article className="sp-practice-area" key={area.id}>
+                <span className="sp-practice-area__number">{String(index + 1).padStart(2, "0")}</span>
+                <div className="sp-practice-area__copy">
                   <h3>{area.title}</h3>
                   <p>{area.description}</p>
-                  <small>{area.caseSlugs.length} {area.caseSlugs.length === 1 ? "case publicado" : "cases publicados"}</small>
-                  <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="sp-practice-area__case-group">
+                  <span className="sp-practice-area__label">
+                    {area.cases.length === 1 ? "1 case relacionado" : `${area.cases.length} cases relacionados`}
+                  </span>
+                  <ul className="sp-practice-area__cases" aria-label={`Cases relacionados a ${area.title}`}>
+                    {area.cases.map((caseItem) => (
+                      <li key={caseItem.slug}>
+                        <button type="button" onClick={() => navigate(`case/${caseItem.slug}`)}>
+                          {caseItem.shortTitle || caseItem.title}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button type="button" onClick={() => navigate(`cases?area=${area.id}`)} className="sp-practice-area__all">
+                  Ver recorte <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </button>
-              </li>
+              </article>
             ))}
-          </ul>
+          </div>
         </section>
 
         <section className="sp-home-final-cta" aria-labelledby="final-cta-title">
@@ -486,195 +508,64 @@ function Visao() {
   );
 }
 
-function Cases({ navigate, initialArea }) {
-  const [activeFilter, setActiveFilter] = useState("ALL");
-  const [activeAreaId, setActiveAreaId] = useState(() => getPracticeAreaById(initialArea)?.id || null);
-  const activeArea = useMemo(() => getPracticeAreaById(activeAreaId), [activeAreaId]);
-
-  const filteredCases = useMemo(() => {
-    if (activeArea) {
-      return casesData.filter((c) => activeArea.caseSlugs.includes(c.slug));
-    }
-    if (activeFilter === "ALL") return casesData;
-    return casesData.filter((c) => c.filterTags.includes(activeFilter));
-  }, [activeArea, activeFilter]);
-
-  const replaceCasesUrl = (areaId = null) => {
-    const nextPath = areaId ? `/cases?area=${encodeURIComponent(areaId)}` : "/cases";
-    window.history.replaceState(null, "", nextPath);
-  };
-
-  const selectArea = (areaId) => {
-    setActiveAreaId(areaId);
-    setActiveFilter("ALL");
-    replaceCasesUrl(areaId);
-  };
-
-  const selectTag = (tag) => {
-    setActiveAreaId(null);
-    setActiveFilter(tag);
-    replaceCasesUrl();
-  };
-
+function Cases({ navigate }) {
   return (
     <PageTransition>
       <DynamicSEO
         title="Portfólio de presença construída"
-        description="Doze cases de Samuel Carrera Paes em direção criativa, branding, produto, varejo, campanhas, colaborações, cenografia, eventos e experiências físicas."
+        description={`${casesData.length} cases de Samuel Carrera Paes em direção criativa, branding, produto, varejo, campanhas, colaborações, cenografia, eventos e experiências físicas.`}
         url="cases"
         schemaType="CollectionPage"
       />
-      <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="cases-title">
-        <div id="cases-index" className="mb-40">
-          <header>
-            <span className="mb-12 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Doze projetos · um repertório em construção</span>
-            <h1 id="cases-title" className="mb-8 max-w-5xl font-serif text-5xl leading-[0.88] text-stone-950 text-balance md:text-[7rem]">
-              Portfólio de presença construída.
-            </h1>
-            <p className="mb-16 max-w-3xl text-lg font-light leading-relaxed text-stone-600 md:text-2xl">
-              Cases em que estratégia, estética, espaço e execução se encontram para transformar marca em experiência.
+      <section className="mx-auto max-w-[110rem] px-6 pt-16 lg:px-12" aria-labelledby="cases-title">
+        <div id="cases-index" className="mb-32">
+          <header className="sp-projects-hero">
+            <div>
+              <span className="sp-projects-eyebrow">Samuel Carrera Paes · Portfólio autoral</span>
+              <h1 id="cases-title">Projetos</h1>
+            </div>
+            <p>
+              Uma seleção de trabalhos em imagem, espaço, produto, varejo e experiência física. Esta página funciona como entrada visual; a leitura completa acontece dentro de cada case.
             </p>
           </header>
 
-          <section className="mb-12 grid gap-4 border-y border-stone-900/10 py-6 md:grid-cols-3" aria-label="Linhas de leitura do portfólio">
-            {[
-              ["Imagem", "Campanhas, styling, narrativa visual e presença editorial."],
-              ["Espaço", "Vitrine, loja, evento, cenografia e experiência física."],
-              ["Sistema", "Método, operação, repertório e pensamento por trás dos trabalhos."]
-            ].map(([title, text]) => (
-              <article key={title} className="sp-reading-line">
-                <h2>{title}</h2>
-                <p>{text}</p>
-              </article>
-            ))}
+          <section className="sp-projects-archive-head" aria-labelledby="cases-archive-title">
+            <h2 id="cases-archive-title">Arquivo visual.</h2>
+            <p>{casesData.length} cases publicados em sequência editorial. Cada projeto aparece com imagem em escala, uma expressão de intenção e acesso direto à leitura completa.</p>
           </section>
 
-          <div className="sp-portfolio-filters mb-16">
-            <div className="sp-portfolio-filters__header">
-              <div>
-                <span className="sp-eyebrow">Coleções por área</span>
-                <h2>Explore o repertório por campo de atuação.</h2>
-              </div>
-              {activeArea && (
-                <button type="button" onClick={() => selectArea(null)} className="sp-portfolio-filters__clear">
-                  Ver portfólio completo
-                </button>
-              )}
-            </div>
-
-            <nav className="sp-area-filters" aria-label="Filtrar cases por área de atuação">
-              {practiceAreaCatalog.map((area, index) => (
-                <button
-                  key={area.id}
-                  type="button"
-                  aria-pressed={activeAreaId === area.id}
-                  aria-controls="case-results"
-                  onClick={() => selectArea(area.id)}
-                >
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{area.title}</strong>
-                  <small>{area.caseSlugs.length}</small>
-                </button>
-              ))}
-            </nav>
-
-            {activeArea && (
-              <div className="sp-active-collection" role="status" aria-live="polite">
-                <span>Coleção ativa</span>
-                <h3>{activeArea.title}</h3>
-                <p>{activeArea.description}</p>
-                <strong>{filteredCases.length} {filteredCases.length === 1 ? "case publicado" : "cases publicados"}</strong>
-              </div>
-            )}
-
-            <span className="sp-portfolio-filters__label">Filtrar por conteúdo</span>
-            <nav className="flex flex-wrap gap-3" aria-label="Filtrar cases por conteúdo">
-            {caseFilterOptions.map(([value, label]) => (
-              <button
-                key={value}
-                type="button"
-                aria-pressed={!activeArea && activeFilter === value}
-                aria-controls="case-results"
-                onClick={() => selectTag(value)}
-                className={`min-h-11 rounded-full border px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.18em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 ${
-                  !activeArea && activeFilter === value
-                  ? 'bg-stone-900 text-white border-stone-900 shadow-md'
-                  : 'bg-transparent text-stone-500 border-stone-900/20 hover:border-stone-900/40 hover:text-stone-800'
-                }`}
+          <div id="case-results" className="sp-projects-archive" aria-label="Arquivo visual de cases">
+            {casesData.map((c, index) => (
+              <motion.article
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ duration: 0.55, ease: PREMIUM_EASE }}
+                key={c.id}
+                className={`sp-project-row ${index % 2 === 1 ? "sp-project-row--reverse" : ""}`}
+                id={c.id}
               >
-                {label}
-              </button>
-            ))}
-            </nav>
-            <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400" role="status" aria-live="polite">
-              {filteredCases.length} {filteredCases.length === 1 ? "projeto" : "projetos"}
-            </p>
-          </div>
-
-          <motion.div id="case-results" layout className="grid grid-cols-1 gap-x-8 gap-y-20 md:grid-cols-2 lg:grid-cols-3">
-            <AnimatePresence mode="popLayout">
-              {filteredCases.map((c) => (
-                <motion.article
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, ease: PREMIUM_EASE }}
-                  key={c.id}
-                  className="group flex flex-col"
-                  id={c.id}
+                <button
+                  type="button"
+                  aria-label={`Abrir case ${c.number}: ${c.title}`}
+                  className="sp-project-row__media"
+                  onClick={() => navigate(`case/${c.slug}`)}
                 >
-                  <button
-                    type="button"
-                    aria-label={`Abrir case ${c.number}: ${c.title}`}
-                    className="sp-case-card aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block"
-                    onClick={() => navigate(`case/${c.slug}`)}
-                  >
-                    <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
-                    <div className="absolute left-4 top-4 rounded-sm bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm">
-                      {c.number}/{casesData.length}
-                    </div>
-                    <div className="sp-case-card__overlay" aria-hidden="true">
-                      <span>{c.role}</span>
-                      <strong>{c.deliverables.join(" · ")}</strong>
-                      <small>Explorar projeto <ArrowUpRight className="h-4 w-4" /></small>
-                    </div>
+                  <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="sp-project-row__image" fallbackLabel={`Case ${c.number}`} />
+                </button>
+
+                <div className="sp-project-row__body">
+                  <p className="sp-project-row__meta">{c.number} / {c.role}</p>
+                  <h2>{c.title}</h2>
+                  <p className="sp-project-row__expression">{c.strategicThesis}</p>
+                  <p className="sp-project-row__description">{c.originalDescription}</p>
+                  <button type="button" onClick={() => navigate(`case/${c.slug}`)} className="sp-project-row__link">
+                    Abrir case <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </button>
-
-                  <div className="flex flex-col flex-1">
-                    <header className="mb-3 flex items-start justify-between gap-5">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400 leading-relaxed">{c.category}</p>
-                      <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-stone-600">Case {c.number}</span>
-                    </header>
-                    <h2 className="font-serif text-2xl md:text-3xl leading-tight text-stone-900 mb-3 tracking-tight group-hover:text-stone-600 transition-colors duration-300 text-balance">{c.title}</h2>
-                    <p className="mb-6 flex-1 text-sm font-light leading-relaxed text-stone-600">{c.originalDescription}</p>
-                    <ul className="mb-6 flex flex-wrap gap-2" aria-label={`Territórios do case ${c.title}`}>
-                      {c.tags.slice(0, 3).map((tag) => (
-                        <li key={tag} className="border border-stone-900/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-stone-500">
-                          {caseFilterOptions.find(([value]) => value === tag)?.[1] || tag}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <footer className="flex items-center justify-between border-t border-stone-900/10 pt-4 text-[10px] uppercase tracking-[0.2em] text-stone-400">
-                      <span>Papel: {c.role}</span>
-                      <button type="button" onClick={() => navigate(`case/${c.slug}`)} className="inline-flex min-h-10 items-center gap-2 font-bold text-stone-700 hover:text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900">
-                        Ver case <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                      </button>
-                    </footer>
-                  </div>
-                </motion.article>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-          {filteredCases.length === 0 && (
-            <div className="border-y border-stone-900/10 py-20 text-center" role="status">
-              <h2 className="font-serif text-3xl text-stone-900">Nenhum projeto neste filtro.</h2>
-              <button type="button" onClick={() => selectTag("ALL")} className="mt-6 min-h-11 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-700 underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900">
-                Mostrar todos
-              </button>
-            </div>
-          )}
+                </div>
+              </motion.article>
+            ))}
+          </div>
         </div>
       </section>
     </PageTransition>
@@ -691,7 +582,7 @@ function CaseDetail({ caseId, navigate }) {
         <DynamicSEO title="Case não encontrado" description="O projeto solicitado não foi encontrado no portfólio." url={`case/${caseId}`} noindex />
         <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
           <h1 className="font-serif text-4xl mb-4">Case não encontrado.</h1>
-          <p className="mb-8 max-w-md text-sm font-light leading-relaxed text-stone-600">O endereço pode ter mudado. O portfólio reúne os doze projetos atualmente publicados.</p>
+          <p className="mb-8 max-w-md text-sm font-light leading-relaxed text-stone-600">O endereço pode ter mudado. O portfólio reúne os {casesData.length} projetos atualmente publicados.</p>
           <button type="button" onClick={() => navigate("cases")} className="min-h-11 text-xs font-bold uppercase tracking-[0.2em] border-b border-stone-900 pb-1 hover:text-stone-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900">Voltar aos cases</button>
         </div>
       </PageTransition>
@@ -705,6 +596,20 @@ function CaseDetail({ caseId, navigate }) {
   if (c.id === "case-12") {
     return (
       <ProvenceRaizCaseDetail
+        c={c}
+        navigate={navigate}
+        caseIndex={caseIndex}
+        totalCases={casesData.length}
+        previousCaseId={previousCaseId}
+        nextCaseId={nextCaseId}
+        isLast={isLast}
+      />
+    );
+  }
+
+  if (c.id === "case-13") {
+    return (
+      <ShowroomAv27CaseDetail
         c={c}
         navigate={navigate}
         caseIndex={caseIndex}
@@ -1826,6 +1731,154 @@ function Contato() {
   );
 }
 
+function DeliveryPortal() {
+  const [toast, setToast] = useState(null);
+  const portalUrl = `https://paesconsultoria.com/${deliveryPortal.route}`;
+
+  const handleCopyPortal = () => {
+    navigator.clipboard?.writeText(portalUrl);
+    setToast("Link do portal copiado.");
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title={`${deliveryPortal.title} - Portal de Entrega`}
+        description={deliveryPortal.description}
+        url={deliveryPortal.route}
+        schemaType="WebPage"
+        noindex
+      />
+      <article className="mx-auto flex min-h-[86vh] max-w-[92rem] flex-col px-6 pt-12 lg:px-12">
+        <header className="grid gap-12 border-b border-stone-900/10 pb-14 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
+          <div>
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.32em] text-stone-400">
+              {deliveryPortal.kicker}
+            </span>
+            <h1 className="max-w-4xl text-balance font-serif text-5xl leading-[0.96] tracking-[-0.035em] text-stone-950 md:text-7xl lg:text-8xl">
+              {deliveryPortal.title}
+            </h1>
+          </div>
+          <div className="sp-surface-strong rounded-sm p-6 md:p-8">
+            <p className="text-sm leading-relaxed text-stone-700">{deliveryPortal.description}</p>
+            <dl className="mt-8 grid gap-4 border-t border-stone-900/10 pt-6 text-sm">
+              {[
+                ["Cliente", deliveryPortal.client],
+                ["Showroom", deliveryPortal.showroom],
+                ["Escopo", deliveryPortal.scope],
+                ["Autoria", deliveryPortal.author],
+              ].map(([label, value]) => (
+                <div key={label} className="grid gap-1 sm:grid-cols-[6rem_1fr]">
+                  <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{label}</dt>
+                  <dd className="text-stone-900">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </header>
+
+        <section className="grid gap-12 border-b border-stone-900/10 py-16 lg:grid-cols-[0.78fr_1.22fr]" aria-labelledby="delivery-summary-title">
+          <div>
+            <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.28em] text-stone-400">Leitura da entrega</span>
+            <h2 id="delivery-summary-title" className="max-w-xl font-serif text-4xl leading-tight text-stone-950 md:text-5xl">
+              Uma entrega pensada para ser consultada, não apenas baixada.
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {deliveryPortal.summary.map((item, index) => (
+              <p key={item} className="border-t border-stone-900/10 pt-5 text-sm leading-relaxed text-stone-700">
+                <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.25em] text-[#8a5a38]">{String(index + 1).padStart(2, "0")}</span>
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-5 py-14 md:grid-cols-3" aria-label="Arquivos da entrega">
+          {deliveryPortal.files.map((file) => {
+            const isReady = Boolean(file.href);
+            return (
+              <article key={file.id} className="sp-interactive-card flex min-h-64 flex-col justify-between rounded-sm p-6">
+                <div>
+                  <div className="mb-8 flex items-center justify-between gap-4">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">{file.type}</span>
+                    <span className={`rounded-full border px-3 py-1 text-[9px] font-bold uppercase tracking-[0.18em] ${isReady ? "border-stone-900/20 text-stone-900" : "border-stone-900/10 text-stone-400"}`}>
+                      {isReady ? "Disponível" : "Pendente"}
+                    </span>
+                  </div>
+                  <h3 className="font-serif text-3xl leading-tight text-stone-950">{file.label}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-stone-600">{file.meta}</p>
+                  <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{file.status}</p>
+                </div>
+                {isReady ? (
+                  <a href={file.href} target="_blank" rel="noopener noreferrer" className="mt-10 inline-flex min-h-11 items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900">
+                    Abrir arquivo <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                ) : (
+                  <button type="button" disabled className="mt-10 inline-flex min-h-11 items-center gap-2 text-left text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">
+                    Aguardando link final
+                  </button>
+                )}
+              </article>
+            );
+          })}
+        </section>
+
+        <section className="grid gap-10 border-y border-stone-900/10 py-16 lg:grid-cols-[1fr_1.2fr]" aria-labelledby="delivery-method-title">
+          <div>
+            <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.28em] text-stone-400">Método</span>
+            <h2 id="delivery-method-title" className="max-w-lg font-serif text-4xl leading-tight text-stone-950 md:text-5xl">
+              Da cartografia à memória operacional.
+            </h2>
+          </div>
+          <div className="grid border border-stone-900/10 md:grid-cols-4">
+            {deliveryPortal.checkpoints.map(([number, title, text]) => (
+              <article key={number} className="flex min-h-44 flex-col justify-between border-b border-stone-900/10 p-5 md:border-b-0 md:border-r md:last:border-r-0">
+                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a5a38]">{number}</span>
+                <div>
+                  <h3 className="font-serif text-2xl leading-tight text-stone-950">{title}</h3>
+                  <p className="mt-3 text-xs leading-relaxed text-stone-600">{text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <footer className="grid gap-8 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <p className="max-w-3xl text-sm leading-relaxed text-stone-600">
+            {deliveryPortal.accessNote} Para ativar os downloads, suba PDF, ZIP e vídeo no Vercel Blob e substitua os links no módulo de entrega.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+            <button type="button" onClick={handleCopyPortal} className="sp-button-secondary justify-center">
+              Copiar link do portal <Copy className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <a href="https://wa.me/5531981184250" target="_blank" rel="noopener noreferrer" className="sp-button-primary justify-center">
+              Falar com Samuel <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+        </footer>
+
+        <AnimatePresence>
+          {toast && (
+            <motion.div
+              role="status"
+              aria-live="polite"
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.4, ease: PREMIUM_EASE }}
+              className="fixed bottom-10 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap rounded-full bg-stone-900 px-6 py-4 text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-2xl"
+            >
+              <CheckCircle2 className="h-4 w-4 text-stone-300" aria-hidden="true" /> {toast}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </article>
+    </PageTransition>
+  );
+}
+
 // --- APP PRINCIPAL E NAVBAR ---
 
 export default function SamuelPaesPortfolio() {
@@ -2020,6 +2073,7 @@ export default function SamuelPaesPortfolio() {
           {effectiveRoute.startsWith("case/") && <CaseDetail key="case-detail" caseId={effectiveRoute.replace("case/", "")} navigate={navigate} />}
           {effectiveRoute === "sistema" && <Sistema key="sistema" navigate={navigate} />}
           {effectiveRoute.startsWith("sistema/") && <SistemaArticle key={effectiveRoute} slug={effectiveRoute.replace("sistema/", "")} navigate={navigate} />}
+          {effectiveRoute === "entregas/showroom-av2027" && <DeliveryPortal key="delivery-showroom-av2027" />}
           {effectiveRoute === "contato" && <Contato key="contato" />}
         </AnimatePresence>
       </main>

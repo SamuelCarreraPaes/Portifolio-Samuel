@@ -16,6 +16,7 @@ export const practiceAreaCatalog = [
       "vintage-denim-capsula-heritage",
       "paraiso-tropical-mata-atlantica",
       "provence-raiz-sistema-visual",
+      "showroom-alto-verao-2027",
     ],
   },
   {
@@ -59,6 +60,7 @@ export const practiceAreaCatalog = [
       "outerwear-hotspots-color-blocking",
       "vintage-denim-capsula-heritage",
       "paraiso-tropical-mata-atlantica",
+      "showroom-alto-verao-2027",
     ],
   },
   {
@@ -76,6 +78,7 @@ export const practiceAreaCatalog = [
       "vintage-denim-capsula-heritage",
       "paraiso-tropical-mata-atlantica",
       "provence-raiz-sistema-visual",
+      "showroom-alto-verao-2027",
     ],
   },
   {

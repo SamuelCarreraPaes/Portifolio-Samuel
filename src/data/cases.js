@@ -1,3 +1,5 @@
+import { showroomAv27Definition, showroomAv27RawCase } from "./showroomAv27Case.js";
+
 // Núcleos estruturados da BANAL. Alguns registros são cases-mãe com desdobramentos internos.
 const legacyCasesData = [
   {
@@ -582,6 +584,7 @@ const caseDefinitions = [
     execution: "Identidade, papelaria, sinalização, hospitalidade, arquitetura cenográfica, flor e luz são coordenadas como pontos de contato de uma mesma experiência.",
     publicImpact: "O case demonstra como um evento pode ultrapassar a decoração isolada e operar como sistema visual, espacial e sensorial com continuidade entre intenção e execução.",
   },
+  showroomAv27Definition,
 ];
 
 const executionById = Object.fromEntries(caseDefinitions.map((item) => [item.id, item.execution]));
@@ -616,20 +619,30 @@ const provenceRawCase = {
   ],
 };
 
-const allRawCases = [...legacyCasesData, provenceRawCase];
+const allRawCases = [...legacyCasesData, provenceRawCase, showroomAv27RawCase];
 
 function splitDeliverables(value = "") {
   return value.split(",").map((item) => item.trim()).filter(Boolean);
 }
 
 function buildMedia(rawCase) {
-  const sources = [...new Set([rawCase.thumb, ...(rawCase.gallery || [])].filter(Boolean))];
-  return sources.map((src, index) => ({
-    src,
-    alt: `${rawCase.title}: registro visual ${String(index + 1).padStart(2, "0")}`,
-    caption: index === 0 ? `Imagem principal do projeto ${rawCase.title}.` : `Desdobramento visual do projeto ${rawCase.title}.`,
-    kind: "image",
-  }));
+  const entries = [rawCase.thumb, ...(rawCase.gallery || [])].filter(Boolean);
+  const seen = new Set();
+
+  return entries.flatMap((entry) => {
+    const media = typeof entry === "string" ? { src: entry } : entry;
+    if (!media.src || seen.has(media.src)) return [];
+
+    seen.add(media.src);
+    const index = seen.size - 1;
+
+    return [{
+      src: media.src,
+      alt: media.alt || `${rawCase.title}: registro visual ${String(index + 1).padStart(2, "0")}`,
+      caption: media.caption || (index === 0 ? `Imagem principal do projeto ${rawCase.title}.` : `Desdobramento visual do projeto ${rawCase.title}.`),
+      kind: media.kind || "image",
+    }];
+  });
 }
 
 export const casesData = caseDefinitions.map((definition, index) => {
