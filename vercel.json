@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/case/val-fortunatto-brand-transitio",
+      "destination": "/case/val-fortunatto-brand-transition",
+      "permanent": true
+    },
+    {
+      "source": "/case/val-fortunatto-brand-transitio/",
+      "destination": "/case/val-fortunatto-brand-transition",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/sobre/samuel-carrera-paes", "destination": "/index.html" },
     { "source": "/visao", "destination": "/index.html" },
@@ -7,7 +19,7 @@
     { "source": "/cases", "destination": "/index.html" },
     { "source": "/banal", "destination": "/index.html" },
     { "source": "/empresas/banal", "destination": "/index.html" },
-    { "source": "/case/:id", "destination": "/index.html" },
+    { "source": "/case/:id", "destination": "/case/:id/index.html" },
     { "source": "/verdeburgo", "destination": "/index.html" },
     { "source": "/empresas/verde-burgo", "destination": "/index.html" },
     { "source": "/projetos/provence-raiz", "destination": "/index.html" },

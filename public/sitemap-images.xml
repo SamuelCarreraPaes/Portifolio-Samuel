@@ -33,61 +33,99 @@
     </image:image>
   </url>
   <url>
-    <loc>https://paesconsultoria.com/case/case-12</loc>
+    <loc>https://paesconsultoria.com/case/val-fortunatto-brand-transition</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_02.png</image:loc>
+      <image:title>Val Fortunatto — Brand Transition</image:title>
+      <image:caption>Uma transição de marca construída pela curadoria, pela imagem e pela sofisticação do desejo. Direção criativa e reposicionamento por Samuel Paes.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/val-fortunatto-linho-produto-proprio</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_01.png</image:loc>
+      <image:title>Val Fortunatto Linho — Produto Próprio</image:title>
+      <image:caption>Quando uma multimarca transforma confiança em produto próprio.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/atelie-bambini-arquitetura-de-marca-infantil</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_01.png</image:loc>
+      <image:title>Ateliê Bambini — Arquitetura de Marca Infantil</image:title>
+      <image:caption>A construção de um novo universo para a infância contemporânea.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/r-lovers-calendario-comercial</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/04_R_LOVERS/SP_CASE04_RLOVERS_01.png</image:loc>
+      <image:title>R Lovers — Calendário Comercial</image:title>
+      <image:caption>A arquitetura afetiva da conversão orientada por produtos-chave.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/porti-expansao-fisica-cenografia</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_01.png</image:loc>
+      <image:title>Porti — Expansão Física &amp; Cenografia</image:title>
+      <image:caption>A construção física, técnica e cenográfica de uma marca em expansão.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/hexa-copa-do-mundo-reserva</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/06_HEXA/SP_CASE06_HEXA_01.png</image:loc>
+      <image:title>HEXA — Copa do Mundo · Reserva</image:title>
+      <image:caption>A tradução do imaginário do futebol brasileiro para o varejo contemporâneo.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/campanhas-collabs</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_01.png</image:loc>
+      <image:title>Campanhas &amp; Collabs</image:title>
+      <image:caption>A complexa fusão de universos de marca, cultura e entretenimento no varejo físico.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/rouge-gold-exposicao-premium</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_01.png</image:loc>
+      <image:title>Rouge &amp; Gold — Exposição Premium</image:title>
+      <image:caption>Reestruturação estratégica da leitura visual por meio de cor e cenografia de luz.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/outerwear-hotspots-color-blocking</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_01.png</image:loc>
+      <image:title>Outerwear — Hotspots &amp; Color Blocking</image:title>
+      <image:caption>Construir pontos de calor visual para fazer o cliente parar, olhar e desejar.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/vintage-denim-capsula-heritage</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_01.png</image:loc>
+      <image:title>Vintage Denim — Cápsula Heritage</image:title>
+      <image:caption>Uma cápsula de produto transformada em ambiente autêntico de memória e coleção.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/paraiso-tropical-mata-atlantica</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_01.png</image:loc>
+      <image:title>Paraíso Tropical — Mata Atlântica</image:title>
+      <image:caption>A força gráfica da Mata Atlântica como contraponto inteligente ao verão óbvio.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-sistema-visual</loc>
     <image:image>
       <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg</image:loc>
-      <image:title>Provence Raiz | Sistema Visual e Direção Criativa</image:title>
-      <image:caption>Case de Samuel Carrera Paes e Paes Consultoria em direção criativa, identidade visual, sistema visual, evento, cenografia, decoração e experiência.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg</image:loc>
-      <image:title>Provence Raiz | Cerimônia e Arquitetura Cenográfica</image:title>
-      <image:caption>Direção criativa aplicada à cerimônia, altar, passarela, flor, luz e experiência física do projeto Provence Raiz.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-materia-textura-cores.jpg</image:loc>
-      <image:title>Provence Raiz | Matéria, Textura e Cores</image:title>
-      <image:caption>Prancha editorial de sistema visual, paleta, materialidade e curadoria estética do case Provence Raiz.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/identity-brand-board.jpg</image:loc>
-      <image:title>Provence Raiz | Identidade Visual</image:title>
-      <image:caption>Sistema de identidade visual dirigido por Samuel Carrera Paes com paleta, monograma, papelaria, ornamentos e materialidade.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/monogram-primary.jpg</image:loc>
-      <image:title>Provence Raiz | Monograma Autoral</image:title>
-      <image:caption>Monograma e emblema desenvolvidos por Samuel Carrera Paes para o sistema visual Provence Raiz.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/paper-invitation.jpg</image:loc>
-      <image:title>Provence Raiz | Papelaria e Convite</image:title>
-      <image:caption>Aplicação da identidade Provence Raiz em convite, papelaria e pontos de contato do evento.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/sign-welcome.jpg</image:loc>
-      <image:title>Provence Raiz | Sinalização</image:title>
-      <image:caption>Sistema de sinalização do evento Provence Raiz integrado à arquitetura, à paisagem e à experiência.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/07_STARTER_X5/hospitality-toiletry-kit.jpg</image:loc>
-      <image:title>Provence Raiz | Hospitalidade</image:title>
-      <image:caption>Identidade aplicada a lembranças, embalagens e objetos de hospitalidade do projeto Provence Raiz.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/pilastras-capa.webp</image:loc>
-      <image:title>Provence Raiz | Pilastras Cenográficas</image:title>
-      <image:caption>Pilastras cenográficas independentes concebidas sob direção criativa de Samuel Carrera Paes para o projeto Provence Raiz.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/carretel-capa.webp</image:loc>
-      <image:title>Provence Raiz | Luminária Carretel</image:title>
-      <image:caption>Luminária carretel cenográfica desenvolvida como artefato de luz, matéria e atmosfera para Provence Raiz.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/gaiola-capa.webp</image:loc>
-      <image:title>Provence Raiz | Gaiola Cenográfica</image:title>
-      <image:caption>Gaiola cenográfica hexagonal com vidro texturizado, acabamento artesanal e luz quente no sistema Provence Raiz.</image:caption>
+      <image:title>Provence Raiz — Sistema Visual e Direção Criativa</image:title>
+      <image:caption>Um evento tratado como sistema de linguagem: identidade, atmosfera, arquitetura, matéria, flor e experiência trabalhando como uma comunicação 360 graus.</image:caption>
     </image:image>
   </url>
   <url>

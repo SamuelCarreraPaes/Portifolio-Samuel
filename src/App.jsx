@@ -10,6 +10,10 @@ const casesData = [
     id: "case-01",
     number: "01",
     title: "Val Fortunatto — Brand Transition",
+    slug: "val-fortunatto-brand-transition",
+    seoTitle: "Val Fortunatto — Brand Transition | Samuel Paes",
+    seoDescription: "Uma transição de marca construída pela curadoria, pela imagem e pela sofisticação do desejo. Direção criativa e reposicionamento por Samuel Paes.",
+    ogImageAlt: "Fotografia editorial do case Val Fortunatto — Brand Transition, com direção criativa e curadoria de moda por Samuel Paes.",
     category: "Direção Criativa · Curadoria · Reposicionamento",
     filterTags: ["BRAND", "RETAIL"],
     shortTese: "Uma transição de marca construída pela curadoria, pela imagem e pela sofisticação do desejo.",
@@ -352,6 +356,64 @@ const casesData = [
 ];
 
 const homePortrait = "/images/13_VISAO/about-transition.png";
+const SITE_URL = "https://paesconsultoria.com";
+const SITE_NAME = "Paes Consultoria";
+const DEFAULT_TITLE = "Samuel Carrera Paes | Creative Consultant — Paes Consultoria";
+const DEFAULT_DESCRIPTION = "Portfólio autoral de Samuel Carrera Paes em direção criativa, imagem, espaço, eventos, varejo, cenografia, campanhas e experiências.";
+
+const CASE_SLUG_OVERRIDES = {
+  "case-01": "val-fortunatto-brand-transition",
+  "case-12": "provence-raiz-sistema-visual",
+};
+
+const LEGACY_CASE_ROUTE_ALIASES = {
+  "case/val-fortunatto-brand-transitio": "case/val-fortunatto-brand-transition",
+};
+
+function slugifyCaseTitle(value = "") {
+  return String(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[.\u00b7\u2013\u2014-]/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getCaseSlug(caseItem) {
+  return caseItem.slug || CASE_SLUG_OVERRIDES[caseItem.id] || slugifyCaseTitle(caseItem.title);
+}
+
+function getCaseRoute(caseItem) {
+  return `case/${getCaseSlug(caseItem)}`;
+}
+
+function absoluteUrl(pathname = "") {
+  if (!pathname) return SITE_URL;
+  if (/^https?:\/\//i.test(pathname)) return pathname;
+  return `${SITE_URL}${pathname.startsWith("/") ? pathname : `/${pathname}`}`;
+}
+
+function getCaseCanonicalUrl(caseItem) {
+  return `${SITE_URL}/${getCaseRoute(caseItem)}`;
+}
+
+function getCaseSocialImage(caseItem) {
+  return caseItem.ogImage || caseItem.coverImage || caseItem.heroImage || caseItem.thumb || caseItem.gallery?.[0] || homePortrait;
+}
+
+function getCaseSocialAlt(caseItem) {
+  return caseItem.ogImageAlt || `Imagem de capa do case ${caseItem.title} no portfólio Samuel Carrera Paes / Paes Consultoria.`;
+}
+
+function getCaseSeoTitle(caseItem) {
+  return caseItem.seoTitle || `${caseItem.title} | Samuel Paes`;
+}
+
+function getCaseSeoDescription(caseItem) {
+  return caseItem.seoDescription || caseItem.shortTese || caseItem.directorsNote || "Case do portfólio Samuel Carrera Paes / Paes Consultoria.";
+}
 
 // --- CURVAS DE TRANSIÇÃO PREMIUM ---
 const PREMIUM_EASE = [0.22, 1, 0.36, 1];
@@ -401,14 +463,13 @@ function useRouter() {
 }
 
 // --- DYNAMIC SEO INJECTION ---
-function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) {
+function DynamicSEO({ title, fullTitle, description, url, image, imageAlt, imageWidth, imageHeight, schemaType = "WebPage", ogType = "website" }) {
   useEffect(() => {
-    const siteUrl = "https://paesconsultoria.com";
-    const defaultTitle = "Samuel Carrera Paes | Creative Consultant — Paes Consultoria";
-    const defaultDescription = "Portfólio autoral de Samuel Carrera Paes em direção criativa, imagem, espaço, eventos, varejo, cenografia, campanhas e experiências.";
-    const pageTitle = !title || title === "Início" ? defaultTitle : `${title} | Samuel Carrera Paes — Paes Consultoria`;
-    const pageDescription = description || defaultDescription;
-    const pageUrl = url ? `${siteUrl}/${url.replace(/^\/+/, "")}` : siteUrl;
+    const pageTitle = fullTitle || (!title || title === "Início" ? DEFAULT_TITLE : `${title} | Samuel Carrera Paes — Paes Consultoria`);
+    const pageDescription = description || DEFAULT_DESCRIPTION;
+    const pageUrl = url ? `${SITE_URL}/${url.replace(/^\/+/, "")}` : SITE_URL;
+    const pageImage = image ? absoluteUrl(image) : absoluteUrl(homePortrait);
+    const pageImageAlt = imageAlt || `${pageTitle} — imagem social Paes Consultoria.`;
     document.title = pageTitle;
 
     // Update or inject meta description
@@ -422,14 +483,24 @@ function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) 
 
     const seoSelectors = [
       ["link[rel='canonical']", "href", pageUrl],
+      ["meta[property='og:type']", "content", ogType],
+      ["meta[property='og:site_name']", "content", SITE_NAME],
       ["meta[property='og:title']", "content", pageTitle],
       ["meta[property='og:description']", "content", pageDescription],
       ["meta[property='og:url']", "content", pageUrl],
+      ["meta[property='og:image']", "content", pageImage],
+      ["meta[property='og:image:width']", "content", imageWidth],
+      ["meta[property='og:image:height']", "content", imageHeight],
+      ["meta[property='og:image:alt']", "content", pageImageAlt],
+      ["meta[name='twitter:card']", "content", "summary_large_image"],
       ["meta[name='twitter:title']", "content", pageTitle],
-      ["meta[name='twitter:description']", "content", pageDescription]
+      ["meta[name='twitter:description']", "content", pageDescription],
+      ["meta[name='twitter:image']", "content", pageImage],
+      ["meta[name='twitter:image:alt']", "content", pageImageAlt]
     ];
 
     seoSelectors.forEach(([selector, attribute, value]) => {
+      if (!value) return;
       const tag = document.querySelector(selector);
       if (tag) {
         tag.setAttribute(attribute, value);
@@ -451,19 +522,19 @@ function DynamicSEO({ title, description, url, image, schemaType = "WebPage" }) 
       "name": pageTitle,
       ...(schemaType === "Article" ? {
         "headline": pageTitle,
-        "author": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
+        "author": { "@type": "Person", "name": "Samuel Carrera Paes", "url": SITE_URL },
         "mainEntityOfPage": pageUrl,
         "dateModified": "2026-05-24"
       } : {}),
       "description": pageDescription,
-      "image": image ? `${siteUrl}${image}` : `${siteUrl}${homePortrait}`,
-      "creator": { "@type": "Person", "name": "Samuel Carrera Paes", "url": siteUrl },
+      "image": pageImage,
+      "creator": { "@type": "Person", "name": "Samuel Carrera Paes", "url": SITE_URL },
       "about": { "@type": "Person", "name": "Samuel Carrera Paes", "alternateName": "Samuel Paes" },
       "url": pageUrl
     };
     script.text = JSON.stringify(schemaData);
 
-  }, [title, description, url, image, schemaType]);
+  }, [title, fullTitle, description, url, image, imageAlt, imageWidth, imageHeight, schemaType, ogType]);
 
   return null;
 }
@@ -527,6 +598,91 @@ function handleShareIntent({ title = document.title, text = "Samuel Carrera Paes
   }
 
   navigator.clipboard?.writeText(url);
+}
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard?.writeText && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  textarea.style.pointerEvents = "none";
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    return document.execCommand("copy");
+  } finally {
+    document.body.removeChild(textarea);
+  }
+}
+
+function CaseShareActions({ caseItem }) {
+  const [copied, setCopied] = useState(false);
+  const canonicalUrl = getCaseCanonicalUrl(caseItem);
+  const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`;
+  const whatsAppUrl = `https://wa.me/?text=${encodeURIComponent(`${caseItem.title} — ${canonicalUrl}`)}`;
+
+  useEffect(() => {
+    if (!copied) return undefined;
+    const timeout = window.setTimeout(() => setCopied(false), 2200);
+    return () => window.clearTimeout(timeout);
+  }, [copied]);
+
+  const handleCopy = async () => {
+    try {
+      const didCopy = await copyTextToClipboard(canonicalUrl);
+      setCopied(Boolean(didCopy));
+    } catch {
+      setCopied(false);
+      window.prompt("Copie o link do case:", canonicalUrl);
+    }
+  };
+
+  const buttonClass = "inline-flex min-h-11 items-center justify-center gap-2 rounded-sm border border-stone-900/15 px-4 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-600 transition-colors hover:border-stone-900/35 hover:text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900";
+
+  return (
+    <section className="mt-20 border-y border-stone-900/10 py-8 md:mt-24 md:flex md:items-center md:justify-between md:gap-8" aria-label={`Compartilhar o case ${caseItem.title}`}>
+      <div className="mb-5 md:mb-0">
+        <h2 className="text-[10px] font-bold uppercase tracking-[0.28em] text-stone-400">Compartilhar case</h2>
+      </div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
+        <a
+          href={linkedInUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Compartilhar ${caseItem.title} no LinkedIn`}
+          className={buttonClass}
+        >
+          LinkedIn <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </a>
+        <a
+          href={whatsAppUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Compartilhar ${caseItem.title} no WhatsApp`}
+          className={buttonClass}
+        >
+          WhatsApp <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </a>
+        <button
+          type="button"
+          onClick={handleCopy}
+          aria-label={`Copiar link canônico do case ${caseItem.title}`}
+          className={buttonClass}
+        >
+          {copied ? "Link copiado" : "Copiar link"} <Copy className="h-4 w-4" aria-hidden="true" />
+        </button>
+        <span className="sr-only" aria-live="polite">{copied ? "Link copiado para a área de transferência." : ""}</span>
+      </div>
+    </section>
+  );
 }
 
 function EditorialNotice({ navigate }) {
@@ -898,7 +1054,7 @@ function Cases({ navigate }) {
                     type="button"
                     aria-label={`Abrir case ${c.number}: ${c.title}`}
                     className="sp-case-card aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block"
-                    onClick={() => navigate(`case/${c.id}`)}
+                    onClick={() => navigate(getCaseRoute(c))}
                   >
                     <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm rounded-sm">
@@ -941,7 +1097,7 @@ function Cases({ navigate }) {
 }
 
 function CaseDetail({ caseId, navigate }) {
-  const caseIndex = casesData.findIndex(c => c.id === caseId);
+  const caseIndex = casesData.findIndex(c => c.id === caseId || getCaseSlug(c) === caseId);
   const c = casesData[caseIndex];
 
   if (!c) {
@@ -956,8 +1112,10 @@ function CaseDetail({ caseId, navigate }) {
   }
 
   const isLast = caseIndex === casesData.length - 1;
-  const nextCaseId = !isLast ? casesData[caseIndex + 1].id : null;
-  const previousCaseId = caseIndex > 0 ? casesData[caseIndex - 1].id : null;
+  const nextCase = !isLast ? casesData[caseIndex + 1] : null;
+  const previousCase = caseIndex > 0 ? casesData[caseIndex - 1] : null;
+  const nextCaseRoute = nextCase ? getCaseRoute(nextCase) : null;
+  const previousCaseRoute = previousCase ? getCaseRoute(previousCase) : null;
 
   if (c.id === "case-12") {
     return (
@@ -966,8 +1124,8 @@ function CaseDetail({ caseId, navigate }) {
         navigate={navigate}
         caseIndex={caseIndex}
         totalCases={casesData.length}
-        previousCaseId={previousCaseId}
-        nextCaseId={nextCaseId}
+        previousCaseRoute={previousCaseRoute}
+        nextCaseRoute={nextCaseRoute}
         isLast={isLast}
       />
     );
@@ -976,10 +1134,15 @@ function CaseDetail({ caseId, navigate }) {
   return (
     <PageTransition>
       <DynamicSEO
-        title={`${c.number}. ${c.title}`}
-        description={c.shortTese}
-        image={c.thumb}
-        url={`case/${c.id}`}
+        fullTitle={getCaseSeoTitle(c)}
+        description={getCaseSeoDescription(c)}
+        image={getCaseSocialImage(c)}
+        imageAlt={getCaseSocialAlt(c)}
+        imageWidth={c.ogImageWidth}
+        imageHeight={c.ogImageHeight}
+        ogType="article"
+        url={getCaseRoute(c)}
+        schemaType="CreativeWork"
       />
       <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12 relative pb-20 md:pb-0">
 
@@ -989,7 +1152,7 @@ function CaseDetail({ caseId, navigate }) {
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 block">CASE {c.number}/{casesData.length}</span>
             <button
               type="button"
-              onClick={() => handleShareIntent({ title: c.title, text: c.shortTese })}
+              onClick={() => handleShareIntent({ title: getCaseSeoTitle(c), text: getCaseSeoDescription(c), url: getCaseCanonicalUrl(c) })}
               className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
             >
               Compartilhar <Copy className="h-3.5 w-3.5" aria-hidden="true" />
@@ -1025,10 +1188,10 @@ function CaseDetail({ caseId, navigate }) {
 
         <aside className="sp-case-progress hidden lg:flex" aria-label="Navegação contextual do case">
           <button type="button" onClick={() => navigate("cases")}>Portfólio</button>
-          {previousCaseId && <button type="button" onClick={() => navigate(`case/${previousCaseId}`)}>Anterior</button>}
-          <button type="button" onClick={() => handleShareIntent({ title: c.title, text: c.shortTese })}>Compartilhar</button>
+          {previousCaseRoute && <button type="button" onClick={() => navigate(previousCaseRoute)}>Anterior</button>}
+          <button type="button" onClick={() => handleShareIntent({ title: getCaseSeoTitle(c), text: getCaseSeoDescription(c), url: getCaseCanonicalUrl(c) })}>Compartilhar</button>
           {!isLast ? (
-            <button type="button" onClick={() => navigate(`case/${nextCaseId}`)}>Próximo</button>
+            <button type="button" onClick={() => navigate(nextCaseRoute)}>Próximo</button>
           ) : (
             <button type="button" onClick={() => navigate("sistema")}>Sistema</button>
           )}
@@ -1106,6 +1269,8 @@ function CaseDetail({ caseId, navigate }) {
           )}
         </section>
 
+        <CaseShareActions caseItem={c} />
+
         {/* E. Navigation (Sticky Bottom on Mobile for better UX) */}
         <nav
           aria-label="Paginação de Cases"
@@ -1122,7 +1287,7 @@ function CaseDetail({ caseId, navigate }) {
           {!isLast ? (
             <button
               type="button"
-              onClick={() => navigate(`case/${nextCaseId}`)}
+              onClick={() => navigate(nextCaseRoute)}
               className="flex flex-1 md:flex-none items-center justify-center md:justify-end gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-white md:text-stone-900 bg-stone-900 md:bg-transparent hover:text-stone-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 rounded-sm shadow-sm md:shadow-none"
             >
               Próximo <span className="hidden sm:inline">Case</span> <ArrowRightCircle className="w-5 h-5 hidden md:block" aria-hidden="true" />
@@ -1316,7 +1481,7 @@ function ProvenceRaizLightbox({ lightbox, galleries, setLightbox }) {
   );
 }
 
-function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextCaseId, isLast }) {
+function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseRoute, nextCaseRoute, isLast }) {
   const [lightbox, setLightbox] = useState(null);
   const openGallery = (galleryId, index = 0) => setLightbox({ galleryId, index, zoom: false });
 
@@ -1515,10 +1680,14 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
   return (
     <PageTransition>
       <DynamicSEO
-        title="Provence Raiz — Sistema Visual e Direção Criativa"
-        description={c.shortTese}
-        image={c.thumb}
-        url="case/case-12"
+        fullTitle={getCaseSeoTitle(c)}
+        description={getCaseSeoDescription(c)}
+        image={getCaseSocialImage(c)}
+        imageAlt={getCaseSocialAlt(c)}
+        imageWidth={c.ogImageWidth}
+        imageHeight={c.ogImageHeight}
+        ogType="article"
+        url={getCaseRoute(c)}
         schemaType="CreativeWork"
       />
 
@@ -1568,10 +1737,10 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
 
         <aside className="sp-case-progress hidden lg:flex" aria-label="Navegação contextual do case Provence Raiz">
           <button type="button" onClick={() => navigate("cases")}>Portfólio</button>
-          {previousCaseId && <button type="button" onClick={() => navigate(`case/${previousCaseId}`)}>Anterior</button>}
-          <button type="button" onClick={() => handleShareIntent({ title: c.title, text: c.shortTese })}>Compartilhar</button>
-          {!isLast && nextCaseId ? (
-            <button type="button" onClick={() => navigate(`case/${nextCaseId}`)}>Próximo</button>
+          {previousCaseRoute && <button type="button" onClick={() => navigate(previousCaseRoute)}>Anterior</button>}
+          <button type="button" onClick={() => handleShareIntent({ title: getCaseSeoTitle(c), text: getCaseSeoDescription(c), url: getCaseCanonicalUrl(c) })}>Compartilhar</button>
+          {!isLast && nextCaseRoute ? (
+            <button type="button" onClick={() => navigate(nextCaseRoute)}>Próximo</button>
           ) : (
             <button type="button" onClick={() => navigate("sistema")}>Sistema</button>
           )}
@@ -1609,6 +1778,8 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseId, nextC
             <p><strong className="font-semibold text-stone-900">Leitura autoral:</strong><br />Evento como linguagem 360 graus: buffet, decoração, bar, cerimonial, ambientação, papelaria, atmosfera e narrativa.</p>
           </div>
         </section>
+
+        <CaseShareActions caseItem={c} />
 
         <nav
           aria-label="Paginação de Cases"
@@ -2060,6 +2231,10 @@ export default function SamuelPaesPortfolio() {
   const { route, navigate } = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const effectiveRoute = useMemo(() => {
+    if (LEGACY_CASE_ROUTE_ALIASES[route]) {
+      return LEGACY_CASE_ROUTE_ALIASES[route];
+    }
+
     if (
       route === "sobre/samuel-carrera-paes" ||
       route === "paes-consultoria" ||
