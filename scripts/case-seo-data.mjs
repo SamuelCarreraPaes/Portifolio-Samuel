@@ -31,12 +31,16 @@ export function getCaseSlug(caseItem) {
   return caseItem.slug || CASE_SLUG_OVERRIDES[caseItem.id] || slugify(caseItem.title);
 }
 
+export function getCaseLinkedInImage(caseItem) {
+  return `/images/social/linkedin/${getCaseSlug(caseItem)}.jpg`;
+}
+
 export function getCaseSocialImage(caseItem) {
-  return caseItem.ogImage || caseItem.coverImage || caseItem.heroImage || caseItem.thumb || caseItem.gallery?.[0] || DEFAULT_OG_IMAGE;
+  return caseItem.ogImage || caseItem.socialImage || caseItem.linkedinImage || getCaseLinkedInImage(caseItem) || caseItem.coverImage || caseItem.heroImage || caseItem.thumb || caseItem.gallery?.[0] || DEFAULT_OG_IMAGE;
 }
 
 export function getCaseSocialAlt(caseItem) {
-  return caseItem.ogImageAlt || `Imagem de capa do case ${caseItem.title} no portfolio Samuel Carrera Paes / Paes Consultoria.`;
+  return caseItem.ogImageAlt || `Imagem social do case ${caseItem.title} no portfolio Samuel Carrera Paes / Paes Consultoria.`;
 }
 
 export function getCaseSeoTitle(caseItem) {

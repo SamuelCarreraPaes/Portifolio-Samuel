@@ -399,12 +399,16 @@ function getCaseCanonicalUrl(caseItem) {
   return `${SITE_URL}/${getCaseRoute(caseItem)}`;
 }
 
+function getCaseLinkedInImage(caseItem) {
+  return `/images/social/linkedin/${getCaseSlug(caseItem)}.jpg`;
+}
+
 function getCaseSocialImage(caseItem) {
-  return caseItem.ogImage || caseItem.coverImage || caseItem.heroImage || caseItem.thumb || caseItem.gallery?.[0] || homePortrait;
+  return caseItem.ogImage || caseItem.socialImage || caseItem.linkedinImage || getCaseLinkedInImage(caseItem) || caseItem.coverImage || caseItem.heroImage || caseItem.thumb || caseItem.gallery?.[0] || homePortrait;
 }
 
 function getCaseSocialAlt(caseItem) {
-  return caseItem.ogImageAlt || `Imagem de capa do case ${caseItem.title} no portfólio Samuel Carrera Paes / Paes Consultoria.`;
+  return caseItem.ogImageAlt || `Imagem social do case ${caseItem.title} no portfólio Samuel Carrera Paes / Paes Consultoria.`;
 }
 
 function getCaseSeoTitle(caseItem) {
