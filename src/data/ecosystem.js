@@ -19,7 +19,7 @@ export const verdeburgoAssets = {
   pilastras: `${verdeburgoBase}/prancha-tecnica-pilastras-cenograficas-altar.jpg`,
   luminariaCarretel: `${verdeburgoBase}/prancha-tecnica-luminaria-pendulo-carretel.jpg`,
   luminariaSuspensa: `${verdeburgoBase}/prancha-tecnica-luminaria-cenografica-suspensa.jpg`,
-  moodboardIntegrado: `${verdeburgoRefinement}/moodboard-integracao-atmosfera-provence.jpg`,
+  moodboardIntegrado: `${verdeburgoBase}/provence-raiz-moodboard-materialidade-antiga.jpg`,
   materiaTextura: `${verdeburgoRefinement}/board-materia-textura-cores.jpg`,
   volumeNatural: `${verdeburgoRefinement}/board-volume-natural-nunca-artificial.jpg`,
   cerimoniaRefinada: `${verdeburgoRefinement}/render-cerimonia-altar-passarela-refinado.jpg`,

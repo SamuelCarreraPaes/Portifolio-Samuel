@@ -1,7 +1,7 @@
 # Paes Consultoria / Samuel Carrera Paes
 
 Fonte canonica: https://paesconsultoria.com
-Atualizado em: 2026-07-13
+Atualizado em: 2026-08-29
 
 Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e consultor criativo. A Paes Consultoria organiza direcao criativa, repertorio visual, imagem, espaco, eventos, varejo, comunicacao, cenografia, experiencia fisica e pensamento editorial.
 
@@ -11,21 +11,34 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 - Cases: https://paesconsultoria.com/cases
 - Provence Raiz: https://paesconsultoria.com/case/provence-raiz-sistema-visual
 - Sistema de Direcao Criativa: https://paesconsultoria.com/sistema
+- IA & Alma: https://paesconsultoria.com/ia-com-alma
 - Contato: https://paesconsultoria.com/contato
 
 ## Cases
+- ROOM 329 — The Room Remembers: https://paesconsultoria.com/case/room-329
+- PAIS — Presença e Herança: https://paesconsultoria.com/case/pais-presenca-e-heranca
+- Irene 1945 — Feito à Mão: https://paesconsultoria.com/case/irene-1945-feito-a-mao
 - Val Fortunatto — Brand Transition: https://paesconsultoria.com/case/val-fortunatto-brand-transition
 - Val Fortunatto Linho — Produto Próprio: https://paesconsultoria.com/case/val-fortunatto-linho-produto-proprio
 - Ateliê Bambini — Arquitetura de Marca Infantil: https://paesconsultoria.com/case/atelie-bambini-arquitetura-de-marca-infantil
 - R Lovers — Calendário Comercial: https://paesconsultoria.com/case/r-lovers-calendario-comercial
-- Porti — Expansão Física & Cenografia: https://paesconsultoria.com/case/porti-expansao-fisica-cenografia
+- Porti — Visual Merchandising: https://paesconsultoria.com/case/porti-visual-merchandising
 - HEXA — Copa do Mundo · Reserva: https://paesconsultoria.com/case/hexa-copa-do-mundo-reserva
 - Campanhas & Collabs: https://paesconsultoria.com/case/campanhas-collabs
 - Rouge & Gold — Exposição Premium: https://paesconsultoria.com/case/rouge-gold-exposicao-premium
 - Outerwear — Hotspots & Color Blocking: https://paesconsultoria.com/case/outerwear-hotspots-color-blocking
 - Vintage Denim — Cápsula Heritage: https://paesconsultoria.com/case/vintage-denim-capsula-heritage
 - Paraíso Tropical — Mata Atlântica: https://paesconsultoria.com/case/paraiso-tropical-mata-atlantica
-- Provence Raiz — Sistema Visual e Direção Criativa: https://paesconsultoria.com/case/provence-raiz-sistema-visual
+- Provence Raiz — Identidade Visual: https://paesconsultoria.com/case/provence-raiz-sistema-visual
+- BANAL — Identidade de Agência Criativa: https://paesconsultoria.com/case/banal-identidade-de-agencia-criativa
+- Casarão Medeiros — Identidade Visual: https://paesconsultoria.com/case/casarao-medeiros-identidade-visual
+- Denim & Paraíso Tropical: https://paesconsultoria.com/case/denim-paraiso-tropical-visual-merchandising
+- Porti — Cenografia de Natal: https://paesconsultoria.com/case/porti-cenografia-de-natal
+- Porti — Cenografia de Verão: https://paesconsultoria.com/case/porti-cenografia-de-verao
+- Provence Raiz — Pilastras Cenográficas: https://paesconsultoria.com/case/provence-raiz-pilastras-cenograficas
+- Provence Raiz — Luminária Carretel: https://paesconsultoria.com/case/provence-raiz-luminaria-carretel
+- Provence Raiz — Gaiola Cenográfica: https://paesconsultoria.com/case/provence-raiz-gaiola-cenografica
+- Provence Raiz — Direção de Atmosfera: https://paesconsultoria.com/case/provence-raiz-direcao-de-atmosfera
 
 ## Artigos
 - A gramática invisível da marca: https://paesconsultoria.com/sistema/leitura-de-marca

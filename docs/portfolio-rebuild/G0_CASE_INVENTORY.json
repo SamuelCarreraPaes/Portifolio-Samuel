@@ -1,0 +1,550 @@
+{
+  "summary": {
+    "generatedAt": "2026-09-01T18:43:12.188Z",
+    "repository": "C:\\Users\\samue\\Documents\\Codex\\2026-08-19\\files-pasted-by-the-user-vamos\\work\\portfolio-samuel-comercial",
+    "scope": [
+      "public/images",
+      "public/brands",
+      "assets-source"
+    ],
+    "casesFound": 24,
+    "assetsFound": 366,
+    "imagesFound": 351,
+    "videosFound": 2,
+    "documentsFound": 13,
+    "provenanceUnconfirmed": 251,
+    "duplicatedAssets": 29,
+    "fourthG4LockDocumented": false,
+    "fourthG4LockNote": "Nenhuma quarta trava foi localizada no repositorio. O inventario aplica apenas necessidade comprovada, fidelidade e proveniencia, alem do gate humano solicitado."
+  },
+  "cases": [
+    {
+      "id": "case-13",
+      "slug": "room-329",
+      "title": "ROOM 329 — The Room Remembers",
+      "disciplineCurrent": "IA & Alma · Fashion Editorial · Direção Criativa",
+      "route": "/case/room-329",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 9,
+        "gallery": 7,
+        "images": 8,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 9,
+        "provenanceUnconfirmed": 0
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-14",
+      "slug": "pais-presenca-e-heranca",
+      "title": "PAIS — Presença e Herança",
+      "disciplineCurrent": "IA & Alma · Retrato · Narrativa Afetiva",
+      "route": "/case/pais-presenca-e-heranca",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 8,
+        "gallery": 6,
+        "images": 7,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 8,
+        "provenanceUnconfirmed": 0
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-15",
+      "slug": "irene-1945-feito-a-mao",
+      "title": "Irene 1945 — Feito à Mão",
+      "disciplineCurrent": "IA & Alma · Produto · Cultura Material",
+      "route": "/case/irene-1945-feito-a-mao",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 11,
+        "gallery": 9,
+        "images": 10,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 11,
+        "provenanceUnconfirmed": 0
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-01",
+      "slug": "val-fortunatto-brand-transition",
+      "title": "Val Fortunatto — Brand Transition",
+      "disciplineCurrent": "Direção Criativa · Curadoria · Reposicionamento",
+      "route": "/case/val-fortunatto-brand-transition",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 8,
+        "gallery": 7,
+        "images": 8,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 7
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-02",
+      "slug": "val-fortunatto-linho-produto-proprio",
+      "title": "Val Fortunatto Linho — Produto Próprio",
+      "disciplineCurrent": "Produto Próprio · Curadoria Comercial · Direção Criativa",
+      "route": "/case/val-fortunatto-linho-produto-proprio",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 7,
+        "gallery": 6,
+        "images": 7,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 6
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-03",
+      "slug": "atelie-bambini-arquitetura-de-marca-infantil",
+      "title": "Ateliê Bambini — Arquitetura de Marca Infantil",
+      "disciplineCurrent": "Arquitetura de Marca · Identidade Visual · Experiência Boutique",
+      "route": "/case/atelie-bambini-arquitetura-de-marca-infantil",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 20,
+        "gallery": 10,
+        "images": 19,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 14,
+        "provenanceUnconfirmed": 6
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-04",
+      "slug": "r-lovers-calendario-comercial",
+      "title": "R Lovers — Calendário Comercial",
+      "disciplineCurrent": "Visual Merchandising · Calendário Comercial · Produto Hero",
+      "route": "/case/r-lovers-calendario-comercial",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 6,
+        "gallery": 5,
+        "images": 6,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 5
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-05",
+      "slug": "porti-visual-merchandising",
+      "title": "Porti — Visual Merchandising",
+      "disciplineCurrent": "Visual Merchandising · Produto · Store Experience",
+      "route": "/case/porti-visual-merchandising",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 6,
+        "gallery": 6,
+        "images": 6,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 0,
+        "provenanceUnconfirmed": 6
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-06",
+      "slug": "hexa-copa-do-mundo-reserva",
+      "title": "HEXA — Copa do Mundo · Reserva",
+      "disciplineCurrent": "Campaign Translation · Retail Experience · Cultural Storytelling",
+      "route": "/case/hexa-copa-do-mundo-reserva",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 4,
+        "gallery": 3,
+        "images": 4,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 3
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-07",
+      "slug": "campanhas-collabs",
+      "title": "Campanhas & Collabs",
+      "disciplineCurrent": "Brand Collaboration · Visual Merchandising · Cultural Translation",
+      "route": "/case/campanhas-collabs",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 10,
+        "gallery": 9,
+        "images": 10,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 9
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-08",
+      "slug": "rouge-gold-exposicao-premium",
+      "title": "Rouge & Gold — Exposição Premium",
+      "disciplineCurrent": "Exposição Premium · Direção Criativa · Brand Experience",
+      "route": "/case/rouge-gold-exposicao-premium",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 6,
+        "gallery": 5,
+        "images": 6,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 5
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-09",
+      "slug": "outerwear-hotspots-color-blocking",
+      "title": "Outerwear — Hotspots & Color Blocking",
+      "disciplineCurrent": "Hotspots · Color Blocking · Estratégia Visual",
+      "route": "/case/outerwear-hotspots-color-blocking",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 4,
+        "gallery": 3,
+        "images": 4,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 3
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-10",
+      "slug": "vintage-denim-capsula-heritage",
+      "title": "Vintage Denim — Cápsula Heritage",
+      "disciplineCurrent": "Cápsula Heritage · Storytelling · Cenografia",
+      "route": "/case/vintage-denim-capsula-heritage",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 4,
+        "gallery": 3,
+        "images": 4,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 3
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-11",
+      "slug": "paraiso-tropical-mata-atlantica",
+      "title": "Paraíso Tropical — Mata Atlântica",
+      "disciplineCurrent": "Capsule Collection · Visual Merchandising · Summer Storytelling",
+      "route": "/case/paraiso-tropical-mata-atlantica",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 6,
+        "gallery": 5,
+        "images": 6,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 1,
+        "provenanceUnconfirmed": 5
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-12",
+      "slug": "provence-raiz-sistema-visual",
+      "title": "Provence Raiz — Identidade Visual",
+      "disciplineCurrent": "Identidade Visual · Hospitalidade · Sistema",
+      "route": "/case/provence-raiz-sistema-visual",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 174,
+        "gallery": 6,
+        "images": 169,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 52,
+        "provenanceUnconfirmed": 122
+      },
+      "component": "ProvenceRaizCaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-16",
+      "slug": "banal-identidade-de-agencia-criativa",
+      "title": "BANAL — Identidade de Agência Criativa",
+      "disciplineCurrent": "Identidade Visual · Estratégia de Marca · Sistema",
+      "route": "/case/banal-identidade-de-agencia-criativa",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 12,
+        "gallery": 9,
+        "images": 11,
+        "videos": 1,
+        "provenanceConfirmedOrDocumented": 0,
+        "provenanceUnconfirmed": 12
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-17",
+      "slug": "casarao-medeiros-identidade-visual",
+      "title": "Casarão Medeiros — Identidade Visual",
+      "disciplineCurrent": "Identidade Visual · Hospitalidade · Experiência",
+      "route": "/case/casarao-medeiros-identidade-visual",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 18,
+        "gallery": 10,
+        "images": 16,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 7,
+        "provenanceUnconfirmed": 11
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-18",
+      "slug": "denim-paraiso-tropical-visual-merchandising",
+      "title": "Denim & Paraíso Tropical",
+      "disciplineCurrent": "Visual Merchandising · Narrativa de Produto · Varejo",
+      "route": "/case/denim-paraiso-tropical-visual-merchandising",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 8,
+        "gallery": 8,
+        "images": 8,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 0,
+        "provenanceUnconfirmed": 8
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-19",
+      "slug": "porti-cenografia-de-natal",
+      "title": "Porti — Cenografia de Natal",
+      "disciplineCurrent": "Cenografia · Vitrine · Natal",
+      "route": "/case/porti-cenografia-de-natal",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 6,
+        "gallery": 5,
+        "images": 5,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 2,
+        "provenanceUnconfirmed": 4
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-20",
+      "slug": "porti-cenografia-de-verao",
+      "title": "Porti — Cenografia de Verão",
+      "disciplineCurrent": "Cenografia · Vitrine · Verão",
+      "route": "/case/porti-cenografia-de-verao",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 8,
+        "gallery": 7,
+        "images": 7,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 2,
+        "provenanceUnconfirmed": 6
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-21",
+      "slug": "provence-raiz-pilastras-cenograficas",
+      "title": "Provence Raiz — Pilastras Cenográficas",
+      "disciplineCurrent": "Cenografia · Arquitetura Temporária · Detalhamento",
+      "route": "/case/provence-raiz-pilastras-cenograficas",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 5,
+        "gallery": 5,
+        "images": 5,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 0,
+        "provenanceUnconfirmed": 5
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-22",
+      "slug": "provence-raiz-luminaria-carretel",
+      "title": "Provence Raiz — Luminária Carretel",
+      "disciplineCurrent": "Cenografia · Objeto de Luz · Detalhamento",
+      "route": "/case/provence-raiz-luminaria-carretel",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 5,
+        "gallery": 5,
+        "images": 5,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 0,
+        "provenanceUnconfirmed": 5
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-23",
+      "slug": "provence-raiz-gaiola-cenografica",
+      "title": "Provence Raiz — Gaiola Cenográfica",
+      "disciplineCurrent": "Cenografia · Objeto de Luz · Detalhamento",
+      "route": "/case/provence-raiz-gaiola-cenografica",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 5,
+        "gallery": 5,
+        "images": 5,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 0,
+        "provenanceUnconfirmed": 5
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    },
+    {
+      "id": "case-24",
+      "slug": "provence-raiz-direcao-de-atmosfera",
+      "title": "Provence Raiz — Direção de Atmosfera",
+      "disciplineCurrent": "Decoração · Direção de Atmosfera · Experiência",
+      "route": "/case/provence-raiz-direcao-de-atmosfera",
+      "texts": {
+        "shortTese": true,
+        "directorsNote": true,
+        "blocks": 4
+      },
+      "assets": {
+        "associated": 9,
+        "gallery": 9,
+        "images": 9,
+        "videos": 0,
+        "provenanceConfirmedOrDocumented": 0,
+        "provenanceUnconfirmed": 9
+      },
+      "component": "CaseDetail",
+      "status": "existente no working tree antes da reconstrucao editorial"
+    }
+  ]
+}

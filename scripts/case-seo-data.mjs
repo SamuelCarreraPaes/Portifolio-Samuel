@@ -8,6 +8,11 @@ export const DEFAULT_OG_IMAGE = "/images/13_VISAO/about-transition.png";
 const CASE_SLUG_OVERRIDES = {
   "case-01": "val-fortunatto-brand-transition",
   "case-12": "provence-raiz-sistema-visual",
+  "case-13": "room-329",
+  "case-14": "pais-presenca-e-heranca",
+  "case-15": "irene-1945-feito-a-mao",
+  "case-16": "banal-identidade-de-agencia-criativa",
+  "case-17": "casarao-medeiros-identidade-visual",
 };
 
 export function absoluteUrl(pathname = "") {
@@ -153,16 +158,84 @@ export async function getLocalImageDimensions(root, imagePath) {
   }
 }
 
-export async function loadCasesData(root) {
-  const appPath = path.join(root, "src", "App.jsx");
-  const appSource = await readFile(appPath, "utf8");
-  const match = appSource.match(/const casesData = (\[[\s\S]*?\n\]);\r?\n\r?\nconst homePortrait/);
+function extractArrayLiteral(source, declarationName) {
+  const declaration = `const ${declarationName} =`;
+  const declarationIndex = source.indexOf(declaration);
+  const start = declarationIndex < 0 ? -1 : source.indexOf("[", declarationIndex + declaration.length);
 
-  if (!match) {
-    throw new Error("Nao foi possivel localizar casesData em src/App.jsx.");
+  if (start < 0) return null;
+
+  let depth = 0;
+  let quote = null;
+  let escaped = false;
+  let lineComment = false;
+  let blockComment = false;
+
+  for (let index = start; index < source.length; index += 1) {
+    const character = source[index];
+    const nextCharacter = source[index + 1];
+
+    if (lineComment) {
+      if (character === "\n") lineComment = false;
+      continue;
+    }
+
+    if (blockComment) {
+      if (character === "*" && nextCharacter === "/") {
+        blockComment = false;
+        index += 1;
+      }
+      continue;
+    }
+
+    if (quote) {
+      if (escaped) {
+        escaped = false;
+      } else if (character === "\\") {
+        escaped = true;
+      } else if (character === quote) {
+        quote = null;
+      }
+      continue;
+    }
+
+    if (character === "/" && nextCharacter === "/") {
+      lineComment = true;
+      index += 1;
+      continue;
+    }
+
+    if (character === "/" && nextCharacter === "*") {
+      blockComment = true;
+      index += 1;
+      continue;
+    }
+
+    if (character === '"' || character === "'" || character === "`") {
+      quote = character;
+      continue;
+    }
+
+    if (character === "[") depth += 1;
+    if (character === "]") {
+      depth -= 1;
+      if (depth === 0) return source.slice(start, index + 1);
+    }
   }
 
-  const casesData = vm.runInNewContext(`(${match[1]})`, Object.freeze({}));
+  return null;
+}
+
+export async function loadCasesData(root) {
+  const casesPath = path.join(root, "src", "data", "portfolioCases.js");
+  const casesSource = await readFile(casesPath, "utf8");
+  const casesLiteral = extractArrayLiteral(casesSource, "casesData");
+
+  if (!casesLiteral) {
+    throw new Error("Nao foi possivel localizar casesData em src/data/portfolioCases.js.");
+  }
+
+  const casesData = vm.runInNewContext(`(${casesLiteral})`, Object.freeze({}));
 
   return Promise.all(casesData.map(async (caseItem) => {
     const ogImage = getCaseSocialImage(caseItem);

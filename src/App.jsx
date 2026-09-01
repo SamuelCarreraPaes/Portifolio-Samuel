@@ -1,359 +1,29 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
 
 import { sistemaArticleCards } from "./sistemaArticleCards";
+import { ImageWithFallback } from "./components/portfolio/ImageWithFallback";
+import { PortfolioDisciplineCarousel } from "./components/portfolio/PortfolioDisciplineCarousel";
+import {
+  formatPortfolioTerm,
+  getGalleryAssetMeta,
+  getGallerySectionIntro,
+  portfolioCategoryDefinitions,
+} from "./portfolioPresentation";
 
 // --- DADOS DOS CASES OFICIAIS COM NARRATIVA PROFUNDA E TAGS DE FILTRO ---
-const casesData = [
-  {
-    id: "case-01",
-    number: "01",
-    title: "Val Fortunatto — Brand Transition",
-    slug: "val-fortunatto-brand-transition",
-    seoTitle: "Val Fortunatto — Brand Transition | Samuel Paes",
-    seoDescription: "Uma transição de marca construída pela curadoria, pela imagem e pela sofisticação do desejo. Direção criativa e reposicionamento por Samuel Paes.",
-    ogImageAlt: "Fotografia editorial do case Val Fortunatto — Brand Transition, com direção criativa e curadoria de moda por Samuel Paes.",
-    category: "Direção Criativa · Curadoria · Reposicionamento",
-    filterTags: ["BRAND", "RETAIL"],
-    shortTese: "Uma transição de marca construída pela curadoria, pela imagem e pela sofisticação do desejo.",
-    client: "Val Fortunatto",
-    role: "Direção Criativa",
-    territory: "Brand Transition",
-    deliverables: "Curadoria, Styling, Campanha",
-    directorsNote: "Reposicionar exige precisão. Preservamos a alma da marca, mas alteramos a lente. O desafio não foi mudar o produto, foi reposicionar o desejo.",
-    thumb: "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_02.png",
-    blocks: [
-      ["Abertura", "Este projeto marcou o início de uma transição estratégica de posicionamento para a Val Fortunatto — uma multimarca mineira consolidada no varejo feminino contemporâneo."],
-      ["Contexto & Desafio", "O objetivo central foi reconstruir a percepção estética da marca, sofisticando sua comunicação visual e aproximando um público mais jovem, sem romper com a elegância e a maturidade já reconhecidas pela cliente tradicional da loja."],
-      ["Estratégia & Execução", "A curadoria de produto (com marcas mineiras como Eminem, Victor Dzenk e Sara Santos) teve papel central. A direção visual foi construída sobre a tensão entre leveza e estrutura, fluidez e monumentalidade. Texturas densas e alfaiataria arquitetônica foram utilizadas para construir uma narrativa visual mais madura."],
-      ["Impacto & Resultados", "Reposicionamento visual estratégico da marca, elevando sua percepção editorial. Fortalecimento da percepção premium e rejuvenescimento gradual da comunicação. Feedback: 'A campanha marcou claramente uma nova fase estética da marca sem perder sua identidade original.'"]
-    ],
-    gallery: [
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_02.png",
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_02.png",
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_03.png",
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_04.png",
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_05.png",
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_06.png",
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_07.png",
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_08.png",
-      "/images/01_VAL_FORTUNATTO/SP_CASE01_VALFORTUNATTO_09.png"
-    ]
-  },
-  {
-    id: "case-02",
-    number: "02",
-    title: "Val Fortunatto Linho — Produto Próprio",
-    category: "Produto Próprio · Curadoria Comercial · Direção Criativa",
-    filterTags: ["PRODUCT", "BRAND"],
-    shortTese: "Quando uma multimarca transforma confiança em produto próprio.",
-    client: "Val Fortunatto",
-    role: "Direção Criativa",
-    territory: "Desenvolvimento de Coleção",
-    deliverables: "Design de Produto, Campanha, Styling",
-    directorsNote: "A curadoria evoluiu para criação. A loja deixou de ser vitrine para ser assinatura. O linho cru foi nosso ponto de partida estrutural.",
-    thumb: "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_01.png",
-    blocks: [
-      ["Abertura", "Este projeto nasceu de uma leitura estratégica sobre multimarcas contemporâneas: em muitos casos, o valor não está apenas nas marcas comercializadas, mas na confiança construída em torno do nome da própria loja."],
-      ["Contexto & Desafio", "As clientes não buscavam apenas uma etiqueta — buscavam o olhar da marca. O desafio era criar uma cápsula de alto verão em linho que não competisse com as marcas de festa, ocupando uma lacuna estratégica: o casual sofisticado."],
-      ["Estratégia & Execução", "Pesquisa de mercado, análise de comportamento e escolha do linho de alta qualidade. A campanha partiu da ideia de uma mulher que consome de forma consciente. O shooting em um casarão evocou memória, permanência e sofisticação natural."],
-      ["Impacto & Resultados", "A inserção de produto próprio no mix fortaleceu a percepção da Val Fortunatto como marca com autoridade autoral, diferenciando-a no mercado. Feedback: 'A cápsula traduziu a essência da Val Fortunatto; a campanha conseguiu mostrar uma mulher sofisticada e atemporal.'"]
-    ],
-    gallery: [
-      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_01.png",
-      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_02.png",
-      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_03.png",
-      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_04.png",
-      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_05.png",
-      "/images/02_VAL_FORTUNATTO_LINHO/SP_CASE02_LINHO_06.png"
-    ]
-  },
-  {
-    id: "case-03",
-    number: "03",
-    title: "Ateliê Bambini — Arquitetura de Marca Infantil",
-    category: "Brand Architecture · Retail Strategy · Premium Positioning",
-    filterTags: ["BRAND", "SPACE"],
-    shortTese: "A construção de um novo universo para a infância contemporânea.",
-    client: "Ateliê Bambini",
-    role: "Consultoria Estratégica",
-    territory: "Brand Creation",
-    deliverables: "Identidade Visual, Narrativa Espacial",
-    directorsNote: "Rejeitamos o plástico e o primário. Optamos pela subversão do silêncio. Palha, madeira e pedra elevaram a memória infantil ao status de design.",
-    thumb: "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_01.png",
-    blocks: [
-      ["Abertura", "O Ateliê Bambini nasceu como desdobramento estratégico de um processo maior de consultoria realizado para a T Kids — uma multimarca infantil consolidada há mais de duas décadas."],
-      ["Contexto & Desafio", "A T Kids reunia produtos populares e premium no mesmo espaço, gerando um conflito de percepção crítico. Além disso, a marca permanecia visualmente presa à lógica estética de vinte anos atrás num cenário onde o varejo físico se tornou aspiracional."],
-      ["Estratégia & Execução", "Arquitetura estratégica: preservar a T Kids nas lojas de rua acessíveis e construir a Bambini para shopping, com experiência boutique. A identidade abandonou clichês plásticos e primários, baseando-se na materialidade poética da palha, madeira e pedra."],
-      ["Impacto & Resultados", "Reorganização estratégica do posicionamento, criando clareza entre ticket popular e experiência premium. Consolidação de uma visão de expansão futura. Feedback: 'O projeto conseguiu transformar completamente a percepção do que poderia ser uma marca infantil.'"]
-    ],
-    gallery: [
-      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_01.png",
-      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_02.png",
-      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_03.png",
-      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_04.png",
-      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_05.png",
-      "/images/03_ATELIE_BAMBINI/SP_CASE03_ATELIEBAMBINI_06.png"
-    ]
-  },
-  {
-    id: "case-04",
-    number: "04",
-    title: "R Lovers — Calendário Comercial",
-    category: "Visual Merchandising · Calendário Comercial · Produto Hero",
-    filterTags: ["RETAIL"],
-    shortTese: "A arquitetura afetiva da conversão orientada por produtos-chave.",
-    client: "Reserva",
-    role: "Direção Criativa Aplicada",
-    territory: "Retail Campaign",
-    deliverables: "Vitrinismo, Styling, Exposição",
-    directorsNote: "A emoção exige estética exata. Não vendemos peças de inverno, vendemos o cenário onde elas ganham vida. Afeto convertido em performance comercial.",
-    thumb: "/images/04_R_LOVERS/SP_CASE04_RLOVERS_01.png",
-    blocks: [
-      ["Abertura", "O projeto R Lovers partiu de uma leitura estratégica do calendário comercial da Reserva, utilizando o Dia dos Namorados para fortalecer produtos de maior valor agregado da coleção de inverno."],
-      ["Contexto & Desafio", "Transformar o discurso romântico em experiência física para gerar desejo e aumentar a percepção de valor. Produtos de maior ticket, como jaquetas e mochilas, precisavam de contexto de presenteabilidade num país tropical."],
-      ["Estratégia & Execução", "Uso de 'produtos hero' como protagonistas da composição visual. A vitrine evitou a banalização e adotou uma atmosfera cinematográfica, afetiva e levemente nostálgica, trazendo um romantismo mais sensorial e conectado ao presente significativo."],
-      ["Impacto & Resultados", "Transformou uma data afetiva em ferramenta estratégica de conversão. Maior destaque para itens de ticket mais alto sem perder sofisticação. Feedback: 'O Dia dos Namorados foi usado como oportunidade real de conversão, não apenas como tema visual.'"]
-    ],
-    gallery: [
-      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_01.png",
-      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_02.png",
-      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_03.png",
-      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_04.png",
-      "/images/04_R_LOVERS/SP_CASE04_RLOVERS_05.png"
-    ]
-  },
-  {
-    id: "case-05",
-    number: "05",
-    title: "Porti — Expansão Física & Cenografia",
-    category: "Retail Expansion · Visual Merchandising · Store Experience",
-    filterTags: ["SPACE", "RETAIL"],
-    shortTese: "A construção física, técnica e cenográfica de uma marca em expansão.",
-    client: "Porti",
-    role: "Direção Criativa",
-    territory: "Store Experience",
-    deliverables: "Layout, Cenografia, Implantação",
-    directorsNote: "Expandir exige preservar a aura. A vitrine é nosso outdoor tridimensional. De geometrias orgânicas a cascatas metálicas, transformamos consumo em espetáculo.",
-    thumb: "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_01.png",
-    blocks: [
-      ["Abertura", "A atuação com a Porti aconteceu em um momento estratégico de expansão da marca, onde o desafio não era apenas criar vitrines, mas estruturar a presença física em diferentes praças comerciais."],
-      ["Contexto & Desafio", "Aberturas simultâneas exigiam que a comunicação das redes sociais se traduzisse em loja. O desafio cobria coordenação visual de implantação, estoques, enxoval de manequins e soluções expositivas alinhadas à narrativa comercial."],
-      ["Estratégia & Execução", "Desenvolvimento técnico e operacional ponta a ponta. As vitrines sazonais atuaram como exemplos dessa metodologia: o Verão trouxe cenografia leve com campanha integrada, enquanto o Natal implantou uma densa cascata de esferas metálicas reflexivas de alto impacto."],
-      ["Impacto & Resultados", "Padronização visual nas lojas inauguradas e forte coerência entre redes sociais e ponto de venda. As vitrines deixaram de ser apenas sazonais. Feedback: 'A atuação ajudou a transformar a expansão em uma experiência visual mais profissional e coerente.'"]
-    ],
-    gallery: [
-      // Natal: 0 a 3
-      "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_01.png",
-      "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_02.png",
-      "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_03.png",
-      "/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_04.png",
-      // Verão: 4 a 9
-      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_01.png",
-      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_02.png",
-      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_03.png",
-      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_04.png",
-      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_05.png",
-      "/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_06.png",
-      // Primavera: 10 a 15
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_01.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_02.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_03.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_04.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_05.png",
-      "/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_06.png"
-    ]
-  },
-  {
-    id: "case-06",
-    number: "06",
-    title: "HEXA — Copa do Mundo · Reserva",
-    category: "Campaign Translation · Retail Experience · Cultural Storytelling",
-    filterTags: ["CULTURE", "RETAIL"],
-    shortTese: "A tradução do imaginário do futebol brasileiro para o varejo contemporâneo.",
-    client: "Reserva",
-    role: "Estratégia Visual",
-    territory: "Campanha Sazonal",
-    deliverables: "Styling, Exposição de Produto",
-    directorsNote: "O futebol é a nossa cultura pop. O desafio foi engarrafar essa euforia com rigor estético. O popular elevado ao premium. O óbvio transformado em desejo.",
-    thumb: "/images/06_HEXA/SP_CASE06_HEXA_01.png",
-    blocks: [
-      ["Abertura", "O projeto HEXA nasceu da necessidade de transformar o universo emocional da Copa do Mundo em uma experiência comercial coerente com o DNA da Reserva."],
-      ["Contexto & Desafio", "Traduzir o imaginário cultural do futebol sem cair no clichê visual, preservando a sofisticação masculina. O desafio era manter o cliente fiel que compra o básico, oferecendo-lhe uma atmosfera temática."],
-      ["Estratégia & Execução", "A coleção foi estruturada em duas camadas (esportiva e urbana) reinterpretando polos rugby e jaquetas utilitárias. A cenografia de loja reproduziu os bastidores de um vestiário clássico com foco na assinatura tricolor do pássaro da marca."],
-      ["Impacto & Resultados", "Fortalecimento da identidade temática, integração entre emoção e conversão e aumento de percepção de novidade na loja. Feedback: 'A coleção parecia participar culturalmente daquele momento, e não apenas utilizar o tema comercialmente.'"]
-    ],
-    gallery: [
-      "/images/06_HEXA/SP_CASE06_HEXA_01.png",
-      "/images/06_HEXA/SP_CASE06_HEXA_02.png",
-      "/images/06_HEXA/SP_CASE06_HEXA_03.png"
-    ]
-  },
-  {
-    id: "case-07",
-    number: "07",
-    title: "Campanhas & Collabs",
-    category: "Brand Collaboration · Visual Merchandising · Cultural Translation",
-    filterTags: ["COLLAB", "CULTURE"],
-    shortTese: "A complexa fusão de universos de marca, cultura e entretenimento no varejo físico.",
-    client: "Múltiplos Clientes",
-    role: "Direção Criativa",
-    territory: "Brand Collaboration",
-    deliverables: "Narrativa Espacial, Styling",
-    directorsNote: "Colaborações exigem diplomacia visual. Basquiat, Mangueira e Netflix no mesmo espaço físico. A loja atua como tela em branco. Nunca como ruído.",
-    thumb: "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_01.png",
-    blocks: [
-      ["Abertura", "Projetos envolvendo universos como Basquiat, Mangueira e Netflix exigiram comunicação constante com intermediadores, respeitando códigos e restrições de licenciamento pesado."],
-      ["Contexto & Desafio", "A etapa final no ponto de venda é crítica: é onde a negociação institucional vira percepção para o consumidor. Cada collab precisava se impor no espaço da loja sem gerar entropia ou ruído visual confuso."],
-      ["Estratégia & Execução", "Basquiat injetou neoexpressionismo no varejo. A Mangueira exaltou a rua, o samba e a ancestralidade carioca com matches de estampas, sem folclore óbvio. A Netflix (Tudum) transformou o conforto do streaming pós-pandemia em manifesto lifestyle fora de casa."],
-      ["Impacto & Resultados", "Tradução de universos complexos, validação de diretrizes nacionais e consolidação de experiências físicas alinhadas. Feedback: 'As collabs foram apresentadas com força visual sem perder coerência de marca e aprovação institucional.'"]
-    ],
-    gallery: [
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_01.png",
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_02.png",
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_BASQUIAT_03.png",
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_MANGUEIRA_01.png",
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_MANGUEIRA_02.png",
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_MANGUEIRA_03.png",
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_NETFLIX_01.png",
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_NETFLIX_02.png",
-      "/images/07_CAMPANHAS_COLLABS/SP_CASE07_COLLABS_NETFLIX_03.png"
-    ]
-  },
-  {
-    id: "case-08",
-    number: "08",
-    title: "Rouge & Gold — Exposição Premium",
-    category: "Exposição Premium · Direção Criativa · Brand Experience",
-    filterTags: ["SPACE", "RETAIL"],
-    shortTese: "Reestruturação estratégica da leitura visual por meio de cor e cenografia de luz.",
-    client: "Rouge & Gold",
-    role: "Estratégia Visual",
-    territory: "Retail Strategy",
-    deliverables: "Color Blocking, Iluminação",
-    directorsNote: "A arquitetura manipula o olhar. Cor e luz direcionam a atenção. Uma arara perfeitamente iluminada deixa de ser expositor e torna-se um pedestal.",
-    thumb: "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_01.png",
-    blocks: [
-      ["Abertura", "Um exercício de exposição premium em que produto, cor e luz funcionam como argumento puro e direto para gerar desejo."],
-      ["Contexto & Desafio", "Organizar o olhar do cliente dentro da loja, criando hierarquia visual e a sensação luxuosa de uma galeria comercial de moda."],
-      ["Estratégia & Execução", "Color blocking intenso, iluminação cenográfica pontual para escupir e valorizar detalhes de tecido, composição de manequins e leitura estruturada e editorial de cada peça."],
-      ["Impacto & Resultados", "Reestruturação estratégica da leitura visual da loja. Aumento da percepção de organização premium. Feedback: 'A loja passou a parecer uma galeria de produto cuidadosamente curada, alterando completamente a percepção do ambiente.'"]
-    ],
-    gallery: [
-      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_01.png",
-      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_02.png",
-      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_03.png",
-      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_04.png",
-      "/images/08_ROUGE_GOLD/SP_CASE08_ROUGE_GOLD_05.png"
-    ]
-  },
-  {
-    id: "case-09",
-    number: "09",
-    title: "Outerwear — Hotspots & Color Blocking",
-    category: "Hotspots · Color Blocking · Estratégia Visual",
-    filterTags: ["RETAIL", "PRODUCT"],
-    shortTese: "Construir pontos de calor visual para fazer o cliente parar, olhar e desejar.",
-    client: "Acervo Reserva",
-    role: "Direção Criativa Aplicada",
-    territory: "Comportamento de Consumo",
-    deliverables: "Exposição de Varejo",
-    directorsNote: "Inverno pede ruptura visual. O color blocking atua como choque na retina. Interrompemos o fluxo automático. A atenção é a nossa moeda mais cara.",
-    thumb: "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_01.png",
-    blocks: [
-      ["Abertura", "Em loja física, o cliente escaneia antes de decidir. Este projeto cria intencionalmente pontos de atração para interromper essa varredura rápida."],
-      ["Contexto & Desafio", "Peças de inverno utilitárias e outerwear volumoso precisavam ganhar uma presença visual atraente em uma jornada de compra que é altamente competitiva."],
-      ["Estratégia & Execução", "Implantação de 'hotspots', color blocking estruturado, tensão cromática entre primárias, uso de jaquetas puffer como ímãs visuais com iluminação focal dramática orientada ao olhar de conversão."],
-      ["Impacto & Resultados", "Construção estratégica de atração visual. Melhoria dramática da navegação do cliente dentro do espaço escuro da arquitetura de madeira. Feedback: 'As cores passaram a conduzir naturalmente o olhar do cliente, dando mais força visual à coleção.'"]
-    ],
-    gallery: [
-      "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_01.png",
-      "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_02.png",
-      "/images/09_OUTERWEAR/SP_CASE09_OUTERWEAR_03.png"
-    ]
-  },
-  {
-    id: "case-10",
-    number: "10",
-    title: "Vintage Denim — Cápsula Heritage",
-    category: "Cápsula Heritage · Storytelling · Cenografia",
-    filterTags: ["SPACE", "PRODUCT"],
-    shortTese: "Uma cápsula de produto transformada em ambiente autêntico de memória e coleção.",
-    client: "Reserva",
-    role: "Direção Criativa",
-    territory: "Cenografia de Produto",
-    deliverables: "Atmosfera, Vitrine, Props",
-    directorsNote: "O denim é a farda da cultura pop. O atrito com o maquinário industrial cria um curto-circuito temporal. Não desenhamos lojas, montamos arquivos vivos.",
-    thumb: "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_01.png",
-    blocks: [
-      ["Abertura", "Denim como memória, atitude e identidade cultural — e não apenas como exposição pragmática de tecido."],
-      ["Contexto & Desafio", "O desafio era criar um universo inteiro que fizesse a cápsula de roupas de outono parecer rara, desejada, histórica e carregada de peso e narrativa visual forte."],
-      ["Estratégia & Execução", "Concepção cenográfica rica inspirada no estilo de um loft de colecionador. Atmosfera 'heritage' forjada com composição cromática tensa, mistura de antiguidades rústicas reais (como polias e máquinas fotográficas antigas), denim pesado e narrativa tátil profunda."],
-      ["Impacto & Resultados", "Criação de uma cenografia altamente narrativa. Aumento vertiginoso do storytelling visual e do impacto comercial da coleção no espaço físico. Feedback: 'A coleção passou a parecer uma experiência completa, criando desejo imediatamente.'"]
-    ],
-    gallery: [
-      "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_01.png",
-      "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_02.png",
-      "/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_03.png"
-    ]
-  },
-  {
-    id: "case-11",
-    number: "11",
-    title: "Paraíso Tropical — Mata Atlântica",
-    category: "Capsule Collection · Visual Merchandising · Summer Storytelling",
-    filterTags: ["PRODUCT", "CULTURE"],
-    shortTese: "A força gráfica da Mata Atlântica como contraponto inteligente ao verão óbvio.",
-    client: "Reserva",
-    role: "Estratégia Visual",
-    territory: "Lançamento de Coleção",
-    deliverables: "Styling, Vitrine 2D, Cenografia",
-    directorsNote: "O verão tropical flerta com o clichê. Optamos pela sombra da floresta e pelo rigor da alfaiataria. Transformar escapismo em luxo absoluto é a nossa premissa.",
-    thumb: "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_01.png",
-    blocks: [
-      ["Abertura", "A cápsula Paraíso Tropical foi desenvolvida como entrada de verão, partindo de uma estampa exclusiva profundamente inspirada na densa força visual da Mata Atlântica brasileira."],
-      ["Contexto & Desafio", "Evitar o clichê do paraíso tropical praiano solar simples. O desafio foi trazer a profundidade orgânica da flora e fauna misturadas aos tons clássicos, neutros e ao estilo 'navy' elegante da marca."],
-      ["Estratégia & Execução", "A estampa funcionou como motor cenográfico. Em vitrines de lojas pequenas, aplicaram-se elementos bidimensionais focados na vegetação. Em flagships, recriou-se um imersivo e cenográfico fragmento selvagem florestal para envolver a coleção."],
-      ["Impacto & Resultados", "Valorização absoluta da estampa exclusiva. Integração hábil do produto com uma forte cenografia de escapismo sem perda da leitura do clássico da marca. Feedback: 'O visual merchandising conseguiu conectar floresta, produto e verão de forma clara e comercial.'"]
-    ],
-    gallery: [
-      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_01.png",
-      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_02.png",
-      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_03.png",
-      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_04.png",
-      "/images/11_PARAISO_TROPICAL/SP_CASE11_PARAISO_TROPICAL_05.png"
-    ]
-  },
-  {
-    id: "case-12",
-    number: "12",
-    title: "Provence Raiz — Sistema Visual e Direção Criativa",
-    category: "Direção Criativa · Identidade Visual · Experiência",
-    filterTags: ["BRAND", "SPACE", "EVENT"],
-    shortTese: "Um evento tratado como sistema de linguagem: identidade, atmosfera, arquitetura, matéria, flor e experiência trabalhando como uma comunicação 360 graus.",
-    client: "Provence Raiz / Verde Burgo Eventos",
-    role: "Direção Criativa",
-    territory: "Evento como Sistema Visual",
-    deliverables: "Conceito, identidade visual, sistema visual, direção de decoração, moodboards e arquitetura cenográfica",
-    directorsNote: "O projeto não partiu de uma decoração, mas de uma gramática. A estética provençal foi tratada como linguagem: toile, luz, matéria, flor e arquitetura foram organizados para que o evento funcionasse como uma comunicação 360 graus.",
-    thumb: "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg",
-    blocks: [
-      ["Espaço & Contexto", "Provence Raiz parte de uma celebração real, mas é apresentado como exercício de consultoria criativa: transformar intenção, repertório e operação em presença física memorável."],
-      ["Conceito", "A leitura provençal foi deslocada do decorativo para o editorial. Toile de Jouy, volumes florais, luz quente, madeira clara e arquitetura cênica criaram um vocabulário visual próprio."],
-      ["Processo Criativo", "Moodboards, estudos de materialidade, pranchas técnicas e simulações foram usados como ferramentas de decisão, não como ornamento. O processo organizou o gosto antes da execução."],
-      ["Resultado", "A experiência final conecta identidade visual, ambientação, cerimônia, hospitalidade, papelaria e cenografia em uma narrativa contínua, mantendo a Verde Burgo como execução e a Paes Consultoria como direção criativa."]
-    ],
-    gallery: [
-      "/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/hero-mural-toile-de-jouy-provence-raiz.jpg",
-      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-cerimonia-altar-passarela-refinado.jpg",
-      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-mesa-bolo-mural-toile-refinado.jpg",
-      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/render-escada-cascata-floral-refinado.jpg",
-      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-materia-textura-cores.jpg",
-      "/images/14_VERDEBURGO/PROVENCE_RAIZ/03_REFINAMENTO/board-volume-natural-nunca-artificial.jpg"
-    ]
-  }
-];
+const visiblePortfolioCaseIds = portfolioCategoryDefinitions.flatMap((category) => category.caseIds);
+const homeFeaturedCase = {
+  id: "case-13",
+  title: "ROOM 329 — The Room Remembers",
+  category: "IA & Alma · Fashion Editorial · Direção Criativa",
+  thumb: "/images/15_IA_COM_ALMA/02_ROOM_329/0E70DF46-364B-4B5F-9B95-50E3A855FE83.jpeg",
+};
+
+function getCasePortfolioCategory(caseId) {
+  return portfolioCategoryDefinitions.find((category) => category.caseIds.includes(caseId)) || null;
+}
 
 const homePortrait = "/images/13_VISAO/about-transition.png";
 const SITE_URL = "https://paesconsultoria.com";
@@ -364,10 +34,16 @@ const DEFAULT_DESCRIPTION = "Portfólio autoral de Samuel Carrera Paes em direç
 const CASE_SLUG_OVERRIDES = {
   "case-01": "val-fortunatto-brand-transition",
   "case-12": "provence-raiz-sistema-visual",
+  "case-13": "room-329",
+  "case-14": "pais-presenca-e-heranca",
+  "case-15": "irene-1945-feito-a-mao",
+  "case-16": "banal-identidade-de-agencia-criativa",
+  "case-17": "casarao-medeiros-identidade-visual",
 };
 
 const LEGACY_CASE_ROUTE_ALIASES = {
   "case/val-fortunatto-brand-transitio": "case/val-fortunatto-brand-transition",
+  "case/luxury-dinner-fashion-editorial": "case/room-329",
 };
 
 function slugifyCaseTitle(value = "") {
@@ -545,42 +221,6 @@ function DynamicSEO({ title, fullTitle, description, url, image, imageAlt, image
 
 // --- COMPONENTES DE ALTA PERFORMANCE & UX ---
 
-function ImageWithFallback({ src, alt, imageClassName = "", fallbackLabel, loading = "lazy", mode = "natural" }) {
-  const [error, setError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const isNatural = mode === "natural";
-
-  return (
-    <div
-      role="img"
-      aria-label={alt || fallbackLabel}
-      className={`w-full bg-stone-200/40 flex items-center justify-center ${isNatural ? 'h-auto relative' : 'h-full relative overflow-visible'}`}
-    >
-      {!error ? (
-        <picture>
-          <img
-            src={src}
-            alt={alt || fallbackLabel}
-            loading={loading}
-            decoding="async"
-            onLoad={() => setIsLoaded(true)}
-            onError={() => setError(true)}
-            className={`w-full transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              isNatural ? "h-auto block object-contain" : "h-full absolute inset-0 object-cover"
-            } object-center ${
-              isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-105"
-            } ${imageClassName}`}
-          />
-        </picture>
-      ) : (
-        <div className={`flex flex-col items-center justify-center p-6 text-center z-0 bg-stone-200/60 ${isNatural ? 'aspect-[4/5]' : 'absolute inset-0'}`}>
-          <span className="text-[10px] text-stone-500 uppercase tracking-[0.25em] font-semibold">{fallbackLabel}</span>
-        </div>
-      )}
-    </div>
-  );
-}
-
 const PageTransition = ({ children, className = "" }) => {
   return (
     <motion.div
@@ -741,7 +381,7 @@ function Inicio({ navigate }) {
     { number: "09+", label: "Anos", text: "Construindo repertório visual, espacial e estratégico." },
     { number: "40+", label: "Projetos", text: "Trabalhos entre imagem, espaço, evento, produto e presença." },
     { number: "10+", label: "Implantações", text: "Execuções físicas, lançamentos e ativações acompanhadas." },
-    { number: "11", label: "Cases", text: "Estudos publicados em um arquivo em expansão." },
+    { number: String(visiblePortfolioCaseIds.length), label: "Cases", text: "Estudos publicados em um arquivo em expansão." },
     { number: "100%", label: "Foco", text: "Transformar intenção criativa em experiência real." },
   ];
 
@@ -772,7 +412,7 @@ function Inicio({ navigate }) {
         >
           Samuel Carrera Paes
           <br />
-          <span className="italic text-stone-500 font-light pr-4">Diretor Criativo.</span>
+          <span className="italic text-stone-500 font-light pr-4">Consultor Criativo.</span>
         </motion.h1>
 
         <motion.div
@@ -787,6 +427,22 @@ function Inicio({ navigate }) {
           <p className="mt-8 max-w-2xl text-sm md:text-base leading-relaxed text-stone-600 font-light">
             Samuel Carrera Paes reúne trabalhos de direção criativa, consultoria, imagem, varejo, eventos, cenografia, conteúdo, produto e experiência física. Este site funciona como um portfólio autoral do que ele cria, conduz e transforma.
           </p>
+          <div className="mt-10 flex flex-wrap gap-7">
+            <button
+              type="button"
+              onClick={() => navigate("cases")}
+              className="inline-flex items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            >
+              Ver cases <ArrowRightCircle className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("ia-com-alma")}
+              className="inline-flex items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            >
+              Conheça IA & Alma <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
         </motion.div>
 
         <EditorialNotice navigate={navigate} />
@@ -821,19 +477,19 @@ function Inicio({ navigate }) {
               <header>
                 <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-6 block">FEATURED CASE</span>
                 <h2 className="font-serif text-5xl md:text-7xl tracking-tight leading-[0.9] text-stone-900 mb-6 text-balance">
-                  {casesData[0].title.split('—')[0].trim()}
+                  {homeFeaturedCase.title.split('—')[0].trim()}
                 </h2>
                 <p className="text-sm md:text-base font-light text-stone-600 mb-12 max-w-md leading-relaxed">
-                  {casesData[0].category}
+                  {homeFeaturedCase.category}
                 </p>
 
                 <button
                   type="button"
-                  aria-label={`Explorar o case em destaque: ${casesData[0].title}`}
+                  aria-label={`Explorar o case em destaque: ${homeFeaturedCase.title}`}
                   onClick={() => {
                     navigate("cases");
                     setTimeout(() => {
-                      const el = document.getElementById(casesData[0].id);
+                      const el = document.getElementById(homeFeaturedCase.id);
                       if (el) {
                         const y = el.getBoundingClientRect().top + window.scrollY - 100;
                         window.scrollTo({ top: y, behavior: "smooth" });
@@ -853,7 +509,7 @@ function Inicio({ navigate }) {
             </div>
 
             <div className="flex-1 w-full aspect-[4/5] lg:aspect-[3/4] relative bg-stone-200/50 overflow-visible group rounded-sm mt-12 lg:mt-0">
-               <ImageWithFallback src={casesData[0].thumb} mode="cover" alt={`Imagem de destaque do projeto ${casesData[0].title}`} fallbackLabel="Featured Work" imageClassName="group-hover:scale-[1.03] transition duration-[2s] ease-out" />
+               <ImageWithFallback src={homeFeaturedCase.thumb} mode="cover" alt={`Imagem de destaque do projeto ${homeFeaturedCase.title}`} fallbackLabel="Featured Work" imageClassName="group-hover:scale-[1.03] transition duration-[2s] ease-out" />
 
                {/* Tipografia como Textura */}
                <div className="absolute inset-0 pointer-events-none flex flex-col justify-between py-10 px-8 opacity-[0.03]" aria-hidden="true">
@@ -865,6 +521,39 @@ function Inicio({ navigate }) {
             </div>
           </div>
         </motion.article>
+
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: PREMIUM_EASE }}
+          className="mt-32 grid gap-12 border-y border-stone-900/10 py-20 lg:grid-cols-[0.72fr_1.28fr] lg:items-end"
+          aria-labelledby="home-ia-com-alma-title"
+        >
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-stone-400">
+              NOVO EIXO / DIREÇÃO SINTÉTICA
+            </span>
+          </div>
+          <div>
+            <h2 id="home-ia-com-alma-title" className="font-serif text-5xl leading-[0.92] tracking-tight text-stone-950 md:text-7xl text-balance">
+              IA & Alma.
+            </h2>
+            <p className="mt-7 max-w-3xl text-xl font-light leading-relaxed text-stone-700 md:text-2xl text-balance">
+              Campanhas sintéticas com direção real. A tecnologia amplia repertório, intenção e autoria — não ocupa o lugar deles.
+            </p>
+            <p className="mt-6 max-w-2xl text-sm font-light leading-relaxed text-stone-600">
+              Uma nova expressão da mesma prática que conecta marca, imagem, produto, espaço e narrativa. Samuel continua no centro; a inteligência artificial entra como infraestrutura criativa governada por critério editorial.
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate("ia-com-alma")}
+              className="mt-10 inline-flex items-center gap-4 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            >
+              Entrar em IA & Alma <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        </motion.section>
 
         {/* --- MAGNETIC CALL TO ACTION --- */}
         <div className="mt-32 flex items-center justify-between border-t border-stone-900/10 pt-10 pb-16">
@@ -975,133 +664,45 @@ function Visao() {
   );
 }
 
-function Cases({ navigate }) {
-  const [activeFilter, setActiveFilter] = useState("ALL");
-  const filters = ["ALL", "BRAND", "PRODUCT", "RETAIL", "CULTURE", "SPACE", "EVENT", "COLLAB"];
-  const filterLabels = {
-    ALL: "TODOS",
-    BRAND: "IDENTIDADE",
-    PRODUCT: "PRODUTO",
-    RETAIL: "VAREJO",
-    CULTURE: "CULTURA",
-    SPACE: "ESPAÇO",
-    EVENT: "EVENTOS",
-    COLLAB: "COLLABS"
-  };
-
-  const filteredCases = useMemo(() => {
-    if (activeFilter === "ALL") return casesData;
-    return casesData.filter(c => c.filterTags.includes(activeFilter));
-  }, [activeFilter]);
-
+function Cases({ navigate, casesData }) {
   return (
     <PageTransition>
-      <DynamicSEO title="Portfólio de Trabalhos" description="Trabalhos selecionados em direção criativa, imagem, espaço, produto, varejo, eventos, cenografia e experiência." />
+      <DynamicSEO title="Portfólio de Trabalhos" description="Portfólio de Samuel Carrera Paes organizado por Visual Merchandising, Identidade Visual, Cenografia, Decoração e IA & Alma." />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12" aria-labelledby="cases-title">
+        <header className="border-b border-stone-900/10 pb-16 md:pb-24">
+          <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">PORTFÓLIO / CINCO DISCIPLINAS</span>
+          <h1 id="cases-title" className="mb-8 max-w-5xl font-serif text-5xl leading-[0.85] tracking-tighter text-stone-950 text-balance md:text-[7rem]">Trabalhos com estrutura, presença e contexto.</h1>
+          <p className="max-w-3xl text-lg font-light leading-relaxed text-stone-600 md:text-2xl">
+            Samuel Carrera Paes transforma intenção em presença por meio de direção criativa, imagem, espaço e experiência. Este arquivo organiza essa prática em Visual Merchandising, Identidade Visual, Cenografia, Decoração e IA & Alma.
+          </p>
 
-        {/* --- CURATED WORKS INDEX --- */}
-        <div id="cases-index" className="mb-40">
-          <header>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-12 block">TRABALHOS SELECIONADOS</span>
-            <h1 id="cases-title" className="font-serif text-5xl md:text-[7rem] leading-[0.85] tracking-tighter text-stone-950 max-w-4xl mb-8 text-balance">
-              Portfólio.
-            </h1>
-            <p className="text-lg md:text-2xl font-light text-stone-600 max-w-2xl mb-16 leading-relaxed">
-              Um arquivo de trabalhos em direção criativa: marca, produto, varejo, evento, cenografia, campanha, espaço e experiência.
-            </p>
-          </header>
-
-          <section className="mb-12 grid gap-4 border-y border-stone-900/10 py-6 md:grid-cols-3" aria-label="Linhas de leitura do portfólio">
-            {[
-              ["Imagem", "Campanhas, styling, narrativa visual e presença editorial."],
-              ["Espaço", "Vitrine, loja, evento, cenografia e experiência física."],
-              ["Sistema", "Método, operação, repertório e pensamento por trás dos trabalhos."]
-            ].map(([title, text]) => (
-              <article key={title} className="sp-reading-line">
-                <h2>{title}</h2>
-                <p>{text}</p>
-              </article>
-            ))}
-          </section>
-
-          <nav className="flex flex-wrap gap-3 mb-16" aria-label="Filtrar cases por território">
-            {filters.map(chip => (
-              <button
-                key={chip}
-                aria-pressed={activeFilter === chip}
-                onClick={() => setActiveFilter(chip)}
-                className={`text-[10px] font-bold uppercase tracking-[0.2em] px-5 py-2.5 border rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 ${
-                  activeFilter === chip
-                  ? 'bg-stone-900 text-white border-stone-900 shadow-md'
-                  : 'bg-transparent text-stone-500 border-stone-900/20 hover:border-stone-900/40 hover:text-stone-800'
-                }`}
-              >
-                {filterLabels[chip] || chip}
-              </button>
+          <nav className="mt-12 flex flex-wrap gap-3" aria-label="Ir para uma disciplina do portfólio">
+            {portfolioCategoryDefinitions.map((category) => (
+              <a key={category.id} href={`#${category.id}`} className="inline-flex min-h-11 items-center rounded-full border border-stone-900/20 px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900">
+                {category.label}
+              </a>
             ))}
           </nav>
+        </header>
 
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
-            <AnimatePresence mode="popLayout">
-              {filteredCases.map((c) => (
-                <motion.article
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, ease: PREMIUM_EASE }}
-                  key={c.id}
-                  className="group flex flex-col"
-                  id={c.id}
-                >
-                  <button
-                    type="button"
-                    aria-label={`Abrir case ${c.number}: ${c.title}`}
-                    className="sp-case-card aspect-[4/5] relative w-full mb-6 bg-stone-200/60 overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm block"
-                    onClick={() => navigate(getCaseRoute(c))}
-                  >
-                    <ImageWithFallback src={c.thumb} mode="cover" alt={`Imagem de capa do projeto ${c.title}`} imageClassName="group-hover:scale-105 transition-transform duration-[1.5s] ease-out" fallbackLabel={`Case ${c.number}`} />
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-stone-900 shadow-sm rounded-sm">
-                      {c.number}/{casesData.length}
-                    </div>
-                    <div className="sp-case-card__overlay" aria-hidden="true">
-                      <span>{c.role}</span>
-                      <strong>{c.deliverables}</strong>
-                      <small>Explorar projeto <ArrowUpRight className="h-4 w-4" /></small>
-                    </div>
-                  </button>
-
-                  <div className="flex flex-col flex-1">
-                    <header className="flex justify-between items-start mb-3">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 w-2/3 leading-relaxed">{c.territory}</p>
-                      <button
-                        type="button"
-                        aria-hidden="true"
-                        tabIndex="-1"
-                        className="text-[9px] font-bold uppercase tracking-[0.2em] text-stone-900 border-b border-stone-900/20 pb-0.5 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                      >
-                        Explorar
-                      </button>
-                    </header>
-                    <h2 className="font-serif text-2xl md:text-3xl leading-tight text-stone-900 mb-3 tracking-tight group-hover:text-stone-600 transition-colors duration-300 text-balance">{c.title}</h2>
-                    <p className="text-sm text-stone-600 font-light mb-6 flex-1 leading-relaxed">{c.shortTese}</p>
-
-                    <footer className="border-t border-stone-900/10 pt-4 flex justify-between items-center text-[10px] uppercase tracking-[0.25em] text-stone-400">
-                      <span>Papel: {c.role}</span>
-                    </footer>
-                  </div>
-                </motion.article>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+        <div id="cases-index" className="mb-40">
+          {portfolioCategoryDefinitions.map((category, categoryIndex) => (
+            <PortfolioDisciplineCarousel
+              key={category.id}
+              category={category}
+              categoryIndex={categoryIndex}
+              categoryCases={category.caseIds.map((caseId) => casesData.find((caseItem) => caseItem.id === caseId)).filter(Boolean)}
+              onOpenCase={(caseItem) => navigate(getCaseRoute(caseItem))}
+            />
+          ))}
         </div>
       </section>
     </PageTransition>
   );
 }
 
-function CaseDetail({ caseId, navigate }) {
-  const caseIndex = casesData.findIndex(c => c.id === caseId || getCaseSlug(c) === caseId);
+function CaseDetail({ caseId, navigate, casesData }) {
+  const caseIndex = casesData.findIndex(c => c.id === caseId || getCaseSlug(c) === caseId || c.legacySlugs?.includes(caseId));
   const c = casesData[caseIndex];
 
   if (!c) {
@@ -1115,9 +716,14 @@ function CaseDetail({ caseId, navigate }) {
     );
   }
 
-  const isLast = caseIndex === casesData.length - 1;
-  const nextCase = !isLast ? casesData[caseIndex + 1] : null;
-  const previousCase = caseIndex > 0 ? casesData[caseIndex - 1] : null;
+  const portfolioCategory = getCasePortfolioCategory(c.id);
+  const categoryCases = portfolioCategory
+    ? portfolioCategory.caseIds.map((caseItemId) => casesData.find((caseItem) => caseItem.id === caseItemId)).filter(Boolean)
+    : [];
+  const categoryCaseIndex = categoryCases.findIndex((caseItem) => caseItem.id === c.id);
+  const isLast = categoryCaseIndex === -1 || categoryCaseIndex === categoryCases.length - 1;
+  const nextCase = categoryCaseIndex >= 0 && !isLast ? categoryCases[categoryCaseIndex + 1] : null;
+  const previousCase = categoryCaseIndex > 0 ? categoryCases[categoryCaseIndex - 1] : null;
   const nextCaseRoute = nextCase ? getCaseRoute(nextCase) : null;
   const previousCaseRoute = previousCase ? getCaseRoute(previousCase) : null;
 
@@ -1126,8 +732,6 @@ function CaseDetail({ caseId, navigate }) {
       <ProvenceRaizCaseDetail
         c={c}
         navigate={navigate}
-        caseIndex={caseIndex}
-        totalCases={casesData.length}
         previousCaseRoute={previousCaseRoute}
         nextCaseRoute={nextCaseRoute}
         isLast={isLast}
@@ -1153,41 +757,56 @@ function CaseDetail({ caseId, navigate }) {
         {/* A. Case Hero */}
         <header className="flex flex-col mb-16">
           <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 block">CASE {c.number}/{casesData.length}</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 block">{portfolioCategory?.label || "Arquivo preservado"}{c.projectFamily ? ` / ${c.projectFamily}` : ""}</span>
             <button
               type="button"
               onClick={() => handleShareIntent({ title: getCaseSeoTitle(c), text: getCaseSeoDescription(c), url: getCaseCanonicalUrl(c) })}
-              className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+              className="inline-flex min-h-11 items-center gap-2 rounded-sm px-2 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
             >
               Compartilhar <Copy className="h-3.5 w-3.5" aria-hidden="true" />
             </button>
           </div>
-          <h1 className="font-serif text-5xl md:text-[6rem] leading-[0.9] text-stone-950 tracking-[-0.02em] mb-8 max-w-5xl text-balance">{c.title}</h1>
+          <h1 className="mb-8 max-w-5xl break-words font-serif text-[clamp(2.6rem,13vw,3rem)] leading-[0.92] tracking-[-0.02em] text-stone-950 text-balance md:text-[6rem] md:leading-[0.9]">{c.title}</h1>
           <p className="text-xl md:text-2xl font-light text-stone-600 max-w-3xl mb-12 leading-relaxed text-balance">{c.shortTese}</p>
 
           {/* Metadata Grid */}
-          <dl className="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-b border-stone-900/10 py-10 mb-16">
-            <div>
+          <dl className="mb-16 grid grid-cols-1 gap-6 border-t border-b border-stone-900/10 py-10 sm:grid-cols-2 md:grid-cols-4">
+            <div className="min-w-0">
               <dt className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-2">Cliente / Contexto</dt>
               <dd className="text-sm font-light text-stone-900">{c.client}</dd>
             </div>
-            <div>
-              <dt className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-2">Papel</dt>
+            <div className="min-w-0">
+              <dt className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-2">Papel de Samuel</dt>
               <dd className="text-sm font-light text-stone-900">{c.role}</dd>
             </div>
-            <div>
+            <div className="min-w-0">
               <dt className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-2">Território</dt>
-              <dd className="text-sm font-light text-stone-900">{c.territory}</dd>
+              <dd className="text-sm font-light text-stone-900">{formatPortfolioTerm(c.territory)}</dd>
             </div>
-            <div>
+            <div className="min-w-0">
               <dt className="block text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400 mb-2">Entregáveis</dt>
-              <dd className="text-sm font-light text-stone-900 leading-relaxed">{c.deliverables}</dd>
+              <dd className="break-words text-sm font-light leading-relaxed text-stone-900">{c.deliverables}</dd>
             </div>
           </dl>
 
           <figure className="w-full bg-stone-200/50 relative overflow-visible mb-24 rounded-sm flex justify-center m-0 p-0 shadow-sm">
-            <ImageWithFallback src={c.thumb} mode="natural" alt={`Fotografia de destaque do projeto ${c.title}`} imageClassName="max-h-[85vh]" />
+            <ImageWithFallback
+              src={c.thumb}
+              mode="natural"
+              loading="eager"
+              fetchPriority="high"
+              sizes="(min-width: 1440px) 1440px, (min-width: 1024px) calc(100vw - 96px), calc(100vw - 48px)"
+              alt={`Imagem de abertura do case ${c.title}`}
+              imageClassName="max-h-[85vh]"
+            />
           </figure>
+
+          {c.requiresG4 && (
+            <aside className="mb-24 border border-amber-900/20 bg-amber-50/50 p-6 text-sm font-light leading-relaxed text-stone-700" aria-label="Estado editorial do case">
+              <strong className="mb-2 block text-[10px] font-bold uppercase tracking-[0.24em] text-amber-900">Reconstrução editorial aguardando G4</strong>
+              As imagens atuais são derivados documentados do guideline original. Novas pranchas e simulações não serão produzidas sem aprovação específica.
+            </aside>
+          )}
         </header>
 
         <aside className="sp-case-progress hidden lg:flex" aria-label="Navegação contextual do case">
@@ -1203,7 +822,7 @@ function CaseDetail({ caseId, navigate }) {
 
         {/* B. Director's Note */}
         <section aria-label="Nota do Diretor" className="grid md:grid-cols-[1fr_2fr] gap-8 md:gap-16 mb-24 items-start">
-          <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Director's Note</h2>
+          <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Nota de direção</h2>
           <blockquote className="text-2xl md:text-4xl font-serif text-stone-900 leading-tight tracking-tight italic border-l-2 border-stone-900/10 pl-6 md:pl-10 text-balance">
             "{c.directorsNote}"
           </blockquote>
@@ -1225,65 +844,97 @@ function CaseDetail({ caseId, navigate }) {
         {/* D. Visual Reading */}
         <section aria-labelledby="visual-reading" className="mb-12">
           <h2 id="visual-reading" className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 mb-10 block">Leitura visual do projeto</h2>
-
-          {/* Tratamento Específico para Porti (Case 05) - SUBCURADORIA */}
-          {c.id === "case-05" ? (
-            <div className="flex flex-col gap-24">
-              {["Natal", "Verão", "Primavera"].map((subTitle, sIdx) => {
-                const sliceStart = sIdx === 0 ? 0 : sIdx === 1 ? 4 : 10;
-                const sliceEnd = sIdx === 0 ? 4 : sIdx === 1 ? 10 : 16;
-                const sliceImgs = c.gallery.slice(sliceStart, sliceEnd);
-                return (
-                  <section key={subTitle} aria-labelledby={`subtitle-${sIdx}`}>
-                    <header className="flex items-center gap-4 mb-8">
-                      <h3 id={`subtitle-${sIdx}`} className="font-serif text-3xl text-stone-900">{subTitle}</h3>
-                      <span className="h-px w-full bg-stone-900/10 flex-1" aria-hidden="true"></span>
-                    </header>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {sliceImgs.map((img, i) => (
-                        <figure key={i} className={`w-full bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm ${i === 0 || i % 3 === 0 ? 'md:col-span-2' : ''}`}>
-                           <ImageWithFallback src={img} alt={`Exposição temática de ${subTitle} - detalhe fotográfico ${i+1}`} mode="natural" imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out" />
-                        </figure>
-                      ))}
-                    </div>
-                  </section>
-                )
-              })}
-            </div>
-          ) : (
-            // Galeria Padrão (Fluid Masonry-like Layout)
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-              {c.gallery.map((img, idx) => {
-                let spanClass = "md:col-span-1";
-                if (c.gallery.length % 2 !== 0 && idx === 0) spanClass = "md:col-span-2";
-                else if (c.gallery.length > 5 && idx % 3 === 0) spanClass = "md:col-span-2";
-
-                return (
-                  <figure key={idx} className={`${spanClass} w-full relative bg-stone-200/50 group overflow-visible rounded-sm m-0 p-0 shadow-sm`}>
-                    <ImageWithFallback
-                      src={img}
-                      mode="natural"
-                      alt={`Detalhe curatorial do projeto ${c.title} - fotografia ${idx+1}`}
-                      imageClassName="group-hover:scale-[1.02] transition-transform duration-[1.5s] ease-out"
-                    />
-                  </figure>
-                );
-              })}
-            </div>
+          {getGallerySectionIntro(c.id) && (
+            <p className="mb-12 max-w-3xl font-serif text-2xl leading-tight text-stone-800 md:text-3xl">
+              {getGallerySectionIntro(c.id)}
+            </p>
           )}
+
+          <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2">
+            {c.gallery.map((img, idx) => {
+              const assetMeta = getGalleryAssetMeta(c, img, idx);
+              let spanClass = "md:col-span-1";
+              if (c.gallery.length % 2 !== 0 && idx === 0) spanClass = "md:col-span-2";
+              else if (c.gallery.length > 5 && idx % 3 === 0) spanClass = "md:col-span-2";
+
+              return (
+                <figure key={img} className={`${spanClass} group relative m-0 w-full overflow-hidden rounded-sm bg-stone-200/50 p-0 shadow-sm`}>
+                  <ImageWithFallback
+                    src={img}
+                    mode="cover"
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    alt={assetMeta.alt}
+                    containerClassName={c.id === "case-17" ? "aspect-[3/2]" : "aspect-[4/5] sm:aspect-[3/2]"}
+                    fitClassName={img.endsWith(".svg") ? "object-contain" : "object-scale-down"}
+                    imageClassName="ease-out group-hover:scale-[1.015]"
+                  />
+                  <figcaption className="border-t border-stone-900/10 bg-[#F4F0E9]/80 px-4 py-4">
+                    <strong className="block text-[9px] font-bold uppercase tracking-[0.18em] text-stone-500">
+                      {assetMeta.label}
+                    </strong>
+                    <span className="mt-2 block max-w-2xl text-xs font-light leading-relaxed text-stone-600">{assetMeta.caption}</span>
+                  </figcaption>
+                </figure>
+              );
+            })}
+          </div>
         </section>
+
+        {c.media?.length > 0 && (
+          <section className="mb-20 border-t border-stone-900/10 pt-16" aria-labelledby="case-motion-title">
+            <header className="mb-10 max-w-3xl">
+              <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Imagem em movimento</span>
+              <h2 id="case-motion-title" className="font-serif text-4xl leading-none text-stone-950 md:text-6xl">O sistema também se move.</h2>
+            </header>
+            <div className="grid gap-8 lg:grid-cols-2">
+              {c.media.map((mediaItem) => (
+                <figure key={mediaItem.src} className="overflow-hidden rounded-sm border border-stone-900/10 bg-stone-950">
+                  <video controls muted loop playsInline preload="metadata" poster={mediaItem.poster} className="aspect-video w-full bg-stone-950 object-contain">
+                    <source src={mediaItem.src} type="video/mp4" />
+                    Seu navegador não conseguiu reproduzir este vídeo.
+                  </video>
+                  <figcaption className="bg-[#F4F0E9] p-5">
+                    <strong className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-900">{mediaItem.title}</strong>
+                    <p className="mt-3 text-sm font-light leading-relaxed text-stone-600">{mediaItem.caption}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {c.provenanceNote && (
+          <aside className="mb-20 grid gap-5 border-y border-stone-900/10 py-8 md:grid-cols-[0.55fr_1.45fr]" aria-label="Proveniência dos materiais do case">
+            <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Proveniência</h2>
+            <p className="max-w-3xl text-sm font-light leading-relaxed text-stone-600">{c.provenanceNote}</p>
+          </aside>
+        )}
+
+        {portfolioCategory && categoryCases.length > 1 && (
+          <section className="mb-20 border-t border-stone-900/10 pt-16" aria-labelledby="related-cases-title">
+            <span className="mb-5 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Também em {portfolioCategory.label}</span>
+            <h2 id="related-cases-title" className="mb-8 font-serif text-4xl leading-none text-stone-950 md:text-5xl">Continue pela disciplina.</h2>
+            <div className="flex flex-wrap gap-3">
+              {categoryCases.filter((caseItem) => caseItem.id !== c.id).map((caseItem) => (
+                <button key={caseItem.id} type="button" onClick={() => navigate(getCaseRoute(caseItem))} className="inline-flex min-h-11 items-center rounded-full border border-stone-900/20 px-5 py-3 text-[9px] font-bold uppercase tracking-[0.2em] text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900">
+                  {caseItem.title}
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
 
         <CaseShareActions caseItem={c} />
 
         {/* E. Navigation (Sticky Bottom on Mobile for better UX) */}
         <nav
           aria-label="Paginação de Cases"
-          className="fixed bottom-0 left-0 w-full bg-[#F4F0E9]/95 backdrop-blur-xl border-t border-stone-900/10 p-4 z-40 md:static md:bg-transparent md:border-t md:border-stone-900/10 md:p-0 md:mt-24 md:pt-12 flex flex-row justify-between items-center gap-4 shadow-[0_-10px_40px_rgba(0,0,0,0.03)] md:shadow-none"
+          className="fixed bottom-0 left-0 z-40 flex w-full flex-row items-center justify-between gap-3 border-t border-stone-900/10 bg-[#F4F0E9]/95 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-10px_40px_rgba(0,0,0,0.03)] backdrop-blur-xl md:static md:mt-24 md:gap-4 md:border-t md:bg-transparent md:p-0 md:pt-12 md:shadow-none"
         >
           <button
             type="button"
             onClick={() => navigate("cases")}
-            className="flex flex-1 md:flex-none items-center justify-center md:justify-start gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-stone-500 hover:text-stone-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 border border-stone-900/20 md:border-transparent rounded-sm"
+            className="flex min-h-11 flex-1 items-center justify-center gap-3 rounded-sm border border-stone-900/20 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 md:flex-none md:justify-start md:border-transparent md:py-0"
           >
             <ArrowLeftCircle className="w-5 h-5 hidden sm:block" aria-hidden="true" /> INÍCIO <span className="hidden sm:inline">de Cases</span>
           </button>
@@ -1292,7 +943,7 @@ function CaseDetail({ caseId, navigate }) {
             <button
               type="button"
               onClick={() => navigate(nextCaseRoute)}
-              className="flex flex-1 md:flex-none items-center justify-center md:justify-end gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-white md:text-stone-900 bg-stone-900 md:bg-transparent hover:text-stone-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 rounded-sm shadow-sm md:shadow-none"
+              className="flex min-h-11 flex-1 items-center justify-center gap-3 rounded-sm bg-stone-900 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-sm transition-colors hover:text-stone-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 md:flex-none md:justify-end md:bg-transparent md:py-0 md:text-stone-900 md:shadow-none"
             >
               Próximo <span className="hidden sm:inline">Case</span> <ArrowRightCircle className="w-5 h-5 hidden md:block" aria-hidden="true" />
             </button>
@@ -1300,7 +951,7 @@ function CaseDetail({ caseId, navigate }) {
             <button
               type="button"
               onClick={() => navigate("sistema")}
-              className="flex flex-1 md:flex-none items-center justify-center md:justify-end gap-3 text-[10px] uppercase font-bold tracking-[0.2em] text-white md:text-stone-900 bg-stone-900 md:bg-transparent hover:text-stone-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 py-4 md:py-0 rounded-sm shadow-sm md:shadow-none"
+              className="flex min-h-11 flex-1 items-center justify-center gap-3 rounded-sm bg-stone-900 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-sm transition-colors hover:text-stone-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 md:flex-none md:justify-end md:bg-transparent md:py-0 md:text-stone-900 md:shadow-none"
             >
               Ver Sistema <ArrowRightCircle className="w-5 h-5 hidden md:block" aria-hidden="true" />
             </button>
@@ -1485,7 +1136,7 @@ function ProvenceRaizLightbox({ lightbox, galleries, setLightbox }) {
   );
 }
 
-function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseRoute, nextCaseRoute, isLast }) {
+function ProvenceRaizCaseDetail({ c, navigate, previousCaseRoute, nextCaseRoute, isLast }) {
   const [lightbox, setLightbox] = useState(null);
   const openGallery = (galleryId, index = 0) => setLightbox({ galleryId, index, zoom: false });
 
@@ -1502,8 +1153,7 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseRoute, ne
         statement: "Referência vira decisão; decisão vira aplicação; aplicação vira experiência.",
         principles: ["Pesquisa", "Curadoria", "Atmosfera", "Materialidade"],
         items: [
-          { src: `${base}/03_REFINAMENTO/moodboard-integracao-atmosfera-provence.jpg`, alt: "Moodboard editorial de atmosfera Provence Raiz", caption: "Integração de atmosfera, cor e memória gráfica." },
-          { src: `${base}/02_WEB/provence-raiz-moodboard-materialidade-antiga.jpg`, alt: "Moodboard de materialidade antiga do projeto Provence Raiz", caption: "Materialidade antiga como base para o luxo silencioso." },
+          { src: `${base}/02_WEB/provence-raiz-moodboard-materialidade-antiga.jpg`, alt: "Moodboard Provence Raiz com arquitetura antiga, flor seca, espelhos, madeira, cerâmica e tons terrosos", caption: "Arquitetura, matéria e memória como base para o luxo silencioso." },
           { src: `${base}/02_WEB/provence-raiz-moodboard-cerimonia.jpg`, alt: "Moodboard de cerimônia Provence Raiz", caption: "Cerimônia tratada como sequência espacial." },
           { src: `${base}/02_WEB/provence-raiz-moodboard-lounge.jpg`, alt: "Moodboard de lounge Provence Raiz", caption: "Hospitalidade e permanência em chave residencial." },
           { src: `${base}/02_WEB/provence-raiz-moodboard-mesa-bolo.jpg`, alt: "Moodboard de mesa de bolo Provence Raiz", caption: "Mesa de bolo como núcleo de memória visual." }
@@ -1678,7 +1328,14 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseRoute, ne
           { src: `${base}/02_WEB/provence-raiz-lounge-residencial-linho-azul.jpg`, alt: "Lounge residencial com linho azul Provence Raiz", caption: "Lounge como pausa, não como preenchimento." }
         ]
       }
-    ];
+    ].filter((chapter) => [
+      "identidade-visual",
+      "monograma",
+      "ornamentos",
+      "papelaria",
+      "sinalizacao",
+      "hospitalidade"
+    ].includes(chapter.id));
   }, []);
 
   return (
@@ -1706,7 +1363,7 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseRoute, ne
 
         <header className="grid gap-12 border-b border-stone-900/10 pb-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <div>
-            <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">CASE {c.number}/{totalCases} · Direção criativa aplicada a eventos</span>
+            <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Identidade Visual · Provence Raiz</span>
             <h1 className="mb-8 max-w-5xl font-serif text-5xl leading-[0.9] tracking-[-0.02em] text-stone-950 md:text-[6.5rem] text-balance">{c.title}</h1>
             <p className="max-w-3xl text-xl font-light leading-relaxed text-stone-600 md:text-2xl text-balance">{c.shortTese}</p>
           </div>
@@ -1782,6 +1439,13 @@ function ProvenceRaizCaseDetail({ c, navigate, totalCases, previousCaseRoute, ne
             <p><strong className="font-semibold text-stone-900">Leitura autoral:</strong><br />Evento como linguagem 360 graus: buffet, decoração, bar, cerimonial, ambientação, papelaria, atmosfera e narrativa.</p>
           </div>
         </section>
+
+        {c.provenanceNote && (
+          <aside className="mt-16 grid gap-6 border-b border-stone-900/10 pb-16 md:grid-cols-[0.8fr_1.2fr]" aria-label="Proveniência dos materiais do case">
+            <h2 className="font-serif text-4xl leading-none text-stone-950 md:text-5xl">Proveniência.</h2>
+            <p className="max-w-3xl text-sm font-light leading-relaxed text-stone-600">{c.provenanceNote}</p>
+          </aside>
+        )}
 
         <CaseShareActions caseItem={c} />
 
@@ -2116,6 +1780,518 @@ function SistemaArticle({ slug, navigate }) {
   );
 }
 
+function IAComAlma({ navigate }) {
+  const assetBase = "/images/15_IA_COM_ALMA/01_COMERCIAL";
+
+  const systemSteps = [
+    {
+      num: "01",
+      title: "Estrutura",
+      text: "Antes da imagem final, definimos corpo, proporção e presença como uma estrutura controlável.",
+      image: `${assetBase}/system-01-structure.png`,
+      alt: "Estrutura corporal em ambiente de desenvolvimento visual branco."
+    },
+    {
+      num: "02",
+      title: "Assets",
+      text: "Produto, acessórios e materiais são tratados como elementos independentes dentro do sistema visual.",
+      image: `${assetBase}/system-03-assets.png`,
+      alt: "Jaqueta burgundy, saia e bolsa verde apresentados como assets independentes."
+    },
+    {
+      num: "03",
+      title: "Worldbuilding",
+      text: "O ambiente é construído como um mundo com arquitetura, escala, matéria, luz e atmosfera próprias.",
+      image: `${assetBase}/system-06-worldbuilding.png`,
+      alt: "Ambiente arquitetônico desenvolvido como base de worldbuilding."
+    },
+    {
+      num: "04",
+      title: "Output",
+      text: "Personagem, styling e ambiente convergem em uma imagem editorial pronta para comunicar.",
+      image: `${assetBase}/system-08-output.png`,
+      fit: "contain",
+      alt: "Resultado editorial com personagem integrada ao ambiente arquitetônico."
+    }
+  ];
+
+  const capabilities = [
+    {
+      num: "01",
+      title: "Campanha",
+      text: "Um universo desenvolvido para lançamento, coleção, produto ou ação específica."
+    },
+    {
+      num: "02",
+      title: "Sistema Visual",
+      text: "Personagens, ambientes, styling e linguagem proprietária organizados para a marca."
+    },
+    {
+      num: "03",
+      title: "Continuidade",
+      text: "Novos conteúdos desenvolvidos dentro de um universo já definido, sem perder identidade."
+    },
+    {
+      num: "04",
+      title: "Direção & Consultoria",
+      text: "Estratégia, curadoria, diagnóstico e refinamento para processos criativos com IA."
+    }
+  ];
+
+  return (
+    <PageTransition>
+      <DynamicSEO
+        title="IA & Alma — Direção Humana e Produção Generativa"
+        description="IA & Alma é o sistema autoral de Samuel Paes para criar campanhas sintéticas com direção humana, worldbuilding, continuidade visual e critério editorial."
+        url="ia-com-alma"
+        image="/images/15_IA_COM_ALMA/02_ROOM_329/0E70DF46-364B-4B5F-9B95-50E3A855FE83.jpeg"
+        imageAlt="Campanha ROOM 329: modelo em alfaiataria rosa, mesa, vinho e atmosfera editorial."
+        schemaType="Service"
+      />
+
+      <article className="mx-auto max-w-[90rem] px-6 lg:px-12 pt-12">
+        {/* HERO */}
+        <header className="grid gap-14 border-b border-stone-900/10 pb-20 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <div>
+            <span className="mb-10 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+              IA & ALMA / CREATIVE DIRECTION
+            </span>
+
+            <p className="max-w-sm text-sm font-light leading-relaxed text-stone-500">
+              Produto real · Direção humana · Tecnologia generativa
+            </p>
+          </div>
+
+          <div>
+            <h1 className="max-w-5xl font-serif text-5xl leading-[0.9] tracking-tighter text-stone-950 text-balance md:text-7xl lg:text-[7rem]">
+              Produto real. Direção humana. Tecnologia generativa. Critério editorial.
+            </h1>
+
+            <p className="mt-10 max-w-3xl text-xl font-light leading-relaxed text-stone-600 text-balance md:text-3xl">
+              IA & Alma investiga como criar imagens, campanhas e mundos sintéticos sem abrir mão de intenção, sensibilidade, repertório e autoria.
+            </p>
+          </div>
+        </header>
+
+        {/* SYSTEM HERO */}
+        <section className="py-20 lg:py-28" aria-labelledby="ia-system-title">
+          <div className="mb-12 grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+                01 / SISTEMA DE CONSTRUÇÃO VISUAL
+              </span>
+            </div>
+
+            <div>
+              <h2
+                id="ia-system-title"
+                className="font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl"
+              >
+                Do sistema à imagem.
+              </h2>
+
+              <p className="mt-6 max-w-2xl text-base font-light leading-relaxed text-stone-600 md:text-lg">
+                A tecnologia entra como infraestrutura. A direção continua sendo humana: definir o que existe, por que existe, o que precisa ser corrigido e como cada elemento participa da narrativa.
+              </p>
+            </div>
+          </div>
+
+          <figure className="overflow-hidden border border-stone-900/10 bg-white/30">
+            <ImageWithFallback
+              src={`${assetBase}/system-05-environment-mapping.png`}
+              alt="Modelo inserida diante de estrutura arquitetônica em wireframe azul durante o processo de desenvolvimento."
+              fallbackLabel="Environment Mapping"
+              loading="eager"
+            />
+            <figcaption className="flex flex-col gap-3 border-t border-stone-900/10 px-5 py-5 md:flex-row md:items-center md:justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900">
+                Environment Mapping
+              </span>
+              <span className="max-w-2xl text-xs font-light leading-relaxed text-stone-500 md:text-right">
+                Personagem definida. Ambiente ainda em construção. Cada camada pode ser desenvolvida, ajustada e validada separadamente.
+              </span>
+            </figcaption>
+          </figure>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {systemSteps.map((step) => (
+              <article
+                key={step.num}
+                className="flex flex-col border border-stone-900/10 bg-white/30"
+              >
+                <div className="aspect-[3/2] overflow-hidden bg-[#E8E3DC]">
+                  <ImageWithFallback
+                    src={step.image}
+                    alt={step.alt}
+                    fallbackLabel={step.title}
+                    mode="cover"
+                    fitClassName={step.fit === "contain" ? "object-contain" : "object-cover"}
+                  />
+                </div>
+
+                <div className="flex flex-1 flex-col p-6">
+                  <span className="mb-8 font-serif text-4xl text-stone-300">
+                    {step.num}.
+                  </span>
+
+                  <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.25em] text-stone-900">
+                    {step.title}
+                  </h3>
+
+                  <p className="text-sm font-light leading-relaxed text-stone-600">
+                    {step.text}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ENVIRONMENT AS SYSTEM */}
+        <section
+          className="border-t border-stone-900/10 py-20 lg:py-28"
+          aria-labelledby="environment-title"
+        >
+          <header className="mb-14 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+              02 / WORLDBUILDING
+            </span>
+
+            <h2
+              id="environment-title"
+              className="font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl"
+            >
+              Ambiente-base, histórias múltiplas.
+            </h2>
+
+            <p className="mt-8 max-w-3xl text-lg font-light leading-relaxed text-stone-600 md:text-xl">
+              O espaço não funciona apenas como fundo. Ele é uma estrutura narrativa que pode receber diferentes personagens, produtos, atmosferas e campanhas.
+            </p>
+          </header>
+
+          <div className="grid gap-8 lg:grid-cols-2">
+            <figure className="border border-stone-900/10 bg-white/30">
+              <ImageWithFallback
+                src={`${assetBase}/environment-base.png`}
+                alt="Ambiente-base de sala de jantar desenvolvido para receber diferentes narrativas."
+                fallbackLabel="Ambiente-base"
+              />
+
+              <figcaption className="border-t border-stone-900/10 p-5">
+                <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900">
+                  Environment Base
+                </span>
+                <p className="mt-3 text-sm font-light leading-relaxed text-stone-500">
+                  Arquitetura, iluminação, mobiliário e materialidade existem antes da história.
+                </p>
+              </figcaption>
+            </figure>
+
+            <figure className="border border-stone-900/10 bg-white/30">
+              <ImageWithFallback
+                src={`${assetBase}/environment-activated.png`}
+                alt="Mesmo ambiente-base ativado por personagem e styling de campanha."
+                fallbackLabel="Ativação narrativa"
+              />
+
+              <figcaption className="border-t border-stone-900/10 p-5">
+                <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900">
+                  Narrative Activation
+                </span>
+                <p className="mt-3 text-sm font-light leading-relaxed text-stone-500">
+                  O mesmo mundo recebe personagem, styling e intenção para se transformar em campanha.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        {/* ASSET TO CAMPAIGN */}
+        <section
+          className="border-t border-stone-900/10 py-20 lg:py-28"
+          aria-labelledby="asset-campaign-title"
+        >
+          <header className="mb-14 grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+              03 / DO ASSET À CAMPANHA
+            </span>
+
+            <div>
+              <h2
+                id="asset-campaign-title"
+                className="font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl"
+              >
+                Identidade. Styling. Contexto.
+              </h2>
+
+              <p className="mt-7 max-w-3xl text-lg font-light leading-relaxed text-stone-600">
+                Cada elemento pode nascer separado. O valor aparece quando todos passam a responder à mesma direção.
+              </p>
+            </div>
+          </header>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <figure className="border border-stone-900/10 bg-white/30">
+              <ImageWithFallback
+                src={`${assetBase}/identity-base.png`}
+                alt="Retrato neutro usado como base de identidade da personagem."
+                fallbackLabel="Identity"
+              />
+              <figcaption className="p-5 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-500">
+                Identity
+              </figcaption>
+            </figure>
+
+            <figure className="border border-stone-900/10 bg-white/30">
+              <ImageWithFallback
+                src={`${assetBase}/styling-green.png`}
+                alt="Vestido, joias e sapatos apresentados como sistema de styling."
+                fallbackLabel="Styling"
+              />
+              <figcaption className="p-5 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-500">
+                Styling
+              </figcaption>
+            </figure>
+
+            <figure className="border border-stone-900/10 bg-white/30">
+              <ImageWithFallback
+                src={`${assetBase}/output-green.png`}
+                alt="Resultado editorial da personagem com styling aplicado ao ambiente final."
+                fallbackLabel="Campaign Output"
+              />
+              <figcaption className="p-5 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-500">
+                Campaign Output
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        {/* PROOF / ROOM 329 */}
+        <section
+          className="border-t border-stone-900/10 py-20 lg:py-28"
+          aria-labelledby="ia-proof-title"
+        >
+          <header className="mb-14 grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+              04 / PROVA EDITORIAL
+            </span>
+            <div>
+              <h2 id="ia-proof-title" className="font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl">
+                ROOM 329.
+              </h2>
+              <p className="mt-7 max-w-3xl text-lg font-light leading-relaxed text-stone-600 md:text-xl">
+                Um universo visual desenvolvido como campanha, não como imagens isoladas. Personagem, arquitetura, styling, luz e atmosfera pertencem à mesma noite.
+              </p>
+            </div>
+          </header>
+
+          <div className="grid gap-5 md:gap-6">
+            <figure className="overflow-hidden border border-stone-900/10 bg-stone-950">
+              <div className="aspect-[16/9] overflow-hidden">
+                <ImageWithFallback
+                  src="/images/15_IA_COM_ALMA/02_ROOM_329/0E70DF46-364B-4B5F-9B95-50E3A855FE83.jpeg"
+                  alt="Modelo em alfaiataria rosa diante de uma mesa com vinho no universo ROOM 329."
+                  fallbackLabel="ROOM 329"
+                  loading="lazy"
+                  mode="cover"
+                  positionClassName="object-center"
+                />
+              </div>
+              <figcaption className="border-t border-white/10 bg-stone-950 px-5 py-4 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-300">
+                Cena-base · Arquitetura, personagem e vestígios
+              </figcaption>
+            </figure>
+
+            <div className="grid gap-5 sm:grid-cols-2 md:gap-6">
+              <figure className="overflow-hidden border border-stone-900/10 bg-stone-950">
+                <div className="aspect-[4/5] overflow-hidden">
+                  <ImageWithFallback
+                    src="/images/15_IA_COM_ALMA/02_ROOM_329/F59E614F-F034-42C8-806B-045D2B363399.jpeg"
+                    alt="Modelo em vestido azul-escuro com cloches no ambiente ROOM 329."
+                    fallbackLabel="Direção de personagem"
+                    mode="cover"
+                    positionClassName="object-center"
+                  />
+                </div>
+                <figcaption className="border-t border-white/10 bg-stone-950 px-5 py-4 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-300">
+                  Personagem · Continuidade de styling
+                </figcaption>
+              </figure>
+
+              <figure className="overflow-hidden border border-stone-900/10 bg-stone-950">
+                <div className="aspect-[4/5] overflow-hidden">
+                  <ImageWithFallback
+                    src="/images/15_IA_COM_ALMA/02_ROOM_329/E8FA9807-E247-48DD-847B-D901D3F31625.jpeg"
+                    alt="Duas personagens em composição editorial junto à mesa do ROOM 329."
+                    fallbackLabel="Continuidade visual"
+                    mode="cover"
+                    positionClassName="object-[50%_35%]"
+                  />
+                </div>
+                <figcaption className="border-t border-white/10 bg-stone-950 px-5 py-4 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-300">
+                  Duas presenças · Narrativa compartilhada
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-8 border-t border-stone-900/10 pt-8">
+            <p className="max-w-2xl text-sm font-light leading-relaxed text-stone-600">
+              O case demonstra a diferença entre gerar uma imagem e dirigir uma produção construída com IA: cada decisão precisa sustentar identidade e continuidade.
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate("case/room-329")}
+              className="inline-flex items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            >
+              Ver case completo <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        </section>
+
+        {/* IA COM ALMA / EDITORIAL RANGE */}
+        <section
+          className="border-t border-stone-900/10 py-20 lg:py-28"
+          aria-labelledby="ia-editorial-range-title"
+        >
+          <header className="mb-14 grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+              05 / OUTRAS NARRATIVAS
+            </span>
+            <div>
+              <h2 id="ia-editorial-range-title" className="font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl">
+                Um método. Linguagens distintas.
+              </h2>
+              <p className="mt-7 max-w-3xl text-lg font-light leading-relaxed text-stone-600 md:text-xl">
+                A coerência não vem de repetir uma estética. Ela nasce da capacidade de dirigir cada universo segundo sua própria intenção.
+              </p>
+            </div>
+          </header>
+
+          <div className="grid gap-8 lg:grid-cols-2">
+            <article className="group flex flex-col border border-stone-900/10 bg-white/30">
+              <figure className="aspect-[4/5] overflow-hidden bg-stone-950">
+                <ImageWithFallback
+                  src="/images/15_IA_COM_ALMA/03_PAIS/82064477-F96E-4925-8553-EDC7D32992E1.jpeg"
+                  alt="Pai e filho sorrindo juntos em retrato preto e branco do projeto PAIS."
+                  fallbackLabel="PAIS"
+                  mode="cover"
+                />
+              </figure>
+              <div className="flex flex-1 flex-col p-7 md:p-9">
+                <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-400">Retrato · Narrativa afetiva</span>
+                <h3 className="mt-6 font-serif text-4xl leading-none text-stone-950 md:text-5xl">PAIS.</h3>
+                <p className="mt-6 max-w-xl text-sm font-light leading-relaxed text-stone-600">
+                  Vínculo, transmissão e presença narrados pela proximidade, pelo gesto e pelo preto e branco.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => navigate("case/pais-presenca-e-heranca")}
+                  className="mt-9 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+                >
+                  Ver case <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </div>
+            </article>
+
+            <article className="group flex flex-col border border-stone-900/10 bg-white/30">
+              <figure className="aspect-[4/5] overflow-hidden bg-stone-950">
+                <ImageWithFallback
+                  src="/images/15_IA_COM_ALMA/04_IRENE_1945/076E039F-CD10-431D-AFA7-BB94F151DC84.jpeg"
+                  alt="Bolsa vermelha de crochê iluminada por luz e sombra no projeto Irene 1945."
+                  fallbackLabel="Irene 1945"
+                  mode="cover"
+                />
+              </figure>
+              <div className="flex flex-1 flex-col p-7 md:p-9">
+                <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-400">Produto · Cultura material</span>
+                <h3 className="mt-6 font-serif text-4xl leading-none text-stone-950 md:text-5xl">Irene 1945.</h3>
+                <p className="mt-6 max-w-xl text-sm font-light leading-relaxed text-stone-600">
+                  Matéria, mão, fibra, sombra e memória cromática de terra organizadas como universo de produto.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => navigate("case/irene-1945-feito-a-mao")}
+                  className="mt-9 inline-flex w-fit items-center gap-3 border-b border-stone-900/30 pb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+                >
+                  Ver case <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        {/* CAPABILITIES */}
+        <section className="border-y border-stone-900/10 py-20 lg:py-28">
+          <div className="mb-14 max-w-4xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+              06 / FORMAS DE ATUAÇÃO
+            </span>
+
+            <h2 className="font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl">
+              Um universo, diferentes formas de continuidade.
+            </h2>
+          </div>
+
+          <div className="grid border-t border-stone-900/10 md:grid-cols-2 lg:grid-cols-4">
+            {capabilities.map((item) => (
+              <article
+                key={item.num}
+                className="border-b border-stone-900/10 p-6 md:border-r lg:min-h-[18rem]"
+              >
+                <span className="font-serif text-3xl text-stone-300">
+                  {item.num}.
+                </span>
+
+                <h3 className="mt-10 text-[11px] font-bold uppercase tracking-[0.24em] text-stone-900">
+                  {item.title}
+                </h3>
+
+                <p className="mt-5 text-sm font-light leading-relaxed text-stone-600">
+                  {item.text}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <footer className="flex flex-col items-start justify-between gap-12 py-20 lg:flex-row lg:items-end lg:py-28">
+          <div className="max-w-3xl">
+            <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+              PROJETOS / COLABORAÇÕES
+            </span>
+
+            <h2 className="font-serif text-4xl leading-none tracking-tight text-stone-950 md:text-6xl">
+              Sua marca não precisa de mais uma imagem. Precisa de um mundo reconhecidamente seu.
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap gap-8">
+            <button
+              type="button"
+              onClick={() => navigate("cases")}
+              className="inline-flex items-center gap-3 border-b border-stone-900/20 pb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            >
+              Ver Portfólio
+              <ArrowRightCircle className="h-5 w-5" aria-hidden="true" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate("contato")}
+              className="inline-flex items-center gap-3 border-b border-stone-900/20 pb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-stone-900 transition-colors hover:border-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+            >
+              Iniciar conversa
+              <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        </footer>
+      </article>
+    </PageTransition>
+  );
+}
+
 function Contato() {
   const [toast, setToast] = useState(null);
 
@@ -2229,11 +2405,39 @@ function Contato() {
   );
 }
 
+function PortfolioLoadingState({ error = false }) {
+  return (
+    <PageTransition>
+      <section className="mx-auto flex min-h-[60vh] max-w-[90rem] flex-col items-center justify-center px-6 text-center lg:px-12" aria-live="polite">
+        <span className="mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
+          {error ? "Portfólio indisponível" : "Abrindo o portfólio"}
+        </span>
+        <h1 className="max-w-2xl font-serif text-4xl leading-tight text-stone-950 md:text-6xl">
+          {error ? "Não foi possível carregar os cases." : "Carregando imagens, contexto e narrativa."}
+        </h1>
+        {error && (
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="mt-8 inline-flex min-h-11 items-center rounded-full border border-stone-900/20 px-6 py-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+          >
+            Tentar novamente
+          </button>
+        )}
+      </section>
+    </PageTransition>
+  );
+}
+
 // --- APP PRINCIPAL E NAVBAR ---
 
 export default function SamuelPaesPortfolio() {
   const { route, navigate } = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [portfolioCases, setPortfolioCases] = useState(null);
+  const [portfolioLoadError, setPortfolioLoadError] = useState(false);
+  const mobileMenuButtonRef = useRef(null);
+  const mobileMenuRef = useRef(null);
   const effectiveRoute = useMemo(() => {
     if (LEGACY_CASE_ROUTE_ALIASES[route]) {
       return LEGACY_CASE_ROUTE_ALIASES[route];
@@ -2249,16 +2453,20 @@ export default function SamuelPaesPortfolio() {
       return "visao";
     }
 
+    if (route === "banal" || route === "empresas/banal") {
+      return "case/banal-identidade-de-agencia-criativa";
+    }
+
     if (
-      route === "banal" ||
-      route === "empresas/banal" ||
       route === "verdeburgo" ||
       route === "empresas/verde-burgo"
     ) {
       return "cases";
     }
 
-    if (route === "projetos/provence-raiz") return "case/case-12";
+    if (route === "projetos/provence-raiz") return "case/provence-raiz-sistema-visual";
+
+    if (route === "comercial") return "ia-com-alma";
 
     if (route === "biblioteca") return "sistema";
     if (route.startsWith("biblioteca/")) {
@@ -2267,23 +2475,77 @@ export default function SamuelPaesPortfolio() {
 
     return route;
   }, [route]);
+  const needsPortfolioData = effectiveRoute === "cases" || effectiveRoute.startsWith("case/");
 
-  // Prevent scroll when mobile menu is open (Acessibilidade + UX)
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    if (!needsPortfolioData || portfolioCases) return undefined;
+
+    let cancelled = false;
+    import("./data/portfolioCases")
+      .then((module) => {
+        if (cancelled) return;
+        setPortfolioCases(module.casesData);
+        setPortfolioLoadError(false);
+      })
+      .catch(() => {
+        if (!cancelled) setPortfolioLoadError(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [needsPortfolioData, portfolioCases]);
+
+  // Prevent background interaction and keep keyboard focus inside the mobile dialog.
+  useEffect(() => {
+    if (!isMenuOpen) {
       document.body.style.overflow = "";
+      return undefined;
     }
-    return () => { document.body.style.overflow = ""; };
+
+    document.body.style.overflow = "hidden";
+    const menu = mobileMenuRef.current;
+    const focusable = menu
+      ? [...menu.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+      : [];
+    const focusFrame = window.requestAnimationFrame(() => focusable[0]?.focus());
+
+    const handleMenuKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setIsMenuOpen(false);
+        window.requestAnimationFrame(() => mobileMenuButtonRef.current?.focus());
+        return;
+      }
+
+      if (event.key !== "Tab" || focusable.length === 0) return;
+      const firstFocusable = focusable[0];
+      const lastFocusable = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstFocusable) {
+        event.preventDefault();
+        lastFocusable.focus();
+      } else if (!event.shiftKey && document.activeElement === lastFocusable) {
+        event.preventDefault();
+        firstFocusable.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleMenuKeyDown);
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      window.removeEventListener("keydown", handleMenuKeyDown);
+      document.body.style.overflow = "";
+    };
   }, [isMenuOpen]);
 
   const navLinks = [
-    { id: "inicio", num: "01.", label: "INÍCIO" },
-    { id: "visao", num: "02.", label: "Visão" },
-    { id: "cases", num: "03.", label: "Portfólio" },
-    { id: "sistema", num: "04.", label: "Sistema" },
-    { id: "contato", num: "05.", label: "Contato" },
+    { id: "inicio", label: "INÍCIO" },
+    { id: "visao", label: "Visão" },
+    { id: "cases", label: "Portfólio" },
+    { id: "sistema", label: "Sistema" },
+    { id: "ia-com-alma", label: "IA & Alma" },
+    { id: "contato", label: "Contato" },
   ];
 
   const handleNavClick = (id) => {
@@ -2306,7 +2568,7 @@ export default function SamuelPaesPortfolio() {
             <button
               type="button"
               onClick={() => handleNavClick("inicio")}
-              className="text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm group shrink-0"
+              className="inline-flex min-h-11 min-w-11 shrink-0 items-center rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 group"
               aria-label="Ir para a página inicial"
             >
               <div className="h-8 md:h-10 w-full max-w-[180px] xl:max-w-[240px] relative flex items-center">
@@ -2327,7 +2589,7 @@ export default function SamuelPaesPortfolio() {
           </div>
 
           {/* MENU CENTRAL */}
-          <div className="hidden lg:flex flex-1 justify-center gap-4 xl:gap-10" role="menubar">
+          <div className="hidden lg:flex flex-1 justify-center gap-2 xl:gap-8" role="menubar">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -2341,7 +2603,7 @@ export default function SamuelPaesPortfolio() {
                     : "text-stone-400 border-transparent hover:text-stone-900 hover:border-stone-900/20"
                 }`}
               >
-                <span className="opacity-50" aria-hidden="true">{link.num}</span> {link.label}
+                {link.label}
               </button>
             ))}
           </div>
@@ -2367,11 +2629,12 @@ export default function SamuelPaesPortfolio() {
 
           {/* Menu Mobile Toggle */}
           <button
+            ref={mobileMenuButtonRef}
             type="button"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             aria-label={isMenuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
-            className="lg:hidden p-2 text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm z-50 relative"
+            className="relative z-50 inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm p-2 text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 lg:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
              {isMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
@@ -2382,6 +2645,7 @@ export default function SamuelPaesPortfolio() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
+              ref={mobileMenuRef}
               id="mobile-menu"
               role="dialog"
               aria-modal="true"
@@ -2405,7 +2669,6 @@ export default function SamuelPaesPortfolio() {
                       (effectiveRoute === link.id || (link.id === "cases" && isCaseDetail) || (link.id === "sistema" && isSistemaDetail)) ? "text-stone-900 bg-stone-900/5" : "text-stone-400 hover:text-stone-700"
                     }`}
                   >
-                    <span className="font-serif text-3xl italic opacity-50" aria-hidden="true">{link.num}</span>
                     <span className="font-serif text-5xl tracking-tight">{link.label}</span>
                   </motion.button>
                 ))}
@@ -2431,15 +2694,27 @@ export default function SamuelPaesPortfolio() {
         <AnimatePresence mode="wait">
           {effectiveRoute === "inicio" && <Inicio key="inicio" navigate={navigate} />}
           {effectiveRoute === "visao" && <Visao key="visao" />}
-          {effectiveRoute === "cases" && <Cases key="cases" navigate={navigate} />}
-          {effectiveRoute.startsWith("case/") && <CaseDetail key="case-detail" caseId={effectiveRoute.replace("case/", "")} navigate={navigate} />}
+          {effectiveRoute === "cases" && (
+            portfolioCases
+              ? <Cases key="cases" navigate={navigate} casesData={portfolioCases} />
+              : <PortfolioLoadingState key="cases-loading" error={portfolioLoadError} />
+          )}
+          {effectiveRoute.startsWith("case/") && (
+            portfolioCases
+              ? <CaseDetail key="case-detail" caseId={effectiveRoute.replace("case/", "")} navigate={navigate} casesData={portfolioCases} />
+              : <PortfolioLoadingState key="case-loading" error={portfolioLoadError} />
+          )}
           {effectiveRoute === "sistema" && <Sistema key="sistema" navigate={navigate} />}
           {effectiveRoute.startsWith("sistema/") && <SistemaArticle key={effectiveRoute} slug={effectiveRoute.replace("sistema/", "")} navigate={navigate} />}
+          {effectiveRoute === "ia-com-alma" && <IAComAlma key="ia-com-alma" navigate={navigate} />}
           {effectiveRoute === "contato" && <Contato key="contato" />}
         </AnimatePresence>
       </main>
 
-      <GlobalDiscoveryDock navigate={navigate} hidden={isCaseDetail || isMenuOpen} />
+      <GlobalDiscoveryDock
+        navigate={navigate}
+        hidden={isCaseDetail || effectiveRoute === "cases" || effectiveRoute === "ia-com-alma" || isMenuOpen}
+      />
 
     </div>
   );

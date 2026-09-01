@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "seo": "node scripts/generate-seo-assets.mjs",
+    "portfolio:inventory": "node scripts/generate-portfolio-inventory.mjs",
+    "test:portfolio-ui": "node scripts/portfolio-ui-regression.mjs",
     "smoke": "node scripts/project-os-smoke.mjs",
     "prebuild": "npm run seo",
     "build": "vite build",

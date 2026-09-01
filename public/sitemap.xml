@@ -2,145 +2,223 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://paesconsultoria.com/</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/visao</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/cases</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/projetos/provence-raiz</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/sistema</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/ia-com-alma</loc>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/contato</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://paesconsultoria.com/case/room-329</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/pais-presenca-e-heranca</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/irene-1945-feito-a-mao</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://paesconsultoria.com/case/val-fortunatto-brand-transition</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/val-fortunatto-linho-produto-proprio</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/atelie-bambini-arquitetura-de-marca-infantil</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/r-lovers-calendario-comercial</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://paesconsultoria.com/case/porti-expansao-fisica-cenografia</loc>
-    <lastmod>2026-07-13</lastmod>
+    <loc>https://paesconsultoria.com/case/porti-visual-merchandising</loc>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/hexa-copa-do-mundo-reserva</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/campanhas-collabs</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/rouge-gold-exposicao-premium</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/outerwear-hotspots-color-blocking</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/vintage-denim-capsula-heritage</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/paraiso-tropical-mata-atlantica</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/case/provence-raiz-sistema-visual</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://paesconsultoria.com/case/banal-identidade-de-agencia-criativa</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/casarao-medeiros-identidade-visual</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/denim-paraiso-tropical-visual-merchandising</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/porti-cenografia-de-natal</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/porti-cenografia-de-verao</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-pilastras-cenograficas</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-luminaria-carretel</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-gaiola-cenografica</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-direcao-de-atmosfera</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://paesconsultoria.com/sistema/leitura-de-marca</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/sistema/curadoria-de-produto</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/sistema/narrativa-espacial</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/sistema/construcao-de-percepcao</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/sistema/operacao-criativa</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://paesconsultoria.com/sistema/experiencia-fisica</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

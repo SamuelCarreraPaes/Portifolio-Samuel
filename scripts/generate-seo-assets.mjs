@@ -10,7 +10,7 @@ const root = path.resolve(__dirname, "..");
 const publicDir = path.join(root, "public");
 
 const siteUrl = SITE_URL;
-const lastmod = "2026-07-13";
+const lastmod = "2026-08-29";
 const cases = await loadCasesData(root);
 
 const baseRoutes = [
@@ -19,12 +19,13 @@ const baseRoutes = [
   { path: "/cases", priority: "0.9" },
   { path: "/projetos/provence-raiz", priority: "0.8" },
   { path: "/sistema", priority: "0.9" },
+  { path: "/ia-com-alma", priority: "0.9" },
   { path: "/contato", priority: "0.7" },
 ];
 
 const caseRoutes = cases.map((caseItem) => ({
   path: `/case/${caseItem.slug}`,
-  priority: caseItem.id === "case-12" ? "0.9" : "0.8",
+  priority: ["case-12", "case-13", "case-14", "case-15", "case-16", "case-17"].includes(caseItem.id) ? "0.9" : "0.8",
 }));
 
 const articleRoutes = sistemaArticleCards.map((article) => ({
@@ -87,6 +88,16 @@ const imageRoutes = [
         loc: "/images/13_VISAO/about-transition.png",
         title: "Sistema de Direção Criativa",
         caption: "Sistema editorial de Samuel Carrera Paes sobre imagem, produto, espaço, percepção, operação e experiência física.",
+      },
+    ],
+  },
+  {
+    path: "/ia-com-alma",
+    images: [
+      {
+        loc: "/images/15_IA_COM_ALMA/01_COMERCIAL/system-05-environment-mapping.png",
+        title: "IA & Alma | Direção Humana e Produção Generativa",
+        caption: "IA & Alma da Paes Consultoria: direção humana, identidade, styling, worldbuilding, continuidade visual e produção editorial de campanha.",
       },
     ],
   },
@@ -173,6 +184,7 @@ Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e con
 - Cases: ${siteUrl}/cases
 - Provence Raiz: ${siteUrl}/case/provence-raiz-sistema-visual
 - Sistema de Direcao Criativa: ${siteUrl}/sistema
+- IA & Alma: ${siteUrl}/ia-com-alma
 - Contato: ${siteUrl}/contato
 
 ## Cases

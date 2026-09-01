@@ -33,6 +33,30 @@
     </image:image>
   </url>
   <url>
+    <loc>https://paesconsultoria.com/case/room-329</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/15_IA_COM_ALMA/02_ROOM_329/0E70DF46-364B-4B5F-9B95-50E3A855FE83.jpeg</image:loc>
+      <image:title>ROOM 329 — The Room Remembers</image:title>
+      <image:caption>ROOM 329 é uma campanha de moda autoral de Samuel Paes: direção humana, tecnologia generativa e critério editorial aplicados a personagem, styling, arquitetura e narrativa.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/pais-presenca-e-heranca</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/15_IA_COM_ALMA/03_PAIS/3501A05B-4DD7-43E8-8B30-32F8055861D3.jpeg</image:loc>
+      <image:title>PAIS — Presença e Herança</image:title>
+      <image:caption>PAIS é um ensaio autoral dirigido por Samuel Paes sobre vínculo entre pai e filho, com narrativa afetiva, fotografia em preto e branco e critério editorial.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/irene-1945-feito-a-mao</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/15_IA_COM_ALMA/04_IRENE_1945/076E039F-CD10-431D-AFA7-BB94F151DC84.jpeg</image:loc>
+      <image:title>Irene 1945 — Feito à Mão</image:title>
+      <image:caption>Irene 1945 é um projeto autoral de Samuel Paes sobre artesania, bolsas, matéria, luz e memória, desenvolvido com direção humana e tecnologia generativa.</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://paesconsultoria.com/case/val-fortunatto-brand-transition</loc>
     <image:image>
       <image:loc>https://paesconsultoria.com/images/social/linkedin/val-fortunatto-brand-transition.jpg</image:loc>
@@ -51,9 +75,9 @@
   <url>
     <loc>https://paesconsultoria.com/case/atelie-bambini-arquitetura-de-marca-infantil</loc>
     <image:image>
-      <image:loc>https://paesconsultoria.com/images/social/linkedin/atelie-bambini-arquitetura-de-marca-infantil.jpg</image:loc>
+      <image:loc>https://paesconsultoria.com/images/03_ATELIE_BAMBINI/02_RECUPERADO_CHATGPT/63FA554F-46BB-4935-89A7-1C9B01EE32BB.jpeg</image:loc>
       <image:title>Ateliê Bambini — Arquitetura de Marca Infantil</image:title>
-      <image:caption>A construção de um novo universo para a infância contemporânea.</image:caption>
+      <image:caption>Case Ateliê Bambini por Samuel Paes: arquitetura de marca infantil, identidade visual, luxo sereno, experiência boutique e narrativa das casas de palha, madeira e pedra.</image:caption>
     </image:image>
   </url>
   <url>
@@ -65,11 +89,11 @@
     </image:image>
   </url>
   <url>
-    <loc>https://paesconsultoria.com/case/porti-expansao-fisica-cenografia</loc>
+    <loc>https://paesconsultoria.com/case/porti-visual-merchandising</loc>
     <image:image>
-      <image:loc>https://paesconsultoria.com/images/social/linkedin/porti-expansao-fisica-cenografia.jpg</image:loc>
-      <image:title>Porti — Expansão Física &amp; Cenografia</image:title>
-      <image:caption>A construção física, técnica e cenográfica de uma marca em expansão.</image:caption>
+      <image:loc>https://paesconsultoria.com/images/05_PORTI_PRIMAVERA/SP_CASE05_PORTI_PRIMAVERA_01.png</image:loc>
+      <image:title>Porti — Visual Merchandising</image:title>
+      <image:caption>Produto, mobiliário e pontos de atenção organizados para transformar o interior da loja em uma experiência comercial legível.</image:caption>
     </image:image>
   </url>
   <url>
@@ -124,8 +148,80 @@
     <loc>https://paesconsultoria.com/case/provence-raiz-sistema-visual</loc>
     <image:image>
       <image:loc>https://paesconsultoria.com/images/social/linkedin/provence-raiz-sistema-visual.jpg</image:loc>
-      <image:title>Provence Raiz — Sistema Visual e Direção Criativa</image:title>
-      <image:caption>Um evento tratado como sistema de linguagem: identidade, atmosfera, arquitetura, matéria, flor e experiência trabalhando como uma comunicação 360 graus.</image:caption>
+      <image:title>Provence Raiz — Identidade Visual</image:title>
+      <image:caption>Monograma, papelaria, ornamentos e hospitalidade organizados como uma identidade de evento reconhecível em diferentes escalas.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/banal-identidade-de-agencia-criativa</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/brands/banal/banal-identity-board.jpg</image:loc>
+      <image:title>BANAL — Identidade de Agência Criativa</image:title>
+      <image:caption>Case de identidade visual BANAL por Samuel Paes: estratégia de marca, símbolo, assinaturas, paleta, versões e aplicações para uma agência de marketing, estratégia e desejo.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/casarao-medeiros-identidade-visual</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/16_IDENTIDADES/02_CASARAO_MEDEIROS/03_APRESENTACOES_USUARIO_2026-09-01/03-casarao-medeiros-papelaria-institucional.jpg</image:loc>
+      <image:title>Casarão Medeiros — Identidade Visual</image:title>
+      <image:caption>Case Casarão Medeiros por Samuel Paes: identidade visual inspirada na arquitetura histórica, com símbolo, paleta, tipografia, ornamentos, mockups e aplicações para eventos e hospitalidade.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/denim-paraiso-tropical-visual-merchandising</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/10_VINTAGE_DENIM/SP_CASE10_VINTAGE_DENIM_01.png</image:loc>
+      <image:title>Denim &amp; Paraíso Tropical</image:title>
+      <image:caption>Duas cápsulas reunidas para mostrar como matéria, cor e cenografia constroem universos comerciais diferentes dentro da mesma disciplina.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/porti-cenografia-de-natal</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/05_PORTI_NATAL/SP_CASE05_PORTI_NATAL_01.png</image:loc>
+      <image:title>Porti — Cenografia de Natal</image:title>
+      <image:caption>Uma paisagem de esferas metálicas transforma a vitrine em relevo, reflexo e moldura para o produto.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/porti-cenografia-de-verao</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/05_PORTI_VERAO/SP_CASE05_PORTI_VERAO_01.png</image:loc>
+      <image:title>Porti — Cenografia de Verão</image:title>
+      <image:caption>Geometrias leves, cor e volume constroem um verão gráfico que enquadra o produto sem reproduzir o repertório tropical óbvio.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-pilastras-cenograficas</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/pilastras-capa.webp</image:loc>
+      <image:title>Provence Raiz — Pilastras Cenográficas</image:title>
+      <image:caption>Um par de elementos independentes desenha um portal cênico e demonstra como forma, estrutura, luz e aplicação floral podem ser pensadas como sistema.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-luminaria-carretel</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/carretel-capa.webp</image:loc>
+      <image:title>Provence Raiz — Luminária Carretel</image:title>
+      <image:caption>O carretel é reinterpretado como objeto de luz: madeira, difusão, ritmo metálico e suspensão coordenados em uma mesma peça cenográfica.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-gaiola-cenografica</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/06_ARCHITECTURE_SERIES/gaiola-capa.webp</image:loc>
+      <image:title>Provence Raiz — Gaiola Cenográfica</image:title>
+      <image:caption>Geometria hexagonal, transparência e luz constroem uma luminária cênica apresentada como sistema de componentes e acabamento.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/case/provence-raiz-direcao-de-atmosfera</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/14_VERDEBURGO/PROVENCE_RAIZ/02_WEB/provence-raiz-moodboard-materialidade-antiga.jpg</image:loc>
+      <image:title>Provence Raiz — Direção de Atmosfera</image:title>
+      <image:caption>Moodboards, materialidade e estudos de ambiente organizam a decoração como linguagem física, e não como uma soma de objetos.</image:caption>
     </image:image>
   </url>
   <url>
@@ -134,6 +230,14 @@
       <image:loc>https://paesconsultoria.com/images/13_VISAO/about-transition.png</image:loc>
       <image:title>Sistema de Direção Criativa</image:title>
       <image:caption>Sistema editorial de Samuel Carrera Paes sobre imagem, produto, espaço, percepção, operação e experiência física.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://paesconsultoria.com/ia-com-alma</loc>
+    <image:image>
+      <image:loc>https://paesconsultoria.com/images/15_IA_COM_ALMA/01_COMERCIAL/system-05-environment-mapping.png</image:loc>
+      <image:title>IA &amp; Alma | Direção Humana e Produção Generativa</image:title>
+      <image:caption>IA &amp; Alma da Paes Consultoria: direção humana, identidade, styling, worldbuilding, continuidade visual e produção editorial de campanha.</image:caption>
     </image:image>
   </url>
 </urlset>
