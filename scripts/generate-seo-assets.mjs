@@ -10,7 +10,8 @@ const root = path.resolve(__dirname, "..");
 const publicDir = path.join(root, "public");
 
 const siteUrl = SITE_URL;
-const lastmod = "2026-08-29";
+const defaultLastmod = "2026-08-29";
+const contentUpdatedAt = "2026-09-24";
 const cases = await loadCasesData(root);
 
 const baseRoutes = [
@@ -31,6 +32,7 @@ const caseRoutes = cases.map((caseItem) => ({
 const articleRoutes = sistemaArticleCards.map((article) => ({
   path: `/sistema/${article.slug}`,
   priority: "0.8",
+  lastmod: article.slug === "a-roda-da-moda" ? contentUpdatedAt : defaultLastmod,
 }));
 
 const allRoutes = [...baseRoutes, ...caseRoutes, ...articleRoutes];
@@ -87,7 +89,7 @@ const imageRoutes = [
       {
         loc: "/images/13_VISAO/about-transition.png",
         title: "Sistema de Direção Criativa",
-        caption: "Sistema editorial de Samuel Carrera Paes sobre imagem, produto, espaço, percepção, operação e experiência física.",
+        caption: "Sistema editorial de Samuel Carrera Paes sobre imagem, produto, espaço, percepção, operação, experiência física, moda e inteligência artificial.",
       },
     ],
   },
@@ -119,7 +121,7 @@ function pageUrl(routePath) {
 function buildSitemap() {
   const urls = allRoutes.map((route) => `  <url>
     <loc>${escapeXml(pageUrl(route.path))}</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${route.lastmod || defaultLastmod}</lastmod>
     <changefreq>${route.changefreq || "monthly"}</changefreq>
     <priority>${route.priority}</priority>
   </url>`).join("\n");
@@ -174,7 +176,7 @@ function buildLlmsTxt() {
   return `# Paes Consultoria / Samuel Carrera Paes
 
 Fonte canonica: ${siteUrl}
-Atualizado em: ${lastmod}
+Atualizado em: ${contentUpdatedAt}
 
 Samuel Carrera Paes, tambem conhecido como Samuel Paes, e diretor criativo e consultor criativo. A Paes Consultoria organiza direcao criativa, repertorio visual, imagem, espaco, eventos, varejo, comunicacao, cenografia, experiencia fisica e pensamento editorial.
 

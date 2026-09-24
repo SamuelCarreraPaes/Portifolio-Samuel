@@ -1,3 +1,5 @@
+import { sistemaFashionArticle } from "./sistemaFashionArticle";
+
 // Generated from Sistema_Samuel_Paes_Artigos_Reescritos_Voz_Autoral.docx.
 // Keep this file as the canonical in-app article data for the Sistema editorial hub.
 
@@ -413,7 +415,8 @@ export const sistemaArticles = [
       "varejo físico",
       "corpo"
     ]
-  }
+  },
+  sistemaFashionArticle
 ];
 
 export function getSistemaArticleBySlug(slug) {

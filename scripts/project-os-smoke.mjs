@@ -151,6 +151,7 @@ check("robots references sitemap", robots.includes("sitemap.xml") && robots.incl
 check("sitemap contains homepage", sitemap.includes("https://paesconsultoria.com/"));
 check("sitemap contains cases", sitemap.includes("https://paesconsultoria.com/cases"));
 check("sitemap contains sistema", sitemap.includes("https://paesconsultoria.com/sistema"));
+check("sitemap contains the fashion and AI article", sitemap.includes("https://paesconsultoria.com/sistema/a-roda-da-moda"));
 check("sitemap contains IA com Alma", sitemap.includes("https://paesconsultoria.com/ia-com-alma"));
 check("sitemap contains IA com Alma cases", sitemap.includes("https://paesconsultoria.com/case/room-329") && sitemap.includes("https://paesconsultoria.com/case/pais-presenca-e-heranca") && sitemap.includes("https://paesconsultoria.com/case/irene-1945-feito-a-mao"));
 check("sitemap contains requested identity cases", sitemap.includes("https://paesconsultoria.com/case/banal-identidade-de-agencia-criativa") && sitemap.includes("https://paesconsultoria.com/case/provence-raiz-sistema-visual") && sitemap.includes("https://paesconsultoria.com/case/casarao-medeiros-identidade-visual"));
@@ -159,7 +160,11 @@ check("sitemap contains separated Provence cases", sitemap.includes("https://pae
 check("sitemap no longer submits company pages", !sitemap.includes("/empresas/banal") && !sitemap.includes("/empresas/verde-burgo"));
 check("image sitemap contains image namespace", imageSitemap.includes("google.com/schemas/sitemap-image"));
 check("strategic SEO registry covers recovered routes", strategicSeoRoutes.some((item) => item.route === "cases") && strategicSeoRoutes.some((item) => item.route === "sistema"));
-check("sistema article cards available", sistemaArticleCards.length >= 6);
+check("sistema exposes seven article cards", sistemaArticleCards.length === 7);
+check(
+  "sistema exposes the fashion and AI article",
+  sistemaArticleCards.some((article) => article.slug === "a-roda-da-moda" && article.num === "07")
+);
 
 for (const route of requiredStaticRoutes) {
   check(`known static route: ${route}`, publicRouteDefinitions.some((definition) => definition.id === route));

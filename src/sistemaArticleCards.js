@@ -46,5 +46,13 @@ export const sistemaArticleCards = [
     phrase: "A Jornada do Desejo",
     editorialTitle: "A coreografia do desejo",
     subtitle: "Desejo não nasce em um ponto; ele se aproxima, encontra sinais, recebe confirmações e permanece como memória."
+  },
+  {
+    num: "07",
+    slug: "a-roda-da-moda",
+    title: "IA na Moda",
+    phrase: "Velocidade com Direção",
+    editorialTitle: "A roda da moda já existe — o desafio é fazê-la girar na velocidade do desejo",
+    subtitle: "Como a inteligência artificial pode ampliar a capacidade criativa das marcas sem substituir identidade, estratégia e direção humana"
   }
 ];

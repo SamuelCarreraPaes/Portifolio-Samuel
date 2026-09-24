@@ -1472,7 +1472,7 @@ function Sistema({ navigate }) {
     <PageTransition>
       <DynamicSEO
         title="Sistema de Direção Criativa"
-        description="Índice editorial com seis artigos autorais de Samuel Carrera Paes sobre imagem, espaço, produto, operação, experiência e percepção de valor."
+        description="Índice editorial com sete artigos autorais de Samuel Carrera Paes sobre imagem, espaço, produto, operação, experiência, moda, inteligência artificial e percepção de valor."
         url="sistema"
       />
       <section className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col pt-12" aria-labelledby="sistema-title">
@@ -1482,7 +1482,7 @@ function Sistema({ navigate }) {
             Sistema de Direção Criativa.
           </h1>
           <p className="text-xl md:text-3xl font-light text-stone-600 max-w-3xl mb-24 leading-relaxed text-balance">
-            Seis artigos sobre a construção de presença em imagem, espaço, produto, experiência física, operação e memória.
+            Sete artigos sobre a construção de presença em imagem, espaço, produto, experiência física, operação, memória e inteligência artificial.
           </p>
         </header>
 
@@ -1531,7 +1531,12 @@ function getArticleReadingMinutes(article) {
     article.subtitle,
     article.short,
     article.quote,
-    ...article.sections.flatMap((section) => [section.heading, ...section.paragraphs])
+    ...(article.lead || []),
+    ...article.sections.flatMap((section) => [
+      section.heading,
+      ...section.paragraphs,
+      ...(section.subsections || []).flatMap((subsection) => [subsection.heading, ...subsection.paragraphs]),
+    ])
   ].join(" ");
   const wordCount = articleText.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.ceil(wordCount / 220));
@@ -1550,6 +1555,17 @@ function getArticleSectionId(articleSlug, section, index) {
 
 function getArticleSectionLabel(heading) {
   return heading.split(" — ")[0];
+}
+
+function getArticleSubsectionId(articleSlug, sectionIndex, subsection, subsectionIndex) {
+  const normalizedHeading = subsection.heading
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  return `${articleSlug}-${sectionIndex + 1}-${subsectionIndex + 1}-${normalizedHeading}`;
 }
 
 function SistemaArticle({ slug, navigate }) {
@@ -1627,7 +1643,7 @@ function SistemaArticle({ slug, navigate }) {
     <PageTransition>
       <DynamicSEO
         title={article.editorialTitle}
-        description={article.short}
+        description={article.metaDescription || article.short}
         url={`sistema/${article.slug}`}
         schemaType="Article"
       />
@@ -1729,6 +1745,23 @@ function SistemaArticle({ slug, navigate }) {
           </aside>
 
           <div className="max-w-4xl">
+            {article.lead?.length > 0 && (
+              <section className="mb-24 border-b border-stone-900/10 pb-20" aria-label="Introdução">
+                <div className="space-y-7">
+                  {article.lead.map((paragraph, index) => (
+                    <p
+                      key={paragraph}
+                      className={index === 0
+                        ? "font-serif text-2xl leading-relaxed text-stone-950 md:text-3xl"
+                        : "text-lg font-light leading-[1.85] text-stone-700 md:text-xl"}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {article.sections.map((section, index) => (
               <section id={getArticleSectionId(article.slug, section, index)} key={section.heading} className="mb-20 scroll-mt-36 last:mb-0">
                 <h2 className="font-serif text-3xl md:text-5xl leading-tight text-stone-950 mb-8 text-balance">
@@ -1741,8 +1774,61 @@ function SistemaArticle({ slug, navigate }) {
                     </p>
                   ))}
                 </div>
+
+                {section.subsections?.length > 0 && (
+                  <div className="mt-14 space-y-14 border-l border-stone-900/10 pl-6 md:pl-10">
+                    {section.subsections.map((subsection, subsectionIndex) => (
+                      <section
+                        id={getArticleSubsectionId(article.slug, index, subsection, subsectionIndex)}
+                        key={subsection.heading}
+                        className="scroll-mt-36"
+                      >
+                        <h3 className="mb-6 font-serif text-2xl leading-tight text-stone-950 text-balance md:text-4xl">
+                          {subsection.heading}
+                        </h3>
+                        <div className="space-y-7">
+                          {subsection.paragraphs.map((paragraph) => (
+                            <p key={paragraph} className="text-lg font-light leading-[1.85] text-stone-700 md:text-xl">
+                              {paragraph}
+                            </p>
+                          ))}
+                        </div>
+                      </section>
+                    ))}
+                  </div>
+                )}
               </section>
             ))}
+
+            {article.sources?.length > 0 && (
+              <section className="mt-24 border-t border-stone-900/10 pt-14" aria-labelledby="article-sources-title">
+                <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Referências verificadas</p>
+                <h2 id="article-sources-title" className="mb-10 font-serif text-3xl leading-tight text-stone-950 md:text-5xl">
+                  Fontes e leituras.
+                </h2>
+                <ol className="grid gap-4">
+                  {article.sources.map((source, index) => (
+                    <li key={source.href}>
+                      <a
+                        href={source.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group grid gap-3 border border-stone-900/10 bg-white/30 p-5 transition-colors hover:border-stone-900/30 hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 sm:grid-cols-[2.5rem_1fr_auto] sm:items-center"
+                      >
+                        <span className="font-serif text-2xl text-stone-300 group-hover:text-stone-900" aria-hidden="true">
+                          {String(index + 1).padStart(2, "0")}.
+                        </span>
+                        <span>
+                          <strong className="block text-sm font-semibold text-stone-900">{source.label}</strong>
+                          <span className="mt-1 block text-sm font-light leading-relaxed text-stone-600">{source.detail}</span>
+                        </span>
+                        <ArrowUpRight className="h-4 w-4 text-stone-400 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
           </div>
         </div>
 
