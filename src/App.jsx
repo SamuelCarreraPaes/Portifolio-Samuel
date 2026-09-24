@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, Copy } from "lucide-react";
+import { ArrowUpRight, ArrowRightCircle, ArrowLeftCircle, Menu, X, ArrowUp, CheckCircle2, ChevronDown, Copy } from "lucide-react";
 
 import { sistemaArticleCards } from "./sistemaArticleCards";
 import { ImageWithFallback } from "./components/portfolio/ImageWithFallback";
@@ -1575,6 +1575,9 @@ function SistemaArticle({ slug, navigate }) {
     previous: null,
     next: null
   });
+  const [activeSectionId, setActiveSectionId] = useState("");
+  const [isMobileSummaryOpen, setIsMobileSummaryOpen] = useState(false);
+  const mobileSummaryButtonRef = useRef(null);
 
   useEffect(() => {
     let isCurrent = true;
@@ -1600,6 +1603,74 @@ function SistemaArticle({ slug, navigate }) {
   }, [slug]);
 
   const { article, previous, next, status } = articleState;
+  const sectionLinks = useMemo(() => article?.sections.map((section, index) => ({
+    id: getArticleSectionId(article.slug, section, index),
+    label: getArticleSectionLabel(section.heading),
+    heading: section.heading
+  })) || [], [article]);
+  const hasEditorialSummary = article?.slug === "a-roda-da-moda";
+
+  useEffect(() => {
+    if (!hasEditorialSummary || sectionLinks.length === 0) return undefined;
+
+    const sectionIds = new Set(sectionLinks.map((section) => section.id));
+    const sectionElements = sectionLinks
+      .map((section) => document.getElementById(section.id))
+      .filter(Boolean);
+
+    const syncSectionFromHash = ({ scrollToSection = false } = {}) => {
+      const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ""));
+      if (!sectionIds.has(hashId)) return;
+
+      setActiveSectionId(hashId);
+      if (scrollToSection) {
+        window.requestAnimationFrame(() => {
+          const targetSection = document.getElementById(hashId);
+          if (!targetSection) return;
+
+          const root = document.documentElement;
+          const previousScrollBehavior = root.style.scrollBehavior;
+          root.style.scrollBehavior = "auto";
+          targetSection.scrollIntoView({ block: "start" });
+          root.style.scrollBehavior = previousScrollBehavior;
+        });
+      }
+    };
+
+    syncSectionFromHash({ scrollToSection: true });
+
+    const observer = new IntersectionObserver(() => {
+      const readingLine = window.innerHeight * 0.32;
+      const currentSection = sectionElements.reduce((current, section) => (
+        section.getBoundingClientRect().top <= readingLine ? section : current
+      ), sectionElements[0]);
+
+      if (currentSection) setActiveSectionId(currentSection.id);
+    }, {
+      rootMargin: "-18% 0px -62% 0px",
+      threshold: [0, 0.01, 0.25]
+    });
+
+    sectionElements.forEach((section) => observer.observe(section));
+    const handleHashChange = () => syncSectionFromHash();
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [hasEditorialSummary, sectionLinks]);
+
+  const handleSummaryLinkClick = (sectionId) => {
+    setActiveSectionId(sectionId);
+    setIsMobileSummaryOpen(false);
+  };
+
+  const handleMobileSummaryKeyDown = (event) => {
+    if (event.key !== "Escape" || !isMobileSummaryOpen) return;
+    setIsMobileSummaryOpen(false);
+    mobileSummaryButtonRef.current?.focus();
+  };
 
   if (status === "loading") {
     return (
@@ -1633,11 +1704,6 @@ function SistemaArticle({ slug, navigate }) {
   }
 
   const readingMinutes = getArticleReadingMinutes(article);
-  const sectionLinks = article.sections.map((section, index) => ({
-    id: getArticleSectionId(article.slug, section, index),
-    label: getArticleSectionLabel(section.heading),
-    heading: section.heading
-  }));
 
   return (
     <PageTransition>
@@ -1702,47 +1768,133 @@ function SistemaArticle({ slug, navigate }) {
           </div>
         </section>
 
-        <nav className="border-b border-stone-900/10 py-8 lg:hidden" aria-label="Sumário do artigo">
-          <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sumário</p>
-          <div className="flex gap-3 overflow-x-auto pb-2">
-            {sectionLinks.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                className="shrink-0 border border-stone-900/10 bg-white/30 px-4 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-600 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
-              >
-                {section.label}
-              </a>
-            ))}
-          </div>
-        </nav>
+        {hasEditorialSummary ? (
+          <nav
+            className="border-b border-stone-900/10 py-8 lg:hidden"
+            aria-label="Sumário do artigo"
+            onKeyDown={handleMobileSummaryKeyDown}
+          >
+            <button
+              ref={mobileSummaryButtonRef}
+              type="button"
+              className="grid min-h-14 w-full grid-cols-[1fr_auto] items-center gap-6 rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-4"
+              aria-expanded={isMobileSummaryOpen}
+              aria-controls="fashion-article-mobile-summary"
+              onClick={() => setIsMobileSummaryOpen((isOpen) => !isOpen)}
+            >
+              <span>
+                <span className="block text-[10px] font-bold uppercase tracking-[0.24em] text-stone-500">Neste artigo</span>
+                <span className="mt-2 block font-serif text-xl text-stone-950">
+                  {sectionLinks.length} capítulos <span className="mx-1 text-stone-300" aria-hidden="true">·</span> {readingMinutes} min
+                </span>
+              </span>
+              <ChevronDown
+                className={`h-5 w-5 text-stone-500 ${isMobileSummaryOpen ? "rotate-180" : ""}`}
+                aria-hidden="true"
+              />
+            </button>
+
+            {isMobileSummaryOpen && (
+              <ol id="fashion-article-mobile-summary" className="mt-6 border-t border-stone-900/10 pt-3">
+                {sectionLinks.map((section, index) => {
+                  const isActive = activeSectionId === section.id;
+                  return (
+                    <li key={section.id}>
+                      <a
+                        href={`#${section.id}`}
+                        aria-current={isActive ? "location" : undefined}
+                        onClick={() => handleSummaryLinkClick(section.id)}
+                        className={`grid min-h-12 grid-cols-[2rem_1fr] items-start gap-3 rounded-sm border-b border-stone-900/10 py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 ${isActive ? "text-stone-950" : "text-stone-600 hover:text-stone-950"}`}
+                      >
+                        <span className={`pt-0.5 text-[10px] font-bold tabular-nums tracking-[0.16em] ${isActive ? "text-stone-950" : "text-stone-400"}`}>
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className="font-serif text-base leading-snug">{section.heading}</span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ol>
+            )}
+          </nav>
+        ) : (
+          <nav className="border-b border-stone-900/10 py-8 lg:hidden" aria-label="Sumário do artigo">
+            <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sumário</p>
+            <div className="flex gap-3 overflow-x-auto pb-2">
+              {sectionLinks.map((section) => (
+                <a
+                  key={section.id}
+                  href={`#${section.id}`}
+                  className="shrink-0 border border-stone-900/10 bg-white/30 px-4 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-600 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900"
+                >
+                  {section.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+        )}
 
         <div className="grid gap-12 py-20 md:py-28 lg:grid-cols-[0.42fr_1fr]">
-          <aside className="hidden lg:block">
-            <div className="sticky top-36 border-l border-stone-900/10 pl-8">
-              <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sumário</p>
-              <nav className="flex flex-col gap-4" aria-label="Sumário do artigo">
-                {sectionLinks.map((section) => (
-                  <a
-                    key={section.id}
-                    className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
-                    href={`#${section.id}`}
-                  >
-                    <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400 group-hover:text-stone-900 transition-colors">
-                      {section.label}
-                    </span>
-                    <span className="mt-1 block text-sm font-light leading-relaxed text-stone-500 group-hover:text-stone-700 transition-colors">
-                      {section.heading}
-                    </span>
-                  </a>
-                ))}
-              </nav>
-              <div className="mt-10 border-t border-stone-900/10 pt-6">
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Tempo estimado</p>
-                <p className="mt-2 font-serif text-2xl text-stone-950">{readingMinutes} min de leitura</p>
+          {hasEditorialSummary ? (
+            <aside className="hidden lg:block">
+              <div className="sticky top-32 max-h-[calc(100vh-12rem)] overflow-y-auto border-l border-stone-900/10 pr-4 [scrollbar-width:thin]">
+                <div className="mb-4 flex items-center justify-between gap-4 pl-6 pr-1">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-stone-500">Sumário</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-stone-400">{readingMinutes} min</p>
+                </div>
+                <nav aria-label="Sumário do artigo">
+                  <ol>
+                    {sectionLinks.map((section, index) => {
+                      const isActive = activeSectionId === section.id;
+                      return (
+                        <li key={section.id}>
+                          <a
+                            href={`#${section.id}`}
+                            aria-current={isActive ? "location" : undefined}
+                            onClick={() => handleSummaryLinkClick(section.id)}
+                            className={`group -ml-px grid min-h-11 grid-cols-[2rem_1fr] items-start gap-3 border-l py-2 pl-6 pr-1 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 ${isActive ? "border-stone-900 text-stone-950" : "border-transparent text-stone-500 hover:text-stone-950"}`}
+                          >
+                            <span className={`pt-0.5 text-[10px] font-bold tabular-nums tracking-[0.16em] ${isActive ? "text-stone-950" : "text-stone-400 group-hover:text-stone-700"}`}>
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+                            <span className={`line-clamp-2 text-sm leading-snug ${isActive ? "font-medium" : "font-light"}`}>
+                              {section.heading}
+                            </span>
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </nav>
               </div>
-            </div>
-          </aside>
+            </aside>
+          ) : (
+            <aside className="hidden lg:block">
+              <div className="sticky top-36 border-l border-stone-900/10 pl-8">
+                <p className="mb-6 text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Sumário</p>
+                <nav className="flex flex-col gap-4" aria-label="Sumário do artigo">
+                  {sectionLinks.map((section) => (
+                    <a
+                      key={section.id}
+                      className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 rounded-sm"
+                      href={`#${section.id}`}
+                    >
+                      <span className="block text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400 group-hover:text-stone-900 transition-colors">
+                        {section.label}
+                      </span>
+                      <span className="mt-1 block text-sm font-light leading-relaxed text-stone-500 group-hover:text-stone-700 transition-colors">
+                        {section.heading}
+                      </span>
+                    </a>
+                  ))}
+                </nav>
+                <div className="mt-10 border-t border-stone-900/10 pt-6">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-stone-400">Tempo estimado</p>
+                  <p className="mt-2 font-serif text-2xl text-stone-950">{readingMinutes} min de leitura</p>
+                </div>
+              </div>
+            </aside>
+          )}
 
           <div className="max-w-4xl">
             {article.lead?.length > 0 && (
